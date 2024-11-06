@@ -33,6 +33,7 @@ private:
 	//std::vector<std::unique_ptr<
 	PC m_player = PC({ 0,400 }, { 0,-1 },&m_charaTex);
 	Block m_block = Block(32, 0, 32, 32, & m_charaTex, false, 1 );
+	//test
 	bool test;
 	//InitStruct
 	struct ConnectedRoom
