@@ -1,0 +1,4 @@
+﻿  Player.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Player.cpp(51,153): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.exe
+  Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.pdb (完全な PDB)

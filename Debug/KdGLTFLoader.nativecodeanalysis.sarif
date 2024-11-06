@@ -1,0 +1,2705 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::Image::bits' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 656,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::Image::{ctor}",
+                  "decoratedName": "??0Image@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::Image::bits"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::Image::pixel_type' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 656,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::Image::{ctor}",
+                  "decoratedName": "??0Image@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::Image::pixel_type"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::BufferView::buffer' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 815,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::BufferView::{ctor}",
+                  "decoratedName": "??0BufferView@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::BufferView::buffer"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::BufferView::byteLength' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 815,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::BufferView::{ctor}",
+                  "decoratedName": "??0BufferView@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::BufferView::byteLength"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::BufferView::target' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 815,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::BufferView::{ctor}",
+                  "decoratedName": "??0BufferView@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::BufferView::target"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::Primitive::mode' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 983,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::Primitive::{ctor}",
+                  "decoratedName": "??0Primitive@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::Primitive::mode"
+          }
+        },
+        {
+          "ruleId": "C6001",
+          "message": {
+            "text": "初期化されていないメモリ 'coutput' を使用しています。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3779,
+                  "startColumn": 29
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "load_jpeg_image",
+                  "decoratedName": "?load_jpeg_image@@YAPAEPAUstbi__jpeg@@PAH11H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3638,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3638,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3638,
+                            "startColumn": 21
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3639,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3642,
+                            "startColumn": 21
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3645,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3648,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3650,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3652,
+                            "startColumn": 34
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3655,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3659,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3660,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3660,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3661,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3662,
+                            "startColumn": 16
+                          }
+                        },
+                        "message": {
+                          "text": "'coutput' が初期化されていません"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3664,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3666,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3666,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "このループをスキップする ('k<decode_n' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3689,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3690,
+                            "startColumn": 11
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('!output' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3693,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3693,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "このループに入る ('j<z->s->img_y' と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3694,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3695,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3695,
+                            "startColumn": 22
+                          }
+                        },
+                        "message": {
+                          "text": "このループをスキップする ('k<decode_n' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3709,
+                            "startColumn": 16
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('n>=3' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3752,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('is_rgb' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3762,
+                            "startColumn": 41
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('<分岐条件>' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3772,
+                            "startColumn": 41
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('<分岐条件>' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3779,
+                            "startColumn": 25
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 3779,
+                            "startColumn": 29
+                          }
+                        },
+                        "message": {
+                          "text": "'coutput' が使用されますが、初期化されていない可能性があります"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6308",
+          "message": {
+            "text": "'realloc' は null ポインターを返す可能性があります: null ポインターを、引数として 'realloc' へ渡された 'out' に割り当てると、元のメモリ ブロックにメモリ リークを発生させる原因となります。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6592,
+                  "startColumn": 33
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__load_gif_main",
+                  "decoratedName": "?stbi__load_gif_main@@YAPAXPAUstbi__context@@PAPAHPAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6308",
+          "message": {
+            "text": "'realloc' は null ポインターを返す可能性があります: null ポインターを、引数として 'realloc' へ渡された '*delays' に割り当てると、元のメモリ ブロックにメモリ リークを発生させる原因となります。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6594,
+                  "startColumn": 36
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__load_gif_main",
+                  "decoratedName": "?stbi__load_gif_main@@YAPAXPAUstbi__context@@PAPAHPAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6262",
+          "message": {
+            "text": "関数はスタックの '34952' バイトを使用します。データの一部をヒープに移動することを考慮してください。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6567,
+                  "startColumn": 14
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__load_gif_main",
+                  "decoratedName": "?stbi__load_gif_main@@YAPAXPAUstbi__context@@PAPAHPAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'out+((((layers-1))*stride))' は '0' である可能性があります: この動作は、関数 'memcpy' の指定に従っていません。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6602,
+                  "startColumn": 13,
+                  "endLine": 6602,
+                  "endColumn": 55
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__load_gif_main",
+                  "decoratedName": "?stbi__load_gif_main@@YAPAXPAUstbi__context@@PAPAHPAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6569,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6570,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6571,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6572,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6573,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6574,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6575,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6576,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6577,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6582,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6583,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6585,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6586,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6587,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6588,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6589,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6591,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6597,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6598,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6602,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6603,
+                            "startColumn": 24
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6607,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6611,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6582,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6583,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6585,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6586,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6587,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6588,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6589,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6591,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6592,
+                            "startColumn": 20
+                          }
+                        },
+                        "message": {
+                          "text": "'out' は NULL である可能性があります"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6593,
+                            "startColumn": 20
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐をスキップする ('delays' が false と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6602,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "'out' は 'memcpy' への入力/出力引数です (c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.40.33807\\include\\vcruntime_string.h:43 で宣言)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6602,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "'out+((((layers-1))*stride))' を NULL にすることはできません。この値は 'memcpy' の SAL 注釈と一致しません"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C28182",
+          "message": {
+            "text": "NULL ポインターを逆参照しています。'*delays' には、'realloc()`6594' と同じ NULL 値が含まれます。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6608,
+                  "startColumn": 17,
+                  "endLine": 6608,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__load_gif_main",
+                  "decoratedName": "?stbi__load_gif_main@@YAPAXPAUstbi__context@@PAPAHPAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6569,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6570,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6571,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6572,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6573,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6574,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6575,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6576,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6577,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6578,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6582,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6583,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6585,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6586,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6587,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6588,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6589,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6591,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6597,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6598,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6599,
+                            "startColumn": 27
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6602,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6603,
+                            "startColumn": 24
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6607,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6608,
+                            "startColumn": 39
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6611,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6582,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6583,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6585,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6586,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6587,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6588,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6589,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6591,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6592,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6593,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6594,
+                            "startColumn": 27
+                          }
+                        },
+                        "message": {
+                          "text": "'*delays' は NULL である可能性があります"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6602,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6603,
+                            "startColumn": 24
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐に入る ('layers>=2' と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6604,
+                            "startColumn": 25
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6607,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "この分岐に入る ('delays' と仮定)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                          },
+                          "region": {
+                            "startLine": 6608,
+                            "startColumn": 39
+                          }
+                        },
+                        "message": {
+                          "text": "'*delays' は逆参照されますが、NULL のままである可能性があります"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6262",
+          "message": {
+            "text": "関数はスタックの '34932' バイトを使用します。データの一部をヒープに移動することを考慮してください。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6629,
+                  "startColumn": 14
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "stbi__gif_load",
+                  "decoratedName": "?stbi__gif_load@@YAPAXPAUstbi__context@@PAH11HPAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26800",
+          "message": {
+            "text": "移動元のオブジェクトを使用: ''val'' (lifetime.1)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 3017,
+                  "startColumn": 10,
+                  "endLine": 3017,
+                  "endColumn": 18
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::ParseJsonAsValue",
+                  "decoratedName": "?ParseJsonAsValue@tinygltf@@YA_NPAVValue@1@ABV?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 2925,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 2926,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 2926,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 2974,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 2974,
+                            "startColumn": 3
+                          }
+                        },
+                        "message": {
+                          "text": "条件 'result.type' に基づく分岐。'false' ブランチが取得されました"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 3015,
+                            "startColumn": 7
+                          }
+                        },
+                        "message": {
+                          "text": "条件 'ret' に基づく分岐。'true' ブランチが取得されました"
+                        }
+                      },
+                      "kinds": [
+                        "Branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 3015,
+                            "startColumn": 24
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 3015,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "オブジェクト 'val' が移動されました。"
+                        }
+                      },
+                      "kinds": [
+                        "Custom"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                          },
+                          "region": {
+                            "startLine": 3017,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6282",
+          "message": {
+            "text": "不適切な演算子です。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 3457,
+                  "startColumn": 12,
+                  "endLine": 3457,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::ParseParameterProperty",
+                  "decoratedName": "?ParseParameterProperty@tinygltf@@YA_NPAUParameter@1@PAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@ABV34@_N@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'tinygltf::Model::defaultScene' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+                },
+                "region": {
+                  "startLine": 1124,
+                  "startColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "tinygltf::Model::{ctor}",
+                  "decoratedName": "??0Model@tinygltf@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "tinygltf::Model::defaultScene"
+          }
+        },
+        {
+          "ruleId": "C28020",
+          "message": {
+            "text": "式 '0<=_Param_(1)&&_Param_(1)<=400-1' はこの呼び出しで true ではありません。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/json.hpp"
+                },
+                "region": {
+                  "startLine": 11588,
+                  "startColumn": 23,
+                  "endLine": 11588,
+                  "endColumn": 40
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer> >::decode",
+                  "decoratedName": "?decode@?$serializer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@@detail@nlohmann@@CAEAAEAAIE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/lessons/digital works/library/tinygltf/json.hpp"
+                          },
+                          "region": {
+                            "startLine": 11568,
+                            "startColumn": 47
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/lessons/digital works/library/tinygltf/json.hpp"
+                          },
+                          "region": {
+                            "startLine": 11588,
+                            "startColumn": 23
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::m_type' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/json.hpp"
+                },
+                "region": {
+                  "startLine": 14102,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::{ctor}",
+                  "decoratedName": "??0?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@QAE@ABV?$json_ref@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@@detail@1@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::m_type"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "変数 'nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::m_value' が初期化されていません。メンバー変数は必ず初期化してください (type.6)。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/json.hpp"
+                },
+                "region": {
+                  "startLine": 14102,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::{ctor}",
+                  "decoratedName": "??0?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@QAE@ABV?$json_ref@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@nlohmann@@@nlohmann@@@detail@1@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "nlohmann::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::adl_serializer>::m_value"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.40.33811.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/tiny_gltf.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "46c2f8240a3a21185e006db65325750f8785e560453b672f4a72871997c837e0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/stb_image.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "599c64066c333d9b125d65f3394de642a42cf4888c3626535dcf62fcfaee1227"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Lessons/DIGITAL WORKS/Library/tinygltf/json.hpp"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "8a6dbf3bf01156f438d0ca7e78c2971bca50eec4ca6f0cf59adf3464c43bb9d5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdgltfloader.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "4de4d74c4e483278579fefb277011305dbe68ce479fc2684b4a4f0e914b6224e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/pch.h"
+          },
+          "hashes": {
+            "sha-256": "caf8a60ec6f87285a46f7229bba9e85edffbfddf4f268a2e23d24ad208f68296"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/button.h"
+          },
+          "hashes": {
+            "sha-256": "bc5e41354e7e2314b4017b252aceada5aba84b7d5b69be5f1e57f405613be83f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/windowscontroldata.h"
+          },
+          "hashes": {
+            "sha-256": "6034055fa60d8a36847d1cc8a253e18a28b7bc5ac371a2efc00ff4f8956a6e35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/menu.h"
+          },
+          "hashes": {
+            "sha-256": "41929501b2f4172c860beeeb2baa7abbb263a2d2acdbd2be89e9696c6844cafe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/player.h"
+          },
+          "hashes": {
+            "sha-256": "f77b01e3b93c82cb177f0d066138fe89a23c2a5ae585b090709659e4f4828cb9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/keyevent.h"
+          },
+          "hashes": {
+            "sha-256": "cebdba15566cfff7bd2f5a1b237bfd0bbdb811a5ef2b26e0180b3ebefce57e3a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/drawtexturedata.h"
+          },
+          "hashes": {
+            "sha-256": "d92015e96d5afcfefbc4c9d12e02ee2a70ab255ab38713d50afa6834c672f039"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/scenecontroldata.h"
+          },
+          "hashes": {
+            "sha-256": "9e28986e150774795e7882ecc207e5551606d05ae9b485f1f0804dbbcf5fa06a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/simplemath.h"
+          },
+          "hashes": {
+            "sha-256": "dbff725ea7afbfa1d5b9b257bd02afb22a1d3cf1c3fcc8e5cdf4dd0ab75b9779"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/simplemath.inl"
+          },
+          "hashes": {
+            "sha-256": "e17e6e349937915da1e8668fbe05909d29149e1f2ce2d449b028464ada818988"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/audio.h"
+          },
+          "hashes": {
+            "sha-256": "52c9a3ca661bb6bc684f308fbdba5a6c0a55e5bd8956cb195000f74add76b287"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtex/directxtex/directxtex.h"
+          },
+          "hashes": {
+            "sha-256": "c22e949ad7a06a6ad82e3f0fae75837956731bd53402ee34efade1cc295d8971"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtex/directxtex/directxtex.inl"
+          },
+          "hashes": {
+            "sha-256": "fc1478a4b6255105cb8396d00b9455932cac54ceb2e7a2a88a7b6ac2e516069a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "9cd9512d07691410a20cae5ebf6a08888d1f96462f5349213bc949ca77c9a20c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "e1e9aee68bf20c674e056132f5f6f341c78fff58300076a47a4d30e6cf3a6857"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui_impl_win32.h"
+          },
+          "hashes": {
+            "sha-256": "8599cb91f4e369d302c89e6f06c66faea59d6401d814a95e13f89149ffd86efd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui_impl_dx11.h"
+          },
+          "hashes": {
+            "sha-256": "d4e9cf404e8389c86830a937bb8be4a2e07b38e32b5637142c7e845e9cd448bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/strconv.h"
+          },
+          "hashes": {
+            "sha-256": "6dab52a04358a779486ff3dd1e68ab18a97416a461cf676da6160b5b4e948b45"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/kdsystem.h"
+          },
+          "hashes": {
+            "sha-256": "c3f620be220510f0a5453867d2a92f207b783b65a1bcbee55c86df3f78fd2c71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/utility/kdutility.h"
+          },
+          "hashes": {
+            "sha-256": "a47bc9b1e4d29e2377284f908b331fab80055316071655a804b426a3d5d22f2f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdbuffer.h"
+          },
+          "hashes": {
+            "sha-256": "8986d750acc7ab67297e4f72bf268b69deaf2637c767f809e805f64e9be10692"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kddirect3d.h"
+          },
+          "hashes": {
+            "sha-256": "a9911898961cc12573b255984821f214b25888df0fcdcd11bd0054dfefdbf7c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kddirect3dhelper.h"
+          },
+          "hashes": {
+            "sha-256": "dd55685417e4c628ac88108e07c03b6a658c9c88ff56b3dc351abfa9b7d6d650"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdtexture.h"
+          },
+          "hashes": {
+            "sha-256": "f85a297e6a5103caca42b955992d7a56235d8e69314c7a52fdc2ce55c6c5165b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdmodel.h"
+          },
+          "hashes": {
+            "sha-256": "0371350e986986ee21f343789ba98ea0cdd6060bfe1e8d97326a073507e3366b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/kdshadermanager.h"
+          },
+          "hashes": {
+            "sha-256": "298f27b9f8e644082604867d20c5419b8136faaf4ac2bccdd185ce95b7e6a3d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/effectshader/kdeffectshader.h"
+          },
+          "hashes": {
+            "sha-256": "fc76ba1ca5035dbd239b7d13eea40ebab538a397181276df9b77acec3ac4a2c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/standardshader/kdstandardshader.h"
+          },
+          "hashes": {
+            "sha-256": "413492fc6f71e37c5764f63a362713695ed1965524c4d00515811d99f4553a7c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/spriteshader/kdspriteshader.h"
+          },
+          "hashes": {
+            "sha-256": "d395da86426b9ba64ba3fd42eadcaffc8bcc31b164df4e12964aff6206b6d6df"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/spritefont.h"
+          },
+          "hashes": {
+            "sha-256": "7c3e060f8aff29862ad485c7fae5c45b4ac4b9dd16a74a4bb10d18c9398c487d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/spritebatch.h"
+          },
+          "hashes": {
+            "sha-256": "789e36c39b1d39135ed69b57b03cac2da7478de5b21f020b0bf08489b960900d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/window/kdgamewindow.h"
+          },
+          "hashes": {
+            "sha-256": "47eaac61c43e8a69ba66a18840647a4726085059a13fa6160b525ca534de109d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/audio/kdaudio.h"
+          },
+          "hashes": {
+            "sha-256": "00cb3d2a3e6f8c80c6a542bf69e60ca618b199ca3604812b13e2c6521272ee54"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdgltfloader.h"
+          },
+          "hashes": {
+            "sha-256": "ac5d6b9227c894960d7faf088dc2ec34645e8bdd3ce56665cea9d9267655d269"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/tinygltf/stb_image_write.h"
+          },
+          "hashes": {
+            "sha-256": "6b0113727bc3b5c3e343c2dd65c507e3af0705354eef1e77b880e67ddd8e1b27"
+          }
+        }
+      ]
+    }
+  ]
+}

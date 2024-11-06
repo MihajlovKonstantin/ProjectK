@@ -1,0 +1,329 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26813",
+          "message": {
+            "text": "フラグが設定されているかどうかを確認するには、'bitwise and' を使用します。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Lessons/DIGITAL WORKS/スケルトンプログラム/src/System/Direct3D/KdBuffer.cpp"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 6,
+                  "endLine": 15,
+                  "endColumn": 19
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "KdBuffer::Create",
+                  "decoratedName": "?Create@KdBuffer@@QAE_NIIW4D3D11_USAGE@@PBUD3D11_SUBRESOURCE_DATA@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.40.33811.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Lessons/DIGITAL WORKS/スケルトンプログラム/src/System/Direct3D/KdBuffer.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "58833fdff22ffecb50e4bcf539d6db54c7b8611c048bbf48e486216d7dce17f7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/pch.h"
+          },
+          "hashes": {
+            "sha-256": "caf8a60ec6f87285a46f7229bba9e85edffbfddf4f268a2e23d24ad208f68296"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/button.h"
+          },
+          "hashes": {
+            "sha-256": "bc5e41354e7e2314b4017b252aceada5aba84b7d5b69be5f1e57f405613be83f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/windowscontroldata.h"
+          },
+          "hashes": {
+            "sha-256": "6034055fa60d8a36847d1cc8a253e18a28b7bc5ac371a2efc00ff4f8956a6e35"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/menu.h"
+          },
+          "hashes": {
+            "sha-256": "41929501b2f4172c860beeeb2baa7abbb263a2d2acdbd2be89e9696c6844cafe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/player.h"
+          },
+          "hashes": {
+            "sha-256": "f77b01e3b93c82cb177f0d066138fe89a23c2a5ae585b090709659e4f4828cb9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/keyevent.h"
+          },
+          "hashes": {
+            "sha-256": "cebdba15566cfff7bd2f5a1b237bfd0bbdb811a5ef2b26e0180b3ebefce57e3a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/drawtexturedata.h"
+          },
+          "hashes": {
+            "sha-256": "d92015e96d5afcfefbc4c9d12e02ee2a70ab255ab38713d50afa6834c672f039"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/data/classes/header/scenecontroldata.h"
+          },
+          "hashes": {
+            "sha-256": "9e28986e150774795e7882ecc207e5551606d05ae9b485f1f0804dbbcf5fa06a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/simplemath.h"
+          },
+          "hashes": {
+            "sha-256": "dbff725ea7afbfa1d5b9b257bd02afb22a1d3cf1c3fcc8e5cdf4dd0ab75b9779"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/simplemath.inl"
+          },
+          "hashes": {
+            "sha-256": "e17e6e349937915da1e8668fbe05909d29149e1f2ce2d449b028464ada818988"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/audio.h"
+          },
+          "hashes": {
+            "sha-256": "52c9a3ca661bb6bc684f308fbdba5a6c0a55e5bd8956cb195000f74add76b287"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtex/directxtex/directxtex.h"
+          },
+          "hashes": {
+            "sha-256": "c22e949ad7a06a6ad82e3f0fae75837956731bd53402ee34efade1cc295d8971"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtex/directxtex/directxtex.inl"
+          },
+          "hashes": {
+            "sha-256": "fc1478a4b6255105cb8396d00b9455932cac54ceb2e7a2a88a7b6ac2e516069a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui.h"
+          },
+          "hashes": {
+            "sha-256": "9cd9512d07691410a20cae5ebf6a08888d1f96462f5349213bc949ca77c9a20c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imconfig.h"
+          },
+          "hashes": {
+            "sha-256": "e1e9aee68bf20c674e056132f5f6f341c78fff58300076a47a4d30e6cf3a6857"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui_impl_win32.h"
+          },
+          "hashes": {
+            "sha-256": "8599cb91f4e369d302c89e6f06c66faea59d6401d814a95e13f89149ffd86efd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/imgui/imgui_impl_dx11.h"
+          },
+          "hashes": {
+            "sha-256": "d4e9cf404e8389c86830a937bb8be4a2e07b38e32b5637142c7e845e9cd448bd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/strconv.h"
+          },
+          "hashes": {
+            "sha-256": "6dab52a04358a779486ff3dd1e68ab18a97416a461cf676da6160b5b4e948b45"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/kdsystem.h"
+          },
+          "hashes": {
+            "sha-256": "c3f620be220510f0a5453867d2a92f207b783b65a1bcbee55c86df3f78fd2c71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/utility/kdutility.h"
+          },
+          "hashes": {
+            "sha-256": "a47bc9b1e4d29e2377284f908b331fab80055316071655a804b426a3d5d22f2f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdbuffer.h"
+          },
+          "hashes": {
+            "sha-256": "8986d750acc7ab67297e4f72bf268b69deaf2637c767f809e805f64e9be10692"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kddirect3d.h"
+          },
+          "hashes": {
+            "sha-256": "a9911898961cc12573b255984821f214b25888df0fcdcd11bd0054dfefdbf7c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kddirect3dhelper.h"
+          },
+          "hashes": {
+            "sha-256": "dd55685417e4c628ac88108e07c03b6a658c9c88ff56b3dc351abfa9b7d6d650"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdtexture.h"
+          },
+          "hashes": {
+            "sha-256": "f85a297e6a5103caca42b955992d7a56235d8e69314c7a52fdc2ce55c6c5165b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/direct3d/kdmodel.h"
+          },
+          "hashes": {
+            "sha-256": "0371350e986986ee21f343789ba98ea0cdd6060bfe1e8d97326a073507e3366b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/kdshadermanager.h"
+          },
+          "hashes": {
+            "sha-256": "298f27b9f8e644082604867d20c5419b8136faaf4ac2bccdd185ce95b7e6a3d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/effectshader/kdeffectshader.h"
+          },
+          "hashes": {
+            "sha-256": "fc76ba1ca5035dbd239b7d13eea40ebab538a397181276df9b77acec3ac4a2c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/standardshader/kdstandardshader.h"
+          },
+          "hashes": {
+            "sha-256": "413492fc6f71e37c5764f63a362713695ed1965524c4d00515811d99f4553a7c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/shader/spriteshader/kdspriteshader.h"
+          },
+          "hashes": {
+            "sha-256": "d395da86426b9ba64ba3fd42eadcaffc8bcc31b164df4e12964aff6206b6d6df"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/spritefont.h"
+          },
+          "hashes": {
+            "sha-256": "7c3e060f8aff29862ad485c7fae5c45b4ac4b9dd16a74a4bb10d18c9398c487d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/library/directxtk/inc/spritebatch.h"
+          },
+          "hashes": {
+            "sha-256": "789e36c39b1d39135ed69b57b03cac2da7478de5b21f020b0bf08489b960900d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/window/kdgamewindow.h"
+          },
+          "hashes": {
+            "sha-256": "47eaac61c43e8a69ba66a18840647a4726085059a13fa6160b525ca534de109d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/lessons/digital works/スケルトンプログラム/src/system/audio/kdaudio.h"
+          },
+          "hashes": {
+            "sha-256": "00cb3d2a3e6f8c80c6a542bf69e60ca618b199ca3604812b13e2c6521272ee54"
+          }
+        }
+      ]
+    }
+  ]
+}
