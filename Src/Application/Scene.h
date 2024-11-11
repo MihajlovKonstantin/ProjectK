@@ -4,7 +4,7 @@
 class Scene
 {
 private:
-		
+		//test
 	// テクスチャ ・・・ 画像データ
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
