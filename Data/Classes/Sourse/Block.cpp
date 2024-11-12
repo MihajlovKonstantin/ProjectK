@@ -26,7 +26,6 @@ void Block::SetSize(float width, float height)
 {
 	m_size.first = width;
 	m_size.second = height;
-	m_radiusABS = sqrt((width * width) + (height * height));
 	m_radius = width / 2;
 }
 
@@ -85,7 +84,7 @@ std::pair<float, float> Block::GetGPos()
 }
 Math::Matrix Block::GetMatrix()
 {
-	return m_mTrans*Math::Matrix::CreateRotationZ(m_angle);
+	return m_mTrans*Math::Matrix::CreateRotationZ(m_rad);
 }
 Math::Rectangle Block::GetRectangle()
 {
@@ -97,35 +96,24 @@ void Block::SetGlobalPos()
 	m_globalPos.second = m_localPos.second;
 }
 
-void Block::SetTangen(float tangen)
+void Block::SetRadian(float radian)
 {
-	m_tangen = tangen;
-	if(tangen==0)
-	{
-		m_angle = 0;
-	}
-	else
-	{
-		m_angle = atan(tangen);
-	}
+	m_rad = radian;
 }
 
-float Block::GetTan()
+
+
+float Block::GetRad()
 {
-	return m_tangen;
+	return m_rad;
 }
 
-float Block::GetAngle()
-{
-	return m_angle;
-}
-
-Block::Block(float x, float y, float width, float height, KdTexture* texture, bool backStage,float tangen)
+Block::Block(float x, float y, float width, float height, KdTexture* texture, bool backStage,float radian)
 {
 	SetLocalPos(x, y);
 	SetSize(width, height);
 	SetGlobalPos();
 	SetTexture(texture);
 	SetBackStage(backStage);
-	SetTangen(tangen);
+	SetRadian(radian);
 }

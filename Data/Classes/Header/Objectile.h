@@ -13,7 +13,7 @@ public:
 	std::string GetTexture();
 	std::array<int, 4> GetRectangle();
 	std::array<float, 4> GetColor();
-
+	//test
 
 };
 

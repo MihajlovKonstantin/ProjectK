@@ -16,9 +16,8 @@ std::pair<float, float> PC::GetPos()
 
 void PC::Update()
 {
-	m_pos.first += m_speed.first;
-	m_pos.second += m_speed.second;
-	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
+	
+	
 	switch (m_direction)
 	{
 	case Direction::Up:
@@ -30,17 +29,9 @@ void PC::Update()
 	case Direction::Right:
 		break;
 	}
+	Player::Update();
 }
 
-KdTexture* PC::GetTexture()
-{
-	return m_texture;
-}
-
-Math::Matrix PC::GetMatrix()
-{
-	return m_mTrans;
-}
 
 void PC::Stop()
 {

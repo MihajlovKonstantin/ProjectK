@@ -11,11 +11,10 @@ protected:
 	KdTexture* m_texture;
 	Math::Matrix m_mTrans;
 	Math::Rectangle m_rectangle;
-	float m_radiusABS;
 	float m_radius;
 	float m_tangen;
 	bool m_backStage;
-	float m_angle;
+	float m_rad;
 public:
 	void SetLocalPos(float xPos, float yPos);
 	void FoundCE();
@@ -34,10 +33,9 @@ public:
 	void SetBackStage(bool backStage);
 	bool GetBackStage();
 	void SetGlobalPos();
-	void SetTangen(float angle);
-	float GetTan();
-	float GetAngle();
+	void SetRadian(float radian);
+	float GetRad();
 	void Update();
-	Block(float x, float y, float width, float height, KdTexture* texture, bool backStage, float tangen = 0);
+	Block(float x, float y, float width, float height, KdTexture* texture, bool backStage, float radian = 0);
 };
 

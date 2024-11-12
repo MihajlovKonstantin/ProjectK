@@ -4,15 +4,13 @@
 class Scene
 {
 private:
-		//test2
-		// test
 	// テクスチャ ・・・ 画像データ
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// 行列 ・・・ 座標などの情報
 	Math::Matrix matrix;
-	//int test;
+	
 	std::string str;
 	const char* charStr = str.c_str();
 	Menu m_inGameSetting;
@@ -32,33 +30,10 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 0,400 }, { 0,-1 },&m_charaTex);
-	Block m_block = Block(32, 0, 32, 32, & m_charaTex, false, 1 );
+	PC m_player = PC({ 2,400 }, { 0,-1 },&m_charaTex);
+	Block m_block = Block(0, 0, 32, 32, & m_charaTex, false, 1 );
 	//test
 	bool test;
-	//InitStruct
-	struct ConnectedRoom
-	{
-		std::pair<int, int> m_indexRoom;
-
-	};
-	struct Room
-	{
-		int m_first;
-		int m_second;
-		std::vector<std::pair<int, int>> m_openStatement;
-		std::vector<ConnectedRoom> m_connectedRoomData;
-		std::array<int, 4> m_border;
-
-	};
-	struct Box
-	{
-		std::vector<Room> m_room;
-		std::vector<int> m_nearbyRoom;
-		std::vector<int> m_connectedRoom;
-		bool m_connectedWithStart = false;
-	};
-	
 	
 public:
 	enum Direction

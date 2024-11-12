@@ -11,16 +11,20 @@ protected:
 	float m_collisionRadius = m_collisionSize / 2;
 	KdTexture* m_texture;
 	Math::Matrix m_mTrans;
-	float m_tangen;
+	Math::Matrix m_mRotation;
+	Math::Matrix m_mScale;
+	Math::Matrix m_matrix;
+	float m_rad;
 	std::pair<float, float> m_speed;
 	virtual ~Player();
 	bool m_groundFlag;
 	Direction m_direction;
-	std::pair<float, float> RotatePoint(float x, float y, float cx, float cy, float angle);
-	bool IsCircleIntersectingRotatedRectangle(float cx, float cy, float width, float height, float angle, float h, float k, float r);
 public:
-	virtual void Update() = 0;
+	void Update();
 	bool IsGround(Block block);
+	void Move();//ˆÚ“®ŠÖ”
+	Math::Matrix GetMatrix();
+	KdTexture* GetTexture();
 	//ŠÖ”
 };
 
