@@ -1,12 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "Data/Classes/Header/Button.h"
 #include "Pch.h"
 #include "Src/Application/Direction.h"
 class Player
 {
-	//ˆø”
 protected:
-	std::pair<float,float> m_pos;
+	std::pair<float, float> m_pos;
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
 	KdTexture* m_texture;
@@ -21,10 +20,8 @@ protected:
 	Direction m_direction;
 public:
 	void Update();
-	bool IsGround(Block block);
-	void Move();//ˆÚ“®ŠÖ”
+	bool CollisionToBlock(Block block);
+	void Move();//ï¿½Ú“ï¿½ï¿½Öï¿½
 	Math::Matrix GetMatrix();
 	KdTexture* GetTexture();
-	//ŠÖ”
 };
-

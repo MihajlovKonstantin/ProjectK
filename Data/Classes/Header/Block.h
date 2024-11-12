@@ -10,14 +10,14 @@ protected:
 	std::array<std::pair<float, float>, 4> m_centerEdge;
 	KdTexture* m_texture;
 	Math::Matrix m_mTrans;
+	Math::Matrix m_mRotation;
+	Math::Matrix m_matrix;
 	Math::Rectangle m_rectangle;
 	float m_radius;
-	float m_tangen;
-	bool m_backStage;
 	float m_rad;
+	bool m_backStage;
 public:
 	void SetLocalPos(float xPos, float yPos);
-	void FoundCE();
 	void SetSize(float width, float height);
 	void SetTexture(KdTexture* Texture);
 	void SetSpeed(std::pair<float, float> speed);
@@ -33,7 +33,7 @@ public:
 	void SetBackStage(bool backStage);
 	bool GetBackStage();
 	void SetGlobalPos();
-	void SetRadian(float radian);
+	void SetRadian(float rad);
 	float GetRad();
 	void Update();
 	Block(float x, float y, float width, float height, KdTexture* texture, bool backStage, float radian = 0);

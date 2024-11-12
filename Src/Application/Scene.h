@@ -1,28 +1,30 @@
-#pragma once
+ï»¿#pragma once
 #include "Pch.h"
 
 class Scene
 {
 private:
-	// ƒeƒNƒXƒ`ƒƒ EEE ‰æ‘œƒf[ƒ^
+	//test2
+	// test
+// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ ï¿½Eï¿½Eï¿½E ï¿½æ‘œï¿½fï¿½[ï¿½^
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
-	// s—ñ EEE À•W‚È‚Ç‚Ìî•ñ
+	// ï¿½sï¿½ï¿½ ï¿½Eï¿½Eï¿½E ï¿½ï¿½ï¿½Wï¿½È‚Ç‚Ìï¿½ï¿½
 	Math::Matrix matrix;
-	
+	//int test;
 	std::string str;
 	const char* charStr = str.c_str();
 	Menu m_inGameSetting;
 
-	//DrawButton •Ï”
+	//DrawButton ï¿½Ïï¿½
 	std::array<float, 2> size;
 	std::array<float, 2>position;
 	std::string message;
 	const char* text = message.c_str();
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;
-	//Mouse ŠÇ—
+	//Mouse ï¿½Ç—ï¿½
 	POINT mouse;
 	WindowsControlData* WC;
 	SceneControlData* SC;
@@ -30,35 +32,27 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 2,400 }, { 0,-1 },&m_charaTex);
-	Block m_block = Block(0, 0, 32, 32, & m_charaTex, false, 1 );
+	PC m_player = PC({ 0,-400 }, { 0,1 }, &m_charaTex);
+	Block m_block = Block(20, -100, 32, 32, &m_charaTex, false, 1);
 	//test
 	bool test;
-	
 public:
-	enum Direction
-	{
-		Up,
-		Right,
-		Down,
-		Left
-	};
-	// ‰Šúİ’è
+	// ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 	void Init(WindowsControlData* WCInput);
-	// ‰ğ•ú
+	// ï¿½ï¿½ï¿½
 	void Release();
 
-	// XVˆ—
+	// ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 	void Update();
 	void UpdateMainMenu();
-	// •`‰æˆ—
+	// ï¿½`ï¿½æˆï¿½ï¿½
 	void Draw2D();
 	void DrawButton(Button inputButton);
 	void DrawButtonText(Button inputButton);
-	// GUIˆ—
+	// GUIï¿½ï¿½ï¿½ï¿½
 	void ImGuiUpdate();
-	bool ClickButton(POINT inputMouse,Button inputButton);
-	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color,float scale);
+	bool ClickButton(POINT inputMouse, Button inputButton);
+	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
 	void DrawGraph();
 	void DrawTexts();
 	void DrawMainScene(Math::Color inputColor);

@@ -16,8 +16,7 @@ std::pair<float, float> PC::GetPos()
 
 void PC::Update()
 {
-	
-	
+
 	switch (m_direction)
 	{
 	case Direction::Up:
