@@ -15,7 +15,7 @@ void Player::Update()
 	m_matrix = m_mTrans * m_mRotation;
 }
 
-bool Player::IsGround(Block block)
+bool Player::CollisionToBlock(Block block)
 {
 	bool _result = false;
 	std::pair<float, float> _bPos = block.GetGPos();
