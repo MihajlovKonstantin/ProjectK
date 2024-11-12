@@ -6,22 +6,16 @@ void Block::SetLocalPos(float xPos, float yPos)
 {
 	m_localPos.first = xPos;
 	m_localPos.second = yPos;
+	m_globalPos.first = m_localPos.first;
+	m_globalPos.second = m_localPos.second;
 }
 void Block::Update()
 {
-	FoundCE();
 	m_mTrans = Math::Matrix::CreateTranslation(m_globalPos.first, m_globalPos.second, 0);
+	m_mRotation = Math::Matrix::CreateRotationZ(m_rad);
+	m_matrix =  m_mRotation*m_mTrans;
 	m_rectangle = Math::Rectangle{ 0,0,long(m_size.first),long(m_size.second) };
 }
-void Block::FoundCE()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		float _radian = m_tangen + DirectX::XMConvertToRadians(90 * (i + 1));
-		m_centerEdge[i] = { m_localPos.first + cos(_radian) * m_radius,m_localPos.second + sin(_radian) * m_radius };
-	}
-}
-
 void Block::SetSize(float width, float height)
 {
 	m_size.first = width;
@@ -84,7 +78,7 @@ std::pair<float, float> Block::GetGPos()
 }
 Math::Matrix Block::GetMatrix()
 {
-	return m_mTrans*Math::Matrix::CreateRotationZ(m_rad);
+	return m_matrix;
 }
 Math::Rectangle Block::GetRectangle()
 {
@@ -101,14 +95,13 @@ void Block::SetRadian(float radian)
 	m_rad = radian;
 }
 
-
-
 float Block::GetRad()
 {
 	return m_rad;
 }
 
-Block::Block(float x, float y, float width, float height, KdTexture* texture, bool backStage,float radian)
+
+Block::Block(float x, float y, float width, float height, KdTexture* texture, bool backStage, float radian)
 {
 	SetLocalPos(x, y);
 	SetSize(width, height);

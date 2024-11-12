@@ -469,7 +469,7 @@ void Scene::Update()
 		}
 	}
 	//Test
-	test = m_player.IsGround(m_block);
+	test = m_player.CollisionToBlock(m_block);
 	if (test)
 	{
 		m_player.Stop();
