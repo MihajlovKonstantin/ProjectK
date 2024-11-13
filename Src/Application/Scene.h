@@ -6,7 +6,6 @@ class Scene
 private:
 	//test2
 	// test
-// �e�N�X�`�� �E�E�E �摜�f�[�^
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
@@ -16,7 +15,7 @@ private:
 	std::string str;
 	const char* charStr = str.c_str();
 	Menu m_inGameSetting;
-
+	Stage m_stage;
 	//DrawButton �ϐ�
 	std::array<float, 2> size;
 	std::array<float, 2>position;

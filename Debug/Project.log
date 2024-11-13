@@ -1,4 +1,168 @@
-﻿  Player.cpp
-C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Player.cpp(51,153): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  Pch.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_widgets.cpp
+  Block.cpp
+  Button.cpp
+  DrawTextureData.cpp
+  KeyEvent.cpp
+  Menu.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Menu.cpp(80,20): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
+  Objectile.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Menu.cpp(96,20): warning C4305: '-=': 'double' から 'float' へ切り詰めます。
+  PC.cpp
+  Player.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty1=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Player.cpp(67,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty1=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+  SceneControlData.cpp
+  TerrainObject.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(13,2): warning C4060: switch ステートメントに 'case' または 'default' ラベルがありません。
+  WindowsControlData.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\WindowsControlData.cpp(56,16): warning C4305: '=': 'double' から 'float' へ切り詰めます。
+  Scene.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,94): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,89): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(543,53): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(543,44): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty1=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+  main.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,94): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,89): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,73): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,64): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,55): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,42): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(215,56): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(215,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(382,31): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(389,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(390,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(393,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\main.cpp(394,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:             _Ty1=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,16): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+  KdAudio.cpp
+  コードを生成中...
+  コンパイル中...
+  KdDirect3DHelper.cpp
+  KdGLTFLoader.cpp
+  KdEffectShader.cpp
+  KdShaderManager.cpp
+  KdSpriteShader.cpp
+  KdStandardShader.cpp
+  KdBuffer.cpp
+  KdDirect3D.cpp
+  KdModel.cpp
+  KdTexture.cpp
+  KdGameWindow.cpp
+  コードを生成中...
   Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.exe
   Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.pdb (完全な PDB)
