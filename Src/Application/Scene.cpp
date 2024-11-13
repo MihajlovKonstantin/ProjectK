@@ -424,7 +424,8 @@ bool Scene::ItsFree(std::array<std::array<int, 6>, 5> base, std::pair<int,int> p
 void Scene::Update()
 {
 	//
-	
+	m_player.Update();
+	m_block.Update();
 	GetCursorPos(&mouse);
 	if (GetAsyncKeyState(VK_TAB))
 	{

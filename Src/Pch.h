@@ -116,6 +116,5 @@
 #include "Data/Classes/Header/Player.h"
 #include "Data/Classes/Header/TerrainObject.h"
 #include "Data/Classes/Header/PC.h"
-#include "Data/Classes/Header/Stage.h"
 
 

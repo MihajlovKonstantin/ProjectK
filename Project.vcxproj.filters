@@ -154,7 +154,6 @@
     <ClInclude Include="Data\Classes\Header\TerrainObject.h" />
     <ClInclude Include="Data\Classes\Header\Block.h" />
     <ClInclude Include="Src\Application\Direction.h" />
-    <ClInclude Include="Data\Classes\Header\Stage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -231,7 +230,6 @@
     <ClCompile Include="Data\Classes\Sourse\Objectile.cpp" />
     <ClCompile Include="Data\Classes\Sourse\TerrainObject.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Block.cpp" />
-    <ClCompile Include="Data\Classes\Sourse\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="説明.txt" />
