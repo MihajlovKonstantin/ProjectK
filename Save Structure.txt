@@ -1,0 +1,25 @@
+type level = int
+
+terrain obj num = int
+{
+size = int
+angle = float(rad)
+first block X, first block Y, last block X last Block Y = float
+typeBlock = int
+
+typeBlock - is a number of block asset in current level(stage)
+}
+
+enemy spawner num = int
+{
+size = int (number of enemy to spawn) 0 - eternal
+spawner X, spawner Y  = float
+param num = int
+param = int
+type enemy = int
+}
+ 
+player
+{
+pos X, pos Y = float
+}

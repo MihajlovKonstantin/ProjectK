@@ -26,17 +26,20 @@ private:
 	//Mouse �Ǘ�
 	POINT mouse;
 	WindowsControlData* WC;
+	//DirectX::BoundingSphere;
 	SceneControlData* SC;
 	bool m_controlButtonClick = false;
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 0,-400 }, { 0,1 }, &m_charaTex);
-	Block m_block = Block(20, -100, 32, 32, &m_charaTex, false, 1);
+	PC m_player = PC({ 70,-400 }, { 0,3 }, &m_charaTex);
+	float num = 6.5f / 3.0f;
+	float m_rad = M_PI /3.0f;
+	Block m_block = Block(45, 0, 32, 32, &m_charaTex, false, m_rad);
 	//test
 	bool test;
 public:
-	// �����ݒ�
+	// �����00
 	void Init(WindowsControlData* WCInput);
 	// ���
 	void Release();

@@ -337,11 +337,11 @@ void Application::Game()
 
 	SHADER.m_spriteShader.Begin();
 
-	
+	SCENE.Update();
 	SHADER.m_cb7_Camera.Write();
 	SCENE.DynamicDraw2D();
 	SCENE.Draw2D();
-	SCENE.Update();
+	
 	
 	
 	SHADER.m_spriteShader.End();
@@ -431,9 +431,7 @@ void Application::Execute()
 		std::ifstream inFile("example.menu");
 		if (inFile.is_open()) {
 			std::string line;
-			while (getline(inFile, line)) {
-				std::cout << line << std::endl;
-			}
+			getline(inFile, line, '\n');
 			inFile.close();
 		}
 		else {

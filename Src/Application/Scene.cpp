@@ -424,7 +424,16 @@ bool Scene::ItsFree(std::array<std::array<int, 6>, 5> base, std::pair<int,int> p
 void Scene::Update()
 {
 	//
-	
+	if (!WC->IsPause())
+	{
+		test = m_player.CollisionToBlock(m_block, NULL);
+		if (test)
+		{
+			m_player.Stop();
+		}
+		m_player.Update();
+		m_block.Update();
+	}
 	GetCursorPos(&mouse);
 	if (GetAsyncKeyState(VK_TAB))
 	{
@@ -468,11 +477,7 @@ void Scene::Update()
 		}
 	}
 	//Test
-	test = m_player.CollisionToBlock(m_block);
-	if (test)
-	{
-		m_player.Stop();
-	}
+	
 	//if(GetAsyncKeyState(VK_UP))
 }
 
@@ -526,6 +531,7 @@ void Scene::ImGuiUpdate()
 		{
 			ImGui::Text("Fly");
 		}
+		ImGui::Text("%f", m_player.GetAngle());
 	}
 	ImGui::Text("%f %f", m_player.GetPos().first, m_player.GetPos().second);
 	ImGui::End();
