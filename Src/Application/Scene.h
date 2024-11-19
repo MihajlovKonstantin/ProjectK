@@ -20,7 +20,7 @@ private:
 	std::array<float, 2> size;
 	std::array<float, 2>position;
 	std::string message;
-	
+	//test
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;
 	//Mouse �Ǘ�
