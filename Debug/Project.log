@@ -1,4 +1,37 @@
-﻿  Player.cpp
-C:\Lessons\DIGITAL WORKS\ProjectK\Data\Classes\Sourse\Player.cpp(51,153): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+﻿  Scene.cpp
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.h(37,20): warning C4305: '初期化中': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,94): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,89): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,73): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,64): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,55): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         with
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         [
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:             _Ty=float
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(51,42): warning C4244:         ]
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(282,53): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Lessons\DIGITAL WORKS\ProjectK\Src\Application\Scene.cpp(282,44): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         and
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\utility(247,54): warning C4244:         ]
   Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.exe
   Project.vcxproj -> C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.pdb (完全な PDB)

@@ -130,309 +130,41 @@ void Scene::DynamicDraw2D()
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), charaRect, 1.0f);
 		SHADER.m_spriteShader.SetMatrix(m_block.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_block.GetTexture(), m_block.GetRectangle());
+		SHADER.m_spriteShader.SetMatrix(m_blockSecond.GetMatrix());
+		SHADER.m_spriteShader.DrawTex(m_blockSecond.GetTexture(), m_blockSecond.GetRectangle());
 	}
 	
 }
-/*
-void Scene::InitAssets()
-{
-	/*
-	KdTexture _result;
-	_result.ClearRenerTarget(Math::Color(1, 1, 1, 1));
-	_result.SetRenderTarget();
-	
-	std::pair<int, int> _startPos = { 2,0 };
-	std::array<std::array<int, 6>, 5> _base;//Base field
-	std::vector<std::pair<int, int>>_possiblePair;// PossiblePlacement
-	std::vector<std::pair<int, int>>_possibleDirection;//This Vector is parralell to Possible Pair. Here is pair antogonistick direction for generation
-	std::vector<size_t> _pAdress;
-	//std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int, int>>> _possibleCollection;//Collection of last two vector
-	std::vector<Box> _result;//Result from function
-	std::random_device _rd;
-	std::mt19937 _gen(_rd());
-	std::uniform_int_distribution<> _distrib(1, 4);//Randomize size of big room
-	bool _connectWithStartFlag = false;
 
-	//Make all field free
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			_base[i][j] = 0;
-		}
-	}
-	try
-	{
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 6; j++)
-		{
-			int _randomNum = _distrib(_gen);//Select max size of room
-
-			if (_base[i][j] == 0)//If block is free try to fill
-			{
-				_base[i][j] = 1;//Start position become filled
-				Box _newBox;
-
-				_newBox.m_room.push_back({ i, j });//Push start position in new Box, and try to find all free direction for each block in box
-				
-				while (_newBox.m_room.size() < _randomNum)
-				{
-						_possiblePair.clear();
-						_possibleDirection.clear();
-						_pAdress.clear();
-						for (size_t p = 0; p < _newBox.m_room.size(); ++p) {
-							auto pos = _newBox.m_room[p];
-							if (pos.m_first - 1 > 0) {
-								if (ItsFree(_base, { pos.m_first - 1, pos.m_second })) {
-									_possiblePair.push_back({ pos.m_first - 1, pos.m_second });
-									_possibleDirection.push_back({ Direction::Up,Direction::Down });
-									_pAdress.push_back(p);
-								}
-							}
-							if (pos.m_first + 1 < 4) {
-								if (ItsFree(_base, { pos.m_first + 1, pos.m_second })) {
-									_possiblePair.push_back({ pos.m_first + 1, pos.m_second });
-									_possibleDirection.push_back({ Direction::Down,Direction::Up });
-									_pAdress.push_back(p);
-								}
-							}
-							if (pos.m_second - 1 > 0) {
-								if (ItsFree(_base, { pos.m_first, pos.m_second - 1 })) {
-									_possiblePair.push_back({ pos.m_first, pos.m_second - 1 });
-									_possibleDirection.push_back({ Direction::Left,Direction::Right });
-									_pAdress.push_back(p);
-								}
-							}
-							if (pos.m_second + 1 < 5) {
-								if (ItsFree(_base, { pos.m_first, pos.m_second + 1 })) {
-									_possiblePair.push_back({ pos.m_first, pos.m_second + 1 });
-									_possibleDirection.push_back({ Direction::Right,Direction::Left });
-									_pAdress.push_back(p);
-								}
-							}
-						}
-						//if we have free direction - chose random dirrection->chose random position for enter->push open statement
-						if (!_possiblePair.empty()) {
-
-							std::uniform_int_distribution<> __distrib(0, _possiblePair.size() - 1);
-							std::uniform_int_distribution<> __distribSecond(0, 2);
-							int __firstRandNum = __distrib(_gen);
-							int __secondRandNum = __distribSecond(_gen);
-							Room _pData = { _possiblePair[__firstRandNum].first,_possiblePair[__firstRandNum].second };
-							int _sizeT = _pAdress[__firstRandNum];
-							std::pair<int, int> __pPair = { _possibleDirection[__firstRandNum].second ,__secondRandNum };
-							_pData.m_openStatement.push_back(__pPair);
-							_newBox.m_room.push_back(_pData);
-							_newBox.m_room.at(_sizeT).m_openStatement.push_back({ _possibleDirection[__firstRandNum].first, __secondRandNum });
-
-							_base[_possiblePair[__firstRandNum].first][_possiblePair[__firstRandNum].second] = 1;
-						}
-						else {
-							break;
-						}
-					};
-				//If we still dont find the Box with start position -> check current
-				if (_connectWithStartFlag==false)
-				{
-					for (int k = 0; k < _newBox.m_room.size(); k++)
-					{
-						if ((_newBox.m_room[k].m_first == _startPos.first) && (_newBox.m_room[k].m_second == _startPos.second))
-						{
-							_newBox.m_connectedWithStart = true;
-						}
-					}
-				}
-				_result.push_back(_newBox);
-			}
-		}
-
-
-	}
-	}
-	catch (exception)
-	{
-		//error message
-	};
-	_result;
-	//Found all room nearby
-	int _countOfBox = _result.size();
-	for (int i = 0; i < _countOfBox;i++)//first box
-	{
-
-		for (int j = i+1; j < _countOfBox; j++)//second box
-		{
-			int __blockFB = _result.at(i).m_room.size();
-			int __blockSB = _result.at(j).m_room.size();
-			for (int k = 0; k < __blockFB; k++)
-			{
-				for (int l = 0; l < __blockSB; l++)
-				{
-					int __firstBlock[2] = {_result[i].m_room[k].m_first,_result[i].m_room[k].m_second };
-					int __secondBlock[2] = { _result[j].m_room[l].m_first, _result[j].m_room[l].m_second };
-					if ((pow(__firstBlock[0] - __secondBlock[0], 2) + pow(__firstBlock[1] - __secondBlock[1], 2)) < 2)
-					{
-						_result[i].m_nearbyRoom.push_back(j);
-						_result[j].m_nearbyRoom.push_back(i);
-						goto next;
-					}
-				}
-			}
-		next:;
-		}
-	
-	}
-	std::vector<std::unique_ptr<Box*>> _uniqueVector;//vector for all unconnected box
-	std::vector<int> _connectedWithStart;
-	struct _PossiblePair
-	{
-		std::pair<int, int> _boxIndex;//first index - unique index, second - global(result) index
-		std::pair<int, int> _blockIndex;//index of selected block in boxes
-		std::pair<int, int> _possibleDirection;//dirrection for connections
-	};
-	std::vector<_PossiblePair> _PPVector;
-	for (int i = 0; i < _result.size(); i++)
-	{
-		_uniqueVector.push_back(make_unique<Box*>(&_result[i]));
-	}
-	do
-	{
-		for (int i = 0; i < _uniqueVector.size(); i++)
-		{
-			_PPVector.clear();
-			_connectedWithStart.clear();
-			auto __nearbyRoomCopy = (*_uniqueVector[i])->m_nearbyRoom;
-			if ((*_uniqueVector[i])->m_connectedWithStart == false)
-			{
-				int __nearbyRoomCount = __nearbyRoomCopy.size();
-				for (int j = 0; j < __nearbyRoomCount; j++)
-				{
-					if (_result[__nearbyRoomCopy[j]].m_connectedWithStart == true)
-					{
-						_connectedWithStart.push_back(__nearbyRoomCopy[j]);
-					}
-				}
-				if (_connectedWithStart.empty() != true)
-				{
-					int __blockFB = (*_uniqueVector[i])->m_room.size();
-					int __connectedWSCount = _connectedWithStart.size();
-					for (int j = 0; j < __connectedWSCount; j++)
-					{
-						int __globalIndexSB = _connectedWithStart[j];
-						Box* __SBInstance =  &_result[__globalIndexSB];
-						int __blockSB = __SBInstance->m_room.size();
-						for (int k = 0; k < __blockFB; k++)
-						{
-							for (int l = 0; l < __blockSB; l++)
-							{
-								Room __FBData = (*_uniqueVector[i])->m_room[k];
-								Room __SBData = __SBInstance->m_room[l];
-								_PossiblePair __newPP;
-								if ((std::abs(__FBData.m_first - __SBData.m_first) < 2) && (std::abs(__FBData.m_second - __SBData.m_second) < 2) && ((std::abs(__FBData.m_second - __SBData.m_second) + std::abs(__FBData.m_first - __SBData.m_first))<2))
-								{
-									__newPP._boxIndex = { i,_connectedWithStart[j] };
-									__newPP._blockIndex = { k,l };
-									if (__FBData.m_first > __SBData.m_first)
-									{
-										__newPP._possibleDirection = { Direction::Up,Direction::Down };
-									}
-									
-									if (__FBData.m_first < __SBData.m_first)
-									{
-										__newPP._possibleDirection = { Direction::Down,Direction::Up };
-									}
-									if (__FBData.m_second > __SBData.m_second)
-									{
-										__newPP._possibleDirection = { Direction::Left,Direction::Right };
-									}
-									if (__FBData.m_second <__SBData.m_second)
-									{
-										__newPP._possibleDirection = { Direction::Right,Direction::Left };
-									}
-									_PPVector.push_back(__newPP);
-								}
-							}
-						}
-					}
-				std::uniform_int_distribution<>__PPDistrib(0, _PPVector.size() - 1);
-				std::uniform_int_distribution<>__positionDistrib(0,2);
-				int __selectedPPVectorIndex = __PPDistrib(_gen);
-				int __selectedPosition = __positionDistrib(_gen);
-				_PossiblePair __selectedPP = _PPVector[__selectedPPVectorIndex];
-				(*_uniqueVector[__selectedPP._boxIndex.first])->m_room[__selectedPP._blockIndex.first].m_openStatement.push_back({ __selectedPP._possibleDirection.first,__selectedPosition });
-				_result[__selectedPP._boxIndex.second].m_room[__selectedPP._blockIndex.second].m_openStatement.push_back({ __selectedPP._possibleDirection.second,__selectedPosition });
-				(*_uniqueVector[i])->m_connectedWithStart = true;
-				}
-			}
-			else
-			{
-				auto __p = _uniqueVector.begin();
-				_uniqueVector.erase(__p + i);
-			}
-		}
-
-	} while (_uniqueVector.empty() != true);
-	_result;
-	std::array<std::array<Room, 6>, 5> Result;
-	for (int i = 0; i < _result.size(); i++)
-	{
-		Box __currentBox = _result[i];
-		for (int j = 0; j < __currentBox.m_room.size(); j++)
-		{
-			ConnectedRoom __subCR;
-			for (int k = 0; k < __currentBox.m_room[j].m_openStatement.size(); k++)
-			{
-				switch (__currentBox.m_room[j].m_openStatement[k].first)
-				{
-				case Direction::Up:
-					__subCR.m_indexRoom = { __currentBox.m_room[j].m_first-1,__currentBox.m_room[j].m_second };
-						break;
-				case Direction::Right:
-					__subCR.m_indexRoom = { __currentBox.m_room[j].m_first,__currentBox.m_room[j].m_second+1 };
-					break;
-				case Direction::Down:
-					__subCR.m_indexRoom = { __currentBox.m_room[j].m_first + 1,__currentBox.m_room[j].m_second };
-					break;
-				case Direction::Left:
-					__subCR.m_indexRoom = { __currentBox.m_room[j].m_first,__currentBox.m_room[j].m_second - 1 };
-					break;
-				}
-				
-				__currentBox.m_room[j].m_connectedRoomData.push_back(__subCR);
-
-				__currentBox.m_room[j].m_border[Direction::Up] = 720 * (Result.size()-1 - __currentBox.m_room[j].m_first) + 360;
-				__currentBox.m_room[j].m_border[Direction::Down] = 720 *(Result.size()-1 - __currentBox.m_room[j].m_first) - 360+1;
-				__currentBox.m_room[j].m_border[Direction::Right] = 1280 * __currentBox.m_room[j].m_second + 640;
-				__currentBox.m_room[j].m_border[ Direction::Left ] = 1280 * __currentBox.m_room[j].m_second - 640+1;
-			}
-			Result[__currentBox.m_room[j].m_first][__currentBox.m_room[j].m_second] = __currentBox.m_room[j];
-		}
-	}
-	Result;
-}
-bool Scene::ItsFree(std::array<std::array<int, 6>, 5> base, std::pair<int,int> pos)
-{
-	if (base[pos.first][pos.second] == 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-*/
 void Scene::Update()
 {
 	//
 	if (!WC->IsPause())
 	{
-		test = m_player.CollisionToBlock(m_block, NULL);
+		_test = false;
+		test = m_player.CollisionToBlock(m_blockSecond);
 		if (test)
 		{
-			m_player.Stop();
+			m_player.SetOnGroundFlag(true);
+			_test = true;
+		}
+		test = m_player.CollisionToBlock(m_block);
+		if (test)
+		{
+			m_player.SetOnGroundFlag(true);
+			_test = true;
+		}
+		else
+		{
+			if (!_test)
+			{
+				test = m_player.CollisionToBlock(m_block);
+				m_player.SetOnGroundFlag(false);
+			}
 		}
 		m_player.Update();
 		m_block.Update();
+		m_blockSecond.Update();
 	}
 	GetCursorPos(&mouse);
 	if (GetAsyncKeyState(VK_TAB))
@@ -476,9 +208,10 @@ void Scene::Update()
 			break;
 		}
 	}
+	m_player.CollisionClear();
 	//Test
 	
-	//if(GetAsyncKeyState(VK_UP))
+	
 }
 
 void Scene::UpdateMainMenu()
@@ -501,6 +234,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
+	m_player.SetDirection(Direction::Left);
 }
 
 void Scene::Release()

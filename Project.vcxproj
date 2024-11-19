@@ -184,6 +184,7 @@
     <ClInclude Include="Data\Classes\Header\Player.h" />
     <ClInclude Include="Data\Classes\Header\Menu.h" />
     <ClInclude Include="Data\Classes\Header\SceneControlData.h" />
+    <ClInclude Include="Data\Classes\Header\Stage.h" />
     <ClInclude Include="Data\Classes\Header\TerrainObject.h" />
     <ClInclude Include="Data\Classes\Header\WindowsControlData.h" />
     <ClInclude Include="Src\Application\Direction.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="Data\Classes\Sourse\Player.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Menu.cpp" />
     <ClCompile Include="Data\Classes\Sourse\SceneControlData.cpp" />
+    <ClCompile Include="Data\Classes\Sourse\Stage.cpp" />
     <ClCompile Include="Data\Classes\Sourse\TerrainObject.cpp" />
     <ClCompile Include="Data\Classes\Sourse\WindowsControlData.cpp" />
     <ClCompile Include="Src\Application\Scene.cpp" />

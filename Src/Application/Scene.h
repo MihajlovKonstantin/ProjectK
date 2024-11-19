@@ -20,7 +20,7 @@ private:
 	std::array<float, 2> size;
 	std::array<float, 2>position;
 	std::string message;
-	const char* text = message.c_str();
+	
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;
 	//Mouse �Ǘ�
@@ -32,10 +32,12 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 70,-400 }, { 0,3 }, &m_charaTex);
+	PC m_player = PC({ 0,400 }, { +0.1f,-1 }, &m_charaTex);
 	float num = 6.5f / 3.0f;
-	float m_rad = M_PI /3.0f;
-	Block m_block = Block(45, 0, 32, 32, &m_charaTex, false, m_rad);
+	float m_rad = M_PI*0.25f;
+	Block m_block = Block(-64, 0, 32.0f, 32.0f, &m_charaTex, false, m_rad);
+	Block m_blockSecond = Block(-32, 0, 32.0f, 32.0f, &m_charaTex, false, m_rad);
+	bool _test = false;
 	//test
 	bool test;
 public:

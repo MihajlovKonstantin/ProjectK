@@ -5,7 +5,8 @@ PC::PC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* tex
 {
 	m_pos = pos;
 	m_texture = texture;
-	m_speed = speed;
+	m_speedBase = speed;
+	m_speed = m_speedBase;
 }
 
 std::pair<float, float> PC::GetPos()
@@ -28,11 +29,23 @@ void PC::Update()
 	case Direction::Right:
 		break;
 	}
+	if (!m_onGroundFlag)
+	{
+		m_sideRad = -1;
+		m_rad = 0;
+		m_currentCollisionValue = -1.0f;
+	}
+	m_groundFlag = m_onGroundFlag;
 	Player::Update();
 }
 
 
 void PC::Stop()
 {
-	m_speed = { 0,0 };
+	//m_speed = { 0,0 };
+}
+
+void PC::SetOnGroundFlag(bool flag)
+{
+	m_onGroundFlag = flag;
 }
