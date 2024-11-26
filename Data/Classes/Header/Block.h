@@ -16,8 +16,11 @@ protected:
 	float m_radius;
 	float m_rad;
 	bool m_backStage;
+	bool m_deleteState = false;
 public:
-	void SetLocalPos(float xPos, float yPos);
+	void SetDeleteState(bool state);
+	bool GetDeleteState();
+	void SetPos(float xPos, float yPos);
 	void SetSize(float width, float height);
 	void SetTexture(KdTexture* Texture);
 	void SetSpeed(std::pair<float, float> speed);

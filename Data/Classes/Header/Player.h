@@ -11,7 +11,9 @@ protected:
 		float sideRad;
 		float collisionValue;
 		std::pair<float, float> pos;
+		std::pair<float, float>dPos;
 	};
+	bool m_stopFlag;
 	std::vector<CollisionBlockData> m_collisionData;
 	std::pair<float, float> m_pos;
 	float m_collisionSize = 32.0f;
@@ -31,6 +33,7 @@ protected:
 	bool m_groundFlag;
 	Direction m_direction;
 	std::pair<float, float> m_currentSpeed;
+	bool IsPossibleAngle(float radian);
 public:
 
 	void Update();

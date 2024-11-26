@@ -42,10 +42,27 @@ void PC::Update()
 
 void PC::Stop()
 {
-	//m_speed = { 0,0 };
+	m_onGroundFlag = false;
 }
 
 void PC::SetOnGroundFlag(bool flag)
 {
 	m_onGroundFlag = flag;
+}
+
+bool PC::MovePossible()
+{
+	for (int i = 0; i < m_collisionData.size(); i++)
+	{
+		if (!IsPossibleAngle(m_collisionData[i].rad))
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
+int PC::GetDirection()
+{
+	return m_direction;
 }

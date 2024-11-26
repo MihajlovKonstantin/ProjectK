@@ -12,5 +12,7 @@ public:
     void Update();
     void Stop();
     void SetOnGroundFlag(bool flag);
+    bool MovePossible();
+    int GetDirection();
 };
 

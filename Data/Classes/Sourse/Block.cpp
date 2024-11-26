@@ -2,16 +2,27 @@
 #include "Data/Classes/Header/Block.h"
 
 
-void Block::SetLocalPos(float xPos, float yPos)
+void Block::SetDeleteState(bool state)
 {
-	m_localPos.first = xPos;
-	m_localPos.second = yPos;
-	m_globalPos.first = m_localPos.first;
-	m_globalPos.second = m_localPos.second;
+	m_deleteState = state;
+}
+
+bool Block::GetDeleteState()
+{
+	return m_deleteState;
+}
+
+void Block::SetPos(float xPos, float yPos)
+{
+	m_globalPos.first = xPos;
+	m_globalPos.second = yPos;
+	m_localPos.first = m_globalPos.first;
+	m_localPos.second = m_globalPos.second;
+	
 }
 void Block::Update()
 {
-	m_mTrans = Math::Matrix::CreateTranslation(m_globalPos.first, m_globalPos.second, 0);
+	m_mTrans = Math::Matrix::CreateTranslation(m_localPos.first, m_localPos.second, 0);
 	m_mRotation = Math::Matrix::CreateRotationZ(m_rad);
 	m_matrix =  m_mRotation*m_mTrans;
 	m_rectangle = Math::Rectangle{ 0,0,long(m_size.first),long(m_size.second) };
@@ -103,7 +114,7 @@ float Block::GetRad()
 
 Block::Block(float x, float y, float width, float height, KdTexture* texture, bool backStage, float radian)
 {
-	SetLocalPos(x, y);
+	SetPos(x, y);
 	SetSize(width, height);
 	SetGlobalPos();
 	SetTexture(texture);

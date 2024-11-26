@@ -6,12 +6,17 @@ class Scene
 private:
 	//test2
 	// test
+	std::vector<Block> m_blocks;
+	std::vector<TerrainObject> m_terrain;
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// �s�� �E�E�E ���W�Ȃǂ̏��
 	Math::Matrix matrix;
 	//int test;
+	std::array<POINT, 2> m_point;
+	POINT m_mouse;
+	bool m_drawStartBool;
 	std::string str;
 	const char* charStr = str.c_str();
 	Menu m_inGameSetting;
@@ -32,11 +37,9 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 0,400 }, { +0.1f,-1 }, &m_charaTex);
+	PC m_player = PC({ 165,128 }, { +2.0f,-1 }, &m_charaTex);
 	float num = 6.5f / 3.0f;
-	float m_rad = M_PI*0.25f;
-	Block m_block = Block(-64, 0, 32.0f, 32.0f, &m_charaTex, false, m_rad);
-	Block m_blockSecond = Block(-32, 0, 32.0f, 32.0f, &m_charaTex, false, m_rad);
+	float m_rad = float(M_PI)*0.0f;
 	bool _test = false;
 	//test
 	bool test;
@@ -62,6 +65,7 @@ public:
 	void DrawMainScene(Math::Color inputColor);
 	void SetResumeWindows();
 	void DynamicDraw2D();
+	void CreateTerrainObject();
 private:
 
 	Scene() {}

@@ -2,13 +2,24 @@
 #include "Pch.h"
 class TerrainObject
 {
-	std::pair<int, int> m_localPos;
-	std::pair<int, int> m_globalPos;
-	std::pair<int, int> m_roomIndex;
+	std::pair<float, float> m_localPos;
+	std::pair<float, float> m_globalPos;
+	std::pair<float, float> m_xBorder;
+	std::pair<float, float> m_yBorder;
+	int m_type;
 	std::vector<Block> m_block;
+	std::vector<int> m_blockType;
+	bool m_dirty = false;
+	KdTexture m_firstBlockTex;
 public:
-	void CreateRoomBorder(std::pair<int,int> openState);
-	void CreateRoomBorder(int dirrection);
-
+	bool OnCollisionRange(std::pair<float, float>pos);
+	void Replace(Block block);
+	void ClearReplace();
+	void FoundBorder();
+	void Update();
+	std::vector<Block>* GetBlocks();
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType);
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
+	TerrainObject(const TerrainObject& object);
 };
 
