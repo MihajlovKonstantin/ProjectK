@@ -7,7 +7,7 @@ private:
 	//test2
 	// test
 	std::vector<Block> m_blocks;
-	std::vector<TerrainObject> m_terrain;
+	std::vector<TerrainObject> m_terrain;	//m_terrain
 	KdTexture m_charaTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
@@ -66,6 +66,8 @@ public:
 	void SetResumeWindows();
 	void DynamicDraw2D();
 	void CreateTerrainObject();
+	void SaveStage();
+	void LoadStage();
 private:
 
 	Scene() {}

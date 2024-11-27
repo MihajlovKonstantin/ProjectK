@@ -159,3 +159,18 @@ TerrainObject::TerrainObject(const TerrainObject& object)
 	FoundBorder();
 }
 
+std::vector<int> TerrainObject::GetTypeBlock()
+{
+	return m_blockType;
+}
+
+std::pair<float, float> TerrainObject::GetGPOS()
+{
+	return m_globalPos;
+}
+
+int TerrainObject::GetAngle()
+{
+	return m_type;
+}
+

@@ -3,12 +3,12 @@
 class TerrainObject
 {
 	std::pair<float, float> m_localPos;
-	std::pair<float, float> m_globalPos;
+	std::pair<float, float> m_globalPos;//position
 	std::pair<float, float> m_xBorder;
 	std::pair<float, float> m_yBorder;
-	int m_type;
+	int m_type;							//angle
 	std::vector<Block> m_block;
-	std::vector<int> m_blockType;
+	std::vector<int> m_blockType;		//type
 	bool m_dirty = false;
 	KdTexture m_firstBlockTex;
 public:
@@ -21,5 +21,8 @@ public:
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
+	std::vector<int> GetTypeBlock();		//type getter
+	std::pair<float, float> GetGPOS();		//position getter
+	int GetAngle();							//angle getter
 };
 

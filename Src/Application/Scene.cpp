@@ -231,6 +231,61 @@ void Scene::CreateTerrainObject()
 	m_drawStartBool = false;
 }
 
+void Scene::SaveStage()
+{
+	std::ofstream outFile("StageData");
+	if (outFile.is_open()) {
+		outFile << m_terrain.size() << "\n";
+		for (int i = 0; i < m_terrain.size(); i++)
+		{
+			outFile << m_terrain[i].GetAngle() << ",";
+			outFile << m_terrain[i].GetGPOS().first << ",";
+			outFile << m_terrain[i].GetGPOS().second << ",";
+			auto _typeBlock = m_terrain[i].GetTypeBlock();
+			int _typeBlockItr = _typeBlock.size();
+			outFile << _typeBlockItr << "\n";
+			for (int j = 0; j < _typeBlockItr; j++)
+			{
+				outFile << _typeBlock[j] << ",";
+			}
+			outFile << "\n";
+		}
+		outFile.close();
+	}
+}
+
+void Scene::LoadStage()
+{
+	std::ifstream inFile("StageData");
+	if (inFile.is_open()) {
+		//TerrainObject example
+		int x, y, angle, size, typeBlockSize, _buff;
+		std::vector<int> typeBlock;
+		std::string line;
+		getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int j = 0; j < size; j++)
+		{
+			getline(inFile, line, ',');
+			angle = stoi(line);
+			getline(inFile, line, ',');
+			x = stoi(line);
+			getline(inFile, line, ',');
+			y = stoi(line);
+			getline(inFile, line, '\n');
+			typeBlockSize = stoi(line);
+			for (int i = 0; i < typeBlockSize; i++)
+			{
+				getline(inFile, line, ',');
+				_buff = stoi(line);
+				typeBlock.push_back(_buff);
+			}
+			getline(inFile, line, '\n');
+		}
+		inFile.close();
+	}
+}
+
 void Scene::Update()
 {
 	//
