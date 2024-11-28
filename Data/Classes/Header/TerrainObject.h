@@ -10,7 +10,8 @@ class TerrainObject
 	std::vector<Block> m_block;
 	std::vector<int> m_blockType;		//type
 	bool m_dirty = false;
-	KdTexture m_firstBlockTex;
+	KdTexture* m_firstBlockTex;
+	
 public:
 	bool OnCollisionRange(std::pair<float, float>pos);
 	void Replace(Block block);
@@ -18,7 +19,7 @@ public:
 	void FoundBorder();
 	void Update();
 	std::vector<Block>* GetBlocks();
-	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType);
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,KdTexture& tex);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
 	std::vector<int> GetTypeBlock();		//type getter
