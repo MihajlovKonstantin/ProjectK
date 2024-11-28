@@ -280,8 +280,10 @@ void Scene::LoadStage()
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_charaTex));
 			getline(inFile, line, '\n');
 		}
+		
 		inFile.close();
 	}
 }
@@ -323,6 +325,15 @@ void Scene::Update()
 		{
 			m_player.Stop();
 		}
+		if (GetAsyncKeyState('L'))
+		{
+			SaveStage();
+		}
+		if (GetAsyncKeyState('P'))
+		{
+			LoadStage();
+		}
+
 		m_player.Update();
 		if (GetAsyncKeyState(VK_LEFT))
 		{
