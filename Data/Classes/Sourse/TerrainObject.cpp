@@ -15,15 +15,16 @@ bool TerrainObject::OnCollisionRange(std::pair<float, float> pos)
 
 void TerrainObject::Replace(Block block)
 {
-	for (auto _block : m_block)
+	for (int i = 0;i<m_block.size();i++)
 	{
 		auto _data1 = block.GetGPos();
-		auto _data2 = _block.GetGPos();
+		auto _data2 = m_block[i].GetGPos();
 		if (_data1.first == _data2.first)
 		{
 			if (_data1.second == _data2.second)
 			{
-				_block.SetDeleteState(true);
+				m_block[i].SetDeleteState(true);
+				m_dirty = true;
 			}
 		}
 
@@ -33,53 +34,67 @@ void TerrainObject::Replace(Block block)
 void TerrainObject::ClearReplace()
 {
 	auto _it = m_block.begin();
-	for (size_t i = 0; i < m_block.size();)
+	int j = 0;
+	for (size_t i = 0; (!m_block.empty())&&j<m_blockType.size();)
 	{
-
+		while (m_blockType[j] == 0)
+		{
+			j++;
+		}
 		if (m_block.at(i).GetDeleteState())
 		{
 			m_block.erase(_it);
-			m_dirty - true;
+			m_blockType[j] = 0;
+			if (!m_block.empty())
+			{
+				_it = m_block.begin() + i;
+			}
+			m_dirty = true;
 		}
 		else
 		{
-			i++;
 			_it++;
+			i++;
 		}
+		j++;
 	}
 }
 
 void TerrainObject::FoundBorder()
 {
-	auto data1 = m_block[0].GetGPos();
-	auto data2 = m_block[m_block.size() - 1].GetGPos();
-	if (data1.first > data2.first)
+	if (!m_block.empty())
 	{
-		m_xBorder.first = data2.first-100;
-		m_xBorder.second = data1.first + 100;
-	}
-	else
-	{
-		m_xBorder.first = data1.first - 100;
-		m_xBorder.second = data2.first + 100;
-	}
-	if (data1.second > data2.second)
-	{
-		m_yBorder.first = data2.second - 100;
-		m_yBorder.second = data1.second + 100;
-	}
-	else
-	{
-		m_yBorder.first = data1.second - 100;
-		m_yBorder.second = data2.second + 100;
+		auto data1 = m_block[0].GetGPos();
+		auto data2 = m_block[m_block.size() - 1].GetGPos();
+		if (data1.first > data2.first)
+		{
+			m_xBorder.first = data2.first - 100;
+			m_xBorder.second = data1.first + 100;
+		}
+		else
+		{
+			m_xBorder.first = data1.first - 100;
+			m_xBorder.second = data2.first + 100;
+		}
+		if (data1.second > data2.second)
+		{
+			m_yBorder.first = data2.second - 100;
+			m_yBorder.second = data1.second + 100;
+		}
+		else
+		{
+			m_yBorder.first = data1.second - 100;
+			m_yBorder.second = data2.second + 100;
+		}
 	}
 }
 
 void TerrainObject::Update()
 {
+	ClearReplace();
 	if (m_dirty)
 	{
-		ClearReplace();
+		
 		FoundBorder();
 	}
 	for (int i = 0;i<m_block.size();i++)

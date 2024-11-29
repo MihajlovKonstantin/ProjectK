@@ -117,10 +117,13 @@ void Scene::DynamicDraw2D()
 		for (auto _terrainObject : m_terrain)
 		{
 			auto _blocks = *_terrainObject.GetBlocks();
-			for (int i = 0;i<_blocks.size();i++)
+			if (!_blocks.empty())
 			{
-				SHADER.m_spriteShader.SetMatrix(_blocks[i].GetMatrix());
-				SHADER.m_spriteShader.DrawTex(_blocks[i].GetTexture(), _blocks[i].GetRectangle());
+				for (int i = 0; i < _blocks.size(); i++)
+				{
+					SHADER.m_spriteShader.SetMatrix(_blocks[i].GetMatrix());
+					SHADER.m_spriteShader.DrawTex(_blocks[i].GetTexture(), _blocks[i].GetRectangle());
+				}
 			}
 		}
 
@@ -223,6 +226,16 @@ void Scene::CreateTerrainObject()
 		case 8:
 			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
 			break;
+		}
+	}
+	for (auto __block : m_blocks)
+	{
+		for (int i = 0; i < m_terrain.size(); i++)
+		{
+			if (!m_terrain[i].GetBlocks()->empty())
+			{
+				m_terrain[i].Replace(__block);
+			}
 		}
 	}
 	//auto _terrain = new ;

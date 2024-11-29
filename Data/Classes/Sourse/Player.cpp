@@ -15,8 +15,8 @@ bool Player::IsPossibleAngle(float radian)
 	}
 	radian = fmod(radian, 2.0f * float(M_PI));
 	//radian -= float(M_PI) / 2.0f;
-	float _delta = float(M_PI) / 6.0f;
-	if((radian<_delta)||((radian>	(float(M_PI) -_delta)	)&&(radian<float(M_PI) +_delta)	)||(radian> float(M_PI) *2.0f-_delta))
+	float _delta = float(M_PI) *0.25f;
+	if((radian<=_delta)||((radian>=	(float(M_PI) -_delta)	)&&(radian<=float(M_PI) +_delta)	)||(radian>= float(M_PI) *2.0f-_delta))
 		_result = true;
 	return _result;
 }
@@ -24,10 +24,13 @@ void Player::Update()
 {
 	m_stopFlag = false;
 	m_scale = { 1,1 };
+	
 	int index;
 	if (!m_collisionData.empty())
 	{
 		std::pair<float, float> _comparePos = { m_collisionData[0].pos };
+		//test
+		/*
 		index = 0;
 		if (m_collisionData.size() > 1)
 		{
@@ -63,10 +66,58 @@ void Player::Update()
 			}
 
 		}
+		*/
+		//end test
+		//
+		index = 0;
+		if (m_collisionData.size() > 1)
+		{
+			for (int i = 1; i < m_collisionData.size(); i++)
+			{
+				switch (m_direction)
+				{
+				case Left:
+					if (m_collisionData[i].pos.first <= _comparePos.first)
+					{
+						if (m_collisionData[i].sideRad == float(M_PI) * 1.5f)
+						{
+							m_stopFlag = true;
+						}
+						else
+						{
+							index = i;
+							_comparePos = m_collisionData[i].pos;
+						}
+					}
+					break;
+				case Right:
+					if (m_collisionData[i].pos.first >= _comparePos.first)
+					{
+						if (m_collisionData[i].sideRad == float(M_PI) * 0.5f)
+						{
+							m_stopFlag = true;
+						}
+						else
+						{
+							index = i;
+							_comparePos = m_collisionData[i].pos;
+						}
+					}
+					break;
+				}
+			}
+			
+
+		}
+		//
 		m_rad = m_collisionData[index].rad;
 		if (IsPossibleAngle(m_rad))
 		{
 			m_groundFlag = true;
+		}
+		else
+		{
+			m_stopFlag = true;
 		}
 
 		m_sideRad = m_collisionData[index].sideRad;
@@ -82,8 +133,8 @@ void Player::Update()
 			std::pair<float, float> __futurePos = m_pos;
 			__futurePos.first += m_currentSpeed.first;
 			__futurePos.second += m_currentSpeed.second;
-			m_pos.first += m_collisionData[index].dPos.first;
-			m_pos.second += m_collisionData[index].dPos.second;
+			//m_pos.first += m_collisionData[index].dPos.first;
+			//m_pos.second += m_collisionData[index].dPos.second;
 			//m_stopFlag = true;
 		}
 		if (m_rad < 0)
@@ -423,6 +474,8 @@ void Player::Update()
 	}
 }
 */
+//test
+/*
 bool Player::CollisionToBlock(Block block)
 {
 	bool _result = false;
@@ -545,7 +598,7 @@ bool Player::CollisionToBlock(Block block)
 								_sideAngle = 0 * float(M_PI) * 0.5f;
 							}
 						}
-						*/
+						
 					if (i > 0)
 					{
 
@@ -712,6 +765,8 @@ bool Player::CollisionToBlock(Block block)
 	}
 	return _result;
 }
+*/
+//endtest
 /*
 bool Player::CollisionToBlock(Block block)
 {
@@ -1065,6 +1120,218 @@ bool Player::CollisionToBlock(Block block)
 	return _result;
 }
 */
+//
+bool Player::CollisionToBlock(Block block)
+{
+	bool _result = false;
+	std::pair<float, float> _bPos = block.GetGPos();
+	std::pair<float, float> _bSize = block.GetSize();
+	std::pair<float, float> _position;
+	DirectX::BoundingBox _sphere;
+	DirectX::BoundingBox _box;
+	float _sideAngle = 0.0f;
+	float _dX = 0.0f, _dY = 0.0f;
+	float _bRad = block.GetRad();
+	_position.first = m_pos.first - _bPos.first;
+	_position.second = m_pos.second - _bPos.second;
+	_bPos = { 0,0 };
+	std::pair<float, float>__buffer = { _position.first,_position.second };
+	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
+	_position.second = __buffer.first * sin(_bRad) + cos(_bRad) * __buffer.second;
+
+	_sphere = DirectX::BoundingBox(DirectX::XMFLOAT3(_position.first, _position.second, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
+	_box = DirectX::BoundingBox(DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
+	std::array<DirectX::XMVECTOR, 4> _bOriginVector;
+	std::array<DirectX::XMVECTOR, 4> _bNorVector;
+	std::array<bool, 4> _intersectVector;
+	std::array< float, 4> _absDelta;
+	_bOriginVector[0] = { -_bSize.first / 2.0f,_bSize.second / 2.0f,0 };
+	_bOriginVector[1] = { -_bSize.first / 2.0f,_bSize.second / 2.0f,0 };
+	_bOriginVector[2] = { _bSize.first / 2.0f,-_bSize.second / 2.0f,0 };
+	_bOriginVector[3] = { _bSize.first / 2.0f,-_bSize.second / 2.0f,0 };
+	_bNorVector[0] = DirectX::XMVector3Normalize({ _bSize.first,0,0 });
+	_bNorVector[1] = DirectX::XMVector3Normalize({ 0,-_bSize.second,0 });
+	_bNorVector[2] = DirectX::XMVector3Normalize({ -_bSize.first,0,0 });
+	_bNorVector[3] = DirectX::XMVector3Normalize({ 0,_bSize.second,0 });
+	float _distanceBuf = FLT_MAX;
+	float _distance = _distanceBuf;
+
+	for (int i = 0; i < 4; i++)
+	{
+		_intersectVector[i] = _sphere.Intersects(_bOriginVector[i], _bNorVector[i], _distanceBuf);
+		if (_distanceBuf < _distance && _intersectVector[i])
+		{
+			_distance = _distanceBuf;
+		}
+	}
+	_result = _sphere.Intersects(_box);
+	if (!_result)
+	{
+		if (_distance <= 0)
+		{
+			_result = true;
+		}
+	}
+
+	if (m_direction == Direction::Right)
+	{
+		_bRad += float(M_PI);
+	}
+	int _intersectNum = 0;
+	if (_intersectVector[1])
+	{
+		_sideAngle = float(M_PI) * 0.5f;
+		_intersectNum++;
+		_absDelta[1] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+	}
+
+	if (_intersectVector[3])
+	{
+		_sideAngle = float(M_PI) * 1.5f;
+		_intersectNum++;
+		_absDelta[3] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+	}
+	if (_intersectVector[0])
+	{
+		_sideAngle = 0;
+		_intersectNum++;
+		_absDelta[0] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+	}
+	if (_intersectVector[2])
+	{
+		_sideAngle = float(M_PI);
+		_intersectNum++;
+		_absDelta[2] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+	}
+	if (_result)
+	{
+		
+		if (_intersectNum > 1)
+		{
+			_sideAngle = -1;
+			if ((_position.second >= (_bPos.second + _bSize.second * 0.5f))&&((_position.first>=(_bPos.first-_bSize.first))&&(_position.first<=(_bPos.first+_bSize.first))))
+			{
+				_sideAngle = 0;
+			}
+			if ((_position.second <= (_bPos.second - _bSize.second * 0.5f)) && ((_position.first >=( _bPos.first - _bSize.first)) && (_position.first <= (_bPos.first + _bSize.first ))))
+			{
+				_sideAngle = float(M_PI);
+			}
+			if (_sideAngle < 0)
+			{
+				if (_intersectVector[1])
+				{
+					_sideAngle = float(M_PI) * 0.5f;
+				}
+				else
+				{
+					_sideAngle = float(M_PI) * 1.5f;
+				}
+			}
+			switch (m_direction)
+			{
+			case Right:
+				
+					
+				if (_sideAngle == 0)
+				{
+					if ((_sphere.Center.y - 16.0f) < 16.0f)
+					{
+						_dY = 16.0f - (_sphere.Center.y - 16.0f);
+						_dX = _dY * sin(_bRad);
+						_dY *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI))
+				{
+					if ((_sphere.Center.y + 16.0f) > -16.0f)
+					{
+						_dY = -(16.0f - abs(_sphere.Center.y + 16.0f));
+						_dX = _dY * sin(_bRad);
+						_dY *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI) * 0.5f)
+				{
+					if ((_sphere.Center.x + 16.0f) > -16.0f)
+					{
+						_dX = -(16.0f - abs(_sphere.Center.x + 16.0f));
+						_dY = -_dX * sin(_bRad);
+						_dX *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI) * 1.5f)
+				{
+					if ((_sphere.Center.x - 16.0f) < 16.0f)
+					{
+						_dX = (16.0f - abs(_sphere.Center.x - 16.0f));
+						_dY = -_dX * sin(_bRad);
+						_dX *= cos(_bRad);
+					}
+				}
+				break;
+			case Left:
+				
+				if (_sideAngle == 0)
+				{
+					if ((_sphere.Center.y - 16.0f) < 16.0f)
+					{
+						_dY = 16.0f - (_sphere.Center.y - 16.0f);
+						_dX = _dY * sin(_bRad);
+						_dY *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI))
+				{
+					if ((_sphere.Center.y + 16.0f) > -16.0f)
+					{
+						_dY = -(16.0f - abs(_sphere.Center.y + 16.0f));
+						_dX = _dY * sin(_bRad);
+						_dY *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI) * 0.5f)
+				{
+					if ((_sphere.Center.x + 16.0f) > -16.0f)
+					{
+						_dX = -(16.0f - abs(_sphere.Center.x + 16.0f));
+						_dY = -_dX * sin(_bRad);
+						_dX *= cos(_bRad);
+					}
+				}
+				if (_sideAngle == float(M_PI) * 1.5f)
+				{
+					if ((_sphere.Center.x - 16.0f) < 16.0f)
+					{
+						_dX = (16.0f - abs(_sphere.Center.x - 16.0f));
+						_dY = -_dX * sin(_bRad);
+						_dX *= cos(_bRad);
+					}
+				}
+				break;
+			}
+
+		}
+
+
+		switch (m_direction)
+		{
+		case Left:
+			_bRad = _bRad + float(M_PI);
+			break;
+		case Right:
+			_bRad = _bRad + float(M_PI);
+			break;
+		case Stand:
+			m_stopFlag = true;
+			break;
+		};
+		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY} });
+
+	}
+	return _result;
+}
+//
 bool Player::CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, float> b_size, float b_rad)
 {
 	bool _result = false;
