@@ -23,6 +23,7 @@ public:
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,KdTexture& tex);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
+	bool IsContain();
 	std::vector<int> GetTypeBlock();		//type getter
 	std::pair<float, float> GetGPOS();		//position getter
 	int GetAngle();							//angle getter

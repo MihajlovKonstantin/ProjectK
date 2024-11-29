@@ -228,13 +228,13 @@ void Scene::CreateTerrainObject()
 			break;
 		}
 	}
-	for (auto __block : m_blocks)
+	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
 	{
-		for (int i = 0; i < m_terrain.size(); i++)
+		for (int j = 0; (j < m_blocks.size()) && (!m_blocks.empty()); j++)
 		{
-			if (!m_terrain[i].GetBlocks()->empty())
+			if (m_terrain[i].IsContain())
 			{
-				m_terrain[i].Replace(__block);
+				m_terrain[i].Replace(m_blocks[j]);
 			}
 		}
 	}
@@ -365,26 +365,35 @@ void Scene::Update()
 			m_player.SetDirection(Direction::Stand);
 		}
 		GetCursorPos(&m_mouse);
-		if (GetAsyncKeyState(VK_LBUTTON))
+		if (GetAsyncKeyState(VK_SPACE))
 		{
 			if (!m_drawStartBool)
 			{
 				m_point[0] = m_mouse;
-			}
+			}  
 			m_drawStartBool = true;
 		}
 		else
 		{
 			if (m_drawStartBool)
 			{
-				m_point[1] = mouse;
+				m_point[1] = m_mouse;
 				CreateTerrainObject();
 			}
 		}
-		for (int i = 0;i<m_terrain.size();i++)
+		m_blocks.clear();
+		for (size_t i = 0;i<m_terrain.size();)
 		{
-
-			m_terrain[i].Update();
+			if (m_terrain[i].GetBlocks()->empty())
+			{
+ 				m_terrain.erase(m_terrain.begin()+i);
+			}
+			else
+			{
+				m_terrain[i].Update();
+				i++;
+			}
+			
 		}
 	}
 	GetCursorPos(&mouse);

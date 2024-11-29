@@ -15,9 +15,9 @@ bool TerrainObject::OnCollisionRange(std::pair<float, float> pos)
 
 void TerrainObject::Replace(Block block)
 {
-	for (int i = 0;i<m_block.size();i++)
+ 	for (int i = 0;i<m_block.size()&&(!m_block.empty());i++)
 	{
-		auto _data1 = block.GetGPos();
+ 		auto _data1 = block.GetGPos();
 		auto _data2 = m_block[i].GetGPos();
 		if (_data1.first == _data2.first)
 		{
@@ -34,26 +34,36 @@ void TerrainObject::Replace(Block block)
 void TerrainObject::ClearReplace()
 {
 	auto _it = m_block.begin();
-	int j = 0;
-	for (size_t i = 0; (!m_block.empty())&&j<m_blockType.size();)
+	int j =0;
+	for (size_t i = 0; (!m_block.empty())&&(j<m_blockType.size())&&(i<m_block.size());)
 	{
-		while (m_blockType[j] == 0)
+		while (j<m_blockType.size())
 		{
-			j++;
+			if ((m_blockType[j] == 0))
+			{
+				j++;
+			}
+			else
+			{
+				break;
+			}
 		}
 		if (m_block.at(i).GetDeleteState())
 		{
-			m_block.erase(_it);
-			m_blockType[j] = 0;
 			if (!m_block.empty())
 			{
 				_it = m_block.begin() + i;
+			}
+			m_block.erase(_it);
+			i--;
+			if ((j < m_blockType.size()))
+			{
+				m_blockType[j] = 0;
 			}
 			m_dirty = true;
 		}
 		else
 		{
-			_it++;
 			i++;
 		}
 		j++;
@@ -179,6 +189,11 @@ TerrainObject::TerrainObject(const TerrainObject& object)
 	m_block = object.m_block;
 	m_blockType = object.m_blockType;
 	FoundBorder();
+}
+
+bool TerrainObject::IsContain()
+{
+	return !m_block.empty();
 }
 
 std::vector<int> TerrainObject::GetTypeBlock()
