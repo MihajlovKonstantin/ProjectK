@@ -327,12 +327,16 @@ void Scene::Update()
 		}
 		if (GetAsyncKeyState('L'))
 		{
-			SaveStage();
+			if (!lKey)SaveStage();
+			lKey = true;
 		}
+		else lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			LoadStage();
+			if (!pKey)LoadStage();
+			pKey = true;
 		}
+		else pKey = false;
 
 		m_player.Update();
 		if (GetAsyncKeyState(VK_LEFT))
@@ -440,6 +444,8 @@ void Scene::Init(WindowsControlData* WCInput)
 	tmpTex.CreateRenderTarget(1280, 720);
 	m_player.SetDirection(Direction::Right);
 	m_blocks.push_back(Block(0, 0, 32, 32, &m_charaTex, false,   0));
+	lKey = false;
+	pKey = false;
 }
 
 void Scene::Release()
