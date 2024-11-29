@@ -43,6 +43,9 @@ private:
 	bool _test = false;
 	//test
 	bool test;
+	//キー制御用
+	bool lKey;
+	bool pKey;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
