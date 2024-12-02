@@ -138,6 +138,17 @@ void Scene::CreateTerrainObject()
 	float __dy = int((-m_point[1].y + 360) / 32.0f) * 32.0f - int((-m_point[0].y + 360) / 32.0f) * 32.0f;
 	(__dy < 1) && (__dy > -1) ? __dy = 32.0f : __dy = __dy;
 	float radian;
+	KdTexture* _currentTex;
+	switch (BlockKinds)
+	{
+	case 1:
+		_currentTex = &m_BlockTex;
+		break;
+	case 2:
+		_currentTex = &m_IceBlockTex;
+		break;
+	}
+
 	int i;
 	if ((__dx == 32.0f) && (__dy == 32.0f))
 	{
@@ -197,37 +208,40 @@ void Scene::CreateTerrainObject()
 	for (int j = 0; j < i; j++)
 	{
 		_terrainTypeVector.push_back(_terrainType);
-		switch (buffer)
 		{
-		case 0:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 1:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 2:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 3:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 4:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 5:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 6:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 7:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
-		case 8:
-			m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, &m_charaTex, false, 0));
-			break;
+			switch (buffer)
+			{
+			case 0:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 1:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 2:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 3:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 4:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 5:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 6:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 7:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 8:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			}
 		}
 	}
+	
 	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
 	{
 		for (int j = 0; (j < m_blocks.size()) && (!m_blocks.empty()); j++)
@@ -238,8 +252,11 @@ void Scene::CreateTerrainObject()
 			}
 		}
 	}
-	//auto _terrain = new ;
+
 	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector, m_blocks));
+	
+	//auto _terrain = new ;
+	
 	
 	m_drawStartBool = false;
 }
@@ -293,7 +310,7 @@ void Scene::LoadStage()
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_charaTex));
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_BlockTex));
 			getline(inFile, line, '\n');
 		}
 		
@@ -303,6 +320,7 @@ void Scene::LoadStage()
 
 void Scene::Update()
 {
+
 	//
 	if (!WC->IsPause())
 	{
@@ -351,6 +369,18 @@ void Scene::Update()
 		}
 		else pKey = false;
 
+		if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
+		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
+		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
+		if (GetAsyncKeyState('K') & 0x8000)
+		{
+			BlockKinds = 1;
+		}
+		if (GetAsyncKeyState('J') & 0x8000)
+		{
+			BlockKinds = 2;
+		}
+
 		m_player.Update();
 		if (GetAsyncKeyState(VK_LEFT))
 		{
@@ -378,7 +408,16 @@ void Scene::Update()
 			if (m_drawStartBool)
 			{
 				m_point[1] = m_mouse;
-				CreateTerrainObject();
+				switch (EditerMenu)
+				{
+				case BlockMenu:
+					CreateTerrainObject();
+					break;
+				case EnemyMenu:
+					break;
+				case ItemMenu:
+					break;
+				}
 			}
 		}
 		m_blocks.clear();
@@ -460,12 +499,13 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_charaTex.Load("Texture/Object/RedBox.png");;
+	m_BlockTex.Load("Texture/Object/RedBox.png");;
+	m_IceBlockTex.Load("Texture/Snowslice03_03.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	m_player.SetDirection(Direction::Right);
-	m_blocks.push_back(Block(0, 0, 32, 32, &m_charaTex, false,   0));
+	m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
 	lKey = false;
 	pKey = false;
 }
@@ -473,7 +513,7 @@ void Scene::Init(WindowsControlData* WCInput)
 void Scene::Release()
 {
 	// ‰æ‘œ‚Ì‰ğ•úˆ—
-	m_charaTex.Release();
+	m_BlockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }

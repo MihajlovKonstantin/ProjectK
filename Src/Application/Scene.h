@@ -6,9 +6,14 @@ class Scene
 private:
 	//test2
 	// test
+	int BlockKinds = 1;
+	int EditerMenu = BlockMenu;
+	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
+
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
-	KdTexture m_charaTex;
+	KdTexture m_IceBlockTex;
+	KdTexture m_BlockTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// �s�� �E�E�E ���W�Ȃǂ̏��
@@ -37,7 +42,7 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 165,128 }, { +2.0f,-1 }, &m_charaTex);
+	PC m_player = PC({ 165,128 }, { +2.0f,-1 }, &m_BlockTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
 	bool _test = false;

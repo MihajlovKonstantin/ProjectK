@@ -19,6 +19,7 @@ public:
 	void FoundBorder();
 	void Update();
 	void EarthBlock(int type, KdTexture& tex,int j);
+	void IceBlock(int type, KdTexture& tex, int j);
 	std::vector<Block>* GetBlocks();
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,KdTexture& tex);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
