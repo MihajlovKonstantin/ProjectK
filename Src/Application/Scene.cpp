@@ -145,7 +145,21 @@ void Scene::CreateTerrainObject()
 		_currentTex = &m_BlockTex;
 		break;
 	case 2:
-		_currentTex = &m_IceBlockTex;
+		switch (IceBlockMenu)
+		{
+		case Surface:
+			_currentTex = &m_IceSurfaceBlockTex;
+			break;
+		case Inside:
+			_currentTex = &m_IceInsideBlockTex;
+			break;
+		}
+		break;
+	case 3:
+		_currentTex = &m_GroundBlockTex;
+		break;
+	case 4:
+		_currentTex = &m_IceWaterBlockTex;
 		break;
 	}
 
@@ -374,14 +388,14 @@ void Scene::Update()
 		if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
 		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
 		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
-		if (GetAsyncKeyState('K') & 0x8000)
-		{
-			BlockKinds = 1;
-		}
-		if (GetAsyncKeyState('J') & 0x8000)
-		{
-			BlockKinds = 2;
-		}
+
+		if (GetAsyncKeyState('N'))IceBlockMenu = Surface;
+		if (GetAsyncKeyState('B'))IceBlockMenu = Inside;
+
+		if (GetAsyncKeyState('K')) BlockKinds = 1;
+		if (GetAsyncKeyState('J')) BlockKinds = 2;
+		if (GetAsyncKeyState('H')) BlockKinds = 3;
+		if (GetAsyncKeyState('M')) BlockKinds = 4;
 
 		m_player.Update();
 		if (GetAsyncKeyState(VK_LEFT))
@@ -502,7 +516,10 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
 	m_BlockTex.Load("Texture/Object/RedBox.png");;
-	m_IceBlockTex.Load("Texture/Snowslice03_03.png");;
+	m_IceSurfaceBlockTex.Load("Texture/GroundBlock/Snowslice03_03.png");;
+	m_IceInsideBlockTex.Load("Texture/GroundBlock/Snowslice27_27.png");;
+	m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
+	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
