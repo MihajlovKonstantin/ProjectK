@@ -83,21 +83,6 @@ void Player::Update()
 
 		m_sideRad = m_collisionData[index].sideRad;
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
-		if (IsPossibleAngle(fmod(m_collisionData[index].rad, float(M_PI) * 2.0f)))
-		{
-
-			m_pos.first += m_collisionData[index].dPos.first;
-			m_pos.second += m_collisionData[index].dPos.second;
-		}
-		else
-		{
-			std::pair<float, float> __futurePos = m_pos;
-			__futurePos.first += m_currentSpeed.first;
-			__futurePos.second += m_currentSpeed.second;
-			//m_pos.first += m_collisionData[index].dPos.first;
-			//m_pos.second += m_collisionData[index].dPos.second;
-			//m_stopFlag = true;
-		}
 		if (m_rad < 0)
 		{
 			m_rad += 2.0f * float(M_PI);
@@ -308,7 +293,7 @@ bool Player::CollisionToBlock(Block block)
 	if (_intersectVector[1])
 	{
 		_sideAngle = float(M_PI) * 0.5f;
-		if ((_position.second < _bPos.second + _bSize.second-5.0f) && (_position.second > _bPos.second - _bSize.second + 5.0f))
+		if ((_position.second < _bPos.second + _bSize.second- 3.5f) && (_position.second > _bPos.second - _bSize.second + 3.5f))
 		{
 			m_moveBlock[1] = true;
 		}
@@ -319,7 +304,7 @@ bool Player::CollisionToBlock(Block block)
 	if (_intersectVector[3])
 	{
 		_sideAngle = float(M_PI) * 1.5f;
-		if ((_position.second < _bPos.second + _bSize.second) && (_position.second > _bPos.second - _bSize.second))
+		if ((_position.second < _bPos.second + _bSize.second - 3.5f) && (_position.second > _bPos.second - _bSize.second + 3.5f))
 		{
 			m_moveBlock[3] = true;
 		}
@@ -329,7 +314,7 @@ bool Player::CollisionToBlock(Block block)
 	if (_intersectVector[0])
 	{
 		_sideAngle = 0;
-		if ((_position.first < _bPos.first + _bSize.first) && (_position.first > _bPos.first - _bSize.first))
+		if ((_position.first < _bPos.first + _bSize.first - 3.5f) && (_position.first > _bPos.first - _bSize.first + 3.5f))
 		{
 			m_moveBlock[0] = true;
 		}
@@ -339,7 +324,7 @@ bool Player::CollisionToBlock(Block block)
 	if (_intersectVector[2])
 	{
 		_sideAngle = float(M_PI);
-		if ((_position.first < _bPos.first + _bSize.first) && (_position.first > _bPos.first - _bSize.first))
+		if ((_position.first < _bPos.first + _bSize.first - 3.5f)  && (_position.first > _bPos.first - _bSize.first + 3.5f))
 		{
 			m_moveBlock[2] = true;
 		}

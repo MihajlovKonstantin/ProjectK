@@ -202,7 +202,7 @@ void Scene::CreateTerrainObject()
 		radian = 2.0f * float(M_PI);
 	}
 	buffer = int(radian / (float(M_PI) * 0.25f));
-	int _terrainType = 1;
+	int _terrainType = BlockKinds;
 	std::vector<int> _terrainTypeVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
@@ -296,6 +296,7 @@ void Scene::LoadStage()
 		size = stoi(line);
 		for (int j = 0; j < size; j++)
 		{
+			typeBlock.clear();
 			getline(inFile, line, ',');
 			angle = stoi(line);
 			getline(inFile, line, ',');
@@ -310,6 +311,7 @@ void Scene::LoadStage()
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
+
 			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_BlockTex));
 			getline(inFile, line, '\n');
 		}

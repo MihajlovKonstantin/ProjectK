@@ -42,7 +42,7 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 165,128 }, { +2.0f,-1 }, &m_BlockTex);
+	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_BlockTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
 	bool _test = false;
