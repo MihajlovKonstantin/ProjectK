@@ -8,12 +8,17 @@ private:
 	// test
 	int BlockKinds = 1;
 	int EditerMenu = BlockMenu;
+	int IceBlockMenu = Surface;
 	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
+	enum IceBlockSelect {Surface,Inside};
 
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
-	KdTexture m_IceBlockTex;
+	KdTexture m_IceSurfaceBlockTex;
+	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
+	KdTexture m_GroundBlockTex;
+	KdTexture m_IceWaterBlockTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// �s�� �E�E�E ���W�Ȃǂ̏��
