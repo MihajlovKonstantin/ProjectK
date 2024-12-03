@@ -71,6 +71,7 @@ void Player::Update()
 
 		}
 		//
+		//m_rad = DirectX::XMConvertToRadians(m_collisionData[index].rad);
 		m_rad = m_collisionData[index].rad;
 		if (IsPossibleAngle(m_rad))
 		{
@@ -114,7 +115,7 @@ void Player::Update()
 		switch (m_direction)
 		{
 		case Left:
-			_drawRad = fmod(_drawRad + 0.0001, 1.0f * float(M_PI));
+			_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
 			if (_drawRad >= float(M_PI) * 0.5f)
 			{
 				_drawRad += float(M_PI) * 1.0f;
@@ -123,7 +124,16 @@ void Player::Update()
 			m_mScale = Math::Matrix::CreateScale(-1, 1, 1);
 			break;
 		case Right:
-			_drawRad = fmod(_drawRad + 0.0001, 1.0f * float(M_PI));
+			_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
+			if (_drawRad >= float(M_PI) * 0.5f)
+			{
+				_drawRad += float(M_PI) * 1.0f;
+			}
+			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad + float(M_PI) * 1.5f);
+			m_mScale = Math::Matrix::CreateScale(1, 1, 1);
+			break;
+		default:
+			_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
 			if (_drawRad >= float(M_PI) * 0.5f)
 			{
 				_drawRad += float(M_PI) * 1.0f;
@@ -153,6 +163,7 @@ void Player::Update()
 	{
 	case Stand:
 		m_stopFlag = true;
+		m_currentSpeed.first = 0;
 		m_currentSpeed.second = m_speed.second;
 		break;
 	}
@@ -166,43 +177,35 @@ void Player::Update()
 	}
 
 
-	if(!m_stopFlag)
-	{
-		float _moveRad = fmod(m_rad + 0.0001, float(M_PI));
-		switch (m_direction)
+	float _moveRad = fmod(m_rad + 0.0001, float(M_PI));
+	switch (m_direction)
 		{
-		case Right:
-			m_currentSpeed.first = 0;
-			if ((m_groundFlag == true)&&(!m_moveBlock[1]))
-			{
-				m_currentSpeed.first = m_speed.first * abs(cos(_moveRad)) + m_speed.second * sin(_moveRad);
-			}
-			else
-			{
-				if (!m_moveBlock[1])
-				{
-					m_currentSpeed.first = m_speed.first * cos(_moveRad) - m_speed.second * sin(_moveRad);
-				}
-			}
+			case Right:
+				m_currentSpeed.first = 0;
+				if (m_groundFlag == true)
+					{
+						m_currentSpeed.first = m_speed.first * abs(cos(_moveRad)) + m_speed.second * sin(_moveRad);
+					}
+				else
+					{
+						m_currentSpeed.first = m_speed.first * cos(_moveRad) - m_speed.second * sin(_moveRad);
+					}
 			
 			break;
 		case Left:
-			m_currentSpeed.first = 0;
-			if ((m_groundFlag == true)&& (!m_moveBlock[3]))
-			{
-				m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) + m_speed.second * sin(_moveRad);
-			}
-			else
-			{
-				if (!m_moveBlock[3])
-				{
-					m_currentSpeed.first = m_speed.first * cos(_moveRad + float(M_PI)) - m_speed.second * sin(_moveRad + float(M_PI));
-				}
-			}
-			
-			
+				m_currentSpeed.first = 0;
+				if (m_groundFlag == true)
+					{
+						m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) + m_speed.second * sin(_moveRad);
+					}
+				else
+					{
+						m_currentSpeed.first = m_speed.first * cos(_moveRad + float(M_PI)) - m_speed.second * sin(_moveRad + float(M_PI));
+					}
 			break;
 		}
+	if (m_rad == 0||(m_rad ==float(M_PI)*0.5f)|| (m_rad == float(M_PI) * 1.0f)|| (m_rad == float(M_PI) * 1.5f))
+	{
 		if (m_speed.second < 0)
 		{
 			if (!m_moveBlock[0])
@@ -217,12 +220,28 @@ void Player::Update()
 				m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
 			}
 		}
+		if (m_currentSpeed.first > 0)
+		{
+			if (m_moveBlock[1] && ((m_sideRad == 0) || (m_sideRad == float(M_PI) * 0.5f) || (m_sideRad == float(M_PI) * 1.0f) || (m_sideRad == float(M_PI) * 1.5f)))
+			{
+				m_currentSpeed.first = 0;
+			}
+		}
+		else
+		{
+			if (m_moveBlock[3] && ((m_sideRad == 0) || (m_sideRad == float(M_PI) * 0.5f) || (m_sideRad == float(M_PI) * 1.0f) || (m_sideRad == float(M_PI) * 1.5f)))
+			{
+				m_currentSpeed.first = 0;
+			}
+		}
 	}
 	else
 	{
-		m_currentSpeed.first = 0;
+		if (m_direction != Stand)
+		{
+			m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
+		}
 	}
-	
 	m_pos.first += m_currentSpeed.first;
 	m_pos.second += m_currentSpeed.second;
 	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);

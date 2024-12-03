@@ -23,7 +23,7 @@ void Block::SetPos(float xPos, float yPos)
 void Block::Update()
 {
 	m_mTrans = Math::Matrix::CreateTranslation(m_localPos.first, m_localPos.second, 0);
-	m_mRotation = Math::Matrix::CreateRotationZ(m_rad);
+	m_mRotation = Math::Matrix::CreateRotationZ(0);
 	m_matrix =  m_mRotation*m_mTrans;
 	m_rectangle = Math::Rectangle{ 0,0,long(m_size.first),long(m_size.second) };
 }
