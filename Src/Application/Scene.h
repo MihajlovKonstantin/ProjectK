@@ -8,16 +8,32 @@ private:
 	// test
 	int BlockKinds = 1;
 	int EditerMenu = BlockMenu;
-	int IceBlockMenu = Surface;
+	int IceBlockMenu = IceSurface;
+	int GroundBlockMenu = GroundSurface;
 	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
-	enum IceBlockSelect {Surface,Inside};
+	enum IceBlockSelect {IceSurface,IceInside ,IceRightSlope,IceLeftSlope,
+		IceRightSlopeUnder, IceLeftSlopeUnder};
+	enum GroundBlockSelect { GroundSurface, GroundInside ,GroundRightSlope ,GroundLeftSlope,
+		GroundRightSlopeUnder, GroundLeftSlopeUnder};
 
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
+	KdTexture m_BlockTex;
+	//雪ブロック
 	KdTexture m_IceSurfaceBlockTex;
 	KdTexture m_IceInsideBlockTex;
-	KdTexture m_BlockTex;
-	KdTexture m_GroundBlockTex;
+	KdTexture m_IceRightSlopeBlockTex;
+	KdTexture m_IceLeftSlopeBlockTex;
+	KdTexture m_IceRightSlopeUnderBlockTex;
+	KdTexture m_IceLeftSlopeUnderBlockTex;
+	//地面ブロック
+	KdTexture m_GroundSurfaceBlockTex;
+	KdTexture m_GroundInsideBlockTex;
+	KdTexture m_GroundRightSlopeBlockTex;
+	KdTexture m_GroundLeftSlopeBlockTex;
+	KdTexture m_GroundRightSlopeUnderBlockTex;
+	KdTexture m_GroundLeftSlopeUnderBlockTex;
+	//氷ブロック
 	KdTexture m_IceWaterBlockTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;

@@ -139,24 +139,59 @@ void Scene::CreateTerrainObject()
 	(__dy < 1) && (__dy > -1) ? __dy = 32.0f : __dy = __dy;
 	float radian;
 	KdTexture* _currentTex;
+	//ブロック切り替え
 	switch (BlockKinds)
 	{
 	case 1:
 		_currentTex = &m_BlockTex;
 		break;
 	case 2:
+		//雪ブロック切り替え
 		switch (IceBlockMenu)
 		{
-		case Surface:
+		case IceSurface:
 			_currentTex = &m_IceSurfaceBlockTex;
 			break;
-		case Inside:
+		case IceInside:
 			_currentTex = &m_IceInsideBlockTex;
+			break;
+		case IceRightSlope:
+			_currentTex = &m_IceRightSlopeBlockTex;
+			break;
+		case IceLeftSlope:
+			_currentTex = &m_IceLeftSlopeBlockTex;
+			break;
+		case IceRightSlopeUnder:
+			_currentTex = &m_IceRightSlopeUnderBlockTex;
+			break;
+		case IceLeftSlopeUnder:
+			_currentTex = &m_IceLeftSlopeUnderBlockTex;
 			break;
 		}
 		break;
 	case 3:
-		_currentTex = &m_GroundBlockTex;
+		//地面ブロック切り替え
+		switch (GroundBlockMenu)
+		{
+		case GroundSurface:
+			_currentTex = &m_GroundSurfaceBlockTex;
+			break;
+		case GroundInside:
+			_currentTex = &m_GroundInsideBlockTex;
+			break;
+		case GroundRightSlope:
+			_currentTex = &m_GroundRightSlopeBlockTex;
+			break;
+		case GroundLeftSlope:
+			_currentTex = &m_GroundLeftSlopeBlockTex;
+			break;
+		case GroundRightSlopeUnder:
+			_currentTex = &m_GroundRightSlopeUnderBlockTex;
+			break;
+		case GroundLeftSlopeUnder:
+			_currentTex = &m_GroundLeftSlopeUnderBlockTex;
+			break;
+		}
 		break;
 	case 4:
 		_currentTex = &m_IceWaterBlockTex;
@@ -389,8 +424,20 @@ void Scene::Update()
 		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
 		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
 
-		if (GetAsyncKeyState('N'))IceBlockMenu = Surface;
-		if (GetAsyncKeyState('B'))IceBlockMenu = Inside;
+		//ブロック切り替えキー
+		if (GetAsyncKeyState('1'))IceBlockMenu = IceSurface;
+		if (GetAsyncKeyState('2'))IceBlockMenu = IceInside;
+		if (GetAsyncKeyState('3'))IceBlockMenu = IceRightSlope;
+		if (GetAsyncKeyState('4'))IceBlockMenu = IceLeftSlope;
+		if (GetAsyncKeyState('5'))IceBlockMenu = IceRightSlopeUnder;
+		if (GetAsyncKeyState('6'))IceBlockMenu = IceLeftSlopeUnder;
+
+		if (GetAsyncKeyState('1'))GroundBlockMenu = GroundSurface;
+		if (GetAsyncKeyState('2'))GroundBlockMenu = GroundInside;
+		if (GetAsyncKeyState('3'))GroundBlockMenu = GroundRightSlope;
+		if (GetAsyncKeyState('4'))GroundBlockMenu = GroundLeftSlope;
+		if (GetAsyncKeyState('5'))GroundBlockMenu = GroundRightSlopeUnder;
+		if (GetAsyncKeyState('6'))GroundBlockMenu = GroundLeftSlopeUnder;
 
 		if (GetAsyncKeyState('K')) BlockKinds = 1;
 		if (GetAsyncKeyState('J')) BlockKinds = 2;
@@ -516,9 +563,21 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
 	m_BlockTex.Load("Texture/Object/RedBox.png");;
+	//雪ブロック
 	m_IceSurfaceBlockTex.Load("Texture/GroundBlock/Snowslice03_03.png");;
 	m_IceInsideBlockTex.Load("Texture/GroundBlock/Snowslice27_27.png");;
-	m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
+	m_IceRightSlopeBlockTex.Load("Texture/GroundBlock/Snowslice07_07.png");;
+	m_IceLeftSlopeBlockTex.Load("Texture/GroundBlock/Snowslice06_06.png");;
+	m_IceRightSlopeUnderBlockTex.Load("Texture/GroundBlock/Snowslice18_18.png");;
+	m_IceLeftSlopeUnderBlockTex.Load("Texture/GroundBlock/Snowslice17_17.png");;
+	//地面ブロック
+	m_GroundSurfaceBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
+	m_GroundInsideBlockTex.Load("Texture/GroundBlock/Groundslice27_27.png");;
+	m_GroundRightSlopeBlockTex.Load("Texture/GroundBlock/Groundslice07_07.png");;
+	m_GroundLeftSlopeBlockTex.Load("Texture/GroundBlock/Groundslice06_06.png");;
+	m_GroundRightSlopeUnderBlockTex.Load("Texture/GroundBlock/Groundslice16_16.png");;
+	m_GroundLeftSlopeUnderBlockTex.Load("Texture/GroundBlock/Groundslice17_17.png");;
+	//氷ブロック
 	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	//
