@@ -66,21 +66,6 @@ void Scene::DrawString(float _x, float _y, const char _text[], const Math::Vecto
 	delete[] _wtext;
 }
 
-void Scene::DrawGraph()
-{
-
-}
-
-void Scene::DrawTexts()
-{
-
-}
-
-void Scene::DrawMainScene(Math::Color inputColor)
-{
-
-}
-
 void Scene::SetResumeWindows()
 {
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
@@ -108,12 +93,6 @@ void Scene::DynamicDraw2D()
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), charaRect, 1.0f);
-		for (auto block : m_blocks)
-		{
-			//SHADER.m_spriteShader.SetMatrix(block.GetMatrix());
-			//SHADER.m_spriteShader.DrawTex(block.GetTexture(), block.GetRectangle());
-
-		}
 		for (auto _terrainObject : m_terrain)
 		{
 			auto _blocks = *_terrainObject.GetBlocks();
@@ -139,30 +118,6 @@ void Scene::CreateTerrainObject()
 	(__dy < 1) && (__dy > -1) ? __dy = 32.0f : __dy = __dy;
 	float radian;
 	KdTexture* _currentTex;
-	switch (BlockKinds)
-	{
-	case 1:
-		_currentTex = &m_BlockTex;
-		break;
-	case 2:
-		switch (IceBlockMenu)
-		{
-		case Surface:
-			_currentTex = &m_IceSurfaceBlockTex;
-			break;
-		case Inside:
-			_currentTex = &m_IceInsideBlockTex;
-			break;
-		}
-		break;
-	case 3:
-		_currentTex = &m_GroundBlockTex;
-		break;
-	case 4:
-		_currentTex = &m_IceWaterBlockTex;
-		break;
-	}
-
 	int i;
 	if ((__dx == 32.0f) && (__dy == 32.0f))
 	{
@@ -217,6 +172,87 @@ void Scene::CreateTerrainObject()
 	}
 	buffer = int(radian / (float(M_PI) * 0.25f));
 	int _terrainType = BlockKinds;
+	switch (BlockKinds)
+	{
+	case 1:
+		switch (buffer)
+		{
+
+		case 1:
+			_currentTex = &m_groundTex[2];
+			break;
+		case 3:
+			_currentTex = &m_groundTex[1];
+			break;
+		case 5:
+			_currentTex = &m_groundTex[4];
+			break;
+		case 7:
+			_currentTex = &m_groundTex[3];
+			break;
+		default:
+			_currentTex = &m_groundTex[0];
+			break;
+		}
+
+		break;
+		
+	case 2:
+		switch (IceBlockMenu)
+		{
+		case Surface:
+			switch (buffer)
+			{
+
+			case 1:
+				_currentTex = &m_iceSurfaceTex[2];
+				break;
+			case 3:
+				_currentTex = &m_iceSurfaceTex[1];
+				break;
+			case 5:
+				_currentTex = &m_iceSurfaceTex[4];
+				break;
+			case 7:
+				_currentTex = &m_iceSurfaceTex[3];
+				break;
+			default:
+				_currentTex = &m_iceSurfaceTex[0];
+				break;
+			}
+			break;
+		case Inside:
+			switch (buffer)
+			{
+
+			case 1:
+				_currentTex = &m_iceInsideTex[2];
+				break;
+			case 3:
+				_currentTex = &m_iceInsideTex[1];
+				break;
+			case 5:
+				_currentTex = &m_iceInsideTex[4];
+				break;
+			case 7:
+				_currentTex = &m_iceInsideTex[3];
+				break;
+			default:
+				_currentTex = &m_iceInsideTex[0];
+				break;
+			}
+			break;
+		}
+		break;
+	case 3:
+		_currentTex = &m_GroundBlockTex;
+		break;
+	case 4:
+		_currentTex = &m_IceWaterBlockTex;
+		break;
+	}
+
+	
 	std::vector<int> _terrainTypeVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
@@ -235,19 +271,19 @@ void Scene::CreateTerrainObject()
 				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 				break;
 			case 3:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.75f));
 				break;
 			case 4:
 				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 				break;
 			case 5:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.25f));
 				break;
 			case 6:
 				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 				break;
 			case 7:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.75f));
 				break;
 			case 8:
 				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
@@ -385,6 +421,20 @@ void Scene::Update()
 		}
 		else pKey = false;
 
+	
+		if (GetAsyncKeyState('T'))
+		{
+			if (!_tKey)
+			{
+				m_player.Move(-16 * sqrt(2)*0.5, 16 * sqrt(2)*0.5);
+				_tKey = true;
+			}
+		}
+		else
+		{
+			_tKey = false;
+		}
+
 		if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
 		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
 		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
@@ -515,15 +565,32 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_BlockTex.Load("Texture/Object/RedBox.png");;
+	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
 	m_IceSurfaceBlockTex.Load("Texture/GroundBlock/Snowslice03_03.png");;
 	m_IceInsideBlockTex.Load("Texture/GroundBlock/Snowslice27_27.png");;
-	m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
+	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
+	m_playerTex.Load("Texture/Object/RedBox.png");
+	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
+	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
+	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
+	m_groundTex[3].Load("Texture/GroundBlock/Ground3.png");
+	m_groundTex[4].Load("Texture/GroundBlock/Ground4.png");
+
+	m_iceInsideTex[0].Load("Texture/GroundBlock/InsideIce.png");
+	m_iceInsideTex[1].Load("Texture/GroundBlock/Ice1.png");
+	m_iceInsideTex[2].Load("Texture/GroundBlock/Ice2.png");
+	m_iceInsideTex[3].Load("Texture/GroundBlock/Ice3.png");
+	m_iceInsideTex[4].Load("Texture/GroundBlock/Ice4.png");
+
+	m_iceSurfaceTex[0].Load("Texture/GroundBlock/InsideIce.png");
+	m_iceSurfaceTex[1].Load("Texture/GroundBlock/Ice1.png");
+	m_iceSurfaceTex[2].Load("Texture/GroundBlock/Ice2.png");
+	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
+	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
-	m_player.SetDirection(Direction::Right);
 	m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
 	lKey = false;
 	pKey = false;

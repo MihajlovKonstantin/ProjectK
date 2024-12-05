@@ -14,11 +14,15 @@ private:
 
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
+	std::array<KdTexture, 5> m_groundTex;
+	std::array<KdTexture, 5> m_iceSurfaceTex;
+	std::array<KdTexture, 5> m_iceInsideTex;
 	KdTexture m_IceSurfaceBlockTex;
 	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
 	KdTexture m_GroundBlockTex;
 	KdTexture m_IceWaterBlockTex;
+	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// �s�� �E�E�E ���W�Ȃǂ̏��
@@ -47,10 +51,11 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_BlockTex);
+	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_playerTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
 	bool _test = false;
+	bool _tKey = false;
 	//test
 	bool test;
 	//キー制御用

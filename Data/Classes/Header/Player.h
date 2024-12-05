@@ -40,7 +40,7 @@ public:
 	void Update();
 	bool CollisionToBlock(Block block);
 	bool CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, float> b_size, float b_rad);
-	void Move();//�ړ��֐�
+	void Move(float x,float y);//�ړ��֐�
 	Math::Matrix GetMatrix();
 	KdTexture* GetTexture();
 	float GetAngle();
