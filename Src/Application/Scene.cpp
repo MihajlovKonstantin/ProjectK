@@ -250,6 +250,9 @@ void Scene::CreateTerrainObject()
 	case 4:
 		_currentTex = &m_IceWaterBlockTex;
 		break;
+	default:
+		_currentTex = NULL;
+		break;
 	}
 
 	
@@ -259,36 +262,36 @@ void Scene::CreateTerrainObject()
 	{
 		_terrainTypeVector.push_back(_terrainType);
 		{
-			switch (buffer)
-			{
-			case 0:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-				break;
-			case 1:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI)*0.25f));
-				break;
-			case 2:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-				break;
-			case 3:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.75f));
-				break;
-			case 4:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-				break;
-			case 5:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.25f));
-				break;
-			case 6:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-				break;
-			case 7:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.75f));
-				break;
-			case 8:
-				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-				break;
-			}
+				switch (buffer)
+				{
+				case 0:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 1:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.25f));
+					break;
+				case 2:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 3:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.75f));
+					break;
+				case 4:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 5:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.25f));
+					break;
+				case 6:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 7:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.75f));
+					break;
+				case 8:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				}
 		}
 	}
 	
@@ -302,6 +305,11 @@ void Scene::CreateTerrainObject()
 			}
 		}
 	}
+	if(_terrainType==0)
+	{ 
+		m_blocks.clear();
+	}
+	
 
 	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector, m_blocks));
 	
@@ -370,44 +378,105 @@ void Scene::LoadStage()
 	}
 }
 
+void Scene::UpdateGameScene()
+{
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		m_player.SetDirection(Direction::Left);
+	}
+	else if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_player.SetDirection(Direction::Right);
+	}
+	else
+	{
+		m_player.SetDirection(Direction::Stand);
+	}
+	
+
+	_test = false;
+	for (int i = 0; i < m_terrain.size(); i++)
+	{
+		if (m_terrain[i].OnCollisionRange(m_player.GetPos()))
+		{
+			auto _blocks = m_terrain[i].GetBlocks();
+			for (int j = 0; j < _blocks->size(); j++)
+			{
+				auto _block = _blocks->at(j);
+				test = m_player.CollisionToBlock(_block);
+				if (test)
+				{
+					m_player.SetOnGroundFlag(true);
+					_test = true;
+				}
+			}
+		}
+	}
+	for (int i = 0; i < m_blocks.size(); i++)
+	{
+		test = m_player.CollisionToBlock(m_blocks[i]);
+		if (test)
+		{
+			m_player.SetOnGroundFlag(true);
+			_test = true;
+		}
+		m_blocks[i].Update();
+	}
+	if (!m_player.MovePossible())
+	{
+		m_player.Stop();
+	}
+	m_player.Update();
+}
+
+void Scene::UpdateEditScene()
+{
+	if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
+	if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
+	if (GetAsyncKeyState('Y'))EditerMenu = ItemMenu;
+
+	if (GetAsyncKeyState('N'))IceBlockMenu = Surface;
+	if (GetAsyncKeyState('B'))IceBlockMenu = Inside;
+
+	if (GetAsyncKeyState('C')) BlockKinds = 0;
+	if (GetAsyncKeyState('K')) BlockKinds = 1;
+	if (GetAsyncKeyState('J')) BlockKinds = 2;
+	if (GetAsyncKeyState('H')) BlockKinds = 3;
+	if (GetAsyncKeyState('M')) BlockKinds = 4;
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+		if (!m_drawStartBool)
+		{
+			m_point[0] = m_mouse;
+		}
+		m_drawStartBool = true;
+	}
+	else
+	{
+		if (m_drawStartBool)
+		{
+			m_point[1] = m_mouse;
+			switch (EditerMenu)
+			{
+			case BlockMenu:
+				CreateTerrainObject();
+				break;
+			case EnemyMenu:
+				break;
+			case ItemMenu:
+				break;
+			}
+		}
+	}
+	m_blocks.clear();
+}
+
 void Scene::Update()
 {
 
 	//
-	if (!WC->IsPause())
+	if (SC->GetCurrentScene() == SceneControlData::Scenes::MainScene)
 	{
-		_test = false;
-		for (int i = 0; i < m_terrain.size(); i++)
-		{
-			if (m_terrain[i].OnCollisionRange(m_player.GetPos()))
-			{
-				auto _blocks = m_terrain[i].GetBlocks();
-				for (int j = 0;j<_blocks->size();j++)
-				{
-					auto _block = _blocks->at(j);
-					test = m_player.CollisionToBlock(_block);
-					if(test)
-					{
-						m_player.SetOnGroundFlag(true);
-						_test = true;
-					}
-				}
-			}
-		}
-		for (int i = 0;i<m_blocks.size();i++)
-		{
-			test = m_player.CollisionToBlock(m_blocks[i]);
-			if (test)
-			{
-				m_player.SetOnGroundFlag(true);
-				_test = true;
-			}
-			m_blocks[i].Update();
-		}
-		if (!m_player.MovePossible())
-		{
-			m_player.Stop();
-		}
 		if (GetAsyncKeyState('L'))
 		{
 			if (!lKey)SaveStage();
@@ -420,13 +489,11 @@ void Scene::Update()
 			pKey = true;
 		}
 		else pKey = false;
-
-	
 		if (GetAsyncKeyState('T'))
 		{
 			if (!_tKey)
 			{
-				m_player.Move(-16 * sqrt(2)*0.5, 16 * sqrt(2)*0.5);
+				m_player.Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
 				_tKey = true;
 			}
 		}
@@ -434,73 +501,30 @@ void Scene::Update()
 		{
 			_tKey = false;
 		}
-
-		if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
-		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
-		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
-
-		if (GetAsyncKeyState('N'))IceBlockMenu = Surface;
-		if (GetAsyncKeyState('B'))IceBlockMenu = Inside;
-
-		if (GetAsyncKeyState('K')) BlockKinds = 1;
-		if (GetAsyncKeyState('J')) BlockKinds = 2;
-		if (GetAsyncKeyState('H')) BlockKinds = 3;
-		if (GetAsyncKeyState('M')) BlockKinds = 4;
-
-		m_player.Update();
-		if (GetAsyncKeyState(VK_LEFT))
-		{
-			m_player.SetDirection(Direction::Left);
-		}
-		else if (GetAsyncKeyState(VK_RIGHT))
-		{
-			m_player.SetDirection(Direction::Right);
-		}
-		else
-		{
-			m_player.SetDirection(Direction::Stand);
-		}
-		GetCursorPos(&m_mouse);
-		if (GetAsyncKeyState(VK_SPACE))
-		{
-			if (!m_drawStartBool)
-			{
-				m_point[0] = m_mouse;
-			}  
-			m_drawStartBool = true;
-		}
-		else
-		{
-			if (m_drawStartBool)
-			{
-				m_point[1] = m_mouse;
-				switch (EditerMenu)
-				{
-				case BlockMenu:
-					CreateTerrainObject();
-					break;
-				case EnemyMenu:
-					break;
-				case ItemMenu:
-					break;
-				}
-			}
-		}
-		m_blocks.clear();
-		for (size_t i = 0;i<m_terrain.size();)
+		for (size_t i = 0; i < m_terrain.size();)
 		{
 			if (m_terrain[i].GetBlocks()->empty())
 			{
- 				m_terrain.erase(m_terrain.begin()+i);
+				m_terrain.erase(m_terrain.begin() + i);
 			}
 			else
 			{
 				m_terrain[i].Update();
 				i++;
 			}
-			
+			m_player.CollisionClear();
+		}
+		GetCursorPos(&m_mouse);
+		if (GetAsyncKeyState('E')) SC->SetEditMode(!SC->GetEditMode());
+		if (!WC->IsPause())
+		{
+			if (SC->GetEditMode())
+				UpdateEditScene();
+			else
+				UpdateGameScene();
 		}
 	}
+	
 	GetCursorPos(&mouse);
 	if (GetAsyncKeyState(VK_TAB))
 	{
@@ -543,11 +567,11 @@ void Scene::Update()
 			break;
 		}
 	}
-	m_player.CollisionClear();
+	
 	//Test
 	
 	
-}
+	}
 
 void Scene::UpdateMainMenu()
 {

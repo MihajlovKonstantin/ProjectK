@@ -3,6 +3,7 @@ class SceneControlData
 {
 	int currentScene;
 	int currentMenu;
+	bool editMode = false;
 public:
 	enum Scenes
 	{
@@ -15,6 +16,8 @@ public:
 		SettingMenu = 1,
 		Inventory = 2
 	};
+	bool GetEditMode();
+	void SetEditMode(bool input);
 	int GetCurrentScene();
 	void SetCurrentScene(int input);
 	int GetCurrentMenu();

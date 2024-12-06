@@ -17,6 +17,7 @@ private:
 	std::array<KdTexture, 5> m_groundTex;
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
+	
 	KdTexture m_IceSurfaceBlockTex;
 	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
@@ -86,6 +87,8 @@ public:
 	void CreateTerrainObject();
 	void SaveStage();
 	void LoadStage();
+	void UpdateGameScene();
+	void UpdateEditScene();
 private:
 
 	Scene() {}

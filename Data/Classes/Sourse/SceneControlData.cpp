@@ -1,6 +1,16 @@
 #include "Pch.h"
 #include "Data/Classes/Header/SceneControlData.h"
 
+bool SceneControlData::GetEditMode()
+{
+	return editMode;
+}
+
+void SceneControlData::SetEditMode(bool input)
+{
+	editMode = input;
+}
+
 int SceneControlData::GetCurrentScene()
 {
 	return currentScene;
