@@ -77,3 +77,5 @@ Debug/Project.Build.CppClean.log
 /Debug
 *.log
 *.inc
+/Debug
+*.tlog
