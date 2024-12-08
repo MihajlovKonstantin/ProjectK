@@ -756,6 +756,20 @@ bool Player::CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, fl
 	return _result;
 }
 
+bool Player::CollisionToItem(Item* item)
+{
+	bool _result = false;
+	DirectX::BoundingBox _playerBox = DirectX::BoundingBox({ m_pos.first,m_pos.second,0 }, { 16.0f, 16.0f, 0 });
+	std::pair<float, float> _itemPos = item->GetPos();
+	DirectX::BoundingBox _itemBox = DirectX::BoundingBox({_itemPos.first,_itemPos.second,0}, {16.0f,16.0f,0});
+	_result= _playerBox.Intersects(_itemBox);
+	if (_result)
+	{
+		item->Destruct();
+	}
+	return _result;
+}
+
 void Player::Move(float x, float y)
 {
 	m_pos.first += x;

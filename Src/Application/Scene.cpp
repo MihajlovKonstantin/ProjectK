@@ -105,6 +105,11 @@ void Scene::DynamicDraw2D()
 				}
 			}
 		}
+		for (int i = 0; i < m_item.size(); i++)
+		{
+			SHADER.m_spriteShader.SetMatrix(m_item[i].GetMatrix());
+			SHADER.m_spriteShader.DrawTex(m_item[i].GetTexture(), m_item[i].GetRect());
+		}
 
 	}
 	
@@ -392,7 +397,29 @@ void Scene::UpdateGameScene()
 	{
 		m_player.SetDirection(Direction::Stand);
 	}
-	
+	for (int i = 0; i < m_item.size(); i++)
+	{
+		if (m_player.CollisionToItem(&m_item[i]))
+		{
+			int _index = m_item[i].GetIndex();
+			if ( _index< 3)
+			{
+				m_keyFlag[_index] = true;
+				int _keyType=0;
+				for (int j = 0; j < m_keyFlag.size(); j++)
+				{
+					if (m_keyFlag[j])
+					{
+						_keyType++;
+					}
+				}
+				if (_keyType == m_keyFlag.size())
+				{
+					CLEARFLAG = true;////大事！！！！！！！！！！！！！！！！
+				}
+			}
+		}
+	}
 
 	_test = false;
 	for (int i = 0; i < m_terrain.size(); i++)
@@ -514,6 +541,18 @@ void Scene::Update()
 			}
 			m_player.CollisionClear();
 		}
+		for (size_t i = 0; i < m_item.size();)
+		{
+			if (m_item[i].IsDestruct())
+			{
+				m_item.erase(m_item.begin() + i);
+			}
+			else
+			{
+				m_item[i].Update();
+				i++;
+			}
+		}
 		GetCursorPos(&m_mouse);
 		if (GetAsyncKeyState('E')) SC->SetEditMode(!SC->GetEditMode());
 		if (!WC->IsPause())
@@ -615,9 +654,19 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
-	m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
+	//m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
 	lKey = false;
 	pKey = false;
+	
+	_texture[0].Load("Texture/Item/Key1.png");
+	_key = Item({0,0},&_texture[0],0 );
+	m_item.push_back(_key);
+	_texture[1].Load("Texture/Item/Key2.png");
+	_key = Item({ 0,-64 }, &_texture[1], 1);
+	m_item.push_back(_key);
+	_texture[2].Load("Texture/Item/Key3.png");
+	_key = Item({ 0,-128 }, &_texture[2], 2);
+	m_item.push_back(_key);
 }
 
 void Scene::Release()

@@ -11,13 +11,16 @@ private:
 	int IceBlockMenu = Surface;
 	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
 	enum IceBlockSelect {Surface,Inside};
-
+	std::vector<Item> m_item;
+	Item _key;
+	std::array<KdTexture,3> _texture;
+	bool CLEARFLAG = false;
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
 	std::array<KdTexture, 5> m_groundTex;
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
-	
+	std::array<bool, 3> m_keyFlag;
 	KdTexture m_IceSurfaceBlockTex;
 	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
