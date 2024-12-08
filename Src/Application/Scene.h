@@ -8,12 +8,25 @@ private:
 	// test
 	int BlockKinds = 1;
 	int EditerMenu = BlockMenu;
-	enum EditerSelect {BlockMenu,CharaMenu,ItemMenu};
-
+	int IceBlockMenu = Surface;
+	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
+	enum IceBlockSelect {Surface,Inside};
+	std::vector<Item> m_item;
+	Item _key;
+	std::array<KdTexture,3> _texture;
+	bool CLEARFLAG = false;
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
-	KdTexture m_IceBlockTex;
+	std::array<KdTexture, 5> m_groundTex;
+	std::array<KdTexture, 5> m_iceSurfaceTex;
+	std::array<KdTexture, 5> m_iceInsideTex;
+	std::array<bool, 3> m_keyFlag;
+	KdTexture m_IceSurfaceBlockTex;
+	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
+	KdTexture m_GroundBlockTex;
+	KdTexture m_IceWaterBlockTex;
+	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
 	// �s�� �E�E�E ���W�Ȃǂ̏��
@@ -42,26 +55,16 @@ private:
 	//test
 	std::vector<KdTexture> m_asset;
 	//std::vector<std::unique_ptr<
-	PC m_player = PC({ 165,128 }, { +2.0f,-1 }, &m_BlockTex);
+	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_playerTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
 	bool _test = false;
+	bool _tKey = false;
 	//test
 	bool test;
 	//キー制御用
 	bool lKey;
 	bool pKey;
-	//Spawn用
-	int index = 1;
-	bool mouseFlg;
-	std::pair<float, float> spawnPos;
-	//int playerHp;
-	//NPC m_enemy;
-	bool PlayerPosFlg = false;
-	//std::vector<NPC> m_enemy;
-	std::vector<Spawner> m_spawner;
-	std::vector<KdTexture> m_enemyTex;
-	std::vector< std::pair<float, float>> m_enemySpeed;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
@@ -87,10 +90,8 @@ public:
 	void CreateTerrainObject();
 	void SaveStage();
 	void LoadStage();
-	void SaveSpawn();
-	void LoadSpawn();
-	void CharaPosition();
-	void EnemyPosition();
+	void UpdateGameScene();
+	void UpdateEditScene();
 private:
 
 	Scene() {}
