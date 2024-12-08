@@ -202,7 +202,7 @@ void Scene::CreateTerrainObject()
 		radian = 2.0f * float(M_PI);
 	}
 	buffer = int(radian / (float(M_PI) * 0.25f));
-	int _terrainType = 1;
+	int _terrainType = BlockKinds;
 	std::vector<int> _terrainTypeVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
@@ -265,6 +265,8 @@ void Scene::SaveStage()
 {
 	std::ofstream outFile("StageData");
 	if (outFile.is_open()) {
+		//outFile << m_player.GetPlayerPos().first << ",";
+		//outFile << m_player.GetPlayerPos().second << "\n";
 		outFile << m_terrain.size() << "\n";
 		for (int i = 0; i < m_terrain.size(); i++)
 		{
@@ -287,40 +289,161 @@ void Scene::SaveStage()
 void Scene::LoadStage()
 {
 	std::ifstream inFile("StageData");
+	m_terrain.clear();
 	if (inFile.is_open()) {
 		//TerrainObject example
 		int x, y, angle, size, typeBlockSize, _buff;
+		KdTexture* _Tex;
 		std::vector<int> typeBlock;
 		std::string line;
-		getline(inFile, line, '\n');
+		std::getline(inFile, line, '\n');
 		size = stoi(line);
 		for (int j = 0; j < size; j++)
 		{
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			angle = stoi(line);
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			x = stoi(line);
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			y = stoi(line);
-			getline(inFile, line, '\n');
+			std::getline(inFile, line, '\n');
 			typeBlockSize = stoi(line);
+			typeBlock.clear();
 			for (int i = 0; i < typeBlockSize; i++)
 			{
-				getline(inFile, line, ',');
+				std::getline(inFile, line, ',');
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_BlockTex));
-			getline(inFile, line, '\n');
+			switch (_buff)
+			{
+			case 1:
+				_Tex = &m_BlockTex;
+				break;
+			case 2:
+				_Tex = &m_IceBlockTex;
+				break;
+			}
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, *_Tex));
+			std::getline(inFile, line, '\n');
 		}
 		
 		inFile.close();
 	}
 }
 
+void Scene::SaveSpawn()
+{
+	std::ofstream outFile("SpawnData");
+	if (outFile.is_open()) {
+		outFile << m_spawner.size() << "\n";
+		for (int i = 0; i < m_spawner.size(); i++)
+		{
+			outFile << m_spawner[i].GetIndex() << "\n";
+			outFile << m_spawner[i].GetCharaPos().first << ",";
+			switch (m_spawner[i].GetIndex())
+			{
+			case 1:
+				outFile << m_spawner[i].GetCharaPos().second << "\n";
+				break;
+			case 2:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << "\n";
+				break;
+			case 3:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << ",";
+				outFile << m_spawner[i].GetInterval() << ",";
+				outFile << m_spawner[i].GetNum() << "\n";
+			}
+		}
+	}
+	outFile.close();
+}
+
+void Scene::EnemyPosition()
+{
+}
+
+void Scene::LoadSpawn()
+{
+	std::ifstream inFile("SpawnData");
+	m_spawner.clear();
+	if (inFile.is_open()) {
+		int charaIndex, enemyType, interval, num, size;
+		std::pair<float, float> pos;
+		std::string line;
+		std::getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int i = 0; i < size; i++)
+		{
+			std::getline(inFile, line, '\n');
+			charaIndex = stoi(line);
+			std::getline(inFile, line, ',');
+			pos.first = stof(line);
+			switch (charaIndex)
+			{
+			case 1:
+				std::getline(inFile, line, '\n');
+				pos.second = stof(line);
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_player));
+				break;
+			case 2:
+				std::getline(inFile, line, ',');
+				pos.second = stof(line);
+				std::getline(inFile, line, '\n');
+				enemyType = stoi(line);
+				//m_enemy.push_back(NPC(index, pos, enemyType));
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, enemyType));
+				break;
+			case 3:
+				std::getline(inFile, line, ',');
+				pos.second = stof(line);
+				std::getline(inFile, line, ',');
+				enemyType = stoi(line);
+				std::getline(inFile, line, ',');
+				interval = stoi(line);
+				std::getline(inFile, line, '\n');
+				num = stoi(line);
+				//m_enemy.push_back(NPC(index, pos, enemyType, interval, num));
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, enemyType, interval, num));
+				break;
+			}
+		}
+	}
+	inFile.close();
+}
+
+void Scene::CharaPosition()
+{
+	switch (index)
+	{
+	case 1:
+		if (m_spawner.size() > 0)
+		{
+			m_spawner.erase(m_spawner.begin());
+			m_spawner.insert(m_spawner.begin(), Spawner(index, spawnPos));
+		}
+		else m_spawner.insert(m_spawner.begin(), Spawner(index, spawnPos));
+		break;
+	default:
+		m_spawner.push_back(Spawner(index, spawnPos, NULL, 1, 300, 5));
+		break;
+	}
+}
+
+//void Scene::Spawn()
+//{
+//	switch (index)
+//	{
+//	case 1:
+//		m_player.SetInit(spawnPos);
+//		break;
+//	}
+//}
+
 void Scene::Update()
 {
-
 	//
 	if (!WC->IsPause())
 	{
@@ -358,29 +481,35 @@ void Scene::Update()
 		}
 		if (GetAsyncKeyState('L'))
 		{
-			if (!lKey)SaveStage();
-			lKey = true;
+			if (!lKey)
+			{
+				SaveStage();
+				SaveSpawn();
+				lKey = true;
+			}
 		}
 		else lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			if (!pKey)LoadStage();
-			pKey = true;
+			if (!pKey)
+			{
+				LoadStage();
+				LoadSpawn();
+				pKey = true;
+			}
 		}
 		else pKey = false;
 
 		if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
-		if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
+		if (GetAsyncKeyState('W'))EditerMenu = CharaMenu;
 		if (GetAsyncKeyState('E'))EditerMenu = ItemMenu;
-		if (GetAsyncKeyState('K') & 0x8000)
-		{
-			BlockKinds = 1;
-		}
-		if (GetAsyncKeyState('J') & 0x8000)
-		{
-			BlockKinds = 2;
-		}
 
+		if (GetAsyncKeyState('K') & 0x8000)BlockKinds = 1;
+		if (GetAsyncKeyState('J') & 0x8000)BlockKinds = 2;
+
+		if (GetAsyncKeyState('I') & 0x8000)index = 1;
+		if (GetAsyncKeyState('U') & 0x8000)index = 2;
+		if (GetAsyncKeyState('Y') & 0x8000)index = 3;
 		m_player.Update();
 		if (GetAsyncKeyState(VK_LEFT))
 		{
@@ -413,13 +542,29 @@ void Scene::Update()
 				case BlockMenu:
 					CreateTerrainObject();
 					break;
-				case EnemyMenu:
+				case CharaMenu:
+					
+					if (GetAsyncKeyState('A') & 0x8000)
+					{
+						if (GetAsyncKeyState(VK_LBUTTON))
+						{
+							if (!mouseFlg)
+							{
+								mouseFlg = true;
+								spawnPos.first = mouse.x - 640 - 8;
+								spawnPos.second = -mouse.y + 360 + 32;
+								CharaPosition();
+							}
+						}
+						else mouseFlg = false;
+					}
 					break;
 				case ItemMenu:
 					break;
 				}
 			}
 		}
+		
 		m_blocks.clear();
 		for (size_t i = 0;i<m_terrain.size();)
 		{
@@ -479,8 +624,6 @@ void Scene::Update()
 	}
 	m_player.CollisionClear();
 	//Test
-	
-	
 }
 
 void Scene::UpdateMainMenu()
@@ -504,10 +647,13 @@ void Scene::Init(WindowsControlData* WCInput)
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
-	m_player.SetDirection(Direction::Right);
+	//m_player.SetDirection(Direction::Right);
 	m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
 	lKey = false;
 	pKey = false;
+	mouseFlg = false;
+	//playerHp = 3;
+	//m_player.SetPlayerPos(-999, 0);
 }
 
 void Scene::Release()
@@ -542,6 +688,10 @@ void Scene::ImGuiUpdate()
 		ImGui::Text("%f", m_player.GetAngle());
 		ImGui::Text("Mouse x %d", m_mouse.x);
 		ImGui::Text("Mouse y  %d", m_mouse.y);
+		ImGui::Text("spawnPos x  %f", spawnPos.first);
+		ImGui::Text("spawnPos y  %f", spawnPos.second);
+		ImGui::Text("EditerMenu  %d", EditerMenu);
+		ImGui::Text("index  %d",index);
 	}
 	ImGui::Text("%f %f", m_player.GetPos().first, m_player.GetPos().second);
 	ImGui::End();

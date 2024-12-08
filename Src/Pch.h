@@ -117,5 +117,7 @@
 #include "Data/Classes/Header/TerrainObject.h"
 #include "Data/Classes/Header/PC.h"
 #include "Data/Classes/Header/Stage.h"
+#include "Data/Classes/Header/Enemy.h"
+#include "Data/Classes/Header/Spawner.h"
 
 

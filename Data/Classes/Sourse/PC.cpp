@@ -14,6 +14,11 @@ std::pair<float, float> PC::GetPos()
 	return m_pos;
 }
 
+void PC::Init(std::pair<float, float>pos)
+{
+	m_pos = pos;
+}
+
 
 void PC::Update()
 {
@@ -65,4 +70,14 @@ bool PC::MovePossible()
 int PC::GetDirection()
 {
 	return m_direction;
+}
+
+std::pair<float, float> PC::GetPlayerPos()
+{
+	return m_pos;
+}
+
+void PC::SetPlayerPos(std::pair<float, float> pos)
+{
+	m_pos = pos;
 }

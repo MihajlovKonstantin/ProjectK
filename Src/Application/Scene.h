@@ -8,7 +8,7 @@ private:
 	// test
 	int BlockKinds = 1;
 	int EditerMenu = BlockMenu;
-	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
+	enum EditerSelect {BlockMenu,CharaMenu,ItemMenu};
 
 	std::vector<Block> m_blocks;
 	std::vector<TerrainObject> m_terrain;	//m_terrain
@@ -51,6 +51,17 @@ private:
 	//キー制御用
 	bool lKey;
 	bool pKey;
+	//Spawn用
+	int index = 1;
+	bool mouseFlg;
+	std::pair<float, float> spawnPos;
+	//int playerHp;
+	//NPC m_enemy;
+	bool PlayerPosFlg = false;
+	//std::vector<NPC> m_enemy;
+	std::vector<Spawner> m_spawner;
+	std::vector<KdTexture> m_enemyTex;
+	std::vector< std::pair<float, float>> m_enemySpeed;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
@@ -76,6 +87,10 @@ public:
 	void CreateTerrainObject();
 	void SaveStage();
 	void LoadStage();
+	void SaveSpawn();
+	void LoadSpawn();
+	void CharaPosition();
+	void EnemyPosition();
 private:
 
 	Scene() {}
