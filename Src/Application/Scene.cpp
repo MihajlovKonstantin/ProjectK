@@ -453,6 +453,7 @@ void Scene::UpdateGameScene()
 	{
 		m_player.Stop();
 	}
+	m_spawner[0].Update();
 	m_player.Update();
 }
 
@@ -489,6 +490,7 @@ void Scene::UpdateEditScene()
 				CreateTerrainObject();
 				break;
 			case EnemyMenu:
+				CreateSpawn();
 				break;
 			case ItemMenu:
 				break;
@@ -496,6 +498,102 @@ void Scene::UpdateEditScene()
 		}
 	}
 	m_blocks.clear();
+}
+
+void Scene::SaveSpawn()
+{
+	std::ofstream outFile("SpawnData");
+	if (outFile.is_open()) {
+		outFile << m_spawner.size() << "\n";
+		for (int i = 0; i < m_spawner.size(); i++)
+		{
+			outFile << m_spawner[i].GetIndex() << "\n";
+			outFile << m_spawner[i].GetCharaPos().first << ",";
+			switch (m_spawner[i].GetIndex())
+			{
+			case 1:
+				outFile << m_spawner[i].GetCharaPos().second << "\n";
+				break;
+			case 2:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << "\n";
+				break;
+			case 3:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << ",";
+				outFile << m_spawner[i].GetInterval() << ",";
+				outFile << m_spawner[i].GetNum() << "\n";
+				break;
+			}
+		}
+		outFile.close();
+	}
+}
+
+void Scene::LoadSpawn()
+{
+	std::ifstream inFile("SpawnData");
+	if (inFile.is_open()) {
+		int charaIndex, type, interval, num, size;
+		std::pair<float, float>pos;
+		std::string line;
+		std::getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int i = 0; i < size; i++)
+		{
+			std::getline(inFile, line, '\n');
+			charaIndex = stoi(line);
+			std::getline(inFile, line, ',');
+			pos.first = stoi(line);
+			switch (charaIndex)
+			{
+			case 1:
+				std::getline(inFile, line, '\n');
+				pos.second = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos));
+				break;
+			case 2:
+				std::getline(inFile, line, ',');
+				pos.second = stoi(line);
+				std::getline(inFile, line, '\n');
+				type = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type));
+				break;
+			case 3:
+				std::getline(inFile, line, ',');
+				pos.second = stoi(line);
+				std::getline(inFile, line, ',');
+				type = stoi(line);
+				std::getline(inFile, line, ',');
+				interval = stoi(line);
+				std::getline(inFile, line, '\n');
+				num = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type, interval, num));
+				break;
+			}
+		}
+		inFile.close();
+	}
+}
+
+void Scene::CreateSpawn()
+{
+	SpawnPos = { 100,200 };
+	int charaIndex = 1;
+	switch (charaIndex)
+	{
+	case 1:
+		if (m_spawner[0].GetIndex() == 1)
+		{
+			m_spawner.erase(m_spawner.begin());
+			m_spawner.insert(m_spawner.begin(), Spawner(charaIndex, SpawnPos, &m_player));
+		}
+		else m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
+		break;
+	default:
+		m_spawner.push_back(Spawner(charaIndex, { 200,100 }, NULL, 1, 300, 5));
+		break;
+	}
 }
 
 void Scene::Update()
@@ -506,13 +604,21 @@ void Scene::Update()
 	{
 		if (GetAsyncKeyState('L'))
 		{
-			if (!lKey)SaveStage();
+			if (!lKey)
+			{
+				SaveStage();
+				SaveSpawn();
+			}
 			lKey = true;
 		}
 		else lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			if (!pKey)LoadStage();
+			if (!pKey)
+			{
+				LoadStage();
+				LoadSpawn();
+			}
 			pKey = true;
 		}
 		else pKey = false;
@@ -667,6 +773,8 @@ void Scene::Init(WindowsControlData* WCInput)
 	_texture[2].Load("Texture/Item/Key3.png");
 	_key = Item({ 0,-128 }, &_texture[2], 2);
 	m_item.push_back(_key);
+
+	m_spawner.push_back(Spawner(1, SpawnPos, &m_player));
 }
 
 void Scene::Release()

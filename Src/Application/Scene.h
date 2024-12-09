@@ -12,6 +12,8 @@ private:
 	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
 	enum IceBlockSelect {Surface,Inside};
 	std::vector<Item> m_item;
+	std::vector <Spawner> m_spawner;
+	std::pair<float, float> SpawnPos = { 200,100 };
 	Item _key;
 	std::array<KdTexture,3> _texture;
 	bool CLEARFLAG = false;
@@ -92,6 +94,9 @@ public:
 	void LoadStage();
 	void UpdateGameScene();
 	void UpdateEditScene();
+	void SaveSpawn();
+	void LoadSpawn();
+	void CreateSpawn();
 private:
 
 	Scene() {}
