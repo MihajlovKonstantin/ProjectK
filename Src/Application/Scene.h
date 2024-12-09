@@ -4,32 +4,38 @@
 class Scene
 {
 private:
-	//test2
-	// test
+	//ControlIndex
 	int m_unitType = 1;
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
+	//Enums
 	enum SpawnerSelect {COUNTSS= 3,Player = 0,Enemy,Enemys};
 	enum EditerSelect {COUNTES=3,BlockMenu=0,EnemyMenu,ItemMenu};
 	enum IceBlockSelect {COUNTIBS=2,Surface=0,Inside};
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
-	enum BlockEditerSelect{COUNTBES = 3,Ground = 1,Ice};
+	enum ItemSelect{COUNTIS = 1,Key = 0};
+	enum BlockEditerSelect{COUNTBES = 4,Ground = 1,Ice,IceWater};
+	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
-	std::pair<float, float> SpawnPos = { 200,100 };
-	Item _key;
-	std::array<KdTexture,3> _texture;
-	bool CLEARFLAG = false;
 	std::vector<Block> m_blocks;
-	std::vector<TerrainObject> m_terrain;	//m_terrain
+	std::vector<TerrainObject> m_terrain;
+	//ItemTexture
+	std::array<KdTexture, 3> m_keyTexture;
+	//BlockTexture]
 	std::array<KdTexture, 5> m_groundTex;
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
+	//Start	Data
+	std::pair<float, float> SpawnPos = { 200,100 };
+
+	Item _lastItem;
+	
+	bool CLEARFLAG = false;
+		//m_terrain
+	
 	std::array<bool, 3> m_keyFlag;
-	KdTexture m_IceSurfaceBlockTex;
-	KdTexture m_IceInsideBlockTex;
 	KdTexture m_BlockTex;
-	KdTexture m_GroundBlockTex;
 	KdTexture m_IceWaterBlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
@@ -89,11 +95,13 @@ public:
 	void SetResumeWindows();
 	void DynamicDraw2D();
 	void CreateTerrainObject();
+	void CreateItem();
 	void SaveStage();
 	void LoadStage();
 	void UpdateGameScene();
 	void UpdateEditScene();
 	int MaxTypeBlock();
+	int MaxTypeItem();
 	void SaveSpawn();
 	void LoadSpawn();
 	void CreateSpawn();

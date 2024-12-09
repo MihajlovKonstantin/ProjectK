@@ -39,9 +39,59 @@ void Scene::Draw2D()
 		switch (m_editerMenuIndex)
 		{
 		case EditerSelect::BlockMenu:
-			_string[1] = "CurrentBlockType" + std::to_string(m_unitType);
-			_string[2] = "CurrentBlockVariant" + std::to_string(m_selectedUnitVariant);
-			
+			_string[1] = "CurrentBlockType ";
+			switch (m_unitType)
+			{
+			case 0:
+				_string[1] += "Void";
+				break;
+			case BlockEditerSelect::Ground:
+				_string[1] += "Ground";
+				break;
+			case BlockEditerSelect::Ice:
+				_string[1] += "Ice";
+				break;
+			case BlockEditerSelect::IceWater:
+				_string[1] += "IceWater";
+			}
+			_string[2] = "CurrentBlockVariant ";
+			switch (m_selectedUnitVariant)
+			{
+			case 0:
+				_string[2] += "Base";
+				break;
+			case 1:
+				if (m_unitType == BlockEditerSelect::Ice)
+				{
+					_string[2] += "InsideIce";
+				}
+			}
+			break;
+		case EditerSelect::ItemMenu:
+			_string[1] = "CurrentItemType ";
+			switch (m_unitType)
+			{
+			case ItemSelect::Key:
+				_string[1] += "Key";
+				break;
+			}
+			_string[2] = "CurrentItemVariant";
+			switch (m_selectedUnitVariant)
+			{
+			case 0:
+				_string[2] += "Base";
+			default:
+				if (m_unitType == ItemSelect::Key)
+				{
+					_string[2] = "CurrentItemVariant";
+					if (m_selectedUnitVariant == KeySelect::Yellow)
+						_string[2] = "Yellow";
+					if (m_selectedUnitVariant == KeySelect::Red)
+						_string[2] = "Red";
+					if (m_selectedUnitVariant == KeySelect::Blue)
+						_string[2] = "Blue";
+				}
+			}
 			break;
 		}
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
@@ -279,9 +329,6 @@ void Scene::CreateTerrainObject()
 		}
 		break;
 	case 3:
-		_currentTex = &m_GroundBlockTex;
-		break;
-	case 4:
 		_currentTex = &m_IceWaterBlockTex;
 		break;
 	default:
@@ -351,6 +398,11 @@ void Scene::CreateTerrainObject()
 	
 	
 	m_drawStartBool = false;
+}
+
+void Scene::CreateItem()
+{
+
 }
 
 void Scene::SaveStage()
@@ -515,6 +567,7 @@ void Scene::UpdateEditScene()
 				_maxType = MaxTypeBlock();
 				break;
 			case EditerSelect::ItemMenu:
+				_maxType = MaxTypeItem();
 				break;
 			case EditerSelect::EnemyMenu:
 				break;
@@ -538,6 +591,7 @@ void Scene::UpdateEditScene()
 				_maxType = MaxTypeBlock();
 				break;
 			case EditerSelect::ItemMenu:
+				_maxType = MaxTypeItem();
 				break;
 			case EditerSelect::EnemyMenu:
 				break;
@@ -620,6 +674,7 @@ void Scene::UpdateEditScene()
 				CreateSpawn();
 				break;
 			case ItemMenu:
+
 				break;
 			}
 		}
@@ -636,6 +691,18 @@ int Scene::MaxTypeBlock()
 		break;
 	case BlockEditerSelect::Ice:
 		return IceBlockSelect::COUNTIBS;
+		break;
+	default:
+		return 1;
+		break;
+	}
+}
+int Scene::MaxTypeItem()
+{
+	switch(m_unitType)
+	{
+	case ItemSelect::Key:
+		return KeySelect::COUNTKS;
 		break;
 	default:
 		return 1;
@@ -877,8 +944,6 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
 	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
-	m_IceSurfaceBlockTex.Load("Texture/GroundBlock/Snowslice03_03.png");;
-	m_IceInsideBlockTex.Load("Texture/GroundBlock/Snowslice27_27.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
@@ -906,15 +971,15 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_lKey = false;
 	m_pKey = false;
 	
-	_texture[0].Load("Texture/Item/Key1.png");
-	_key = Item({0,0},&_texture[0],0 );
-	m_item.push_back(_key);
-	_texture[1].Load("Texture/Item/Key2.png");
-	_key = Item({ 0,-64 }, &_texture[1], 1);
-	m_item.push_back(_key);
-	_texture[2].Load("Texture/Item/Key3.png");
-	_key = Item({ 0,-128 }, &_texture[2], 2);
-	m_item.push_back(_key);
+	m_keyTexture[0].Load("Texture/Item/Key1.png");
+	_lastItem = Item({0,0},&m_keyTexture[0],0 );
+	m_item.push_back(_lastItem);
+	m_keyTexture[1].Load("Texture/Item/Key2.png");
+	_lastItem = Item({ 0,-64 }, &m_keyTexture[1], 1);
+	m_item.push_back(_lastItem);
+	m_keyTexture[2].Load("Texture/Item/Key3.png");
+	_lastItem = Item({ 0,-128 }, &m_keyTexture[2], 2);
+	m_item.push_back(_lastItem);
 
 	m_spawner.push_back(Spawner(1, SpawnPos, &m_player));
 }
