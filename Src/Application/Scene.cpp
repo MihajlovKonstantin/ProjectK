@@ -639,6 +639,9 @@ int Scene::MaxTypeBlock()
 		break;
 	default:
 		return 1;
+		break;
+	}
+}
 void Scene::SaveSpawn()
 {
 	std::ofstream outFile("SpawnData");
@@ -743,22 +746,22 @@ void Scene::Update()
 	{
 		if (GetAsyncKeyState('L'))
 		{
-			if (!lKey)
+			if (!m_lKey)
 			{
 				SaveStage();
 				SaveSpawn();
 			}
-			lKey = true;
+			m_lKey = true;
 		}
 		else m_lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			if (!pKey)
+			if (!m_pKey)
 			{
 				LoadStage();
 				LoadSpawn();
 			}
-			pKey = true;
+			m_pKey = true;
 		}
 		else m_pKey = false;
 		if (GetAsyncKeyState('T'))
