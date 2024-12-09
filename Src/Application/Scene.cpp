@@ -31,8 +31,8 @@ void Scene::Draw2D()
 			break;
 		case EditerSelect::ItemMenu:
 			_string[0] += "item";
-		case EditerSelect::EnemyMenu:
-			_string[0] += "Enemy";
+		case EditerSelect::CharaMenu:
+			_string[0] += "Chara";
 			break;
 			break;
 		}
@@ -43,6 +43,33 @@ void Scene::Draw2D()
 			_string[2] = "CurrentBlockVariant" + std::to_string(m_selectedUnitVariant);
 			
 			break;
+		case EditerSelect::CharaMenu:
+			_string[1] = "CurrentCharaType ";
+			switch (m_unitType)
+			{
+			case SpawnerSelect::Player:
+				_string[1] += "Player";
+				break;
+			case SpawnerSelect::Enemy:
+				_string[1] += "Enemy";
+				break;
+			case SpawnerSelect::Enemys:
+				_string[1] += "Enemys";
+				break;
+			}
+			if (m_unitType != SpawnerSelect::Player)
+			{
+				_string[2] = "CurrentEnemyVariant ";
+				switch (m_selectedUnitVariant)
+				{
+				case EnemySelect::Slime:
+					_string[2] += "Slime";
+					break;
+				case  EnemySelect::IceBall:
+					_string[2] += "IceBall";
+					break;
+				}
+			}
 		}
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
 		DrawString(300, 300, _text[0], { 1,1,1,1 }, 0.5f);
@@ -516,7 +543,8 @@ void Scene::UpdateEditScene()
 				break;
 			case EditerSelect::ItemMenu:
 				break;
-			case EditerSelect::EnemyMenu:
+			case EditerSelect::CharaMenu:
+				_maxType = MaxTypeEnemy();
 				break;
 			}
 			if (m_selectedUnitVariant >= _maxType)
@@ -539,7 +567,8 @@ void Scene::UpdateEditScene()
 				break;
 			case EditerSelect::ItemMenu:
 				break;
-			case EditerSelect::EnemyMenu:
+			case EditerSelect::CharaMenu:
+				_maxType = MaxTypeEnemy();
 				break;
 			}
 			if (m_selectedUnitVariant < 0)
@@ -563,7 +592,7 @@ void Scene::UpdateEditScene()
 				break;
 			case EditerSelect::ItemMenu:
 				break;
-			case EditerSelect::EnemyMenu:
+			case EditerSelect::CharaMenu:
 				_maxType = SpawnerSelect::COUNTSS;
 				break;
 			}
@@ -588,7 +617,8 @@ void Scene::UpdateEditScene()
 				break;
 			case EditerSelect::ItemMenu:
 				break;
-			case EditerSelect::EnemyMenu:
+			case EditerSelect::CharaMenu:
+				_maxType = SpawnerSelect::COUNTSS;
 				break;
 			}
 			if (m_unitType < 0)
@@ -615,9 +645,11 @@ void Scene::UpdateEditScene()
 			{
 			case BlockMenu:
 				CreateTerrainObject();
+				m_drawStartBool = false;
 				break;
-			case EnemyMenu:
+			case CharaMenu:
 				CreateSpawn();
+				m_drawStartBool = false;
 				break;
 			case ItemMenu:
 				break;
@@ -642,6 +674,7 @@ int Scene::MaxTypeBlock()
 		break;
 	}
 }
+
 void Scene::SaveSpawn()
 {
 	std::ofstream outFile("SpawnData");
@@ -720,11 +753,12 @@ void Scene::LoadSpawn()
 
 void Scene::CreateSpawn()
 {
-	SpawnPos = { 100,200 };
-	int charaIndex = 1;
+	SpawnPos.first = m_point[0].x;
+	SpawnPos.second = m_point[0].y;
+	int charaIndex = m_unitType;
 	switch (charaIndex)
 	{
-	case 1:
+	case SpawnerSelect::Player:
 		if (m_spawner[0].GetIndex() == 1)
 		{
 			m_spawner.erase(m_spawner.begin());
@@ -732,8 +766,27 @@ void Scene::CreateSpawn()
 		}
 		else m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
 		break;
+	case SpawnerSelect::Enemy:
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, NULL, m_selectedUnitVariant));
+		break;
 	default:
-		m_spawner.push_back(Spawner(charaIndex, { 200,100 }, NULL, 1, 300, 5));
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, NULL, m_selectedUnitVariant, 300, 5));
+		break;
+	}
+}
+
+int Scene::MaxTypeEnemy()
+{
+	switch (m_unitType)
+	{
+	case SpawnerSelect::Player:
+		return 0;
+		break;
+	case SpawnerSelect::Enemy:
+		return EnemySelect::COUNTENS;
+		break;
+	case SpawnerSelect::Enemys:
+		return EnemySelect::COUNTENS;
 		break;
 	}
 }

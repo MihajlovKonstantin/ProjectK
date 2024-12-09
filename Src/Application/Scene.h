@@ -9,9 +9,10 @@ private:
 	int m_unitType = 1;
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
-	enum SpawnerSelect {COUNTSS= 3,Player = 0,Enemy,Enemys};
-	enum EditerSelect {COUNTES=3,BlockMenu=0,EnemyMenu,ItemMenu};
-	enum IceBlockSelect {COUNTIBS=2,Surface=0,Inside};
+	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
+	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
+	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
+	enum EnemySelect { COUNTENS = 2, Slime = 0, IceBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum BlockEditerSelect{COUNTBES = 3,Ground = 1,Ice};
 	std::vector<Item> m_item;
@@ -97,6 +98,7 @@ public:
 	void SaveSpawn();
 	void LoadSpawn();
 	void CreateSpawn();
+	int MaxTypeEnemy();
 private:
 
 	Scene() {}
