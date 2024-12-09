@@ -15,6 +15,8 @@ private:
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum BlockEditerSelect{COUNTBES = 3,Ground = 1,Ice};
 	std::vector<Item> m_item;
+	std::vector <Spawner> m_spawner;
+	std::pair<float, float> SpawnPos = { 200,100 };
 	Item _key;
 	std::array<KdTexture,3> _texture;
 	bool CLEARFLAG = false;
@@ -92,6 +94,9 @@ public:
 	void UpdateGameScene();
 	void UpdateEditScene();
 	int MaxTypeBlock();
+	void SaveSpawn();
+	void LoadSpawn();
+	void CreateSpawn();
 private:
 
 	Scene() {}

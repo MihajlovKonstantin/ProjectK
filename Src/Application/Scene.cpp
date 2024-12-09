@@ -71,25 +71,25 @@ void Scene::DrawButtonText(Button inputButton)
 
 void Scene::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
 {
-	//ƒƒCƒh•¶š—ñ‚É•ÏŠ·‚·‚é•K—v‚ª‚ ‚é
+	//ï¿½ï¿½ï¿½Cï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	WCHAR* _wtext = new WCHAR[strlen(_text) + 1];
 	mbstowcs_s(nullptr, _wtext, strlen(_text) + 1, _text, _TRUNCATE);
 
-	//Begin‘O‚ÌBlendState‚ğæ“¾
+	//Beginï¿½Oï¿½ï¿½BlendStateï¿½ï¿½ï¿½æ“¾
 	ID3D11BlendState* oldBlendState = 0;
 	float oldFactor[4];
 	UINT oldMask = 0;
 	D3D.GetDevContext()->OMGetBlendState(&oldBlendState, oldFactor, &oldMask);
 	
-	//BlendState‚ğˆø‚«Œp‚¢‚ÅBegin
+	//BlendStateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½Begin
 	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, oldBlendState);
 	spriteFont->DrawString(spriteBatch, _wtext, Math::Vector2(_x + 640, -_y + 360), _color,0.0f,{0,0},scale);
 	spriteBatch->End();
 
-	//Begin‘O‚ÌBlendState‚ğ•œŒ³
+	//Beginï¿½Oï¿½ï¿½BlendStateï¿½ğ•œŒï¿½
 	D3D.GetDevContext()->OMSetBlendState(oldBlendState, oldFactor, oldMask);
 
-	//ˆêæ“¾‚µ‚½BlendState‚ğ‰ğ•ú (‰ğ•ú‚µ‚È‚¢‚ÆQÆƒJƒEƒ“ƒg‚ªŒ¸‚ç‚È‚¢)
+	//ï¿½êï¿½æ“¾ï¿½ï¿½ï¿½ï¿½BlendStateï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ÆQï¿½ÆƒJï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½)
 	KdSafeRelease(oldBlendState);
 
 	delete[] _wtext;
@@ -446,7 +446,7 @@ void Scene::UpdateGameScene()
 				}
 				if (_keyType == m_keyFlag.size())
 				{
-					CLEARFLAG = true;////‘å–IIIIIIIIIIIIIIII
+					CLEARFLAG = true;////ï¿½å–ï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½Iï¿½I
 				}
 			}
 		}
@@ -473,6 +473,7 @@ void Scene::UpdateGameScene()
 	{
 		m_player.Stop();
 	}
+	m_spawner[0].Update();
 	m_player.Update();
 }
 
@@ -616,6 +617,7 @@ void Scene::UpdateEditScene()
 				CreateTerrainObject();
 				break;
 			case EnemyMenu:
+				CreateSpawn();
 				break;
 			case ItemMenu:
 				break;
@@ -637,6 +639,98 @@ int Scene::MaxTypeBlock()
 		break;
 	default:
 		return 1;
+void Scene::SaveSpawn()
+{
+	std::ofstream outFile("SpawnData");
+	if (outFile.is_open()) {
+		outFile << m_spawner.size() << "\n";
+		for (int i = 0; i < m_spawner.size(); i++)
+		{
+			outFile << m_spawner[i].GetIndex() << "\n";
+			outFile << m_spawner[i].GetCharaPos().first << ",";
+			switch (m_spawner[i].GetIndex())
+			{
+			case 1:
+				outFile << m_spawner[i].GetCharaPos().second << "\n";
+				break;
+			case 2:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << "\n";
+				break;
+			case 3:
+				outFile << m_spawner[i].GetCharaPos().second << ",";
+				outFile << m_spawner[i].GetType() << ",";
+				outFile << m_spawner[i].GetInterval() << ",";
+				outFile << m_spawner[i].GetNum() << "\n";
+				break;
+			}
+		}
+		outFile.close();
+	}
+}
+
+void Scene::LoadSpawn()
+{
+	std::ifstream inFile("SpawnData");
+	if (inFile.is_open()) {
+		int charaIndex, type, interval, num, size;
+		std::pair<float, float>pos;
+		std::string line;
+		std::getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int i = 0; i < size; i++)
+		{
+			std::getline(inFile, line, '\n');
+			charaIndex = stoi(line);
+			std::getline(inFile, line, ',');
+			pos.first = stoi(line);
+			switch (charaIndex)
+			{
+			case 1:
+				std::getline(inFile, line, '\n');
+				pos.second = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos));
+				break;
+			case 2:
+				std::getline(inFile, line, ',');
+				pos.second = stoi(line);
+				std::getline(inFile, line, '\n');
+				type = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type));
+				break;
+			case 3:
+				std::getline(inFile, line, ',');
+				pos.second = stoi(line);
+				std::getline(inFile, line, ',');
+				type = stoi(line);
+				std::getline(inFile, line, ',');
+				interval = stoi(line);
+				std::getline(inFile, line, '\n');
+				num = stoi(line);
+				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type, interval, num));
+				break;
+			}
+		}
+		inFile.close();
+	}
+}
+
+void Scene::CreateSpawn()
+{
+	SpawnPos = { 100,200 };
+	int charaIndex = 1;
+	switch (charaIndex)
+	{
+	case 1:
+		if (m_spawner[0].GetIndex() == 1)
+		{
+			m_spawner.erase(m_spawner.begin());
+			m_spawner.insert(m_spawner.begin(), Spawner(charaIndex, SpawnPos, &m_player));
+		}
+		else m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
+		break;
+	default:
+		m_spawner.push_back(Spawner(charaIndex, { 200,100 }, NULL, 1, 300, 5));
 		break;
 	}
 }
@@ -649,14 +743,22 @@ void Scene::Update()
 	{
 		if (GetAsyncKeyState('L'))
 		{
-			if (!m_lKey)SaveStage();
-			m_lKey = true;
+			if (!lKey)
+			{
+				SaveStage();
+				SaveSpawn();
+			}
+			lKey = true;
 		}
 		else m_lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			if (!m_pKey)LoadStage();
-			m_pKey = true;
+			if (!pKey)
+			{
+				LoadStage();
+				LoadSpawn();
+			}
+			pKey = true;
 		}
 		else m_pKey = false;
 		if (GetAsyncKeyState('T'))
@@ -762,7 +864,7 @@ void Scene::UpdateMainMenu()
 
 void Scene::Init(WindowsControlData* WCInput)
 {
-	// ‰æ‘œ‚Ì“Ç‚İ‚İˆ—
+	// ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½İï¿½ï¿½ï¿½
 	ShowCursor(true);
 	spriteBatch = new DirectX::SpriteBatch(D3D.GetDevContext());
 	spriteFont = new DirectX::SpriteFont(D3D.GetDev(),L"SpriteFont.dat");
@@ -810,11 +912,13 @@ void Scene::Init(WindowsControlData* WCInput)
 	_texture[2].Load("Texture/Item/Key3.png");
 	_key = Item({ 0,-128 }, &_texture[2], 2);
 	m_item.push_back(_key);
+
+	m_spawner.push_back(Spawner(1, SpawnPos, &m_player));
 }
 
 void Scene::Release()
 {
-	// ‰æ‘œ‚Ì‰ğ•úˆ—
+	// ï¿½æ‘œï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_BlockTex.Release();
 	delete SC;
 	tmpTex.Release();
@@ -827,7 +931,7 @@ void Scene::ImGuiUpdate()
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);
 
-	// ƒfƒoƒbƒOƒEƒBƒ“ƒhƒE
+	// ï¿½fï¿½oï¿½bï¿½Oï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½E
 	if (ImGui::Begin("Debug Window"))
 	{
 		ImGui::Text("FPS : %d", APP.m_fps);
