@@ -6,11 +6,14 @@ class Scene
 private:
 	//test2
 	// test
-	int BlockKinds = 1;
-	int EditerMenu = BlockMenu;
-	int IceBlockMenu = Surface;
-	enum EditerSelect {BlockMenu,EnemyMenu,ItemMenu};
-	enum IceBlockSelect {Surface,Inside};
+	int m_unitType = 1;
+	int m_editerMenuIndex = 0;
+	int m_selectedUnitVariant = 0;
+	enum SpawnerSelect {COUNTSS= 3,Player = 0,Enemy,Enemys};
+	enum EditerSelect {COUNTES=3,BlockMenu=0,EnemyMenu,ItemMenu};
+	enum IceBlockSelect {COUNTIBS=2,Surface=0,Inside};
+	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
+	enum BlockEditerSelect{COUNTBES = 3,Ground = 1,Ice};
 	std::vector<Item> m_item;
 	Item _key;
 	std::array<KdTexture,3> _texture;
@@ -39,32 +42,28 @@ private:
 	const char* charStr = str.c_str();
 	Menu m_inGameSetting;
 	Stage m_stage;
-	//DrawButton �ϐ�
+	//DrawButton 
 	std::array<float, 2> size;
 	std::array<float, 2>position;
 	std::string message;
 	//test
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;
-	//Mouse �Ǘ�
+	//Mouse 
 	POINT mouse;
 	WindowsControlData* WC;
-	//DirectX::BoundingSphere;
 	SceneControlData* SC;
 	bool m_controlButtonClick = false;
-	//test
 	std::vector<KdTexture> m_asset;
-	//std::vector<std::unique_ptr<
 	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_playerTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
-	bool _test = false;
+	bool m_testCollision = false;
 	bool _tKey = false;
-	//test
-	bool test;
+	int m_stageType = 1;
 	//キー制御用
-	bool lKey;
-	bool pKey;
+	bool m_lKey;
+	bool m_pKey;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
@@ -92,6 +91,7 @@ public:
 	void LoadStage();
 	void UpdateGameScene();
 	void UpdateEditScene();
+	int MaxTypeBlock();
 private:
 
 	Scene() {}

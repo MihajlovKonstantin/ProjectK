@@ -20,6 +20,35 @@ void Scene::Draw2D()
 			DrawButtonText(m_inGameSetting.GetButton(i));
 		}
 	}
+	if (SC->GetEditMode())
+	{
+		string _string[3];
+		_string[0] ="CurrentEditerMenu ";
+		switch (m_editerMenuIndex)
+		{
+		case EditerSelect::BlockMenu:
+			_string[0] += "Block";
+			break;
+		case EditerSelect::ItemMenu:
+			_string[0] += "item";
+		case EditerSelect::EnemyMenu:
+			_string[0] += "Enemy";
+			break;
+			break;
+		}
+		switch (m_editerMenuIndex)
+		{
+		case EditerSelect::BlockMenu:
+			_string[1] = "CurrentBlockType" + std::to_string(m_unitType);
+			_string[2] = "CurrentBlockVariant" + std::to_string(m_selectedUnitVariant);
+			
+			break;
+		}
+		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
+		DrawString(300, 300, _text[0], { 1,1,1,1 }, 0.5f);
+		DrawString(300, 250, _text[1], { 1,1,1,1 }, 0.5f);
+		DrawString(300, 200, _text[2], { 1,1,1,1 }, 0.5f);
+	}
 }
 
 void Scene::DrawButton(Button inputButton)
@@ -176,10 +205,10 @@ void Scene::CreateTerrainObject()
 		radian = 2.0f * float(M_PI);
 	}
 	buffer = int(radian / (float(M_PI) * 0.25f));
-	int _terrainType = BlockKinds;
-	switch (BlockKinds)
+	int _terrainType = m_unitType;
+	switch (m_unitType)
 	{
-	case 1:
+	case BlockEditerSelect::Ground:
 		switch (buffer)
 		{
 
@@ -202,8 +231,8 @@ void Scene::CreateTerrainObject()
 
 		break;
 		
-	case 2:
-		switch (IceBlockMenu)
+	case BlockEditerSelect::Ice:
+		switch (m_selectedUnitVariant)
 		{
 		case Surface:
 			switch (buffer)
@@ -328,6 +357,7 @@ void Scene::SaveStage()
 {
 	std::ofstream outFile("StageData");
 	if (outFile.is_open()) {
+		outFile << m_stageType << "\n";
 		outFile << m_terrain.size() << "\n";
 		for (int i = 0; i < m_terrain.size(); i++)
 		{
@@ -351,10 +381,11 @@ void Scene::LoadStage()
 {
 	std::ifstream inFile("StageData");
 	if (inFile.is_open()) {
-		//TerrainObject example
 		int x, y, angle, size, typeBlockSize, _buff;
 		std::vector<int> typeBlock;
 		std::string line;
+		getline(inFile, line, '\n');
+		m_stageType = stoi(line);
 		getline(inFile, line, '\n');
 		size = stoi(line);
 		for (int j = 0; j < size; j++)
@@ -421,7 +452,7 @@ void Scene::UpdateGameScene()
 		}
 	}
 
-	_test = false;
+	m_testCollision = false;
 	for (int i = 0; i < m_terrain.size(); i++)
 	{
 		if (m_terrain[i].OnCollisionRange(m_player.GetPos()))
@@ -430,24 +461,13 @@ void Scene::UpdateGameScene()
 			for (int j = 0; j < _blocks->size(); j++)
 			{
 				auto _block = _blocks->at(j);
-				test = m_player.CollisionToBlock(_block);
-				if (test)
+				m_testCollision = m_player.CollisionToBlock(_block);
+				if (m_testCollision)
 				{
 					m_player.SetOnGroundFlag(true);
-					_test = true;
 				}
 			}
 		}
-	}
-	for (int i = 0; i < m_blocks.size(); i++)
-	{
-		test = m_player.CollisionToBlock(m_blocks[i]);
-		if (test)
-		{
-			m_player.SetOnGroundFlag(true);
-			_test = true;
-		}
-		m_blocks[i].Update();
 	}
 	if (!m_player.MovePossible())
 	{
@@ -458,18 +478,125 @@ void Scene::UpdateGameScene()
 
 void Scene::UpdateEditScene()
 {
-	if (GetAsyncKeyState('Q'))EditerMenu = BlockMenu;
-	if (GetAsyncKeyState('W'))EditerMenu = EnemyMenu;
-	if (GetAsyncKeyState('Y'))EditerMenu = ItemMenu;
-
-	if (GetAsyncKeyState('N'))IceBlockMenu = Surface;
-	if (GetAsyncKeyState('B'))IceBlockMenu = Inside;
-
-	if (GetAsyncKeyState('C')) BlockKinds = 0;
-	if (GetAsyncKeyState('K')) BlockKinds = 1;
-	if (GetAsyncKeyState('J')) BlockKinds = 2;
-	if (GetAsyncKeyState('H')) BlockKinds = 3;
-	if (GetAsyncKeyState('M')) BlockKinds = 4;
+	if (GetAsyncKeyState('T'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_editerMenuIndex++;
+			if (m_editerMenuIndex >= EditerSelect::COUNTES)
+			{
+				m_editerMenuIndex = 0;
+			}
+			m_controlButtonClick = true;
+		}
+	}
+	if (GetAsyncKeyState('Y'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_editerMenuIndex--;
+			if (m_editerMenuIndex <0)
+			{
+				m_editerMenuIndex = EditerSelect::COUNTES-1;
+			}
+			m_controlButtonClick = true;
+		}
+	}
+	if (GetAsyncKeyState('B'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_selectedUnitVariant++;
+			int _maxType = 1;
+			switch (m_editerMenuIndex)
+			{
+			case EditerSelect::BlockMenu:
+				_maxType = MaxTypeBlock();
+				break;
+			case EditerSelect::ItemMenu:
+				break;
+			case EditerSelect::EnemyMenu:
+				break;
+			}
+			if (m_selectedUnitVariant >= _maxType)
+			{
+				m_selectedUnitVariant = 0;
+			}
+			m_controlButtonClick = true;
+		}
+	}
+	if (GetAsyncKeyState('N'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_selectedUnitVariant--;
+			int _maxType = 1;
+			switch (m_editerMenuIndex)
+			{
+			case EditerSelect::BlockMenu:
+				_maxType = MaxTypeBlock();
+				break;
+			case EditerSelect::ItemMenu:
+				break;
+			case EditerSelect::EnemyMenu:
+				break;
+			}
+			if (m_selectedUnitVariant < 0)
+			{
+				m_selectedUnitVariant = _maxType-1;
+			}
+			m_controlButtonClick = true;
+		}
+	}
+	if (GetAsyncKeyState('G'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_unitType++;
+			m_selectedUnitVariant = 0;
+			int _maxType = 1;
+			switch (m_editerMenuIndex)
+			{
+			case EditerSelect::BlockMenu:
+				_maxType = BlockEditerSelect::COUNTBES;
+				break;
+			case EditerSelect::ItemMenu:
+				break;
+			case EditerSelect::EnemyMenu:
+				_maxType = SpawnerSelect::COUNTSS;
+				break;
+			}
+			if (m_unitType >= _maxType)
+			{
+				m_unitType = 0;
+			}
+			m_controlButtonClick = true;
+		}
+	}
+	if (GetAsyncKeyState('H'))
+	{
+		if (!m_controlButtonClick)
+		{
+			m_unitType--;
+			m_selectedUnitVariant = 0;
+			int _maxType = 1;
+			switch (m_editerMenuIndex)
+			{
+			case EditerSelect::BlockMenu:
+				_maxType = BlockEditerSelect::COUNTBES;
+				break;
+			case EditerSelect::ItemMenu:
+				break;
+			case EditerSelect::EnemyMenu:
+				break;
+			}
+			if (m_unitType < 0)
+			{
+				m_unitType = _maxType-1;
+			}
+			m_controlButtonClick = true;
+		}
+	}
 	if (GetAsyncKeyState(VK_SPACE))
 	{
 		if (!m_drawStartBool)
@@ -483,7 +610,7 @@ void Scene::UpdateEditScene()
 		if (m_drawStartBool)
 		{
 			m_point[1] = m_mouse;
-			switch (EditerMenu)
+ 			switch (m_editerMenuIndex)
 			{
 			case BlockMenu:
 				CreateTerrainObject();
@@ -498,6 +625,22 @@ void Scene::UpdateEditScene()
 	m_blocks.clear();
 }
 
+int Scene::MaxTypeBlock()
+{
+	switch (m_unitType)
+	{
+	case BlockEditerSelect::Ground:
+		return 1;
+		break;
+	case BlockEditerSelect::Ice:
+		return IceBlockSelect::COUNTIBS;
+		break;
+	default:
+		return 1;
+		break;
+	}
+}
+
 void Scene::Update()
 {
 
@@ -506,16 +649,16 @@ void Scene::Update()
 	{
 		if (GetAsyncKeyState('L'))
 		{
-			if (!lKey)SaveStage();
-			lKey = true;
+			if (!m_lKey)SaveStage();
+			m_lKey = true;
 		}
-		else lKey = false;
+		else m_lKey = false;
 		if (GetAsyncKeyState('P'))
 		{
-			if (!pKey)LoadStage();
-			pKey = true;
+			if (!m_pKey)LoadStage();
+			m_pKey = true;
 		}
-		else pKey = false;
+		else m_pKey = false;
 		if (GetAsyncKeyState('T'))
 		{
 			if (!_tKey)
@@ -584,7 +727,7 @@ void Scene::Update()
 				break;
 			}
 	}
-	else
+	if (GetAsyncKeyState('Z'))
 	{
 		m_controlButtonClick = false;
 	}
@@ -655,8 +798,8 @@ void Scene::Init(WindowsControlData* WCInput)
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
-	lKey = false;
-	pKey = false;
+	m_lKey = false;
+	m_pKey = false;
 	
 	_texture[0].Load("Texture/Item/Key1.png");
 	_key = Item({0,0},&_texture[0],0 );
@@ -688,7 +831,7 @@ void Scene::ImGuiUpdate()
 	if (ImGui::Begin("Debug Window"))
 	{
 		ImGui::Text("FPS : %d", APP.m_fps);
-		if (test)
+		if (m_testCollision)
 		{
 			ImGui::Text("On Groud");
 			
