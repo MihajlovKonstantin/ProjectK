@@ -1,5 +1,5 @@
 #include "main.h"
-
+#define MenuSHADER KdShaderManager::GetInstance()
 #include "Scene.h"
 #pragma comment(lib, "Shlwapi.lib")
 //===================================================================
@@ -290,6 +290,8 @@ void Application::MenuUpdate(Menu inputMenu)
 }
 void Application::MenuDraw(Menu inputMenu)
 {
+	//MenuSHADER.m_spriteShader.SetMatrix();
+	//MenuSHADER.m_spriteShader.DrawTex(&tex,rectangle)
 	int _buttonCNT = inputMenu.GetButtonsCNT();
 	for (int i = 0; i < _buttonCNT; i++)
 	{
