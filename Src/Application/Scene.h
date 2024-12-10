@@ -8,6 +8,7 @@ private:
 	int m_unitType = 1;
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
+	//enum
 	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
@@ -31,6 +32,9 @@ private:
 
 	Item _lastItem;
 	
+	int m_clearState[2];
+	std::string m_clearStateString;
+	const char* m_clearExpress = m_clearStateString.c_str();
 	bool CLEARFLAG = false;
 		//m_terrain
 	
@@ -63,12 +67,12 @@ private:
 	SceneControlData* SC;
 	bool m_controlButtonClick = false;
 	std::vector<KdTexture> m_asset;
-	PC m_player = PC({ 165,200 }, { +2.0f,-1 }, &m_playerTex);
+	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
 	float num = 6.5f / 3.0f;
 	float m_rad = float(M_PI)*0.0f;
 	bool m_testCollision = false;
 	bool _tKey = false;
-	int m_stageType = 1;
+	int m_stageType = 0;
 	//キー制御用
 	bool m_lKey;
 	bool m_pKey;

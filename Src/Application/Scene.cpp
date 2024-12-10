@@ -125,6 +125,20 @@ void Scene::Draw2D()
 		DrawString(300, 300, _text[0], { 1,1,1,1 }, 0.5f);
 		DrawString(300, 250, _text[1], { 1,1,1,1 }, 0.5f);
 		DrawString(300, 200, _text[2], { 1,1,1,1 }, 0.5f);
+		
+	}
+	
+	if (CLEARFLAG)
+	{
+		DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
+	}
+	else
+	{
+		if (m_stageType == 1)
+		{
+			DrawString(-300, 300, m_clearExpress, { 1,0,0,1 }, 2.0f);
+
+		}
 	}
 }
 
@@ -216,6 +230,7 @@ void Scene::DynamicDraw2D()
 			SHADER.m_spriteShader.SetMatrix(m_item[i].GetMatrix());
 			SHADER.m_spriteShader.DrawTex(m_item[i].GetTexture(), m_item[i].GetRect());
 		}
+		
 
 	}
 	
@@ -429,7 +444,27 @@ void Scene::CreateTerrainObject()
 
 void Scene::CreateItem()
 {
-
+	std::pair<float, float>_pos = { m_point[0].x-640 ,-m_point[0].y+360 };
+	switch (m_unitType)
+	{
+	case ItemSelect::Key:
+		switch (m_selectedUnitVariant)
+		{
+		case KeySelect::Yellow:
+			_lastItem = Item(_pos, &m_keyTexture[0], 0);
+			m_item.push_back(_lastItem);
+			break;
+		case KeySelect::Blue:
+			_lastItem = Item(_pos, &m_keyTexture[2], 2);
+			m_item.push_back(_lastItem);
+			break;
+		case KeySelect::Red:
+			_lastItem = Item(_pos, &m_keyTexture[1], 1);
+			m_item.push_back(_lastItem);
+			break;
+		}
+		break;
+	}
 }
 
 void Scene::SaveStage()
@@ -495,6 +530,10 @@ void Scene::LoadStage()
 
 void Scene::UpdateGameScene()
 {
+	if (m_stageType == 1)
+	{
+		m_clearState[1] = m_keyFlag.size();
+	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		m_player.SetDirection(Direction::Left);
@@ -515,20 +554,25 @@ void Scene::UpdateGameScene()
 			if ( _index< 3)
 			{
 				m_keyFlag[_index] = true;
-				int _keyType=0;
+				m_clearState[0] = 0;
 				for (int j = 0; j < m_keyFlag.size(); j++)
 				{
+					
 					if (m_keyFlag[j])
 					{
-						_keyType++;
+						m_clearState[0]++;
 					}
 				}
-				if (_keyType == m_keyFlag.size())
+				if (m_clearState[0] == m_clearState[1])
 				{
 					CLEARFLAG = true;////�厖�I�I�I�I�I�I�I�I�I�I�I�I�I�I�I�I
 				}
 			}
 		}
+	}
+	if (m_stageType == 1)
+	{
+		m_clearStateString = to_string(m_clearState[0]) + "/" + to_string(m_clearState[1]);
 	}
 
 	m_testCollision = false;
@@ -552,7 +596,17 @@ void Scene::UpdateGameScene()
 	{
 		m_player.Stop();
 	}
-	m_spawner[0].Update();
+	for (int i = 0; i < m_spawner.size(); i++)
+	{
+		m_spawner[i].Update();
+	}
+	if (m_stageType == 0)
+	{
+		if (m_player.GetPos().second >= 220)
+		{
+			CLEARFLAG = true;
+		}
+	}
 	m_player.Update();
 }
 
@@ -706,11 +760,14 @@ void Scene::UpdateEditScene()
 				m_drawStartBool = false;
 				break;
 			case ItemMenu:
-
+				CreateItem();
+				m_drawStartBool = false;
 				break;
 			}
 		}
 	}
+	
+	
 	m_blocks.clear();
 }
 
@@ -774,6 +831,7 @@ void Scene::SaveSpawn()
 
 void Scene::LoadSpawn()
 {
+	m_spawner.clear();
 	std::ifstream inFile("SpawnData");
 	if (inFile.is_open()) {
 		int charaIndex, type, interval, num, size;
@@ -792,7 +850,7 @@ void Scene::LoadSpawn()
 			case 1:
 				std::getline(inFile, line, '\n');
 				pos.second = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos));
+				m_spawner.push_back(Spawner(charaIndex, pos,&m_player));
 				break;
 			case 2:
 				std::getline(inFile, line, ',');
@@ -820,8 +878,12 @@ void Scene::LoadSpawn()
 
 void Scene::CreateSpawn()
 {
-	SpawnPos.first = m_point[0].x;
-	SpawnPos.second = m_point[0].y;
+	if (m_spawner.empty())
+	{
+		m_spawner.push_back(Spawner(0, { 0,0 }, NULL));
+	}
+	SpawnPos.first = m_point[0].x-640;
+	SpawnPos.second = -m_point[0].y+360;
 	int charaIndex = m_unitType;
 	switch (charaIndex)
 	{
@@ -922,7 +984,11 @@ void Scene::Update()
 			}
 		}
 		GetCursorPos(&m_mouse);
-		if (GetAsyncKeyState('E')) SC->SetEditMode(!SC->GetEditMode());
+		if ((GetAsyncKeyState('E') && !m_controlButtonClick))
+		{
+			SC->SetEditMode(!SC->GetEditMode());
+			m_controlButtonClick = true;
+		};
 		if (!WC->IsPause())
 		{
 			if (SC->GetEditMode())
@@ -1025,16 +1091,10 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_pKey = false;
 	
 	m_keyTexture[0].Load("Texture/Item/Key1.png");
-	_lastItem = Item({0,0},&m_keyTexture[0],0 );
-	m_item.push_back(_lastItem);
 	m_keyTexture[1].Load("Texture/Item/Key2.png");
-	_lastItem = Item({ 0,-64 }, &m_keyTexture[1], 1);
-	m_item.push_back(_lastItem);
 	m_keyTexture[2].Load("Texture/Item/Key3.png");
-	_lastItem = Item({ 0,-128 }, &m_keyTexture[2], 2);
-	m_item.push_back(_lastItem);
-
-	m_spawner.push_back(Spawner(1, SpawnPos, &m_player));
+	
+	
 }
 
 void Scene::Release()
@@ -1047,7 +1107,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	//return;
+	return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);
