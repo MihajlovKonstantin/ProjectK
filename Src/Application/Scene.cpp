@@ -212,7 +212,7 @@ void Scene::DynamicDraw2D()
 	{
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
-		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), charaRect, 1.0f);
+		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), m_player.GetRect(), 1.0f);
 		for (auto _terrainObject : m_terrain)
 		{
 			auto _blocks = *_terrainObject.GetBlocks();
@@ -1066,7 +1066,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
-	m_playerTex.Load("Texture/Object/RedBox.png");
+	m_playerTex.Load("Texture/Creature/player.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -1107,7 +1107,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	return;
+	//return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);

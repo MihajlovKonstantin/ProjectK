@@ -20,11 +20,12 @@ protected:
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
 	KdTexture* m_texture;
-	std::pair<float, float>m_scale = { 1,1 };
+	//std::pair<float, float>m_scale = { 1,1 };
 	Math::Matrix m_mTrans;
 	Math::Matrix m_mRotation;
 	Math::Matrix m_mScale;
 	Math::Matrix m_matrix;
+	Math::Rectangle m_rectangle = Math::Rectangle(0,33,32,32);
 	float m_rad;
 	float m_sideRad=-1.0f;
 	float m_currentCollisionValue = -1.0f;
@@ -36,7 +37,7 @@ protected:
 	std::pair<float, float> m_currentSpeed;
 	bool IsPossibleAngle(float radian);
 public:
-
+	Math::Rectangle GetRect();
 	void Update();
 	bool CollisionToBlock(Block block);
 	bool CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, float> b_size, float b_rad);

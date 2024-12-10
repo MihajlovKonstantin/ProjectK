@@ -20,10 +20,14 @@ bool Player::IsPossibleAngle(float radian)
 		_result = true;
 	return _result;
 }
+Math::Rectangle Player::GetRect()
+{
+	return m_rectangle;
+}
 void Player::Update()
 {
 	m_stopFlag = false;
-	m_scale = { 1,1 };
+	//m_scale = { 1,1 };
 	
 	int index;
 	if (!m_collisionData.empty())
@@ -86,64 +90,32 @@ void Player::Update()
 		}
 		if (m_groundFlag&&(m_rad != m_collisionData[index].rad))
 		{
-			if (fmod(m_collisionData[index].rad,1.0f* float(M_PI)) < float(M_PI) * 0.5f)
+			switch (m_direction)
 			{
-				if (m_collisionData[0].rad != m_collisionData[1].rad)
+			case Direction::Left:
+				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) < float(M_PI) * 0.5f)
 				{
-					Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-				}
-				
-			}
-			if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) > float(M_PI) * 0.5f)
-			{
-				if (m_collisionData[0].rad != m_collisionData[1].rad)
-				{
-					Move(16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-				}
-
-			}
-		}
-		
-	
-
-		
-		/*
-		if (m_rad != m_collisionData[index].rad)
-		{
-			if (!(m_collisionData[index].rad == 0 || (m_collisionData[index].rad == float(M_PI) * 0.5f) || (m_collisionData[index].rad == float(M_PI) * 1.0f) || (m_collisionData[index].rad == float(M_PI) * 1.5f)|| (m_collisionData[index].rad == float(M_PI) * 2.0f)))
-			{
-				if (m_groundFlag)
-				{
-					bool _test = false;
-					for (int i = 0; i < m_collisionData.size(); i++)
+					if (m_collisionData[0].rad != m_collisionData[1].rad)
 					{
-						if (m_collisionData[i].rad == 0)
-						{
-							_test = true;
-						}
+						Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
 					}
-					if (_test)
-					{
-						m_pos.second += 32.0f;
-						switch (m_direction)
-						{
-						case Left:
-							m_pos.first -= 32.0f*sqrt(2);
-							break;
-						case Right:
-							m_pos.first += 32.0f * sqrt(2);
-							break;
-						}
-					}
+
 				}
-				
-				for (int i = 0; i < 4; i++)
+				break;
+			case Direction::Right:
+				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) > float(M_PI) * 0.5f)
 				{
-					m_moveBlock[i] = false;
+					if (m_collisionData[0].rad != m_collisionData[1].rad)
+					{
+						Move(16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
+					}
+
 				}
+				break;
 			}
+			
+			
 		}
-		*/
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
@@ -172,40 +144,30 @@ void Player::Update()
 	float _drawRad = m_rad;
 
 
-	if (m_rad > float(M_PI))
+	if (_drawRad >= float(M_PI))
 	{
-		m_scale.first *= -1;
+		_drawRad = fmod(_drawRad, float(M_PI));
 	}
+	if (_drawRad >= float(M_PI)*0.5f)
+	{
+		_drawRad -= float(M_PI);
+	}
+	
 	if (m_sideRad != -1)
 	{
 		switch (m_direction)
 		{
 		case Left:
-			//_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
-			if (_drawRad >= float(M_PI) * 0.5f)
-			{
-				//_drawRad += float(M_PI) * 1.0f;
-			}
-			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad + float(M_PI) * 0.5f);
-			m_mScale = Math::Matrix::CreateScale(-1, 1, 1);
+			m_rectangle = Math::Rectangle{ 0,97,32,32 };
+			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad);
 			break;
 		case Right:
-			//_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
-			if (_drawRad >= float(M_PI) * 0.5f)
-			{
-				//_drawRad += float(M_PI) * 1.0f;
-			}
-			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad + float(M_PI) * 1.5f);
-			m_mScale = Math::Matrix::CreateScale(1, 1, 1);
+			m_rectangle = Math::Rectangle{ 0,33,32,32 };
+			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad);
 			break;
 		default:
-			_drawRad = fmod(_drawRad, 1.0f * float(M_PI));
-			if (_drawRad >= float(M_PI) * 0.5f)
-			{
-				_drawRad += float(M_PI) * 1.0f;
-			}
-			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad + float(M_PI) * 1.5f);
-			m_mScale = Math::Matrix::CreateScale(1, 1, 1);
+			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad);
+			m_rectangle = Math::Rectangle{ 0,65,32,32 };
 			break;
 		}
 
@@ -215,12 +177,10 @@ void Player::Update()
 		switch (m_direction)
 		{
 		case Right:
-			m_mRotation = Math::Matrix::CreateRotationZ(-float(M_PI) / 2.0f);
-			m_mScale = Math::Matrix::CreateScale(1, 1, 1);
+			m_rectangle = Math::Rectangle{ 0,33,32,32 };
 			break;
 		case Left:
-			m_mRotation = Math::Matrix::CreateRotationZ(float(M_PI) / 2.0f);
-			m_mScale = Math::Matrix::CreateScale(-1, 1, 1);
+			m_rectangle = Math::Rectangle{ 0,97,32,32 };
 		}
 
 	}
@@ -335,10 +295,7 @@ void Player::Update()
 	m_pos.first += m_currentSpeed.first;
 	m_pos.second += m_currentSpeed.second;
 	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
-	if (m_direction == Left)
-	{
-		m_rad -= float(M_PI);
-	}
+	
 	if (m_rad < 0)
 	{
 		m_rad += 2.0f * float(M_PI);
@@ -367,7 +324,8 @@ void Player::Update()
 	{
 		m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 	}
-	m_matrix = m_mScale * m_mRotation * m_mTrans;
+	
+	m_matrix = m_mRotation * m_mTrans;
 	for (int i = 0; i < 4; i++)
 	{
 		m_moveBlock[i] = false;
@@ -644,7 +602,7 @@ bool Player::CollisionToBlock(Block block)
 		switch (m_direction)
 		{
 		case Left:
-			_bRad = _bRad + float(M_PI);
+			//_bRad = _bRad + float(M_PI);
 			break;
 		case Right:
 			_bRad = _bRad + float(M_PI);
