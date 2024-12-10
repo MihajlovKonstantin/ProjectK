@@ -22,6 +22,8 @@ private:
 	char* dataFolderPath;
 	WindowsControlData WindowsData;
 	KeyEvent event;
+	std::shared_ptr<KdSoundEffect> soundEffect = std::make_shared<KdSoundEffect>();
+	std::shared_ptr<KdSoundInstance> soundInstance;
 	//SpriteFont
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;

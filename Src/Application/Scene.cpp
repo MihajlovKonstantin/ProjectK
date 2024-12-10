@@ -904,6 +904,11 @@ void Scene::CreateSpawn()
 	}
 }
 
+void Scene::StopMusic()
+{
+	//soundInstance->Pause();
+}
+
 int Scene::MaxTypeEnemy()
 {
 	switch (m_unitType)
@@ -922,7 +927,10 @@ int Scene::MaxTypeEnemy()
 
 void Scene::Update()
 {
-
+	//if(soundInstance.IsPause())
+	// {
+	//	soundInstance.Resume();
+	// }
 	//
 	if (SC->GetCurrentScene() == SceneControlData::Scenes::MainScene)
 	{
@@ -1034,7 +1042,9 @@ void Scene::Update()
 			{
 				if (ClickButton(mouse, m_inGameSetting.GetButton(i)) == true)
 				{
+					//soundInstance->Pause();
 					m_inGameSetting.EventClick(m_inGameSetting.GetButton(i).SendClickData());
+					
 				}
 			}
 			break;

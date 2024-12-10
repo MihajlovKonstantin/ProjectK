@@ -109,6 +109,7 @@ public:
 	void SaveSpawn();
 	void LoadSpawn();
 	void CreateSpawn();
+	void StopMusic();
 	int MaxTypeEnemy();
 private:
 

@@ -358,6 +358,7 @@ void Application::Game()
 	D3D.GetSwapChain()->Present(0, 0);
 	if (WindowsData.GetWindow() != _startWindow)
 	{
+		SCENE.StopMusic();
 		m_endFlagWindows = true;
 	}
 	DWORD et = timeGetTime();
@@ -376,6 +377,7 @@ void Application::Game()
 		baseTime = st;
 		count = 0;
 	}
+	
 }
 void Application::CreateDataPath()
 {
@@ -438,6 +440,14 @@ void Application::Execute()
 			std::cerr << "Unable to open file for reading.\n";
 		}
 	}
+	/*
+	AUDIO.Init();
+	if (soundEffect->Load("BGM.wav")) {
+		soundInstance = soundEffect->CreateInstance(true);
+
+		soundInstance->Play3D(Math::Vector3(0, 0, 0), true, true);
+	}
+	*/
 	do//GameLoop
 	{
 		switch (WindowsData.GetWindow())
@@ -449,6 +459,8 @@ void Application::Execute()
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::GameScene:
+			//soundInstance->Stop();
+			
 			if(WindowsData.IsStarted()== false)
 			{
 				SCENE.Init(&WindowsData);
@@ -464,7 +476,7 @@ void Application::Execute()
 			{
 				Game();
 			}while ((m_endFlagWindows != true));
-
+			//soundInstance->Resume();
 			break;
 		case WindowsControl::Setting:
 			do
@@ -477,6 +489,11 @@ void Application::Execute()
 		default:
 			break;
 		}
+		//if(!soundInstance->IsPlay())
+			//{
+			//		RandomMusic();
+			//		soundInstance->Play();
+			// }
 	} while (m_endFlag!=true);
 	/*SCENE.Init();
 

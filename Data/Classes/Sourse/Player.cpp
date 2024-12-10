@@ -78,9 +78,14 @@ void Player::Update()
 		}
 		if (!m_collisionData.empty())
 		{
-			m_groundFlag = true;
+			
+
 			if (m_collisionData.size() == 1)
 			{
+				//if ()
+				{
+					m_groundFlag = true;
+				}
 				m_rad = m_collisionData[0].rad;
 			}
 		}
