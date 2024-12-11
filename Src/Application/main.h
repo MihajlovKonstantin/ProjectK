@@ -24,6 +24,8 @@ private:
 	KeyEvent event;
 	std::shared_ptr<KdSoundEffect> soundEffect = std::make_shared<KdSoundEffect>();
 	std::shared_ptr<KdSoundInstance> soundInstance;
+	std::shared_ptr<KdSoundEffect> gameSoundEffect = std::make_shared<KdSoundEffect>();
+	std::shared_ptr<KdSoundInstance> gameSoundInstance;
 	//SpriteFont
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;

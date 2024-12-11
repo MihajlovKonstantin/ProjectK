@@ -440,19 +440,21 @@ void Application::Execute()
 			std::cerr << "Unable to open file for reading.\n";
 		}
 	}
-	/*
+	
 	AUDIO.Init();
-	if (soundEffect->Load("BGM.wav")) {
+	if (soundEffect->Load("Sound/57ac0ae7.wav")) {
 		soundInstance = soundEffect->CreateInstance(true);
 
 		soundInstance->Play3D(Math::Vector3(0, 0, 0), true, true);
 	}
-	*/
+
+	
 	do//GameLoop
 	{
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
+
 			do
 			{
 				
@@ -467,7 +469,12 @@ void Application::Execute()
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::GameScene:
-			//soundInstance->Stop();
+			soundInstance->Stop();
+			if (gameSoundEffect->Load("Sound/maou_game_field02.wav")) {
+				gameSoundInstance = gameSoundEffect->CreateInstance(true);
+
+				gameSoundInstance->Play3D(Math::Vector3(0, 0, 0), true, true);
+			}
 			
 			if(WindowsData.IsStarted()== false)
 			{
@@ -484,7 +491,8 @@ void Application::Execute()
 			{
 				Game();
 			}while ((m_endFlagWindows != true));
-			//soundInstance->Resume();
+			gameSoundInstance->Stop();
+			soundInstance->Resume();
 			break;
 		case WindowsControl::Setting:
 			do
@@ -498,11 +506,11 @@ void Application::Execute()
 		default:
 			break;
 		}
-		//if(!soundInstance->IsPlay())
-			//{
-			//		RandomMusic();
-			//		soundInstance->Play();
-			// }
+		if(!soundInstance->IsPlay())
+			{
+					//RandomMusic();
+					soundInstance->Play();
+			 }
 	} while (m_endFlag!=true);
 	/*SCENE.Init();
 
