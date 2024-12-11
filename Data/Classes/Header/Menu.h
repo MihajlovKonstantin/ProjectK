@@ -10,7 +10,16 @@ private:
     WindowsControlData* data;
     bool visable;
     bool active;
+    KdTexture* m_texture;
+    Math::Rectangle m_rect = { 0,0,3840,780 };
+    Math::Matrix m_matrix;
+    std::pair<float, float> m_pos = {0.0f,0.0f};
 public:
+    KdTexture* GetTexture();
+    void SetTexture(KdTexture* texture);
+    Math::Matrix GetMatrix();
+    Math::Rectangle GetRect();
+    void Update();
     Menu();
     void InitMainMenu();
     void InitSetting();

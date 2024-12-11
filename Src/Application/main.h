@@ -36,6 +36,7 @@ private:
 	Menu mainMenu;
 	Menu settingMenu;
 	Menu recordMenu;
+	KdTexture m_backGround;
 	// FPSŒv‘ª
 	DWORD baseTime;
 	int count;

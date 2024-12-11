@@ -93,7 +93,7 @@ bool Application::Init(int w, int h)
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
-
+	m_backGround.Load("Texture/BackGround/Title.png");
 	{
 		// 日本語対応
 		#include "imgui/ja_glyph_ranges.h"
@@ -168,7 +168,7 @@ void Application::DrawButton(Button inputButton)
 {
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
-	SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0.8, 0.6, 1, 1), true);
+	SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0.6, 0.6, 1, 1), true);
 }
 void Application::DrawButtonText(Button inputButton)
 {
@@ -244,8 +244,7 @@ void Application::MenuExecute(Menu inputMenu)
 	}
 	AUDIO.Update();
 
-	D3D.GetDevContext()->ClearRenderTargetView(D3D.GetBackBuffer(), Math::Color(0.3f, 0.3f, 0.5f, 1));
-	D3D.GetDevContext()->ClearDepthStencilView(D3D.GetZBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+	
 	
 	SHADER.m_spriteShader.Begin();
 	// Menu描画処理
@@ -290,8 +289,6 @@ void Application::MenuUpdate(Menu inputMenu)
 }
 void Application::MenuDraw(Menu inputMenu)
 {
-	//MenuSHADER.m_spriteShader.SetMatrix();
-	//MenuSHADER.m_spriteShader.DrawTex(&tex,rectangle)
 	int _buttonCNT = inputMenu.GetButtonsCNT();
 	for (int i = 0; i < _buttonCNT; i++)
 	{
@@ -417,6 +414,7 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
+	mainMenu.SetTexture(&m_backGround);
 	CreateDataPath();//Create the Path to users data
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data と　Menu Class object 接続する
@@ -457,7 +455,15 @@ void Application::Execute()
 		case WindowsControl::MainMenu:
 			do
 			{
+				
+				mainMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(mainMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(mainMenu.GetTexture(), mainMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawString(-200, 300, "ダンジョンメーカー", { 1,0,0,1 });
 				MenuExecute(mainMenu);
+				
+				
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::GameScene:
@@ -483,6 +489,7 @@ void Application::Execute()
 		case WindowsControl::Setting:
 			do
 			{
+				settingMenu.Update();
 				MenuExecute(settingMenu);
 			} while ((m_endFlagWindows != true));
 			break;

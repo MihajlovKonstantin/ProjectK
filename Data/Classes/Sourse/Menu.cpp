@@ -1,6 +1,38 @@
 #pragma once
 #include "Data/Classes/Header/Menu.h"
 
+KdTexture* Menu::GetTexture()
+{
+	return m_texture;
+}
+
+void Menu::SetTexture(KdTexture* texture)
+{
+	m_texture = texture;
+}
+
+Math::Matrix Menu::GetMatrix()
+{
+	return m_matrix;
+}
+
+Math::Rectangle Menu::GetRect()
+{
+	return m_rect;
+}
+
+void Menu::Update()
+{
+	D3D.GetDevContext()->ClearRenderTargetView(D3D.GetBackBuffer(), Math::Color(0.0f, 0.0f, 0.0f, 1));
+	D3D.GetDevContext()->ClearDepthStencilView(D3D.GetZBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
+	m_pos.first -= 0.05f;
+	if (m_pos.first < -1280.0f)
+	{
+		m_pos.first = 0;
+	}
+	m_matrix = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
+}
+
 Menu::Menu()
 {
 
