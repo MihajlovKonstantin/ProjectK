@@ -53,7 +53,11 @@ void Menu::InitSetting()
 {
 	buttons.clear();
 	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,1,1,1);
+	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, 3, 3, 21);
 	buttons.push_back(_newButton);
+	buttons.push_back(_musicButton);
+	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, 3, 2, 21);
+	buttons.push_back(_musicButton);
 }
 void Menu::InitInGameSetting()
 {
@@ -109,7 +113,7 @@ void Menu::IncreaceByIndex(int dataIndex)
 	{
 	case 21:
 		float _currentValue = data->GetMusicVolume();
-		_currentValue += 0.1;
+		_currentValue += 0.001f;
 		if (_currentValue > 1.0f)
 		{
 			_currentValue = 1.0f;
@@ -125,7 +129,7 @@ void Menu::DecreaceByIndex(int dataIndex)
 	{
 	case 21:
 		float _currentValue = data->GetMusicVolume();
-		_currentValue -= 0.1;
+		_currentValue -= 0.001f;
 		if (_currentValue < 0.0f)
 		{
 			_currentValue = 0.0f;

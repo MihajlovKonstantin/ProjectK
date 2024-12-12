@@ -271,6 +271,7 @@ void Application::MenuExecute(Menu inputMenu)
 void Application::MenuUpdate(Menu inputMenu)
 {
 	GetCursorPos(&mouse);
+	ScreenToClient(APP.m_window.GetWndHandle(), &mouse);
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		int _buttonCNT = inputMenu.GetButtonsCNT();
@@ -446,6 +447,7 @@ void Application::Execute()
 		soundInstance = soundEffect->CreateInstance(true);
 
 		soundInstance->Play3D(Math::Vector3(0, 0, 0), true, true);
+		soundInstance->SetVolume(WindowsData.GetMusicVolume());
 	}
 
 	
@@ -457,7 +459,7 @@ void Application::Execute()
 
 			do
 			{
-				
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				mainMenu.Update();
 				SHADER.m_spriteShader.SetMatrix(mainMenu.GetMatrix());
 				SHADER.m_spriteShader.DrawTex(mainMenu.GetTexture(), mainMenu.GetRect());
@@ -472,7 +474,7 @@ void Application::Execute()
 			soundInstance->Stop();
 			if (gameSoundEffect->Load("Sound/maou_game_field02.wav")) {
 				gameSoundInstance = gameSoundEffect->CreateInstance(true);
-
+				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				gameSoundInstance->Play3D(Math::Vector3(0, 0, 0), true, true);
 			}
 			
@@ -480,15 +482,18 @@ void Application::Execute()
 			{
 				SCENE.Init(&WindowsData);
 				WindowsData.StartGame();
+				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			}
 			else
 			{
+				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				SCENE.SetResumeWindows();
 			}
 			baseTime = timeGetTime();
 			count = 0;
 			do
 			{
+				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				Game();
 			}while ((m_endFlagWindows != true));
 			gameSoundInstance->Stop();
@@ -497,6 +502,7 @@ void Application::Execute()
 		case WindowsControl::Setting:
 			do
 			{
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				settingMenu.Update();
 				MenuExecute(settingMenu);
 			} while ((m_endFlagWindows != true));

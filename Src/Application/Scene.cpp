@@ -122,9 +122,9 @@ void Scene::Draw2D()
 			}
 		}
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
-		DrawString(300, 300, _text[0], { 1,1,1,1 }, 0.5f);
-		DrawString(300, 250, _text[1], { 1,1,1,1 }, 0.5f);
-		DrawString(300, 200, _text[2], { 1,1,1,1 }, 0.5f);
+		DrawString(300, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
+		DrawString(300, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
+		DrawString(300, 200, _text[2], { 0, 0, 0, 1 }, 0.5f);
 		
 	}
 	
@@ -157,7 +157,7 @@ void Scene::DrawButtonText(Button inputButton)
 	str = inputButton.GetText();
 	float scale = inputButton.GetScale();
 	size = inputButton.GetSize();
-	DrawString(position[0]-size[0], position[1]+size[1]/2, charStr, Math::Vector4(1, 0, 1, 1), scale);
+	DrawString(position[0]-size[0], position[1]+size[1]/2, charStr, Math::Vector4(0, 0, 0, 1), scale);
 }
 
 void Scene::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
@@ -196,7 +196,8 @@ void Scene::DynamicDraw2D()
 {
 	tmpTex.ClearRenerTarget(Math::Color(0,0, 0, 1));
 	tmpTex.SetRenderTarget();
-	
+	SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+	SHADER.m_spriteShader.DrawTex(&m_backGround, Math::Rectangle(0, 0, 1280, 720));
 	if (WC->IsPause())
 	{
 		for (int i = 0; i < m_inGameSetting.GetButtonsCNT(); i++)
@@ -545,6 +546,10 @@ void Scene::UpdateGameScene()
 	else
 	{
 		m_player.SetDirection(Direction::Stand);
+	}
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+		m_player.Jump();
 	}
 	for (int i = 0; i < m_item.size(); i++)
 	{
@@ -954,18 +959,6 @@ void Scene::Update()
 			m_pKey = true;
 		}
 		else m_pKey = false;
-		if (GetAsyncKeyState('T'))
-		{
-			if (!_tKey)
-			{
-				m_player.Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-				_tKey = true;
-			}
-		}
-		else
-		{
-			_tKey = false;
-		}
 		for (size_t i = 0; i < m_terrain.size();)
 		{
 			if (m_terrain[i].GetBlocks()->empty())
@@ -992,6 +985,10 @@ void Scene::Update()
 			}
 		}
 		GetCursorPos(&m_mouse);
+		m_mouse.x += 16;
+		m_mouse.y += 12;
+		ScreenToClient(APP.m_window.GetWndHandle(), &m_mouse);
+		
 		if ((GetAsyncKeyState('E') && !m_controlButtonClick))
 		{
 			SC->SetEditMode(!SC->GetEditMode());
@@ -1007,6 +1004,9 @@ void Scene::Update()
 	}
 	
 	GetCursorPos(&mouse);
+	ScreenToClient(APP.m_window.GetWndHandle(), &mouse);
+	mouse.x += 16;
+	mouse.y += 12;
 	if (GetAsyncKeyState(VK_TAB))
 	{
 		if ( m_controlButtonClick == false)
@@ -1104,7 +1104,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_keyTexture[1].Load("Texture/Item/Key2.png");
 	m_keyTexture[2].Load("Texture/Item/Key3.png");
 	
-	
+	m_backGround.Load("Texture/BackGround/Title.png");
 }
 
 void Scene::Release()

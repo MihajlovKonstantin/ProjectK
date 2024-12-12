@@ -5,7 +5,7 @@ class WindowsControlData
 {
 	bool EndState = false;
 	int CurrentWindows = 0;
-	float MusicVolume; //21
+	float MusicVolume= 1.0f; //21
 	bool GameStarted; //22
 	bool Pause; //23
 public:

@@ -13,6 +13,9 @@ protected:
 		std::pair<float, float> pos;
 		std::pair<float, float>dPos;
 	};
+	int animation = 0;
+	float m_jumpPower = 0.0f;
+	float m_jumpSpeed = 2.0f;
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
 	std::vector<CollisionBlockData> m_collisionData;
@@ -33,12 +36,14 @@ protected:
 	std::pair<float, float> m_speedBase;
 	virtual ~Player();
 	bool m_groundFlag;
+	bool m_collision;
 	Direction m_direction;
 	std::pair<float, float> m_currentSpeed;
 	bool IsPossibleAngle(float radian);
 public:
 	Math::Rectangle GetRect();
 	void Update();
+	void Jump();
 	bool CollisionToBlock(Block block);
 	bool CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, float> b_size, float b_rad);
 	bool CollisionToItem(Item* item);
