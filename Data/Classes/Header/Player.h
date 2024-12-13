@@ -15,7 +15,8 @@ protected:
 	};
 	int animation = 0;
 	float m_jumpPower = 0.0f;
-	float m_jumpSpeed = 2.0f;
+	float m_jumpSpeed = 5.0f;
+	float m_secondJumpSpeed = 4.0f;
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
 	std::vector<CollisionBlockData> m_collisionData;
@@ -40,6 +41,8 @@ protected:
 	Direction m_direction;
 	std::pair<float, float> m_currentSpeed;
 	bool IsPossibleAngle(float radian);
+	bool m_secondJumpFlg = false;
+	bool m_notJumpFlg;
 public:
 	Math::Rectangle GetRect();
 	void Update();
