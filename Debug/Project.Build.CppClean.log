@@ -1,67 +1,70 @@
-c:\lessons\digital works\projectk\debug\project.pch
-c:\lessons\digital works\projectk\debug\vc143.pdb
-c:\lessons\digital works\projectk\debug\vc143.idb
-c:\lessons\digital works\projectk\debug\pch.obj
-c:\lessons\digital works\projectk\debug\main.obj
-c:\lessons\digital works\projectk\debug\scene.obj
-c:\lessons\digital works\projectk\debug\windowscontroldata.obj
-c:\lessons\digital works\projectk\debug\terrainobject.obj
-c:\lessons\digital works\projectk\debug\stage.obj
-c:\lessons\digital works\projectk\debug\scenecontroldata.obj
-c:\lessons\digital works\projectk\debug\menu.obj
-c:\lessons\digital works\projectk\debug\player.obj
-c:\lessons\digital works\projectk\debug\pc.obj
-c:\lessons\digital works\projectk\debug\objectile.obj
-c:\lessons\digital works\projectk\debug\keyevent.obj
-c:\lessons\digital works\projectk\debug\drawtexturedata.obj
-c:\lessons\digital works\projectk\debug\button.obj
-c:\lessons\digital works\projectk\debug\block.obj
-c:\lessons\digital works\projectk\debug\imgui_widgets.obj
-c:\lessons\digital works\projectk\debug\imgui_impl_win32.obj
-c:\lessons\digital works\projectk\debug\imgui_impl_dx11.obj
-c:\lessons\digital works\projectk\debug\imgui_draw.obj
-c:\lessons\digital works\projectk\debug\imgui_demo.obj
-c:\lessons\digital works\projectk\debug\imgui.obj
-c:\lessons\digital works\projectk\debug\kdgamewindow.obj
-c:\lessons\digital works\projectk\debug\kdstandardshader.obj
-c:\lessons\digital works\projectk\debug\kdspriteshader.obj
-c:\lessons\digital works\projectk\debug\kdshadermanager.obj
-c:\lessons\digital works\projectk\debug\kdeffectshader.obj
-c:\lessons\digital works\projectk\debug\kdtexture.obj
-c:\lessons\digital works\projectk\debug\kdmodel.obj
-c:\lessons\digital works\projectk\debug\kdbuffer.obj
-c:\lessons\digital works\projectk\debug\kdgltfloader.obj
-c:\lessons\digital works\projectk\debug\kddirect3dhelper.obj
-c:\lessons\digital works\projectk\debug\kddirect3d.obj
-c:\lessons\digital works\projectk\debug\kdaudio.obj
-c:\lessons\digital works\projectk\src\system\shader\effectshader\kdeffectshader_ps.inc
-c:\lessons\digital works\projectk\src\system\shader\effectshader\kdeffectshader_vs.inc
-c:\lessons\digital works\projectk\src\system\shader\spriteshader\kdspriteshader_ps.inc
-c:\lessons\digital works\projectk\src\system\shader\spriteshader\kdspriteshader_vs.inc
-c:\lessons\digital works\projectk\src\system\shader\standardshader\kdstandardshader_ps.inc
-c:\lessons\digital works\projectk\src\system\shader\standardshader\kdstandardshader_vs.inc
-c:\lessons\digital works\projectk\debug\project.exe.embed.manifest
-c:\lessons\digital works\projectk\debug\project.exe.embed.manifest.cdf
-c:\lessons\digital works\projectk\debug\project.exe.embed.manifest.res
-c:\lessons\digital works\projectk\debug\project.ilk
-c:\lessons\digital works\projectk\debug\player.obj.enc
-c:\lessons\digital works\projectk\debug\project.exe.intermediate.manifest
-c:\lessons\digital works\projectk\debug\project.pdb
-c:\lessons\digital works\projectk\debug\project_manifest.rc
-c:\lessons\digital works\projectk\debug\project.tlog\cl.command.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\cl.items.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\cl.read.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\cl.write.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\fxc.command.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\fxc.read.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\fxc.write.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\link.command.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\link.read.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\link.secondary.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\link.write.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\mt.command.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\mt.read.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\mt.write.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\rc.command.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\rc.read.1.tlog
-c:\lessons\digital works\projectk\debug\project.tlog\rc.write.1.tlog
+c:\gamedev\projectk\debug\vc143.pdb
+c:\gamedev\projectk\debug\vc143.idb
+c:\gamedev\projectk\debug\kdgamewindow.obj
+c:\gamedev\projectk\debug\main.obj
+c:\gamedev\projectk\debug\terrainobject.obj
+c:\gamedev\projectk\debug\imgui.obj
+c:\gamedev\projectk\debug\scene.obj
+c:\gamedev\projectk\debug\pc.obj
+c:\gamedev\projectk\debug\project.pch
+c:\gamedev\projectk\debug\pch.obj
+c:\gamedev\projectk\debug\stage.obj
+c:\gamedev\projectk\debug\spawner.obj
+c:\gamedev\projectk\debug\scenecontroldata.obj
+c:\gamedev\projectk\debug\player.obj
+c:\gamedev\projectk\debug\objectile.obj
+c:\gamedev\projectk\debug\menu.obj
+c:\gamedev\projectk\debug\keyevent.obj
+c:\gamedev\projectk\debug\item.obj
+c:\gamedev\projectk\debug\enemy.obj
+c:\gamedev\projectk\debug\drawtexturedata.obj
+c:\gamedev\projectk\debug\button.obj
+c:\gamedev\projectk\debug\block.obj
+c:\gamedev\projectk\debug\imgui_widgets.obj
+c:\gamedev\projectk\debug\imgui_impl_win32.obj
+c:\gamedev\projectk\debug\imgui_impl_dx11.obj
+c:\gamedev\projectk\debug\imgui_draw.obj
+c:\gamedev\projectk\debug\imgui_demo.obj
+c:\gamedev\projectk\debug\kdtexture.obj
+c:\gamedev\projectk\debug\kdmodel.obj
+c:\gamedev\projectk\debug\kddirect3d.obj
+c:\gamedev\projectk\debug\kdbuffer.obj
+c:\gamedev\projectk\debug\kdstandardshader.obj
+c:\gamedev\projectk\debug\kdspriteshader.obj
+c:\gamedev\projectk\debug\kdshadermanager.obj
+c:\gamedev\projectk\debug\kdeffectshader.obj
+c:\gamedev\projectk\debug\kdgltfloader.obj
+c:\gamedev\projectk\debug\kddirect3dhelper.obj
+c:\gamedev\projectk\debug\kdaudio.obj
+c:\gamedev\projectk\debug\windowscontroldata.obj
+c:\gamedev\projectk\src\system\shader\effectshader\kdeffectshader_ps.inc
+c:\gamedev\projectk\src\system\shader\effectshader\kdeffectshader_vs.inc
+c:\gamedev\projectk\src\system\shader\spriteshader\kdspriteshader_ps.inc
+c:\gamedev\projectk\src\system\shader\spriteshader\kdspriteshader_vs.inc
+c:\gamedev\projectk\src\system\shader\standardshader\kdstandardshader_ps.inc
+c:\gamedev\projectk\src\system\shader\standardshader\kdstandardshader_vs.inc
+c:\gamedev\projectk\debug\project.exe.embed.manifest
+c:\gamedev\projectk\debug\project.exe.embed.manifest.cdf
+c:\gamedev\projectk\debug\project.exe.embed.manifest.res
+c:\gamedev\projectk\debug\project.ilk
+c:\gamedev\projectk\debug\scene.obj.enc
+c:\gamedev\projectk\debug\project.exe.intermediate.manifest
+c:\gamedev\projectk\debug\project.pdb
+c:\gamedev\projectk\debug\project_manifest.rc
+c:\gamedev\projectk\debug\project.tlog\cl.command.1.tlog
+c:\gamedev\projectk\debug\project.tlog\cl.items.tlog
+c:\gamedev\projectk\debug\project.tlog\cl.read.1.tlog
+c:\gamedev\projectk\debug\project.tlog\cl.write.1.tlog
+c:\gamedev\projectk\debug\project.tlog\fxc.command.1.tlog
+c:\gamedev\projectk\debug\project.tlog\fxc.read.1.tlog
+c:\gamedev\projectk\debug\project.tlog\fxc.write.1.tlog
+c:\gamedev\projectk\debug\project.tlog\link.command.1.tlog
+c:\gamedev\projectk\debug\project.tlog\link.read.1.tlog
+c:\gamedev\projectk\debug\project.tlog\link.secondary.1.tlog
+c:\gamedev\projectk\debug\project.tlog\link.write.1.tlog
+c:\gamedev\projectk\debug\project.tlog\mt.command.1.tlog
+c:\gamedev\projectk\debug\project.tlog\mt.read.1.tlog
+c:\gamedev\projectk\debug\project.tlog\mt.write.1.tlog
+c:\gamedev\projectk\debug\project.tlog\rc.command.1.tlog
+c:\gamedev\projectk\debug\project.tlog\rc.read.1.tlog
+c:\gamedev\projectk\debug\project.tlog\rc.write.1.tlog

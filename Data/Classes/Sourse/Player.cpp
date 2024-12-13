@@ -132,7 +132,7 @@ void Player::Update()
 	}
 	if (m_rad+m_sideRad<float(M_PI)&&!m_collisionData.empty())
 	{
-		m_speed.second = 0+m_jumpPower;
+		m_speed.second = 0 + m_jumpPower;
 	}
 	else if(!m_collisionData.empty())
 	{
@@ -144,7 +144,7 @@ void Player::Update()
 		if (m_collisionData.empty())
 		{
 			//m_rad = 0;
-			m_speed.second = m_speedBase.second+m_jumpPower;
+			m_speed.second = m_speedBase.second + m_jumpPower;
 			m_sideRad = -1.0f;
 			m_currentCollisionValue = -1.0f;
 		}
@@ -369,14 +369,26 @@ void Player::Update()
 	}
 	if (m_jumpPower > 0)
 	{
-		m_jumpPower -= 0.1f;
+		m_jumpPower -= 0.1;
 	}
 	
 }
 
 void Player::Jump()
 {
-	m_jumpPower += m_jumpSpeed;
+	if (m_groundFlag)
+	{
+		m_jumpPower += m_jumpSpeed;
+		m_secondJumpFlg = false;
+		m_notJumpFlg = true;
+	}
+	if(!m_groundFlag)m_secondJumpFlg = true;
+	if (m_secondJumpFlg && m_notJumpFlg)
+	{
+		m_jumpPower = 0;
+		m_jumpPower += m_secondJumpSpeed;
+		m_notJumpFlg = false;
+	}
 }
 
 bool Player::CollisionToBlock(Block block)
