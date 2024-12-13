@@ -1,5 +1,7 @@
 #pragma once
 #include "Pch.h"
+
+#include "Src/Application/BlockEnum.h"
 class TerrainObject
 {
 	std::pair<float, float> m_localPos;
@@ -18,10 +20,10 @@ public:
 	void ClearReplace();
 	void FoundBorder();
 	void Update();
-	void EarthBlock(int type, KdTexture& tex,int j);
-	void IceBlock(int type, KdTexture& tex, int j);
+	void EarthBlock(int type,std::vector< std::array<KdTexture, 5>> tex,int j);
+	void IceBlock(int type, std::vector< std::array<KdTexture, 5>> tex, int j);
 	std::vector<Block>* GetBlocks();
-	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,KdTexture& tex);
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::array<std::vector<std::array<KdTexture,5>>,4> textLib);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
 	bool IsContain();
