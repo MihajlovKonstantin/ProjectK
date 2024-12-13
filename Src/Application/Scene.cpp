@@ -549,8 +549,13 @@ void Scene::UpdateGameScene()
 	}
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_player.Jump();
+		if (!m_jumpFlg)
+		{
+			m_player.Jump();
+			m_jumpFlg = true;
+		}
 	}
+	else m_jumpFlg = false;
 	for (int i = 0; i < m_item.size(); i++)
 	{
 		if (m_player.CollisionToItem(&m_item[i]))

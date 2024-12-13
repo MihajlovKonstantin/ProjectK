@@ -1,4 +1,5 @@
 #include "Pch.h"
+#include "Data/Classes/Header/Spawner.h"
 
 Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, int type, int interval, int num)
 {

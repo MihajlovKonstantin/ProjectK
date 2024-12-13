@@ -82,10 +82,6 @@ void Player::Update()
 			m_groundFlag = true;
 			if (m_collisionData.size() == 1)
 			{
-				//if ()
-				{
-					
-				}
 				m_rad = m_collisionData[0].rad;
 			}
 		}
@@ -132,7 +128,7 @@ void Player::Update()
 	}
 	if (m_rad+m_sideRad<float(M_PI)&&!m_collisionData.empty())
 	{
-		m_speed.second = 0+m_jumpPower;
+		m_speed.second = 0 + m_jumpPower;
 	}
 	else if(!m_collisionData.empty())
 	{
@@ -144,7 +140,7 @@ void Player::Update()
 		if (m_collisionData.empty())
 		{
 			//m_rad = 0;
-			m_speed.second = m_speedBase.second+m_jumpPower;
+			m_speed.second = m_speedBase.second + m_jumpPower;
 			m_sideRad = -1.0f;
 			m_currentCollisionValue = -1.0f;
 		}
@@ -241,6 +237,10 @@ void Player::Update()
 
 
 	float _moveRad = fmod(m_rad + 0.0001, float(M_PI));
+	if (_moveRad == 0.0001f)
+	{
+		_moveRad = 0;
+	}
 	switch (m_direction)
 		{
 			case Right:
@@ -248,7 +248,11 @@ void Player::Update()
 				if (m_groundFlag == true)
 					{
 						m_currentSpeed.first = m_speed.first * abs(cos(_moveRad)) - m_speed.second * sin(_moveRad);
-						m_currentSpeed.second = (m_speed.first * (sin(_moveRad)) + m_speed.second);
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second*cos(_moveRad);
+						if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second))&&(m_rad!=0))
+						{
+							m_currentSpeed.first = m_currentSpeed.second;
+						}
 					}
 				else
 					{
@@ -261,7 +265,7 @@ void Player::Update()
 				if (m_groundFlag == true)
 					{
 						m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) - m_speed.second * sin(_moveRad);
-						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second;
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 				else
 					{
@@ -275,26 +279,36 @@ void Player::Update()
 		{
 			if (!m_moveBlock[0])
 			{
-				m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
+				//m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
+			}
+			else
+			{
+	 			m_currentSpeed.second = 0.0f;
 			}
 		}
 		else
 		{
 			if (!m_moveBlock[2])
 			{
-				m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
+				//m_currentSpeed.second = m_speed.first * sin(m_rad) + m_speed.second * cos(m_rad);
+			}
+			else
+			{
+				m_currentSpeed.second = 0.0f;
 			}
 		}
 		if (m_currentSpeed.first > 0)
 		{
-			if (m_moveBlock[1] && ((m_rad == 0) || (m_rad == float(M_PI) * 0.5f) || (m_rad == float(M_PI) * 1.0f) || (m_rad == float(M_PI) * 1.5f)))
+			//if (m_moveBlock[1] && ((m_rad == 0) || (m_rad == float(M_PI) * 0.5f) || (m_rad == float(M_PI) * 1.0f) || (m_rad == float(M_PI) * 1.5f)))
+			if (m_moveBlock[1])
 			{
 				m_currentSpeed.first = 0;
 			}
 		}
 		else
 		{
-			if (m_moveBlock[3] && ((m_rad == 0) || (m_rad == float(M_PI) * 0.5f) || (m_rad == float(M_PI) * 1.0f) || (m_rad == float(M_PI) * 1.5f)))
+			//if (m_moveBlock[3] && ((m_rad == 0) || (m_rad == float(M_PI) * 0.5f) || (m_rad == float(M_PI) * 1.0f) || (m_rad == float(M_PI) * 1.5f)))
+			if(m_moveBlock[3])
 			{
 				m_currentSpeed.first = 0;
 			}
@@ -370,13 +384,29 @@ void Player::Update()
 	if (m_jumpPower > 0)
 	{
 		m_jumpPower -= 0.1f;
+	} else
+	if (m_jumpPower < 0)
+	{
+		m_jumpPower = 0;
 	}
 	
 }
 
 void Player::Jump()
 {
-	m_jumpPower += m_jumpSpeed;
+	if (m_groundFlag)
+	{
+		m_jumpPower += m_jumpSpeed;
+		m_secondJumpFlg = false;
+		m_notJumpFlg = true;
+	}
+	if(!m_groundFlag)m_secondJumpFlg = true;
+	if (m_secondJumpFlg && m_notJumpFlg)
+	{
+		m_jumpPower = 0;
+		m_jumpPower += m_secondJumpSpeed;
+		m_notJumpFlg = false;
+	}
 }
 
 bool Player::CollisionToBlock(Block block)
@@ -493,7 +523,7 @@ bool Player::CollisionToBlock(Block block)
 	if (_intersectVector[2])
 	{
 		_sideAngle = float(M_PI);
-		if ((_position.first < _bPos.first + _bSize.first - 3.5f)  && (_position.first > _bPos.first - _bSize.first + 3.5f))
+		if ((_position.first < _bPos.first + _bSize.first)  && (_position.first > _bPos.first - _bSize.first))
 		{
 			if ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI)))
 			{
@@ -513,7 +543,7 @@ bool Player::CollisionToBlock(Block block)
 		if (_intersectNum > 1)
 		{
 			_sideAngle = -1;
-			if ((_position.second >= (_bPos.second + _bSize.second * 0.5f)) && ((_position.first >= (_bPos.first - _bSize.first)) && (_position.first <= (_bPos.first + _bSize.first))))
+			if ((_position.second >= (_bPos.second + _bSize.second * 0.5f)) && ((_position.first > (_bPos.first - _bSize.first)) && (_position.first < (_bPos.first + _bSize.first))))
 			{
 				_sideAngle = 0;
 			}
