@@ -31,7 +31,7 @@ private:
 	KdTexture m_backGround;
 	static const int m_typeBlockNum = 4;
 
-	std::array<std::vector<std::array<KdTexture, 5>>, 4> m_blockLiblary;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
 	//Start	Data
 	std::pair<float, float> SpawnPos = { 200,100 };
 

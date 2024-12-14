@@ -521,7 +521,7 @@ void Scene::LoadStage()
 				typeBlock.push_back(_buff);
 			}
 
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_blockLiblary));
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, &m_blockLiblary));
 			getline(inFile, line, '\n');
 		}
 		
@@ -1113,12 +1113,15 @@ void Scene::Init(WindowsControlData* WCInput)
 
 	for (int i = 1; i < m_typeBlockNum; i++)
 	{
-		std::vector<std::array<KdTexture,5>> _loadVector;
+		std::vector<std::array<KdTexture*,5>> _loadVector ;
+		std::array<KdTexture*, 5>_loadarray;
 		switch (i)
 		{
 		case BlockEditerSelect::Ground:
-			_loadVector.push_back(m_groundTex);
-			break;
+			for (int j = 0; j < 5; j++)
+				_loadarray[j]=(&m_groundTex[j]);
+				_loadVector.push_back(_loadarray);
+				break;
 
 		case BlockEditerSelect::Ice:
 			for (int j = 0; j < MaxTypeBlock(i); j++)
@@ -1126,16 +1129,16 @@ void Scene::Init(WindowsControlData* WCInput)
 				switch (j)
 				{
 				case Surface:
-					_loadVector.push_back(m_iceSurfaceTex);
+					//_loadVector.push_back(m_iceSurfaceTex);
 					break;
 				case Inside:
-					_loadVector.push_back(m_iceInsideTex);
+					//_loadVector.push_back(m_iceInsideTex);
 					break;
 				}
 			}
 			break;
 		case 3:
-			_loadVector.push_back(m_iceWaterBlockTex);
+			//_loadVector.push_back(m_iceWaterBlockTex);
 			break;
 		}
 		m_blockLiblary[i] = _loadVector;

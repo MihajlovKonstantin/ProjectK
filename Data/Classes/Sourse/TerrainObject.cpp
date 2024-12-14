@@ -113,25 +113,26 @@ void TerrainObject::Update()
 	}
 }
 
-void TerrainObject::EarthBlock(int type, std::vector<std::array<KdTexture, 5> >texArray,int j)
+void TerrainObject::EarthBlock(int type,int j)
 {
 	KdTexture* _currentTexture;
+	auto test = *m_texture;
 	switch (type)
 	{
 	case 1:
-		_currentTexture = &texArray[0][2];
+		_currentTexture = test[1][0][2];
 		break;
 	case 3:
-		_currentTexture = &texArray[0][1];
+		_currentTexture = test[1][0][1];
 		break;
 	case 5:
-		_currentTexture = &texArray[0][4];
+		_currentTexture = test[1][0][4];
 		break;
 	case 7:
-		_currentTexture = &texArray[0][3];
+		_currentTexture = test[1][0][3];
 		break;
 	default:
-		_currentTexture = &texArray[0][0];
+		_currentTexture = test[1][0][0];
 		break;
 	}
 	switch (type)
@@ -165,9 +166,53 @@ void TerrainObject::EarthBlock(int type, std::vector<std::array<KdTexture, 5> >t
 		break;
 	}
 }
-void TerrainObject::IceBlock(int type, std::vector<std::array<KdTexture, 5> >texArray, int j)
+void TerrainObject::IceBlock(int type, int j,int typeblock)
 {
 	KdTexture* _currentTexture;
+	auto test = *m_texture;
+	switch (typeblock)
+	{
+	case 0:
+		switch (type)
+		{
+		case 1:
+			_currentTexture = test[2][0][2];
+			break;
+		case 3:
+			_currentTexture = test[2][0][1];
+			break;
+		case 5:
+			_currentTexture = test[2][0][4];
+			break;
+		case 7:
+			_currentTexture = test[2][0][3];
+			break;
+		default:
+			_currentTexture = test[2][0][0];
+			break;
+		}
+		break;
+	case 1:
+		switch (type)
+		{
+		case 1:
+			_currentTexture = test[2][1][2];
+			break;
+		case 3:
+			_currentTexture = test[2][1][1];
+			break;
+		case 5:
+			_currentTexture = test[2][1][4];
+			break;
+		case 7:
+			_currentTexture = test[2][1][3];
+			break;
+		default:
+			_currentTexture = test[2][1][0];
+			break;
+		}
+		break;
+	}
 
 	switch (type)
 	{
@@ -206,29 +251,27 @@ std::vector<Block>* TerrainObject::GetBlocks()
 	return &m_block;
 }
 
-TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::array<std::vector<std::array<KdTexture, 5>>, 4> textLib)
+TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int> blockVar,std::array<std::vector<std::array<KdTexture*, 5>>, 4>* textLib)
 {
 	m_globalPos = pos;
+	m_texture = textLib;
 	m_type = type;
 	m_blockType = blockType;
-	std::vector<std::array<KdTexture, 5>>_buff;
-	int j = 0;
-	for (auto _block : m_blockType)
+	m_blockVar = blockVar;
+	
+	for (int i = 0;i < m_blockType.size();i++)
 	{
-		switch (_block)
+		switch (m_blockType[i])
 		{
 		case 0:
 			break;
 		case 1:
-			_buff= textLib[BlockEditerSelect::Ground];
-			EarthBlock(type, _buff, j);
+			EarthBlock(m_type, i);
 			break;
 		case 2:
-			_buff = textLib[BlockEditerSelect::Ice];
-			IceBlock(type, _buff, j);
+			IceBlock(m_type, i, m_blockVar[i]);
 			break;
 		}
-		j++;
 	}
 }
 TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block)
