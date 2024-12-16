@@ -11,12 +11,11 @@ private:
 	//enum
 	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
-	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, IceBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
-	enum BlockEditerSelect{COUNTBES = 4,Ground = 1,Ice,IceWater};
-	
+	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
+	enum BlockEditerSelect { COUNTBES = 4, Ground = 1, Ice, IceWater };
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
@@ -28,7 +27,11 @@ private:
 	std::array<KdTexture, 5> m_groundTex;
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
+	std::array<KdTexture, 5> m_iceWaterBlockTex;
 	KdTexture m_backGround;
+	static const int m_typeBlockNum = 4;
+
+	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
 	//Start	Data
 	std::pair<float, float> SpawnPos = { 200,100 };
 
@@ -42,7 +45,6 @@ private:
 	
 	std::array<bool, 3> m_keyFlag;
 	KdTexture m_BlockTex;
-	KdTexture m_IceWaterBlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	Math::Rectangle charaRect;
@@ -111,7 +113,7 @@ public:
 	void LoadStage();
 	void UpdateGameScene();
 	void UpdateEditScene();
-	int MaxTypeBlock();
+	int MaxTypeBlock(int index);
 	int MaxTypeItem();
 	void SaveSpawn();
 	void LoadSpawn();

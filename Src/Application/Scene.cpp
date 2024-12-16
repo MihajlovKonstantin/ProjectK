@@ -372,7 +372,7 @@ void Scene::CreateTerrainObject()
 		}
 		break;
 	case 3:
-		_currentTex = &m_IceWaterBlockTex;
+		_currentTex = &m_iceWaterBlockTex[0];
 		break;
 	default:
 		_currentTex = NULL;
@@ -521,7 +521,7 @@ void Scene::LoadStage()
 				typeBlock.push_back(_buff);
 			}
 
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_BlockTex));
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, &m_blockLiblary));
 			getline(inFile, line, '\n');
 		}
 		
@@ -672,7 +672,7 @@ void Scene::UpdateEditScene()
 			switch (m_editerMenuIndex)
 			{
 			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock();
+				_maxType = MaxTypeBlock(m_unitType);
 				break;
 			case EditerSelect::ItemMenu:
 				_maxType = MaxTypeItem();
@@ -697,7 +697,7 @@ void Scene::UpdateEditScene()
 			switch (m_editerMenuIndex)
 			{
 			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock();
+				_maxType = MaxTypeBlock(m_unitType);
 				break;
 			case EditerSelect::ItemMenu:
 				_maxType = MaxTypeItem();
@@ -798,9 +798,9 @@ void Scene::UpdateEditScene()
 	m_blocks.clear();
 }
 
-int Scene::MaxTypeBlock()
+int Scene::MaxTypeBlock(int index)
 {
-	switch (m_unitType)
+	switch (index)
 	{
 	case BlockEditerSelect::Ground:
 		return 1;
@@ -1096,7 +1096,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_inGameSetting.AddData(*WC);
 	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
-	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
+	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	m_playerTex.Load("Texture/Creature/player.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
@@ -1127,6 +1127,39 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_keyTexture[2].Load("Texture/Item/Key3.png");
 	
 	m_backGround.Load("Texture/BackGround/Title.png");
+
+	for (int i = 1; i < m_typeBlockNum; i++)
+	{
+		std::vector<std::array<KdTexture*,5>> _loadVector ;
+		std::array<KdTexture*, 5>_loadarray;
+		switch (i)
+		{
+		case BlockEditerSelect::Ground:
+			for (int j = 0; j < 5; j++)
+				_loadarray[j]=(&m_groundTex[j]);
+				_loadVector.push_back(_loadarray);
+				break;
+
+		case BlockEditerSelect::Ice:
+			for (int j = 0; j < MaxTypeBlock(i); j++)
+			{
+				switch (j)
+				{
+				case Surface:
+					//_loadVector.push_back(m_iceSurfaceTex);
+					break;
+				case Inside:
+					//_loadVector.push_back(m_iceInsideTex);
+					break;
+				}
+			}
+			break;
+		case 3:
+			//_loadVector.push_back(m_iceWaterBlockTex);
+			break;
+		}
+		m_blockLiblary[i] = _loadVector;
+	}
 }
 
 void Scene::Release()
