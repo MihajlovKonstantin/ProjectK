@@ -113,69 +113,135 @@ void TerrainObject::Update()
 	}
 }
 
-void TerrainObject::EarthBlock(int type, KdTexture& tex,int j)
+void TerrainObject::EarthBlock(int type,int j)
 {
+	KdTexture* _currentTexture;
+	auto test = *m_texture;
+	switch (type)
+	{
+	case 1:
+		_currentTexture = test[1][0][2];
+		break;
+	case 3:
+		_currentTexture = test[1][0][1];
+		break;
+	case 5:
+		_currentTexture = test[1][0][4];
+		break;
+	case 7:
+		_currentTexture = test[1][0][3];
+		break;
+	default:
+		_currentTexture = test[1][0][0];
+		break;
+	}
 	switch (type)
 	{
 	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
 		break;
 	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
 		break;
 	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
 		break;
 	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
 		break;
 	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	}
 }
-void TerrainObject::IceBlock(int type, KdTexture& tex, int j)
+void TerrainObject::IceBlock(int type, int j,int typeblock)
 {
+	KdTexture* _currentTexture;
+	auto test = *m_texture;
+	switch (typeblock)
+	{
+	case 0:
+		switch (type)
+		{
+		case 1:
+			_currentTexture = test[2][0][2];
+			break;
+		case 3:
+			_currentTexture = test[2][0][1];
+			break;
+		case 5:
+			_currentTexture = test[2][0][4];
+			break;
+		case 7:
+			_currentTexture = test[2][0][3];
+			break;
+		default:
+			_currentTexture = test[2][0][0];
+			break;
+		}
+		break;
+	case 1:
+		switch (type)
+		{
+		case 1:
+			_currentTexture = test[2][1][2];
+			break;
+		case 3:
+			_currentTexture = test[2][1][1];
+			break;
+		case 5:
+			_currentTexture = test[2][1][4];
+			break;
+		case 7:
+			_currentTexture = test[2][1][3];
+			break;
+		default:
+			_currentTexture = test[2][1][0];
+			break;
+		}
+		break;
+	}
+
 	switch (type)
 	{
 	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
 		break;
 	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
 		break;
 	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
 		break;
 	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
 		break;
 	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, &tex, false, 0));
+		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
 		break;
 	}
 }
@@ -185,35 +251,36 @@ std::vector<Block>* TerrainObject::GetBlocks()
 	return &m_block;
 }
 
-TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,KdTexture& tex)
+TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int> blockVar,std::array<std::vector<std::array<KdTexture*, 5>>, 4>* textLib)
 {
 	m_globalPos = pos;
+	m_texture = textLib;
 	m_type = type;
 	m_blockType = blockType;
-	m_firstBlockTex = &tex;
-	int j = 0;
-	for (auto _block : m_blockType)
+	m_blockVar = blockVar;
+	
+	for (int i = 0;i < m_blockType.size();i++)
 	{
-		switch (_block)
+		switch (m_blockType[i])
 		{
 		case 0:
 			break;
 		case 1:
-			EarthBlock(type, tex, j);
+			EarthBlock(m_type, i);
 			break;
 		case 2:
-			IceBlock(type, tex, j);
+			IceBlock(m_type, i, m_blockVar[i]);
 			break;
 		}
-		j++;
 	}
 }
-TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block)
+TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int>blockVar,std::vector<Block> block)
 {
 	m_globalPos = pos;
 	m_type = type;
 	m_block = block;
 	m_blockType = blockType;
+	m_blockVar = blockVar;
 	FoundBorder();
 }
 
@@ -224,6 +291,7 @@ TerrainObject::TerrainObject(const TerrainObject& object)
 	m_type = object.m_type;
 	m_block = object.m_block;
 	m_blockType = object.m_blockType;
+	m_blockVar = object.m_blockVar;
 	FoundBorder();
 }
 
@@ -240,6 +308,11 @@ std::vector<int> TerrainObject::GetTypeBlock()
 std::pair<float, float> TerrainObject::GetGPOS()
 {
 	return m_globalPos;
+}
+
+std::vector<int> TerrainObject::GetVarBlock()
+{
+	return m_blockVar;
 }
 
 int TerrainObject::GetAngle()
