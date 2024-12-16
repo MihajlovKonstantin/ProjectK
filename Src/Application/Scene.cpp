@@ -551,7 +551,7 @@ void Scene::UpdateGameScene()
 	{
 		if (!m_jumpFlg)
 		{
-			m_player.Jump();
+ 			m_player.Jump();
 			m_jumpFlg = true;
 		}
 	}
@@ -774,6 +774,22 @@ void Scene::UpdateEditScene()
 				m_drawStartBool = false;
 				break;
 			}
+		}
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+			m_scroll.first--;
+			if (m_scroll.first < m_scrollMax[0])
+			{
+				m_scrollMax[0] = m_scroll.first;
+			}
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_scroll.first++;
+		if (m_scroll.first > m_scrollMax[1])
+		{
+			m_scrollMax[1] = m_scroll.first;
 		}
 	}
 	
@@ -1131,7 +1147,7 @@ void Scene::ImGuiUpdate()
 	if (ImGui::Begin("Debug Window"))
 	{
 		ImGui::Text("FPS : %d", APP.m_fps);
-		if (m_testCollision)
+		if (m_player.GetOnGroundFlag())
 		{
 			ImGui::Text("On Groud");
 			

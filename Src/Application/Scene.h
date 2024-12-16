@@ -115,6 +115,8 @@ public:
 	void CreateSpawn();
 	void StopMusic();
 	int MaxTypeEnemy();
+	std::pair<int, int> m_scroll;
+	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
 private:
 
 	Scene() {}

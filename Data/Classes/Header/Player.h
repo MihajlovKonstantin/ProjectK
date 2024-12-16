@@ -15,8 +15,8 @@ protected:
 	};
 	int animation = 0;
 	float m_jumpPower = 0.0f;
-	float m_jumpSpeed = 5.0f;
-	float m_secondJumpSpeed = 4.0f;
+	float m_jumpSpeed = 3.0f;
+	float m_secondJumpSpeed = 2.0f;
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
 	std::vector<CollisionBlockData> m_collisionData;
@@ -56,4 +56,5 @@ public:
 	float GetAngle();
 	void SetDirection(Direction direction);
 	void CollisionClear();
+	bool GetOnGroundFlag();
 };

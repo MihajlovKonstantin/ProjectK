@@ -26,6 +26,8 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
+	if (m_pos.second > 300)
+		int point = 0;
 	m_stopFlag = false;
 	//m_scale = { 1,1 };
 	
@@ -83,12 +85,21 @@ void Player::Update()
 			if (m_collisionData.size() == 1)
 			{
 				m_rad = m_collisionData[0].rad;
+				if (m_rad > 0 && m_rad<float(M_PI) * 0.5f)
+				{
+					m_rad = float(M_PI) * 0.25f;
+				}
+				if (m_rad > float(M_PI) * 0.5f && m_rad<float(M_PI) * 1.0f)
+				{
+					m_rad = float(M_PI) * 0.75f;
+				}
 			}
 		}
 		else
 		{
 			m_stopFlag = true;
 		}
+		
 		if (m_collision&&(m_rad != m_collisionData[index].rad))
 		{
 			switch (m_direction)
@@ -124,11 +135,19 @@ void Player::Update()
 		{
 			m_rad += 2.0f * float(M_PI);
 		}
+		if (m_rad > 0 && m_rad<float(M_PI) * 0.5f)
+		{
+			m_rad = float(M_PI) * 0.25f;
+		}
+		if (m_rad > float(M_PI) * 0.5f && m_rad<float(M_PI) * 1.0f)
+		{
+			m_rad = float(M_PI) * 0.75f;
+		}
 		m_rad = fmod(m_rad, 2.0f * float(M_PI));
 	}
-	if (m_rad+m_sideRad<float(M_PI)&&!m_collisionData.empty())
+	if (abs(m_rad-m_sideRad)<float(M_PI)&&!m_collisionData.empty())
 	{
-		m_speed.second = 0 + m_jumpPower;
+		m_speed.second = 0;
 	}
 	else if(!m_collisionData.empty())
 	{
@@ -139,10 +158,11 @@ void Player::Update()
 	{
 		if (m_collisionData.empty())
 		{
-			//m_rad = 0;
+			m_rad = 0;
 			m_speed.second = m_speedBase.second + m_jumpPower;
 			m_sideRad = -1.0f;
 			m_currentCollisionValue = -1.0f;
+			m_groundFlag = false;
 		}
 		
 	}
@@ -241,9 +261,15 @@ void Player::Update()
 	{
 		_moveRad = 0;
 	}
+	if (m_rad > float(M_PI))
+	{
+		m_groundFlag = false;
+		m_currentSpeed.second = m_speedBase.second;
+	}
 	switch (m_direction)
 		{
 			case Right:
+				
 				m_currentSpeed.first = 0;
 				if (m_groundFlag == true)
 					{
@@ -257,6 +283,7 @@ void Player::Update()
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad) - m_speed.second * sin(_moveRad);
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 			
 			break;
@@ -266,10 +293,15 @@ void Player::Update()
 					{
 						m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) - m_speed.second * sin(_moveRad);
 						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second)) && (m_rad != 0))
+						{
+							m_currentSpeed.first = -m_currentSpeed.second;
+						}
 					}
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad + float(M_PI)) - m_speed.second * sin(_moveRad + float(M_PI));
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 			break;
 		}
@@ -344,7 +376,7 @@ void Player::Update()
 		}
 	}
 	m_pos.first += m_currentSpeed.first;
-	m_pos.second += m_currentSpeed.second;
+	m_pos.second += m_currentSpeed.second+m_jumpPower;
 	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 	
 	if (m_rad < 0)
@@ -389,6 +421,10 @@ void Player::Update()
 	{
 		m_jumpPower = 0;
 	}
+	if (m_jumpPower >= m_jumpSpeed * 2)
+	{
+		int i = 0;
+	}
 	
 }
 
@@ -397,16 +433,23 @@ void Player::Jump()
 	if (m_groundFlag)
 	{
 		m_jumpPower += m_jumpSpeed;
+		
 		m_secondJumpFlg = false;
 		m_notJumpFlg = true;
+		m_groundFlag = false;
+		if (!m_groundFlag)m_secondJumpFlg = true;
 	}
-	if(!m_groundFlag)m_secondJumpFlg = true;
-	if (m_secondJumpFlg && m_notJumpFlg)
+	else
 	{
-		m_jumpPower = 0;
-		m_jumpPower += m_secondJumpSpeed;
-		m_notJumpFlg = false;
+		if (m_secondJumpFlg && m_notJumpFlg)
+		{
+			m_jumpPower = 0;
+			m_jumpPower += m_secondJumpSpeed;
+			m_notJumpFlg = false;
+		}
 	}
+	
+	
 }
 
 bool Player::CollisionToBlock(Block block)
@@ -699,7 +742,10 @@ bool Player::CollisionToBlock(Block block)
 			m_stopFlag = true;
 			break;
 		};
-		
+		if (_bRad <float(M_PI))
+		{
+			m_groundFlag = true;
+		}
 		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY} });
 
 	}
@@ -849,4 +895,9 @@ void Player::SetDirection(Direction direction)
 void Player::CollisionClear()
 {
 	m_collisionData.clear();
+}
+
+bool Player::GetOnGroundFlag()
+{
+	return m_groundFlag;
 }
