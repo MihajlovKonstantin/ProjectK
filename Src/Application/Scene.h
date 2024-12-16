@@ -80,6 +80,9 @@ private:
 	bool m_pKey;
 	//ジャンプ用
 	bool m_jumpFlg = false;
+	//移動用
+	bool m_leftFlg;
+	bool m_rightFlg;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
