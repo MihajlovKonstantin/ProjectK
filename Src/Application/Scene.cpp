@@ -547,22 +547,39 @@ void Scene::LoadStage()
 
 void Scene::UpdateGameScene()
 {
+	
 	if (m_stageType == 1)
 	{
 		m_clearState[1] = m_keyFlag.size();
 	}
+
+	
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		m_player.SetDirection(Direction::Left);
+		if (!m_rightFlg)
+		{
+			m_leftFlg = true;
+			m_player.SetDirection(Direction::Left);
+		}
 	}
-	else if (GetAsyncKeyState(VK_RIGHT))
+	else 
 	{
-		m_player.SetDirection(Direction::Right);
-	}
-	else
-	{
+		m_leftFlg = false;
 		m_player.SetDirection(Direction::Stand);
 	}
+
+	
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		if (!m_leftFlg)
+		{
+			m_rightFlg = true;
+			m_player.SetDirection(Direction::Right);
+		}	
+	}
+	else m_rightFlg = false;
+	
+	
 	if (GetAsyncKeyState(VK_SPACE))
 	{
 		if (!m_jumpFlg)
