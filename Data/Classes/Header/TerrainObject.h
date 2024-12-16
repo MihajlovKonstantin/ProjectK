@@ -26,13 +26,14 @@ public:
 	void IceBlock(int type, int j,int typeblock);
 	std::vector<Block>* GetBlocks();
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar, std::array<std::vector<std::array<KdTexture*,5>>,4>* textLib);
-	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block);
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar,std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
 	bool IsContain();
 	//enemyspaw(int x,int y,int inter=0,int num=1)
 	//dosomthink(int a,float j =0.0f)
 	std::vector<int> GetTypeBlock();		//type getter
 	std::pair<float, float> GetGPOS();		//position getter
+	std::vector<int> GetVarBlock();			//var getter
 	int GetAngle();							//angle getter
 };
 

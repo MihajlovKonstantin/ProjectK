@@ -274,12 +274,13 @@ TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<
 		}
 	}
 }
-TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<Block> block)
+TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int>blockVar,std::vector<Block> block)
 {
 	m_globalPos = pos;
 	m_type = type;
 	m_block = block;
 	m_blockType = blockType;
+	m_blockVar = blockVar;
 	FoundBorder();
 }
 
@@ -290,6 +291,7 @@ TerrainObject::TerrainObject(const TerrainObject& object)
 	m_type = object.m_type;
 	m_block = object.m_block;
 	m_blockType = object.m_blockType;
+	m_blockVar = object.m_blockVar;
 	FoundBorder();
 }
 
@@ -306,6 +308,11 @@ std::vector<int> TerrainObject::GetTypeBlock()
 std::pair<float, float> TerrainObject::GetGPOS()
 {
 	return m_globalPos;
+}
+
+std::vector<int> TerrainObject::GetVarBlock()
+{
+	return m_blockVar;
 }
 
 int TerrainObject::GetAngle()

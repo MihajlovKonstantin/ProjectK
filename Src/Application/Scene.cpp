@@ -381,10 +381,12 @@ void Scene::CreateTerrainObject()
 
 	
 	std::vector<int> _terrainTypeVector;
+	std::vector<int> _terrainVarVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
 	{
 		_terrainTypeVector.push_back(_terrainType);
+		_terrainVarVector.push_back(m_selectedUnitVariant);
 		{
 				switch (buffer)
 				{
@@ -416,6 +418,7 @@ void Scene::CreateTerrainObject()
 					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 					break;
 				}
+				
 		}
 	}
 	
@@ -435,7 +438,7 @@ void Scene::CreateTerrainObject()
 	}
 	
 
-	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector, m_blocks));
+	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector,_terrainVarVector, m_blocks));
 	
 	//auto _terrain = new ;
 	
@@ -480,11 +483,17 @@ void Scene::SaveStage()
 			outFile << m_terrain[i].GetGPOS().first << ",";
 			outFile << m_terrain[i].GetGPOS().second << ",";
 			auto _typeBlock = m_terrain[i].GetTypeBlock();
+			auto _varBlock = m_terrain[i].GetVarBlock();
 			int _typeBlockItr = _typeBlock.size();
 			outFile << _typeBlockItr << "\n";
 			for (int j = 0; j < _typeBlockItr; j++)
 			{
 				outFile << _typeBlock[j] << ",";
+			}
+			outFile << "\n";
+			for (int j = 0; j < _typeBlockItr; j++)//!
+			{
+				outFile << _varBlock[j] << ",";
 			}
 			outFile << "\n";
 		}
@@ -498,6 +507,7 @@ void Scene::LoadStage()
 	if (inFile.is_open()) {
 		int x, y, angle, size, typeBlockSize, _buff;
 		std::vector<int> typeBlock;
+		std::vector<int> _varBlock;
 		std::string line;
 		getline(inFile, line, '\n');
 		m_stageType = stoi(line);
@@ -520,8 +530,14 @@ void Scene::LoadStage()
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
+			for (int i = 0; i < typeBlockSize; i++)
+			{
+				getline(inFile, line, ',');
+				_buff = stoi(line);
+				_varBlock.push_back(_buff);
+			}
 
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, &m_blockLiblary));
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock,_varBlock, &m_blockLiblary));
 			getline(inFile, line, '\n');
 		}
 		
@@ -1120,7 +1136,8 @@ void Scene::Init(WindowsControlData* WCInput)
 		case BlockEditerSelect::Ground:
 			for (int j = 0; j < 5; j++)
 				_loadarray[j]=(&m_groundTex[j]);
-				_loadVector.push_back(_loadarray);
+			_loadVector.push_back(_loadarray);
+				
 				break;
 
 		case BlockEditerSelect::Ice:
@@ -1129,16 +1146,28 @@ void Scene::Init(WindowsControlData* WCInput)
 				switch (j)
 				{
 				case Surface:
-					//_loadVector.push_back(m_iceSurfaceTex);
+					for (int l = 0; l < 5; l++) 
+					{
+						_loadarray[l] = (&m_iceSurfaceTex[l]);
+					}
+					_loadVector.push_back(_loadarray);
 					break;
 				case Inside:
-					//_loadVector.push_back(m_iceInsideTex);
+					for (int l = 0; l < 5; l++)
+					{
+						_loadarray[l] = (&m_iceInsideTex[l]);
+					}
+					_loadVector.push_back(_loadarray);
 					break;
 				}
 			}
 			break;
 		case 3:
-			//_loadVector.push_back(m_iceWaterBlockTex);
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_iceWaterBlockTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
 			break;
 		}
 		m_blockLiblary[i] = _loadVector;
