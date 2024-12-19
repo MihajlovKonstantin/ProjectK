@@ -12,6 +12,7 @@ protected:
 		float collisionValue;
 		std::pair<float, float> pos;
 		std::pair<float, float>dPos;
+
 	};
 	int animation = 0;
 	float m_jumpPower = 0.0f;
@@ -19,7 +20,10 @@ protected:
 	float m_secondJumpSpeed = 2.0f;
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
+	bool OnSnowBlockFlag = false;
+	bool OnIceBlockFlag = false;
 	std::vector<CollisionBlockData> m_collisionData;
+	
 	std::pair<float, float> m_pos;
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
