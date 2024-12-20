@@ -30,5 +30,7 @@ public:
 	std::vector<int> GetTypeBlock();		//type getter
 	std::pair<float, float> GetGPOS();		//position getter
 	int GetAngle();							//angle getter
+	std::pair<float, float> GetBorderX();
+	std::pair<float, float> GetBorderY();
 };
 

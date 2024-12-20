@@ -247,3 +247,13 @@ int TerrainObject::GetAngle()
 	return m_type;
 }
 
+std::pair<float, float> TerrainObject::GetBorderX()
+{
+	return m_xBorder;
+}
+
+std::pair<float, float> TerrainObject::GetBorderY()
+{
+	return m_yBorder;
+}
+
