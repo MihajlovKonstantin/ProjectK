@@ -336,6 +336,7 @@ std::pair<float, float> TerrainObject::GetBorderX()
 std::pair<float, float> TerrainObject::GetBorderY()
 {
 	return m_yBorder;
+}
 void TerrainObject::SetScroll(std::pair<int, int>* scroll)
 {
 	m_scroll = scroll;
