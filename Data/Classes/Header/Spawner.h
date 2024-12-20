@@ -7,6 +7,7 @@ class Spawner
 	int m_index,m_Type, m_Interval, m_Num;
 	std::pair<float, float> m_CharaPos;
 	std::vector<NPC> m_enemy;
+	std::vector<TerrainObject>*m_terrain;
 	//std::vector<Spawner> m_spawner;
 	PC* m_Player;
 	bool m_spawnFlg = false;
@@ -15,7 +16,7 @@ class Spawner
 
 public:
 	
-	Spawner(int charaIndex, std::pair<float, float>pos, PC* player = NULL, int type = 1, int interval = 0, int num = 0);
+	Spawner(int charaIndex, std::pair<float, float>pos, PC* player = NULL, std::vector<TerrainObject >* terrain = NULL, int type = 1, int interval = 0, int num = 0);
 	//Spawner(int charaIndex, std::pair<float, float>pos, int type = 1, KdTexture& tex, int interval = 0, int num = 0);
 	//std::vector<int> GetIndex();
 	int GetIndex();

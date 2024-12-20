@@ -1,11 +1,12 @@
 #include "Pch.h"
 #include "Data/Classes/Header/Spawner.h"
 
-Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, int type, int interval, int num)
+Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, std::vector<TerrainObject >* terrain, int type, int interval, int num)
 {
 	m_Player = player;
 	m_index = charaIndex;
 	m_CharaPos = pos;
+	m_terrain = terrain;
 	m_Type = type;
 	m_Interval = interval;
 	m_Num = num;
@@ -51,7 +52,12 @@ void Spawner::Update()
 		m_spawnFlg = true;
 		break;
 	case 2:
-		if (!m_spawnFlg)m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex));
+		if (!m_spawnFlg)
+		{
+			m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex));
+			m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
+			m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
+		}
 		m_spawnFlg = true;
 		break;
 	case 3:
@@ -62,6 +68,8 @@ void Spawner::Update()
 			else
 			{
 				m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex));
+				m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
+				m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 				cnt = 0;
 			}
 		}
@@ -72,6 +80,7 @@ void Spawner::Update()
 	for (int j = 0; j < m_enemy.size(); j++)
 	{
 		m_enemy[j].Update();
+		m_enemy[j].Discovery();
 	}
 }
 	

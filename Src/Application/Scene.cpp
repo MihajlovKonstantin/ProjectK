@@ -115,8 +115,8 @@ void Scene::Draw2D()
 				case EnemySelect::Slime:
 					_string[2] += "Slime";
 					break;
-				case  EnemySelect::IceBall:
-					_string[2] += "IceBall";
+				case  EnemySelect::SnowBall:
+					_string[2] += "SnowBall";
 					break;
 				}
 			}
@@ -776,8 +776,6 @@ void Scene::UpdateEditScene()
 			}
 		}
 	}
-	
-	
 	m_blocks.clear();
 }
 
@@ -860,14 +858,14 @@ void Scene::LoadSpawn()
 			case 1:
 				std::getline(inFile, line, '\n');
 				pos.second = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos,&m_player));
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_player));
 				break;
 			case 2:
 				std::getline(inFile, line, ',');
 				pos.second = stoi(line);
 				std::getline(inFile, line, '\n');
 				type = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type));
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type));
 				break;
 			case 3:
 				std::getline(inFile, line, ',');
@@ -878,7 +876,7 @@ void Scene::LoadSpawn()
 				interval = stoi(line);
 				std::getline(inFile, line, '\n');
 				num = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos, NULL, type, interval, num));
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type, interval, num));
 				break;
 			}
 		}
@@ -888,28 +886,28 @@ void Scene::LoadSpawn()
 
 void Scene::CreateSpawn()
 {
-	if (m_spawner.empty())
+	/*if (m_spawner.empty())
 	{
 		m_spawner.push_back(Spawner(0, { 0,0 }, NULL));
-	}
+	}*/
 	SpawnPos.first = m_point[0].x-640;
 	SpawnPos.second = -m_point[0].y+360;
 	int charaIndex = m_unitType;
 	switch (charaIndex)
 	{
 	case SpawnerSelect::Player:
-		if (m_spawner[0].GetIndex() == 1)
+		if (m_spawner.size() != 0)
 		{
-			m_spawner.erase(m_spawner.begin());
-			m_spawner.insert(m_spawner.begin(), Spawner(charaIndex, SpawnPos, &m_player));
+			if(m_spawner[0].GetIndex() == 1)m_spawner.erase(m_spawner.begin());
+			m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
 		}
-		else m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
+		else m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player));
 		break;
 	case SpawnerSelect::Enemy:
-		m_spawner.push_back(Spawner(charaIndex, SpawnPos, NULL, m_selectedUnitVariant));
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player, &m_terrain, m_selectedUnitVariant));
 		break;
 	default:
-		m_spawner.push_back(Spawner(charaIndex, SpawnPos, NULL, m_selectedUnitVariant, 300, 5));
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player, &m_terrain, m_selectedUnitVariant, 300, 5));
 		break;
 	}
 }
@@ -1058,8 +1056,8 @@ void Scene::Update()
 	
 	//Test
 	
-	
-	}
+	//m_enemy.Discovery();
+}
 
 void Scene::UpdateMainMenu()
 {
@@ -1110,6 +1108,9 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_keyTexture[2].Load("Texture/Item/Key3.png");
 	
 	m_backGround.Load("Texture/BackGround/Title.png");
+
+	m_enemy = NPC();
+	m_enemy.InitTO(m_terrain);
 }
 
 void Scene::Release()

@@ -12,7 +12,7 @@ private:
 	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
-	enum EnemySelect { COUNTENS = 2, Slime = 0, IceBall };
+	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
 	enum BlockEditerSelect{COUNTBES = 4,Ground = 1,Ice,IceWater};
@@ -80,6 +80,8 @@ private:
 	bool m_pKey;
 	//ジャンプ用
 	bool m_jumpFlg = false;
+
+	NPC m_enemy;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);

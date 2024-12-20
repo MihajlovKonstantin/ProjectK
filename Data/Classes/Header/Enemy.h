@@ -1,22 +1,37 @@
 #pragma once
-#include "Player.h"
+#include "Pch.h"
+
+enum EnemyType
+{
+    TypeSlime = 1, TypeSnowBall
+};
+
 class NPC :
     public Player
 {
 protected:
-    bool m_onGroundFlag;
-    int m_enemyIndex;
-    int m_enemyType;
-    int m_enemyInterval;
-    int m_enemyNum;
+
+    PC* m_player;
+    bool m_discovery = false;
+    int m_discoveryDistance = 200;
+    int m_discoveryCoolTime = 30;
+    std::vector<TerrainObject>* m_allTerrain;
+    std::vector<TerrainObject*> m_terrain;
+    std::vector<DirectX::BoundingBox> m_box;
+    //DirectX::BoundingBox m_box[];
+
 public:
-    NPC(int index, std::pair<float, float>pos, int enemyType, int interval = 0, int num = 0);
     NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture);
     NPC();
-    void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
-    void Update();
-    void Stop();
-    void SetOnGroundFlag(bool flag);
+    //void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
+    static void Update();
     bool MovePossible();
     int GetDirection();
+    std::pair<float,float> GetEnemyPos();
+    float GetDistance();
+    bool Discovery();
+    void FindTerrainObject();
+    void InitTO(std::vector<TerrainObject> &terrain);
+    void InitPlayer(PC*player);
+    void InitTrreainObject(std::vector<TerrainObject>* terrain);
 };

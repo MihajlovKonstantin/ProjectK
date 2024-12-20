@@ -119,6 +119,9 @@
 #include "Data/Classes/Header/Stage.h"
 #include "Data/Classes/Header/Enemy.h"
 #include "Data/Classes/Header/Spawner.h"
+#include "Data/Classes/Header/SnowBall.h"
+#include "Data/Classes/Header/Slime.h"
+
 
 
 
