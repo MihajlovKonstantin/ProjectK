@@ -26,6 +26,7 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
+	
 	m_stopFlag = false;
 	//m_scale = { 1,1 };
 	
@@ -83,12 +84,21 @@ void Player::Update()
 			if (m_collisionData.size() == 1)
 			{
 				m_rad = m_collisionData[0].rad;
+				if (m_rad > 0 && m_rad<float(M_PI) * 0.5f)
+				{
+					m_rad = float(M_PI) * 0.25f;
+				}
+				if (m_rad > float(M_PI) * 0.5f && m_rad<float(M_PI) * 1.0f)
+				{
+					m_rad = float(M_PI) * 0.75f;
+				}
 			}
 		}
 		else
 		{
 			m_stopFlag = true;
 		}
+		
 		if (m_collision&&(m_rad != m_collisionData[index].rad))
 		{
 			switch (m_direction)
@@ -117,6 +127,7 @@ void Player::Update()
 			
 			
 		}
+		
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
@@ -124,11 +135,19 @@ void Player::Update()
 		{
 			m_rad += 2.0f * float(M_PI);
 		}
+		if (m_rad > 0 && m_rad<float(M_PI) * 0.5f)
+		{
+			m_rad = float(M_PI) * 0.25f;
+		}
+		if (m_rad > float(M_PI) * 0.5f && m_rad<float(M_PI) * 1.0f)
+		{
+			m_rad = float(M_PI) * 0.75f;
+		}
 		m_rad = fmod(m_rad, 2.0f * float(M_PI));
 	}
-	if (m_rad+m_sideRad<float(M_PI)&&!m_collisionData.empty())
+	if (abs(m_rad-m_sideRad)<float(M_PI)&&!m_collisionData.empty())
 	{
-		m_speed.second = 0 + m_jumpPower;
+		m_speed.second = 0;
 	}
 	else if(!m_collisionData.empty())
 	{
@@ -139,10 +158,11 @@ void Player::Update()
 	{
 		if (m_collisionData.empty())
 		{
-			//m_rad = 0;
+			m_rad = 0;
 			m_speed.second = m_speedBase.second + m_jumpPower;
 			m_sideRad = -1.0f;
 			m_currentCollisionValue = -1.0f;
+			m_groundFlag = false;
 		}
 		
 	}
@@ -241,9 +261,15 @@ void Player::Update()
 	{
 		_moveRad = 0;
 	}
+	if (m_rad > float(M_PI))
+	{
+		m_groundFlag = false;
+		m_currentSpeed.second = m_speedBase.second;
+	}
 	switch (m_direction)
 		{
 			case Right:
+				
 				m_currentSpeed.first = 0;
 				if (m_groundFlag == true)
 					{
@@ -257,6 +283,7 @@ void Player::Update()
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad) - m_speed.second * sin(_moveRad);
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 			
 			break;
@@ -266,10 +293,15 @@ void Player::Update()
 					{
 						m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) - m_speed.second * sin(_moveRad);
 						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second)) && (m_rad != 0))
+						{
+							m_currentSpeed.first = -m_currentSpeed.second;
+						}
 					}
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad + float(M_PI)) - m_speed.second * sin(_moveRad + float(M_PI));
+						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 			break;
 		}
@@ -343,8 +375,10 @@ void Player::Update()
 			}
 		}
 	}
-	m_pos.first += m_currentSpeed.first;
-	m_pos.second += m_currentSpeed.second;
+	m_gPos.first += m_currentSpeed.first;
+	m_gPos.second += m_currentSpeed.second+m_jumpPower;
+	m_pos.first = m_gPos.first - m_scroll->first;
+	m_pos.second = m_gPos.second - m_scroll->second;
 	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 	
 	if (m_rad < 0)
@@ -389,6 +423,33 @@ void Player::Update()
 	{
 		m_jumpPower = 0;
 	}
+	if (m_jumpPower >= m_jumpSpeed * 2)
+	{
+		int i = 0;
+	}
+	//デバッグ用true,falseキー制御
+	if (GetAsyncKeyState('O'))OnSnowBlockFlag = true;
+	if (GetAsyncKeyState('I'))OnSnowBlockFlag = false;
+	if (OnSnowBlockFlag == true)//雪ブロックの上にいるとき足が遅くなる
+	{
+		m_speed.first = m_speed.first - 0.02;
+		if (m_speed.first < 1.0f) 
+		{
+			m_speed.first = 1.0f;
+		}
+	}
+	if (OnSnowBlockFlag == false)//雪ブロックの上じゃないとき普通の速度に戻る
+	{
+		m_speed.first = m_speed.first + 0.02;
+		if (m_speed.first > 2.0f)
+		{
+			m_speed.first = 2.0f;
+		}
+	}
+	if (OnIceBlockFlag == true)
+	{
+		
+	}
 	
 }
 
@@ -397,16 +458,23 @@ void Player::Jump()
 	if (m_groundFlag)
 	{
 		m_jumpPower += m_jumpSpeed;
+		
 		m_secondJumpFlg = false;
 		m_notJumpFlg = true;
+		m_groundFlag = false;
+		if (!m_groundFlag)m_secondJumpFlg = true;
 	}
-	if(!m_groundFlag)m_secondJumpFlg = true;
-	if (m_secondJumpFlg && m_notJumpFlg)
+	else
 	{
-		m_jumpPower = 0;
-		m_jumpPower += m_secondJumpSpeed;
-		m_notJumpFlg = false;
+		if (m_secondJumpFlg && m_notJumpFlg)
+		{
+			m_jumpPower = 0;
+			m_jumpPower += m_secondJumpSpeed;
+			m_notJumpFlg = false;
+		}
 	}
+	
+	
 }
 
 bool Player::CollisionToBlock(Block block)
@@ -420,8 +488,8 @@ bool Player::CollisionToBlock(Block block)
 	float _sideAngle = 0.0f;
 	float _dX = 0.0f, _dY = 0.0f;
 	float _bRad = block.GetRad();
-	_position.first = m_pos.first - _bPos.first;
-	_position.second = m_pos.second - _bPos.second;
+	_position.first = m_gPos.first - _bPos.first;
+	_position.second = m_gPos.second - _bPos.second;
 	_bPos = { 0,0 };
 	std::pair<float, float>__buffer = { _position.first,_position.second };
 	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
@@ -699,7 +767,10 @@ bool Player::CollisionToBlock(Block block)
 			m_stopFlag = true;
 			break;
 		};
-		
+		if (_bRad <float(M_PI))
+		{
+			m_groundFlag = true;
+		}
 		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY} });
 
 	}
@@ -818,8 +889,8 @@ bool Player::CollisionToItem(Item* item)
 
 void Player::Move(float x, float y)
 {
-	m_pos.first += x;
-	m_pos.second += y;
+	m_gPos.first += x;
+	m_gPos.second += y;
 }
 
 Math::Matrix Player::GetMatrix()
@@ -849,4 +920,18 @@ void Player::SetDirection(Direction direction)
 void Player::CollisionClear()
 {
 	m_collisionData.clear();
+}
+
+bool Player::GetOnGroundFlag()
+{
+	return m_groundFlag;
+}
+void Player::SetScroll(std::pair<int, int>* scroll)
+{
+	m_scroll = scroll;
+}
+
+std::pair<float, float> Player::GetGPos()
+{
+	return m_gPos;
 }

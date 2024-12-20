@@ -372,7 +372,7 @@ void Scene::CreateTerrainObject()
 		}
 		break;
 	case 3:
-		_currentTex = &m_IceWaterBlockTex;
+		_currentTex = &m_iceWaterBlockTex[0];
 		break;
 	default:
 		_currentTex = NULL;
@@ -381,10 +381,12 @@ void Scene::CreateTerrainObject()
 
 	
 	std::vector<int> _terrainTypeVector;
+	std::vector<int> _terrainVarVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
 	{
 		_terrainTypeVector.push_back(_terrainType);
+		_terrainVarVector.push_back(m_selectedUnitVariant);
 		{
 				switch (buffer)
 				{
@@ -416,7 +418,9 @@ void Scene::CreateTerrainObject()
 					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 					break;
 				}
+				
 		}
+		m_blocks[j].SetScroll(&m_scroll);
 	}
 	
 	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
@@ -435,8 +439,8 @@ void Scene::CreateTerrainObject()
 	}
 	
 
-	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector, m_blocks));
-	
+	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector,_terrainVarVector, m_blocks));
+	m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
 	//auto _terrain = new ;
 	
 	
@@ -480,11 +484,17 @@ void Scene::SaveStage()
 			outFile << m_terrain[i].GetGPOS().first << ",";
 			outFile << m_terrain[i].GetGPOS().second << ",";
 			auto _typeBlock = m_terrain[i].GetTypeBlock();
+			auto _varBlock = m_terrain[i].GetVarBlock();
 			int _typeBlockItr = _typeBlock.size();
 			outFile << _typeBlockItr << "\n";
 			for (int j = 0; j < _typeBlockItr; j++)
 			{
 				outFile << _typeBlock[j] << ",";
+			}
+			outFile << "\n";
+			for (int j = 0; j < _typeBlockItr; j++)//!
+			{
+				outFile << _varBlock[j] << ",";
 			}
 			outFile << "\n";
 		}
@@ -498,6 +508,7 @@ void Scene::LoadStage()
 	if (inFile.is_open()) {
 		int x, y, angle, size, typeBlockSize, _buff;
 		std::vector<int> typeBlock;
+		std::vector<int> _varBlock;
 		std::string line;
 		getline(inFile, line, '\n');
 		m_stageType = stoi(line);
@@ -520,8 +531,15 @@ void Scene::LoadStage()
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
+			for (int i = 0; i < typeBlockSize; i++)
+			{
+				getline(inFile, line, ',');
+				_buff = stoi(line);
+				_varBlock.push_back(_buff);
+			}
 
-			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, m_BlockTex));
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock,_varBlock, &m_blockLiblary));
+			m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
 			getline(inFile, line, '\n');
 		}
 		
@@ -531,27 +549,44 @@ void Scene::LoadStage()
 
 void Scene::UpdateGameScene()
 {
+	m_scroll = m_player.GetGPos();
 	if (m_stageType == 1)
 	{
 		m_clearState[1] = m_keyFlag.size();
 	}
+
+	
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		m_player.SetDirection(Direction::Left);
+		if (!m_rightFlg)
+		{
+			m_leftFlg = true;
+			m_player.SetDirection(Direction::Left);
+		}
 	}
-	else if (GetAsyncKeyState(VK_RIGHT))
+	else 
 	{
-		m_player.SetDirection(Direction::Right);
-	}
-	else
-	{
+		m_leftFlg = false;
 		m_player.SetDirection(Direction::Stand);
 	}
+
+	
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		if (!m_leftFlg)
+		{
+			m_rightFlg = true;
+			m_player.SetDirection(Direction::Right);
+		}	
+	}
+	else m_rightFlg = false;
+	
+	
 	if (GetAsyncKeyState(VK_SPACE))
 	{
 		if (!m_jumpFlg)
 		{
-			m_player.Jump();
+ 			m_player.Jump();
 			m_jumpFlg = true;
 		}
 	}
@@ -588,7 +623,7 @@ void Scene::UpdateGameScene()
 	m_testCollision = false;
 	for (int i = 0; i < m_terrain.size(); i++)
 	{
-		if (m_terrain[i].OnCollisionRange(m_player.GetPos()))
+		if (m_terrain[i].OnCollisionRange(m_player.GetGPos()))
 		{
 			auto _blocks = m_terrain[i].GetBlocks();
 			for (int j = 0; j < _blocks->size(); j++)
@@ -615,6 +650,22 @@ void Scene::UpdateGameScene()
 		if (m_player.GetPos().second >= 220)
 		{
 			CLEARFLAG = true;
+		}
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+			m_scroll.first--;
+			if (m_scroll.first < m_scrollMax[0])
+			{
+				m_scrollMax[0] = m_scroll.first;
+			}
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_scroll.first++;
+		if (m_scroll.first > m_scrollMax[1])
+		{
+			m_scrollMax[1] = m_scroll.first;
 		}
 	}
 	m_player.Update();
@@ -655,7 +706,7 @@ void Scene::UpdateEditScene()
 			switch (m_editerMenuIndex)
 			{
 			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock();
+				_maxType = MaxTypeBlock(m_unitType);
 				break;
 			case EditerSelect::ItemMenu:
 				_maxType = MaxTypeItem();
@@ -671,6 +722,22 @@ void Scene::UpdateEditScene()
 			m_controlButtonClick = true;
 		}
 	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		m_scroll.first-=5;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_scroll.first += 5;
+	}
+	if (GetAsyncKeyState(VK_UP))
+	{
+		m_scroll.second += 5;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		m_scroll.second -= 5;
+	}
 	if (GetAsyncKeyState('N'))
 	{
 		if (!m_controlButtonClick)
@@ -680,7 +747,7 @@ void Scene::UpdateEditScene()
 			switch (m_editerMenuIndex)
 			{
 			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock();
+				_maxType = MaxTypeBlock(m_unitType);
 				break;
 			case EditerSelect::ItemMenu:
 				_maxType = MaxTypeItem();
@@ -776,12 +843,30 @@ void Scene::UpdateEditScene()
 			}
 		}
 	}
+	
+	
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		//m_scroll.first--;
+		if (m_scroll.first < m_scrollMax[0])
+		{
+			//m_scrollMax[0] = m_scroll.first;
+		}
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		//m_scroll.first++;
+		if (m_scroll.first > m_scrollMax[1])
+		{
+			//m_scrollMax[1] = m_scroll.first;
+		}
+	}
 	m_blocks.clear();
 }
 
-int Scene::MaxTypeBlock()
+int Scene::MaxTypeBlock(int index)
 {
-	switch (m_unitType)
+	switch (index)
 	{
 	case BlockEditerSelect::Ground:
 		return 1;
@@ -988,8 +1073,8 @@ void Scene::Update()
 			}
 		}
 		GetCursorPos(&m_mouse);
-		m_mouse.x += 16;
-		m_mouse.y += 12;
+		m_mouse.x += 16+m_scroll.first;
+		m_mouse.y += 12-m_scroll.second;
 		ScreenToClient(APP.m_window.GetWndHandle(), &m_mouse);
 		
 		if ((GetAsyncKeyState('E') && !m_controlButtonClick))
@@ -1077,7 +1162,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_inGameSetting.AddData(*WC);
 	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
-	m_IceWaterBlockTex.Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
+	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	m_playerTex.Load("Texture/Creature/player.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
@@ -1111,6 +1196,52 @@ void Scene::Init(WindowsControlData* WCInput)
 
 	m_enemy = NPC();
 	m_enemy.InitTO(m_terrain);
+	for (int i = 1; i < m_typeBlockNum; i++)
+	{
+		std::vector<std::array<KdTexture*,5>> _loadVector ;
+		std::array<KdTexture*, 5>_loadarray;
+		switch (i)
+		{
+		case BlockEditerSelect::Ground:
+			for (int j = 0; j < 5; j++)
+				_loadarray[j]=(&m_groundTex[j]);
+			_loadVector.push_back(_loadarray);
+				
+				break;
+
+		case BlockEditerSelect::Ice:
+			for (int j = 0; j < MaxTypeBlock(i); j++)
+			{
+				switch (j)
+				{
+				case Surface:
+					for (int l = 0; l < 5; l++) 
+					{
+						_loadarray[l] = (&m_iceSurfaceTex[l]);
+					}
+					_loadVector.push_back(_loadarray);
+					break;
+				case Inside:
+					for (int l = 0; l < 5; l++)
+					{
+						_loadarray[l] = (&m_iceInsideTex[l]);
+					}
+					_loadVector.push_back(_loadarray);
+					break;
+				}
+			}
+			break;
+		case 3:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_iceWaterBlockTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
+		}
+		m_blockLiblary[i] = _loadVector;
+	}
+	m_player.SetScroll(&m_scroll);
 }
 
 void Scene::Release()
@@ -1132,7 +1263,7 @@ void Scene::ImGuiUpdate()
 	if (ImGui::Begin("Debug Window"))
 	{
 		ImGui::Text("FPS : %d", APP.m_fps);
-		if (m_testCollision)
+		if (m_player.GetOnGroundFlag())
 		{
 			ImGui::Text("On Groud");
 			

@@ -1,502 +1,214 @@
-﻿  Pch.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_dx11.cpp
-  imgui_impl_win32.cpp
-  imgui_widgets.cpp
-  Block.cpp
-  Button.cpp
-  DrawTextureData.cpp
-  Enemy.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\Enemy.cpp(60,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/Enemy.cpp' をコンパイルしています)
-  
-  Item.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\Item.cpp(32,46): warning C4244: '引数': 'float' から 'long' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Item.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Item.cpp(32,39): warning C4244: '引数': 'float' から 'long' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Item.cpp' をコンパイルしています)
-  
-  KeyEvent.cpp
-  Menu.cpp
-  Objectile.cpp
-  PC.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\PC.cpp(67,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/PC.cpp' をコンパイルしています)
-  
-  Player.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(40,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(105,46): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(105,26): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(115,45): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(115,25): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(243,17): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(346,93): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(346,57): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(350,97): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(350,58): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(354,97): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(354,58): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(358,97): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(358,58): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(372,21): warning C4305: '-=': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(407,10):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+﻿  Scene.cpp
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(151,103): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(222,23): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(229,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(256,41): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(422,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(424,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(477,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(576,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(585,23): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(606,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(611,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(626,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(834,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(874,20): warning C4244: '=': 'int' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(879,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(884,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(891,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(912,31): warning C4244: '=': 'LONG' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(913,33): warning C4244: '=': 'LONG' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(1177,53): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(1177,44): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(33): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
           with
           [
               _Other1=int,
               _Other2=int
           ]
-  		C:\GameDev\ProjectK\Data\Classes\Sourse\Player.cpp(407,8):
-  		'Player::CollisionToBlock' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Data/Classes/Sourse/Player.cpp' をコンパイルしています)
-  
-  SceneControlData.cpp
-  Spawner.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\Spawner.cpp(58,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/Spawner.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\Spawner.cpp(72,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/Spawner.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Data/Classes/Sourse/Spawner.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Data\Classes\Sourse\Spawner.cpp(54,53):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(33): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
           with
           [
               _Other1=int,
               _Other2=int
           ]
-  		C:\GameDev\ProjectK\Data\Classes\Sourse\Spawner.cpp(54,36):
-  		'Spawner::Update' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Data/Classes/Sourse/Spawner.cpp' をコンパイルしています)
-  
-  Stage.cpp
-  TerrainObject.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(18,19): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(38,43): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(40,11): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(59,11): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(110,18): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(124,45): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Data\Classes\Sourse\TerrainObject.cpp(157,45): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Data/Classes/Sourse/TerrainObject.cpp' をコンパイルしています)
-  
-  コードを生成中...
-  コンパイル中...
-  WindowsControlData.cpp
-C:\GameDev\ProjectK\Data\Classes\Sourse\WindowsControlData.cpp(56,16): warning C4305: '=': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Data/Classes/Sourse/WindowsControlData.cpp' をコンパイルしています)
-  
-  Scene.cpp
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,94): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,89): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,73): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,64): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,55): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(151,42): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(222,23): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(229,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(256,41): warning C4244: '=': 'double' から 'int' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(422,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(424,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(477,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(559,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(568,23): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(589,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(594,22): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(609,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(817,21): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(857,20): warning C4244: '=': 'int' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(857,20): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(857,20): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(857,20): warning C4244:             _Ty1=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(857,20): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(862,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(862,22): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(862,22): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(862,22): warning C4244:             _Ty2=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(862,22): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(867,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(867,22): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(867,22): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(867,22): warning C4244:             _Ty2=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(867,22): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(874,22): warning C4244: '=': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(874,22): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(874,22): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(874,22): warning C4244:             _Ty2=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(874,22): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(895,31): warning C4244: '=': 'LONG' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(895,31): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(895,31): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(895,31): warning C4244:             _Ty1=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(895,31): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(896,33): warning C4244: '=': 'LONG' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(896,33): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(896,33): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(896,33): warning C4244:             _Ty2=float
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(896,33): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(1160,53): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(1160,44): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Src\Application\Scene.h(33,37):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
           with
           [
-              _Other1=int,
-              _Other2=int
+              _Ty=int
           ]
-  		C:\GameDev\ProjectK\Src\Application\Scene.h(33,37):
-  		'Scene::Scene' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty=LONG
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Src\Application\Scene.cpp(448,32):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<LONG,LONG,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=LONG
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(448): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<LONG,LONG,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
           with
           [
               _Other1=LONG,
               _Other2=LONG
           ]
-  		C:\GameDev\ProjectK\Src\Application\Scene.cpp(448,32):
-  		'Scene::CreateItem' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty=LONG
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': 'int' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Src\Application\Scene.cpp(524,38):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' のリファレンスを確認してください
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(448): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<LONG,LONG,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Other1=LONG,
+              _Other2=LONG
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=LONG
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,16): warning C4244: '初期化中': 'int' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(524): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' のリファレンスを確認してください
           with
           [
               _Other1=int &,
               _Other2=int &
           ]
-  		C:\GameDev\ProjectK\Src\Application\Scene.cpp(524,23):
-  		'Scene::LoadStage' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Src/Application/Scene.cpp' をコンパイルしています)
-  
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(524): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int&,int&,0>(_Other1,_Other2) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Other1=int &,
+              _Other2=int &
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,54): warning C4244: '初期化中': 'int' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty2=float
+          ]
   main.cpp
-C:\GameDev\ProjectK\Src\Application\Scene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,94): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,89): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,73): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,73): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,64): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,64): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,55): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,55): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         with
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         [
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,42): warning C4244:             _Ty=float
-C:\GameDev\ProjectK\Src\Application\main.cpp(171,42): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(215,56): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(215,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(384,31): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(391,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(392,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(395,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\GameDev\ProjectK\Src\Application\main.cpp(396,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:             _Ty1=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,16):
-  テンプレートインスタンス化コンテキスト (最初に最も古いもの) は
-  	C:\GameDev\ProjectK\Src\Application\Scene.h(33,37):
-  	コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(171,103): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(171,73): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(171,64): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(171,55): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(171,42): warning C4244: '引数': '_Ty' から 'int' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(215,56): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(215,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(384,31): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(391,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(392,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(395,7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\main.cpp(396,7): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,16): warning C4244: '初期化中': '_Ty' から '_Ty1' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ]
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(33): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
           with
           [
               _Other1=int,
               _Other2=int
           ]
-  		C:\GameDev\ProjectK\Src\Application\Scene.h(33,37):
-  		'Scene::Scene' の 'std::pair<float,float>::pair' への最初の参照を参照してください
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         and
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:             _Ty2=float
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\utility(250,54): warning C4244:         ]
-  (ソース ファイル '/Src/Application/main.cpp' をコンパイルしています)
-  
-  KdAudio.cpp
-  KdDirect3DHelper.cpp
-  KdGLTFLoader.cpp
-  KdEffectShader.cpp
-  KdShaderManager.cpp
-  KdSpriteShader.cpp
-  KdStandardShader.cpp
-  KdBuffer.cpp
-  KdDirect3D.cpp
-  KdModel.cpp
-  KdTexture.cpp
-  KdGameWindow.cpp
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.h(33): message : コンパイル対象の関数 テンプレート インスタンス化 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' のリファレンスを確認してください
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\utility(190,54): warning C4244: '初期化中': '_Ty' から '_Ty2' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
   コードを生成中...
-C:\GameDev\ProjectK\Src\Application\Scene.cpp(936,1): warning C4715: 'Scene::MaxTypeEnemy': 値を返さないコントロール パスがあります。
-  Project.vcxproj -> C:\GameDev\ProjectK\Debug\Project.exe
-  Project.vcxproj -> C:\GameDev\ProjectK\Debug\Project.pdb (完全な PDB)
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Src\Application\Scene.cpp(953): warning C4715: 'Scene::MaxTypeEnemy': 値を返さないコントロール パスがあります。
+  Project.vcxproj -> C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Debug\Project.exe
+  Project.vcxproj -> C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Debug\Project.pdb (完全な PDB)

@@ -1,3 +1,4 @@
 C:\Lessons\DIGITAL WORKS\スケルトンプログラム\Debug\Project.exe
 C:\Lessons\DIGITAL WORKS\ProjectK\Debug\Project.exe
 C:\GameDev\ProjectK\Debug\Project.exe
+C:\Users\KOBEDENSHI\Documents\GitHub\ProjectK\Debug\Project.exe

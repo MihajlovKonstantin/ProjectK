@@ -29,7 +29,8 @@ void PC::Init(std::pair<float, float>pos)
 
 void PC::Update()
 {
-
+	if (m_groundFlag)
+		m_onGroundFlag = true;
 	switch (m_direction)
 	{
 	case Direction::Up:
