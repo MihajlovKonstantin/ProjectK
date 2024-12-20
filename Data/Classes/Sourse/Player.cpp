@@ -127,6 +127,7 @@ void Player::Update()
 			
 			
 		}
+		
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
@@ -425,6 +426,29 @@ void Player::Update()
 	if (m_jumpPower >= m_jumpSpeed * 2)
 	{
 		int i = 0;
+	}
+	//デバッグ用true,falseキー制御
+	if (GetAsyncKeyState('O'))OnSnowBlockFlag = true;
+	if (GetAsyncKeyState('I'))OnSnowBlockFlag = false;
+	if (OnSnowBlockFlag == true)//雪ブロックの上にいるとき足が遅くなる
+	{
+		m_speed.first = m_speed.first - 0.02;
+		if (m_speed.first < 1.0f) 
+		{
+			m_speed.first = 1.0f;
+		}
+	}
+	if (OnSnowBlockFlag == false)//雪ブロックの上じゃないとき普通の速度に戻る
+	{
+		m_speed.first = m_speed.first + 0.02;
+		if (m_speed.first > 2.0f)
+		{
+			m_speed.first = 2.0f;
+		}
+	}
+	if (OnIceBlockFlag == true)
+	{
+		
 	}
 	
 }

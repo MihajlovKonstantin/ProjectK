@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Data/Classes/Header/Button.h"
 #include "Pch.h"
 #include "Src/Application/Direction.h"
@@ -12,6 +12,7 @@ protected:
 		float collisionValue;
 		std::pair<float, float> pos;
 		std::pair<float, float>dPos;
+
 	};
 	int animation = 0;
 	float m_jumpPower = 0.0f;
@@ -19,8 +20,11 @@ protected:
 	float m_secondJumpSpeed = 2.0f;
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
+	bool OnSnowBlockFlag = false;
+	bool OnIceBlockFlag = false;
 	std::vector<CollisionBlockData> m_collisionData;
 
+	
 	std::pair<float, float> m_pos;
 	std::pair<float, float> m_gPos;
 
