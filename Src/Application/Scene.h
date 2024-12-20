@@ -23,41 +23,29 @@ private:
 	std::vector<TerrainObject> m_terrain;
 	//ItemTexture
 	std::array<KdTexture, 3> m_keyTexture;
-	//BlockTexture]
+	//BlockTexture
 	std::array<KdTexture, 5> m_groundTex;
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
-	KdTexture m_backGround;
-	static const int m_typeBlockNum = 4;
-
-	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
-	//Start	Data
-	std::pair<float, float> SpawnPos = { 200,100 };
-
-	Item _lastItem;
-	
-	int m_clearState[2];
-	std::string m_clearStateString;
-	const char* m_clearExpress = m_clearStateString.c_str();
-	bool CLEARFLAG = false;
-		//m_terrain
-	
-	std::array<bool, 3> m_keyFlag;
+	//OtherTex
 	KdTexture m_BlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
-	Math::Rectangle charaRect;
-	// �s�� �E�E�E ���W�Ȃǂ̏��
-	Math::Matrix matrix;
-	//int test;
-	std::array<POINT, 2> m_point;
-	POINT m_mouse;
+	KdTexture m_backGround;
+	//BlockLib
+	static const int m_typeBlockNum = 4;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
+	//Editer
+	std::pair<float, float> SpawnPos;
+	Item _lastItem;
 	bool m_drawStartBool;
+	//Draw
+	Math::Rectangle charaRect;
+	Math::Matrix matrix;
+	std::array<POINT, 2> m_point;
 	std::string str;
 	const char* charStr = str.c_str();
-	Menu m_inGameSetting;
-	Stage m_stage;
 	//DrawButton 
 	std::array<float, 2> size;
 	std::array<float, 2>position;
@@ -67,24 +55,33 @@ private:
 	DirectX::SpriteFont* spriteFont;
 	//Mouse 
 	POINT mouse;
+	POINT m_mouse;
+	//Configs
 	WindowsControlData* WC;
 	SceneControlData* SC;
+	//Scroll
+	std::pair<int, int> m_scroll = { 0,0 };
+	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
+	//Bool
 	bool m_controlButtonClick = false;
-	std::vector<KdTexture> m_asset;
-	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
-	float num = 6.5f / 3.0f;
-	float m_rad = float(M_PI)*0.0f;
-	bool m_testCollision = false;
-	bool _tKey = false;
-	int m_stageType = 0;
-	//キー制御用
 	bool m_lKey;
 	bool m_pKey;
-	//ジャンプ用
-	bool m_jumpFlg = false;
-	//移動用
+	bool _tKey = false;
 	bool m_leftFlg;
 	bool m_rightFlg;
+	bool m_testCollision = false;
+	bool m_jumpFlg = false;
+	std::array<bool, 3> m_keyFlag;
+	//Player
+	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
+	//Stage
+	int m_stageType = 0;
+	int m_clearState[2];
+	std::string m_clearStateString;
+	const char* m_clearExpress = m_clearStateString.c_str();
+	bool CLEARFLAG = false;
+	Menu m_inGameSetting;
+	Stage m_stage;
 public:
 	// �����00
 	void Init(WindowsControlData* WCInput);
@@ -120,8 +117,7 @@ public:
 	void CreateSpawn();
 	void StopMusic();
 	int MaxTypeEnemy();
-	std::pair<int, int> m_scroll;
-	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
+
 private:
 
 	Scene() {}

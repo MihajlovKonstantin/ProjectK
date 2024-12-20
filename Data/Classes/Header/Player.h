@@ -20,7 +20,13 @@ protected:
 	bool m_moveBlock[4] = {false,false,false,false};
 	bool m_stopFlag;
 	std::vector<CollisionBlockData> m_collisionData;
+
 	std::pair<float, float> m_pos;
+	std::pair<float, float> m_gPos;
+
+	std::pair<int, int> _scroll = { 0,0 };
+	std::pair<int, int>* m_scroll = &_scroll;
+
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
 	KdTexture* m_texture;
@@ -57,4 +63,6 @@ public:
 	void SetDirection(Direction direction);
 	void CollisionClear();
 	bool GetOnGroundFlag();
+	void SetScroll(std::pair<int, int>* scroll);
+	std::pair<float, float> GetGPos();
 };

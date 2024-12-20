@@ -420,6 +420,7 @@ void Scene::CreateTerrainObject()
 				}
 				
 		}
+		m_blocks[j].SetScroll(&m_scroll);
 	}
 	
 	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
@@ -439,7 +440,7 @@ void Scene::CreateTerrainObject()
 	
 
 	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector,_terrainVarVector, m_blocks));
-	
+	m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
 	//auto _terrain = new ;
 	
 	
@@ -538,6 +539,7 @@ void Scene::LoadStage()
 			}
 
 			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock,_varBlock, &m_blockLiblary));
+			m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
 			getline(inFile, line, '\n');
 		}
 		
@@ -547,7 +549,7 @@ void Scene::LoadStage()
 
 void Scene::UpdateGameScene()
 {
-	
+	m_scroll = m_player.GetGPos();
 	if (m_stageType == 1)
 	{
 		m_clearState[1] = m_keyFlag.size();
@@ -621,7 +623,7 @@ void Scene::UpdateGameScene()
 	m_testCollision = false;
 	for (int i = 0; i < m_terrain.size(); i++)
 	{
-		if (m_terrain[i].OnCollisionRange(m_player.GetPos()))
+		if (m_terrain[i].OnCollisionRange(m_player.GetGPos()))
 		{
 			auto _blocks = m_terrain[i].GetBlocks();
 			for (int j = 0; j < _blocks->size(); j++)
@@ -648,6 +650,22 @@ void Scene::UpdateGameScene()
 		if (m_player.GetPos().second >= 220)
 		{
 			CLEARFLAG = true;
+		}
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+			m_scroll.first--;
+			if (m_scroll.first < m_scrollMax[0])
+			{
+				m_scrollMax[0] = m_scroll.first;
+			}
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_scroll.first++;
+		if (m_scroll.first > m_scrollMax[1])
+		{
+			m_scrollMax[1] = m_scroll.first;
 		}
 	}
 	m_player.Update();
@@ -703,6 +721,22 @@ void Scene::UpdateEditScene()
 			}
 			m_controlButtonClick = true;
 		}
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		m_scroll.first-=5;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_scroll.first += 5;
+	}
+	if (GetAsyncKeyState(VK_UP))
+	{
+		m_scroll.second += 5;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		m_scroll.second -= 5;
 	}
 	if (GetAsyncKeyState('N'))
 	{
@@ -809,24 +843,24 @@ void Scene::UpdateEditScene()
 			}
 		}
 	}
+	
+	
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-			m_scroll.first--;
-			if (m_scroll.first < m_scrollMax[0])
-			{
-				m_scrollMax[0] = m_scroll.first;
-			}
+		//m_scroll.first--;
+		if (m_scroll.first < m_scrollMax[0])
+		{
+			//m_scrollMax[0] = m_scroll.first;
+		}
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_scroll.first++;
+		//m_scroll.first++;
 		if (m_scroll.first > m_scrollMax[1])
 		{
-			m_scrollMax[1] = m_scroll.first;
+			//m_scrollMax[1] = m_scroll.first;
 		}
 	}
-	
-	
 	m_blocks.clear();
 }
 
@@ -1039,8 +1073,8 @@ void Scene::Update()
 			}
 		}
 		GetCursorPos(&m_mouse);
-		m_mouse.x += 16;
-		m_mouse.y += 12;
+		m_mouse.x += 16+m_scroll.first;
+		m_mouse.y += 12-m_scroll.second;
 		ScreenToClient(APP.m_window.GetWndHandle(), &m_mouse);
 		
 		if ((GetAsyncKeyState('E') && !m_controlButtonClick))
@@ -1205,6 +1239,7 @@ void Scene::Init(WindowsControlData* WCInput)
 		}
 		m_blockLiblary[i] = _loadVector;
 	}
+	m_player.SetScroll(&m_scroll);
 }
 
 void Scene::Release()

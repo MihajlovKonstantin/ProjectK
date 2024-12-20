@@ -4,6 +4,8 @@
 #include "Src/Application/BlockEnum.h"
 class TerrainObject
 {
+	std::pair<int, int> _scroll = { 0,0 };
+	std::pair<int, int>* m_scroll = &_scroll;
 	std::pair<float, float> m_localPos;
 	std::pair<float, float> m_globalPos;//position
 	std::pair<float, float> m_xBorder;
@@ -35,5 +37,6 @@ public:
 	std::pair<float, float> GetGPOS();		//position getter
 	std::vector<int> GetVarBlock();			//var getter
 	int GetAngle();							//angle getter
+	void SetScroll(std::pair<int, int>* scroll);
 };
 

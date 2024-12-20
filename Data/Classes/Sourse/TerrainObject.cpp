@@ -101,6 +101,14 @@ void TerrainObject::FoundBorder()
 
 void TerrainObject::Update()
 {
+	auto _xLock = m_localPos.first;
+	auto _yLock = m_localPos.second;
+	m_localPos.first = m_globalPos.first - m_scroll->first;
+	m_localPos.second = m_globalPos.second - m_scroll->second;
+	if ((_xLock != m_localPos.first) || (_yLock != m_localPos.second))
+	{
+		m_dirty = true;
+	}
 	ClearReplace();
 	if (m_dirty)
 	{
@@ -318,5 +326,14 @@ std::vector<int> TerrainObject::GetVarBlock()
 int TerrainObject::GetAngle()
 {
 	return m_type;
+}
+
+void TerrainObject::SetScroll(std::pair<int, int>* scroll)
+{
+	m_scroll = scroll;
+	for (int i = 0; i < m_block.size(); i++)
+	{
+		m_block[i].SetScroll(m_scroll);
+	}
 }
 

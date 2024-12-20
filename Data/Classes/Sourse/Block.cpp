@@ -2,6 +2,11 @@
 #include "Data/Classes/Header/Block.h"
 
 
+void Block::SetScroll(std::pair<int, int>* scroll)
+{
+	m_scroll = scroll;
+}
+
 void Block::SetDeleteState(bool state)
 {
 	m_deleteState = state;
@@ -22,6 +27,8 @@ void Block::SetPos(float xPos, float yPos)
 }
 void Block::Update()
 {
+	m_localPos.first = m_globalPos.first - m_scroll->first;
+	m_localPos.second = m_globalPos.second - m_scroll->second;
 	m_mTrans = Math::Matrix::CreateTranslation(m_localPos.first, m_localPos.second, 0);
 	m_mRotation = Math::Matrix::CreateRotationZ(0);
 	m_matrix =  m_mRotation*m_mTrans;
@@ -61,12 +68,12 @@ KdTexture* Block::GetTexture()
 
 float Block::GetXPos()
 {
-	return m_localPos.first;
+	return m_globalPos.first;
 }
 
 float Block::GetYPos()
 {
-	return m_localPos.second;
+	return m_globalPos.second;
 }
 
 std::pair<float, float> Block::GetSize()
@@ -97,8 +104,8 @@ Math::Rectangle Block::GetRectangle()
 }
 void Block::SetGlobalPos()
 {
-	m_globalPos.first = m_localPos.first;
-	m_globalPos.second = m_localPos.second;
+	m_globalPos.first = m_localPos.first+m_scroll->first;
+	m_globalPos.second = m_localPos.second+m_scroll->second;
 }
 
 void Block::SetRadian(float radian)

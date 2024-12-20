@@ -26,8 +26,7 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
-	if (m_pos.second > 300)
-		int point = 0;
+	
 	m_stopFlag = false;
 	//m_scale = { 1,1 };
 	
@@ -375,8 +374,10 @@ void Player::Update()
 			}
 		}
 	}
-	m_pos.first += m_currentSpeed.first;
-	m_pos.second += m_currentSpeed.second+m_jumpPower;
+	m_gPos.first += m_currentSpeed.first;
+	m_gPos.second += m_currentSpeed.second+m_jumpPower;
+	m_pos.first = m_gPos.first - m_scroll->first;
+	m_pos.second = m_gPos.second - m_scroll->second;
 	m_mTrans = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 	
 	if (m_rad < 0)
@@ -463,8 +464,8 @@ bool Player::CollisionToBlock(Block block)
 	float _sideAngle = 0.0f;
 	float _dX = 0.0f, _dY = 0.0f;
 	float _bRad = block.GetRad();
-	_position.first = m_pos.first - _bPos.first;
-	_position.second = m_pos.second - _bPos.second;
+	_position.first = m_gPos.first - _bPos.first;
+	_position.second = m_gPos.second - _bPos.second;
 	_bPos = { 0,0 };
 	std::pair<float, float>__buffer = { _position.first,_position.second };
 	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
@@ -864,8 +865,8 @@ bool Player::CollisionToItem(Item* item)
 
 void Player::Move(float x, float y)
 {
-	m_pos.first += x;
-	m_pos.second += y;
+	m_gPos.first += x;
+	m_gPos.second += y;
 }
 
 Math::Matrix Player::GetMatrix()
@@ -900,4 +901,13 @@ void Player::CollisionClear()
 bool Player::GetOnGroundFlag()
 {
 	return m_groundFlag;
+}
+void Player::SetScroll(std::pair<int, int>* scroll)
+{
+	m_scroll = scroll;
+}
+
+std::pair<float, float> Player::GetGPos()
+{
+	return m_gPos;
 }
