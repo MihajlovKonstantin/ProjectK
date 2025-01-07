@@ -29,7 +29,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpszArgs, in
 // ÉAÉvÉäÉPÅ[ÉVÉáÉìèâä˙ê›íË
 bool Application::Init(int w, int h)
 {
-
+	system("dir >temp.txt");
 	//===================================================================
 	// ÉEÉBÉìÉhÉEçÏê¨
 	//===================================================================
@@ -162,7 +162,40 @@ void Application::CreateExtensions()
 		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
 		RegCloseKey(_hkey);
 	}
+	const std::wstring _extensionMap = L".map";
+	const std::wstring _fileTypeMap = L"Map";
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _extensionMap.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_fileTypeMap.c_str(), (_fileTypeMap.length()) * sizeof(wchar_t) + 1);
+		RegCloseKey(_hkey);
+	}
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _fileTypeMap.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		const char* _description = "Map_Data";
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
+		RegCloseKey(_hkey);
+	}
 }
+void Application::LoadMapList()
+{
+	string _path = "";
+	_path+= dataFolderPath;
+	_path += "\\Map";
+	
+	if (!PathFileExistsA(_path.c_str()))
+	{
+		if (SHCreateDirectoryExA(NULL, _path.c_str(), NULL) != ERROR_SUCCESS) {
+			std::cerr << "Unable to create directory." << std::endl;
+			return;
+		}
+	}
+
+	std::string _dirFinder = "dir \"" + _path + "\" /b *.map > temp1.txt";
+	system(_dirFinder.c_str());
+}
+
 //ï`âÊä÷êî
 void Application::DrawButton(Button inputButton)
 {
@@ -381,6 +414,13 @@ void Application::Game()
 }
 void Application::CreateDataPath()
 {
+	char buffer[1024];
+	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
+		std::string currentDir(buffer);
+		std::string newDir = "dir \"" + currentDir + "\\Data\\Classes\\Header\" /b *.h > temp.txt";
+		system(newDir.c_str());
+	}
+	
 	const char* _homePath = std::getenv("USERPROFILE");
 	if (!_homePath)
 	{
@@ -393,7 +433,7 @@ void Application::CreateDataPath()
 
 	char _result[512];
 	std::strcpy(_result, _documentPath);
-	std::strcat(_result, "\\Fault - another story");
+	std::strcat(_result, "\\Dungeon Meka");
 
 	if (!PathFileExistsA(_result)) {
 		// ÑDÑyÑÇÑuÑ{ÑÑÑÄÑÇÑyÑë Ñ~Ñu ÑÉÑÖÑãÑuÑÉÑÑÑrÑÖÑuÑÑ, ÑÉÑÄÑxÑtÑpÑuÑ} ÑuÑv
@@ -403,12 +443,12 @@ void Application::CreateDataPath()
 		}
 	}
 	dataFolderPath = _result;
-	int i = 0;
 }
 
 // ÉAÉvÉäÉPÅ[ÉVÉáÉìé¿çs
 void Application::Execute()
 {
+	std::vector<std::string> test;
 	//===================================================================
 	// èâä˙ê›íË(ÉEÉBÉìÉhÉEçÏê¨ÅADirect3Dèâä˙âªÇ»Ç«)
 	//===================================================================
@@ -420,6 +460,7 @@ void Application::Execute()
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data Ç∆Å@Menu Class object ê⁄ë±Ç∑ÇÈ
 	CreateExtensions();
+	LoadMapList();
 	{
 		std::ofstream outFile("example.menu");
 		if (outFile.is_open()) {

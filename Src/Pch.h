@@ -104,6 +104,9 @@
 //
 //===============================================
 #include "System/KdSystem.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+//#include "unistd.h"
 //CustomLib
 #include "Data/Classes/Header/Button.h"
 #include "Data/Classes/Header/Menu.h"

@@ -119,7 +119,10 @@ public:
 	void CreateSpawn();
 	void StopMusic();
 	int MaxTypeEnemy();
-
+	void CreateDataPatch();
+	void InitMap(std::string mapName);
+	void SaveMap();
+	void LoadMap();
 private:
 
 	Scene() {}

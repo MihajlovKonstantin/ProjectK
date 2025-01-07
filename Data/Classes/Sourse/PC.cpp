@@ -16,7 +16,8 @@ std::pair<float, float> PC::GetPos()
 
 void PC::Init(std::pair<float, float>pos)
 {
-	m_pos = pos;
+	
+	m_gPos = pos;
 	m_rad = 0;
 	m_sideRad = -1.0f;
 	m_currentCollisionValue = -1.0f;

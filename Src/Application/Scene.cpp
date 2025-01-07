@@ -541,9 +541,9 @@ void Scene::LoadStage()
 			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock,_varBlock, &m_blockLiblary));
 			m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
 			getline(inFile, line, '\n');
+
+
 		}
-		
-		inFile.close();
 	}
 }
 
@@ -1018,6 +1018,123 @@ int Scene::MaxTypeEnemy()
 	}
 }
 
+void Scene::CreateDataPatch()
+{
+
+}
+
+void Scene::InitMap(std::string mapName)
+{
+}
+
+void Scene::SaveMap()
+{
+	std::ofstream outFile("CurrentMap.map");
+	std::ifstream inFile("StageData");
+	std::string line;
+	if (inFile.is_open()) {
+		while (std::getline(inFile, line)) {
+			outFile << line << std::endl;
+		}
+	}
+	inFile.close();
+	inFile = std::ifstream("SpawnData");
+	if (inFile.is_open()) {
+		while (std::getline(inFile, line)) {
+			outFile << line << std::endl;
+		}
+	}
+	inFile.close();
+	outFile.close();
+}
+
+void Scene::LoadMap()
+{
+	std::ifstream inFile("CurrentMap.map");
+	m_terrain.clear();
+	m_spawner.clear();
+	std::string line;
+	if (inFile.is_open()) {
+		int x, y, angle, size, typeBlockSize, _buff;
+		std::vector<int> typeBlock;
+		std::vector<int> _varBlock;
+		std::string line;
+		std::getline(inFile, line, '\n');
+		m_stageType = stoi(line);
+		getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int j = 0; j < size; j++)
+		{
+			typeBlock.clear();
+			getline(inFile, line, ',');
+			angle = stoi(line);
+			getline(inFile, line, ',');
+			x = stoi(line);
+			getline(inFile, line, ',');
+			y = stoi(line);
+			getline(inFile, line, '\n');
+			typeBlockSize = stoi(line);
+			for (int i = 0; i < typeBlockSize; i++)
+			{
+				getline(inFile, line, ',');
+				_buff = stoi(line);
+				typeBlock.push_back(_buff);
+			}
+			for (int i = 0; i < typeBlockSize; i++)
+			{
+				getline(inFile, line, ',');
+				_buff = stoi(line);
+				_varBlock.push_back(_buff);
+			}
+			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock, _varBlock, &m_blockLiblary));
+			m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
+		}
+		
+
+		int charaIndex, type, interval, num;
+		std::pair<float, float>pos;
+		std::getline(inFile, line, '\n');
+		std::getline(inFile, line, '\n');
+		size = stoi(line);
+		for (int i = 0; i < size; i++)
+			{
+				std::getline(inFile, line, '\n');
+				charaIndex = stoi(line);
+				std::getline(inFile, line, ',');
+				pos.first = stoi(line);
+				switch (charaIndex)
+				{
+				case 1:
+					std::getline(inFile, line, '\n');
+					pos.second = stoi(line);
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_player));
+					break;
+				case 2:
+					std::getline(inFile, line, ',');
+					pos.second = stoi(line);
+					std::getline(inFile, line, '\n');
+					type = stoi(line);
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type));
+					break;
+				case 3:
+					std::getline(inFile, line, ',');
+					pos.second = stoi(line);
+					std::getline(inFile, line, ',');
+					type = stoi(line);
+					std::getline(inFile, line, ',');
+					interval = stoi(line);
+					std::getline(inFile, line, '\n');
+					num = stoi(line);
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type, interval, num));
+					break;
+				}
+		}
+
+		
+	}
+		inFile.close();
+}
+
 void Scene::Update()
 {
 	//if(soundInstance.IsPause())
@@ -1033,6 +1150,7 @@ void Scene::Update()
 			{
 				SaveStage();
 				SaveSpawn();
+				SaveMap();
 			}
 			m_lKey = true;
 		}
@@ -1041,8 +1159,9 @@ void Scene::Update()
 		{
 			if (!m_pKey)
 			{
-				LoadStage();
-				LoadSpawn();
+				//LoadStage();
+				//LoadSpawn();
+				LoadMap();
 			}
 			m_pKey = true;
 		}

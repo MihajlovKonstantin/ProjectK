@@ -19,7 +19,13 @@ private:
 		Records
 	};
 	//Dataの読み込み
-	char* dataFolderPath;
+	std::string dataFolderPath;
+	std::string mapFolderPath;
+	std::string currentMapPath;
+	std::string editerMapFolderPath;
+	std::vector<std::string> playebleMapList;
+	std::vector<std::string> editerMapList;
+
 	WindowsControlData WindowsData;
 	KeyEvent event;
 	std::shared_ptr<KdSoundEffect> soundEffect = std::make_shared<KdSoundEffect>();
@@ -89,6 +95,7 @@ private:
 	//Init処理/dataの読み込み
 	void CreateDataPath();
 	void CreateExtensions();
+	void LoadMapList();
 //=====================================================
 // シングルトンパターン
 //=====================================================

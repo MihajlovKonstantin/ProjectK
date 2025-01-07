@@ -48,7 +48,10 @@ void Spawner::Update()
 	switch (m_index)
 	{
 	case 1:
-		if (!m_spawnFlg)m_Player->Init(m_CharaPos);
+		if (!m_spawnFlg)
+		{
+			m_Player->Init(m_CharaPos);
+		}
 		m_spawnFlg = true;
 		break;
 	case 2:
