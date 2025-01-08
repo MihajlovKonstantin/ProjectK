@@ -346,3 +346,8 @@ void TerrainObject::SetScroll(std::pair<int, int>* scroll)
 	}
 }
 
+size_t TerrainObject::GetTypeBlockSize()
+{
+	return m_blockType.size();
+}
+

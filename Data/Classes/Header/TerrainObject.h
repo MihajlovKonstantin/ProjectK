@@ -40,5 +40,6 @@ public:
 	std::pair<float, float> GetBorderX();
 	std::pair<float, float> GetBorderY();
 	void SetScroll(std::pair<int, int>* scroll);
+	size_t GetTypeBlockSize();
 };
 

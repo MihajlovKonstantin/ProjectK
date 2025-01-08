@@ -94,12 +94,68 @@ bool NPC::Discovery()
 			m_discoveryCoolTime = 30;
 			m_box.clear();
 			FindTerrainObject();
-			for (int i = 0; i < m_terrain.size(); i++)
+			for (size_t i = 0; i < m_terrain.size(); i++)
 			{
-				DirectX::BoundingBox _boundBox(DirectX::XMFLOAT3(m_terrain[i]->GetGPOS().first, m_terrain[i]->GetGPOS().second, 0),
-											   DirectX::XMFLOAT3(16, 16, 0));
+				int deltaX, deltaY;
+				auto v = m_terrain[i]->GetTypeBlockSize();
+				switch (m_terrain[i]->GetAngle())
+				{
+				case 0:
+					deltaX = 16 * v * 1;
+					deltaY = 16 * v * 0;
+					break;
+				case 1:
+					deltaX = 16 * v * 1;
+					deltaY = 16 * v * 1;
+					break;
+				case 2:
+					deltaX = 16 * v * 0;
+					deltaY = 16 * v * 1;
+					break;
+				case 3:
+					deltaX = 16 * v * -1;
+					deltaY = 16 * v * 1;
+					break;
+				case 4:
+					deltaX = 16 * v * -1;
+					deltaY = 16 * v * 0;
+					break;
+				case 5:
+					deltaX = 16 * v * -1;
+					deltaY = 16 * v * -1;
+					break;
+				case 6:
+					deltaX = 16 * v * 0;
+					deltaY = 16 * v * -1;
+					break;
+				case 7:
+					deltaX = 16 * v * 1;
+					deltaY = 16 * v * -1;
+					break;
+				case 8:
+					deltaX = 16 * v * 1;
+					deltaY = 16 * v * 0;
+					break;
+				}
+				DirectX::BoundingBox _boundBox(DirectX::XMFLOAT3(m_terrain[i]->GetGPOS().first + deltaX ,
+											   m_terrain[i]->GetGPOS().second + deltaY, 0),
+											   DirectX::XMFLOAT3(16 * v, 16 * v, 0));
 				m_box.push_back(_boundBox);
+				Normalize = DirectX::XMVector3Normalize({ m_player->GetPos().first - m_gPos.first ,
+														  m_player->GetPos().second - m_gPos.second,0 });
+				float foo;
+				auto _test = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
+				if (!m_box[i].Intersects( _test, Normalize, foo))
+				{
+					m_terrainBool[i] = false;
+				}
+				else
+				{
+					m_terrainBool[i] = true;
+				}
 			}
+			
+			
 			/*DirectX::XMVectorSet(m_pos.first, m_pos.second + 16,
 								 m_player->GetPos().first, m_player->GetPos().second);*/
 		}
@@ -123,6 +179,7 @@ void NPC::FindTerrainObject()
 			}
 		}
 	}
+	m_terrainBool.resize(m_terrain.size());
 }
 
 void NPC::InitTO(std::vector<TerrainObject> &terrain)
