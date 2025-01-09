@@ -13,6 +13,7 @@ protected:
 
     PC* m_player;
     bool m_discovery = false;
+    bool m_result = false;
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;
     std::vector<TerrainObject>* m_allTerrain;
@@ -30,7 +31,7 @@ public:
     NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture);
     NPC();
     //void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
-    static void Update();
+    void Update();
     bool MovePossible();
     int GetDirection();
     std::pair<float,float> GetEnemyPos();

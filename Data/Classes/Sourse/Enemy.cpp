@@ -14,7 +14,11 @@ NPC::NPC()
 
 void NPC::Update()
 {
-	//Discovery();
+	if (Discovery())
+	{
+
+	}
+
 //	if (GetDistance() <= 10)
 //	{
 //		switch (GetDirection())
@@ -81,24 +85,22 @@ float NPC::GetDistance()
 
 bool NPC::Discovery()
 {
-	bool _result = false;
-
 	auto _playerPos = m_player->GetPos();
 	auto _curenntDistance = GetDistance();
 	//auto _curenntDistance = 1;
 	
-	if (_curenntDistance <= m_discoveryDistance)
+	if (m_discoveryCoolTime-- < 0)
 	{
-		_result = true;
-		if (m_discoveryCoolTime-- < 0)
+		m_discoveryCoolTime = 30;
+		if (_curenntDistance <= m_discoveryDistance)
 		{
-			m_discoveryCoolTime = 30;
+			m_result = true;
 			m_box.clear();
 			FindTerrainObject();
 			Normalize = DirectX::XMVector3Normalize({ m_player->GetPos().first - m_gPos.first ,
-												      m_player->GetPos().second - m_gPos.second,0 });
+													  m_player->GetPos().second - m_gPos.second,0 });
 			float foo;
-			auto _test = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
+			auto _enemyPos = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
 			for (size_t i = 0; i < m_terrain.size(); i++)
 			{
 				int deltaX, deltaY;
@@ -142,13 +144,13 @@ bool NPC::Discovery()
 					deltaY = 16 * v * 0;
 					break;
 				}
-				DirectX::BoundingBox _boundBox(DirectX::XMFLOAT3(m_terrain[i]->GetGPOS().first + deltaX ,
-											   m_terrain[i]->GetGPOS().second + deltaY, 0),
-											   DirectX::XMFLOAT3(16 * v, 16 * v, 0));
+				DirectX::BoundingBox _boundBox(DirectX::XMFLOAT3(m_terrain[i]->GetGPOS().first + deltaX,
+					m_terrain[i]->GetGPOS().second + deltaY, 0),
+					DirectX::XMFLOAT3(16 * v, 16 * v, 0));
 				m_box.push_back(_boundBox);
-				
-				
-				if (!m_box[i].Intersects( _test, Normalize, foo))
+
+
+				if (!m_box[i].Intersects(_enemyPos, Normalize, foo))
 				{
 					m_terrainBool[i] = false;
 				}
@@ -173,17 +175,18 @@ bool NPC::Discovery()
 					}
 					for (size_t k = 0; m_sphere.size() > k; k++)
 					{
-						if (m_sphere.at(k).Intersects(_test, Normalize, foo))
+						if (m_sphere.at(k).Intersects(_enemyPos, Normalize, foo))
 						{
-							_result = false;
+							m_result = false;
 						}
 					}
 				}
 			}
 		}
+		else m_result = false;
 	}
 
-	return _result;
+	return m_result;
 }
 
 void NPC::FindTerrainObject()
