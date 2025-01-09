@@ -84,16 +84,21 @@ bool NPC::Discovery()
 	bool _result = false;
 
 	auto _playerPos = m_player->GetPos();
-	//auto _curenntDistance = GetDistance();
-	auto _curenntDistance = 1;
+	auto _curenntDistance = GetDistance();
+	//auto _curenntDistance = 1;
 	
 	if (_curenntDistance <= m_discoveryDistance)
 	{
+		_result = true;
 		if (m_discoveryCoolTime-- < 0)
 		{
 			m_discoveryCoolTime = 30;
 			m_box.clear();
 			FindTerrainObject();
+			Normalize = DirectX::XMVector3Normalize({ m_player->GetPos().first - m_gPos.first ,
+												      m_player->GetPos().second - m_gPos.second,0 });
+			float foo;
+			auto _test = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
 			for (size_t i = 0; i < m_terrain.size(); i++)
 			{
 				int deltaX, deltaY;
@@ -141,10 +146,8 @@ bool NPC::Discovery()
 											   m_terrain[i]->GetGPOS().second + deltaY, 0),
 											   DirectX::XMFLOAT3(16 * v, 16 * v, 0));
 				m_box.push_back(_boundBox);
-				Normalize = DirectX::XMVector3Normalize({ m_player->GetPos().first - m_gPos.first ,
-														  m_player->GetPos().second - m_gPos.second,0 });
-				float foo;
-				auto _test = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
+				
+				
 				if (!m_box[i].Intersects( _test, Normalize, foo))
 				{
 					m_terrainBool[i] = false;
@@ -154,10 +157,29 @@ bool NPC::Discovery()
 					m_terrainBool[i] = true;
 				}
 			}
-			
-			
-			/*DirectX::XMVectorSet(m_pos.first, m_pos.second + 16,
-								 m_player->GetPos().first, m_player->GetPos().second);*/
+			DirectX::BoundingSphere _newSphere;
+			std::pair<float, float> _blockPos;
+			for (int i = 0; m_terrainBool.size() > i; i++)
+			{
+				if (m_terrainBool[i])
+				{
+					m_BlockBuff = m_terrain[i]->GetBlocks();
+					m_sphere.clear();
+					for (size_t j = 0; m_BlockBuff->size() > j; j++)
+					{
+						_blockPos = m_BlockBuff->at(j).GetGPos();
+						_newSphere = DirectX::BoundingSphere({ _blockPos.first,_blockPos.second,0 }, 16.0f);
+						m_sphere.push_back(_newSphere);
+					}
+					for (size_t k = 0; m_sphere.size() > k; k++)
+					{
+						if (m_sphere.at(k).Intersects(_test, Normalize, foo))
+						{
+							_result = false;
+						}
+					}
+				}
+			}
 		}
 	}
 

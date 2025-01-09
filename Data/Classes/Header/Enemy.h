@@ -18,9 +18,11 @@ protected:
     std::vector<TerrainObject>* m_allTerrain;
     std::vector<TerrainObject*> m_terrain;
     std::vector<DirectX::BoundingBox> m_box;
-    DirectX::BoundingSphere m_sphere;
+    std::vector<DirectX::BoundingSphere> m_sphere;
     DirectX::XMVECTOR Normalize;
     std::vector<bool> m_terrainBool;
+    std::vector<Block>* m_BlockBuff;
+
     //m_terrain.GetBlockTypeSize();
     //DirectX::BoundingBox m_box[];
 
