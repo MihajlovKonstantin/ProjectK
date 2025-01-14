@@ -3,7 +3,7 @@
 
 enum EnemyType
 {
-    TypeSlime = 1, TypeSnowBall
+    TypeSlime = 0, TypeSnowBall
 };
 
 class NPC :
@@ -14,8 +14,11 @@ protected:
     PC* m_player;
     bool m_discovery = false;
     bool m_result = false;
+    bool m_onGroundFlag;
+    bool m_directionFlg = false;       
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;
+    int m_type;
     std::vector<TerrainObject>* m_allTerrain;
     std::vector<TerrainObject*> m_terrain;
     std::vector<DirectX::BoundingBox> m_box;
@@ -28,10 +31,11 @@ protected:
     //DirectX::BoundingBox m_box[];
 
 public:
-    NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture);
+    NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture, int type);
     NPC();
     //void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
-    void Update();
+    void AIUpdate();
+    void BotUpdate();
     bool MovePossible();
     int GetDirection();
     std::pair<float,float> GetEnemyPos();

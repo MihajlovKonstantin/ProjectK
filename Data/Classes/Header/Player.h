@@ -53,6 +53,7 @@ protected:
 	bool IsPossibleAngle(float radian);
 	bool m_secondJumpFlg = false;
 	bool m_notJumpFlg;
+	bool m_aliveFlg = true;
 public:
 	Math::Rectangle GetRect();
 	void Update();

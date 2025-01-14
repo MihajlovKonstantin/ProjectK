@@ -5,6 +5,9 @@ class Slime :
 {
 private:
 
+    Slime();
+    ~Slime() {};
+
     static const int m_SlimeJumpCoolTime = 60;
     int m_jumpCoolTime = m_SlimeJumpCoolTime;
 

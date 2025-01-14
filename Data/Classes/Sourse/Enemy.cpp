@@ -1,56 +1,62 @@
 #include "Pch.h"
 
-NPC::NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture)
+NPC::NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture, int type)
 {
 	m_pos = pos;
 	m_speedBase = speed;
 	m_speed = m_speedBase;
 	m_texture = texture;
+	m_type = type;
 }
 
 NPC::NPC()
 {
 }
 
-void NPC::Update()
+void NPC::AIUpdate()	//プレイヤーを追尾する
 {
+	if (m_groundFlag)
+		m_onGroundFlag = true;
+
+	//プレイヤーが敵の左側に居たら左に移動する
 	if (Discovery())
 	{
-
+		if (m_player->GetPlayerPos().first < m_pos.first)Player::SetDirection(Left);
+		//右ver
+		else Player::SetDirection(Right);
 	}
+	else Player::SetDirection(Stand);
+	
+	if (!m_onGroundFlag)
+	{
+		m_sideRad = -1;
+		m_rad = 0;
+		m_currentCollisionValue = -1.0f;
+	}
+	m_groundFlag = m_onGroundFlag;
+	Player::Update();
+}
 
-//	if (GetDistance() <= 10)
-//	{
-//		switch (GetDirection())
-//		{
-//		case Direction::Up:
-//			break;
-//		case Direction::Down:
-//			break;
-//		case Direction::Left:
-//			break;
-//		case Direction::Right:
-//			break;
-//		}
-//		if (!m_onGroundFlag)
-//		{
-//			m_sideRad = -1;
-//			m_rad = 0;
-//			m_currentCollisionValue = -1.0f;
-//		}
-//		m_groundFlag = m_onGroundFlag;
-//	}
-//	switch (GetType())
-//	{
-//	case EnemyType::TypeSlime:
-//		Slime::Update();
-//		break;
-//	case EnemyType::TypeSnowBall:
-//
-//		break;
-//	}
-//
-//	Player::Update();
+void NPC::BotUpdate()	//同じ動きを繰り返す
+{
+
+	if (m_groundFlag)
+		m_onGroundFlag = true;
+
+	//壁に当たると向きを変える
+	if (!m_directionFlg)Player::SetDirection(Left);
+	else Player::SetDirection(Right);
+
+	if (m_stopFlag)m_directionFlg != m_directionFlg;
+
+	if (!m_onGroundFlag)
+	{
+		m_sideRad = -1;
+		m_rad = 0;
+		m_currentCollisionValue = -1.0f;
+	}
+	m_groundFlag = m_onGroundFlag;
+	Player::Update();
 }
 
 bool NPC::MovePossible()

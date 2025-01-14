@@ -57,7 +57,7 @@ void Spawner::Update()
 	case 2:
 		if (!m_spawnFlg)
 		{
-			m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex));
+			m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex, m_Type));
 			m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
 			m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 		}
@@ -70,7 +70,7 @@ void Spawner::Update()
 			if (cnt < m_Interval) {}
 			else
 			{
-				m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex));
+				m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex, m_Type));
 				m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
 				m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 				cnt = 0;
