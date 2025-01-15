@@ -4,6 +4,8 @@ class Item
 {
 private:
 	std::pair<float, float> m_pos;
+	std::pair<float, float> m_gPos;
+	std::pair<float, float> m_scroll;
 	KdTexture* m_texture;
 	Math::Matrix m_tranMat;
 	Math::Matrix m_matrix;
@@ -16,7 +18,7 @@ public:
 	Item();
 	bool IsDestruct();
 	void Destruct();
-	void Update();
+	void Update(std::pair<float,float> scroll);
 	KdTexture* GetTexture();
 	Math::Matrix GetMatrix();
 	Math::Rectangle GetRect();

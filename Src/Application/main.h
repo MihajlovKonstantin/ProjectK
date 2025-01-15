@@ -16,13 +16,16 @@ private:
 		MainMenu = 1,
 		GameScene,
 		Setting,
-		Records
+		Records,
+		SelectPlayebleMapMenu,
+		SelectEditerMapMenu
 	};
 	//Dataの読み込み
 	std::string dataFolderPath;
 	std::string mapFolderPath;
-	std::string currentMapPath;
+	//std::string currentMapPath;
 	std::string editerMapFolderPath;
+	std::string lastSelectedPath;
 	std::vector<std::string> playebleMapList;
 	std::vector<std::string> editerMapList;
 
@@ -44,6 +47,8 @@ private:
 	Menu mainMenu;
 	Menu settingMenu;
 	Menu recordMenu;
+	Menu selectPlaybleMapMenu;
+	Menu selectEditerMapMenu;
 	KdTexture m_backGround;
 	// FPS計測
 	DWORD baseTime;
@@ -86,16 +91,17 @@ private:
 	void DrawButtonText(Button inputButton);
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
 	//Menu管理関数
-	void MenuUpdate(Menu inputMenu);
+	void MenuUpdate(Menu &inputMenu);
 	void MenuDraw(Menu inputMenu);
 	bool ClickButton(POINT inputMouse, Button inputButton);
-	void MenuExecute(Menu inputMenu);
+	void MenuExecute(Menu& inputMenu);
 	//GameLoop
 	void Game();
 	//Init処理/dataの読み込み
 	void CreateDataPath();
 	void CreateExtensions();
 	void LoadMapList();
+	void InitSelectMapMenu();
 //=====================================================
 // シングルトンパターン
 //=====================================================

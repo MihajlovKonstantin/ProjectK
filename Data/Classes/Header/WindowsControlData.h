@@ -8,6 +8,8 @@ class WindowsControlData
 	float MusicVolume= 1.0f; //21
 	bool GameStarted; //22
 	bool Pause; //23
+	std::string currentMap;
+	std::string currentPath;
 public:
 	bool IsPause();
 	bool IsStarted();
@@ -22,5 +24,9 @@ public:
 	void Init();
 	bool GetEndState();
 	void SetEndState(bool input);
+	void SetMap(std::string map);
+	std::string GetMap();
+	void SetPath(std::string path);
+	std::string Getpath();
 };
 

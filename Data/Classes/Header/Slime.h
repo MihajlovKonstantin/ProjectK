@@ -4,7 +4,6 @@ class Slime :
     public NPC
 {
 private:
-
     Slime();
     ~Slime() {};
 
