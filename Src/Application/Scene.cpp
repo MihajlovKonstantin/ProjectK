@@ -382,7 +382,7 @@ void Scene::CreateTerrainObject()
 		_currentTex = NULL;
 		break;
 	case BlockEditerSelect::Ladder:
-		_currentTex = &m_ladderTex;
+		_currentTex = &m_ladderTex[0];
 		break;
 	}
 
@@ -600,6 +600,25 @@ void Scene::UpdateGameScene()
 	}
 	else m_rightFlg = false;
 	
+	if (GetAsyncKeyState(VK_UP))
+	{
+		if ((!m_downFlg)&&(m_player.GetOnLadderFlag()))
+		{
+
+			m_upFlg = true;
+			m_player.SetDirection(Direction::Up);
+		}
+	}
+	else m_upFlg = false;
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+		{
+			m_downFlg = true;
+			m_player.SetDirection(Direction::Down);
+		}
+	}
+	else m_downFlg = false;
 	
 	if (GetAsyncKeyState(VK_SPACE))
 	{
@@ -1321,7 +1340,11 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
 
-	m_ladderTex.Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[0].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[1].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[2].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[3].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
@@ -1371,10 +1394,17 @@ void Scene::Init(WindowsControlData* WCInput)
 				}
 			}
 			break;
-		case 3:
+		case BlockEditerSelect::IceWater:
 			for (int l = 0; l < 5; l++)
 			{
 				_loadarray[l] = (&m_iceWaterBlockTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
+		case BlockEditerSelect::Ladder:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_ladderTex[l]);
 			}
 			_loadVector.push_back(_loadarray);
 			break;

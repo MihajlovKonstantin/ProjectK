@@ -174,7 +174,7 @@ void Player::Update()
 	{
 		m_speed.second = 0;
 	}
-	else if(!m_collisionData.empty())
+	else if((!m_collisionData.empty())&&(!m_collisionData[0].BackStage))
 	{
 		m_jumpPower = 0.0f;
 		m_speed.second = m_speedBase.second;
@@ -188,6 +188,11 @@ void Player::Update()
 			m_sideRad = -1.0f;
 			m_currentCollisionValue = -1.0f;
 			m_groundFlag = false;
+			OnLadderBlockFlag = false; 
+			if ((m_direction == Direction::Up) || (m_direction == Direction::Down))
+			{
+				m_direction = Direction::Stand;
+			}
 		}
 		
 	}
@@ -340,6 +345,24 @@ void Player::Update()
 						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
 					}
 			break;
+		case Up:
+			
+			m_currentSpeed.first = 0;
+			m_currentSpeed.second = 2;
+			break;
+
+		case Down:
+
+			m_currentSpeed.first = 0;
+			if (m_moveBlock[0])
+			{
+				m_currentSpeed.second = 0;
+			}
+			else
+			{
+				m_currentSpeed.second = - 2;
+			}
+			break;
 		}
 	if (m_rad == 0||(m_rad ==float(M_PI)*0.5f)|| (m_rad == float(M_PI) * 1.0f)|| (m_rad == float(M_PI) * 1.5f))
 	{
@@ -473,7 +496,6 @@ void Player::Update()
 	{
 		OnIceBlockFlag = false;
 	}
-	
 }
 
 void Player::Jump()
@@ -961,6 +983,10 @@ void Player::CollisionClear()
 bool Player::GetOnGroundFlag()
 {
 	return m_groundFlag;
+}
+bool Player::GetOnLadderFlag()
+{
+	return OnLadderBlockFlag;
 }
 void Player::SetScroll(std::pair<int, int>* scroll)
 {

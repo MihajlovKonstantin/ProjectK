@@ -28,15 +28,15 @@ private:
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
-	KdTexture m_ladderTex;
+	std::array<KdTexture, 5> m_ladderTex;
 	//OtherTex
 	KdTexture m_BlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
 	//BlockLib
-	static const int m_typeBlockNum = 4;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
+	static const int m_typeBlockNum = 5;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 5> m_blockLiblary;
 	//Editer
 	std::pair<float, float> SpawnPos;
 	Item _lastItem;
@@ -70,6 +70,8 @@ private:
 	bool _tKey = false;
 	bool m_leftFlg;
 	bool m_rightFlg;
+	bool m_upFlg;
+	bool m_downFlg;
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
 
