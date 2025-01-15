@@ -60,6 +60,10 @@ private:
 	//Configs
 	WindowsControlData* WC;
 	SceneControlData* SC;
+	//Data
+	std::string m_dataPath;
+	std::string m_selectedPath;
+	std::string m_selectedMap;
 	//Scroll
 	std::pair<int, int> m_scroll = { 0,0 };
 	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
@@ -74,6 +78,7 @@ private:
 	bool m_downFlg;
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
+	int RELEASE = 0;
 
 	NPC m_enemy;
 	std::array<bool, 3> m_keyFlag;
@@ -89,7 +94,7 @@ private:
 	Stage m_stage;
 public:
 	// �����00
-	void Init(WindowsControlData* WCInput);
+	void Init(WindowsControlData* WCInput,std::string dataPath,std::string selectedPath);
 	// ���
 	void Release();
 
@@ -104,9 +109,6 @@ public:
 	void ImGuiUpdate();
 	bool ClickButton(POINT inputMouse, Button inputButton);
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
-	void DrawGraph();
-	void DrawTexts();
-	void DrawMainScene(Math::Color inputColor);
 	void SetResumeWindows();
 	void DynamicDraw2D();
 	void CreateTerrainObject();

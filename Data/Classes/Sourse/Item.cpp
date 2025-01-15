@@ -3,7 +3,7 @@
 
 Item::Item(std::pair<float, float> pos, KdTexture* texture, int index)
 {
-	m_pos = pos;
+	m_gPos = pos;
 	m_texture = texture;
 	m_index = index;
 	m_dirty = true;
@@ -23,15 +23,14 @@ void Item::Destruct()
 	m_destruct = true;
 }
 
-void Item::Update()
+void Item::Update(std::pair<float, float> scroll)
 {
-	if (m_dirty)
-	{
+	m_scroll = scroll;
+	m_pos.first = m_gPos.first - m_scroll.first;
+	m_pos.second = m_gPos.second - m_scroll.second;
 		m_tranMat = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 		m_matrix = m_tranMat;
 		m_rectangle = Math::Rectangle(0, 0, 32.0f, 32.0f);
-		m_dirty = false;
-	}
 }
 
 KdTexture* Item::GetTexture()
