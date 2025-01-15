@@ -110,14 +110,16 @@ bool Application::Init(int w, int h)
 
 void Application::InitDataFile()
 {
-	mainMenu.InitMainMenu();
+	mainMenu.InitMainMenu(dataFolderPath);
 	settingMenu.InitSetting();
 	WindowsData.Init();
+	selectPlaybleMapMenu.InitSelectMap(playebleMapList, mapFolderPath, dataFolderPath);
 }
 void Application::MakeDataLink()
 {
 	mainMenu.AddData(WindowsData);
 	settingMenu.AddData(WindowsData);
+	selectPlaybleMapMenu.AddData(WindowsData);
 }
 
 // アプリケーション終了
@@ -183,7 +185,7 @@ void Application::LoadMapList()
 	string _path = "";
 	_path+= dataFolderPath;
 	_path += "\\Map";
-	
+	mapFolderPath = _path;
 	if (!PathFileExistsA(_path.c_str()))
 	{
 		if (SHCreateDirectoryExA(NULL, _path.c_str(), NULL) != ERROR_SUCCESS) {
@@ -192,8 +194,57 @@ void Application::LoadMapList()
 		}
 	}
 
-	std::string _dirFinder = "dir \"" + _path + "\" /b *.map > temp1.txt";
+	std::string _dirFinder = "dir \"" + _path + "\" *.map /b  > temp1.txt";
 	system(_dirFinder.c_str());
+	std::ifstream inFile("temp1.txt");
+	{
+		if (inFile.is_open())
+		{
+			std::string line;
+			while (std::getline(inFile, line, '\n'))
+			{
+				playebleMapList.push_back(line);
+			}
+		}
+	}
+	inFile.close();
+	selectPlaybleMapMenu.InitSelectMap(playebleMapList, _path,dataFolderPath);
+
+
+	_path = "";
+	_path += dataFolderPath;
+	_path += "\\EditMap";
+	editerMapFolderPath = _path;
+
+	if (!PathFileExistsA(_path.c_str()))
+	{
+		if (SHCreateDirectoryExA(NULL, _path.c_str(), NULL) != ERROR_SUCCESS) {
+			std::cerr << "Unable to create directory." << std::endl;
+			return;
+		}
+	}
+
+	_dirFinder = "dir \"" + _path + "\" *.map /b  > temp2.txt";
+	system(_dirFinder.c_str());
+	inFile = std::ifstream("temp2.txt");
+	{
+		if (inFile.is_open())
+		{
+			std::string line;
+			while (std::getline(inFile, line, '\n'))
+			{
+				editerMapList.push_back(line);
+			}
+		}
+	}
+	inFile.close();
+
+	
+}
+
+void Application::InitSelectMapMenu()
+{
+
 }
 
 //描画関数
@@ -251,7 +302,7 @@ bool Application::ClickButton(POINT inputMouse, Button inputButton)
 	}
 	return false;
 }
-void Application::MenuExecute(Menu inputMenu)
+void Application::MenuExecute(Menu& inputMenu)
 {
 	m_endFlagWindows = false;
 	int _startWindow = WindowsData.GetWindow();
@@ -301,10 +352,11 @@ void Application::MenuExecute(Menu inputMenu)
 		m_endFlagWindows = true;
 	}
 }
-void Application::MenuUpdate(Menu inputMenu)
+void Application::MenuUpdate(Menu &inputMenu)
 {
 	GetCursorPos(&mouse);
 	ScreenToClient(APP.m_window.GetWndHandle(), &mouse);
+	
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		int _buttonCNT = inputMenu.GetButtonsCNT();
@@ -314,11 +366,14 @@ void Application::MenuUpdate(Menu inputMenu)
 			{
 				if (ClickButton(mouse, inputMenu.GetButton(i)) == true)
 				{
-					inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
+					if (!inputMenu.IsCD())
+					{
+						inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
+						inputMenu.SetColdown();
+					}
 				}
 			}
 		}
-
 	}
 }
 void Application::MenuDraw(Menu inputMenu)
@@ -417,7 +472,7 @@ void Application::CreateDataPath()
 	char buffer[1024];
 	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
 		std::string currentDir(buffer);
-		std::string newDir = "dir \"" + currentDir + "\\Data\\Classes\\Header\" /b *.h > temp.txt";
+		std::string newDir = " dir \"" + currentDir + "\\Data\\Classes\\Header\" /b *.h > temp.txt";
 		system(newDir.c_str());
 	}
 	
@@ -457,10 +512,11 @@ void Application::Execute()
 	}
 	mainMenu.SetTexture(&m_backGround);
 	CreateDataPath();//Create the Path to users data
+	LoadMapList();
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data と　Menu Class object 接続する
 	CreateExtensions();
-	LoadMapList();
+	
 	{
 		std::ofstream outFile("example.menu");
 		if (outFile.is_open()) {
@@ -521,7 +577,8 @@ void Application::Execute()
 			
 			if(WindowsData.IsStarted()== false)
 			{
-				SCENE.Init(&WindowsData);
+				
+				SCENE.Init(&WindowsData,dataFolderPath,lastSelectedPath);
 				WindowsData.StartGame();
 				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			}
@@ -549,6 +606,15 @@ void Application::Execute()
 			} while ((m_endFlagWindows != true));
 			break;
 		case WindowsControl::Records:
+			break;
+		case WindowsControl::SelectPlayebleMapMenu:
+			lastSelectedPath = mapFolderPath;
+			do
+			{
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
+				selectPlaybleMapMenu.Update();
+				MenuExecute(selectPlaybleMapMenu);
+			} while ((m_endFlagWindows != true));
 			break;
 		default:
 			break;

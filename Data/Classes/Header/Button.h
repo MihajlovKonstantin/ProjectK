@@ -30,5 +30,7 @@ public:
 	bool GetVisable();
 	void ChangeActive();
 	bool GetActive();
+	void SetVisable(bool input);
+	void SetActive(bool input);
 };
 

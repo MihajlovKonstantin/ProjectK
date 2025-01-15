@@ -28,15 +28,15 @@ private:
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
-	KdTexture m_ladderTex;
+	std::array<KdTexture, 5> m_ladderTex;
 	//OtherTex
 	KdTexture m_BlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
 	//BlockLib
-	static const int m_typeBlockNum = 4;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
+	static const int m_typeBlockNum = 5;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 5> m_blockLiblary;
 	//Editer
 	std::pair<float, float> SpawnPos;
 	Item _lastItem;
@@ -60,6 +60,10 @@ private:
 	//Configs
 	WindowsControlData* WC;
 	SceneControlData* SC;
+	//Data
+	std::string m_dataPath;
+	std::string m_selectedPath;
+	std::string m_selectedMap;
 	//Scroll
 	std::pair<int, int> m_scroll = { 0,0 };
 	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
@@ -70,8 +74,11 @@ private:
 	bool _tKey = false;
 	bool m_leftFlg;
 	bool m_rightFlg;
+	bool m_upFlg;
+	bool m_downFlg;
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
+	int RELEASE = 0;
 
 	NPC m_enemy;
 	std::array<bool, 3> m_keyFlag;
@@ -87,7 +94,7 @@ private:
 	Stage m_stage;
 public:
 	// �����00
-	void Init(WindowsControlData* WCInput);
+	void Init(WindowsControlData* WCInput,std::string dataPath,std::string selectedPath);
 	// ���
 	void Release();
 
@@ -102,9 +109,6 @@ public:
 	void ImGuiUpdate();
 	bool ClickButton(POINT inputMouse, Button inputButton);
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
-	void DrawGraph();
-	void DrawTexts();
-	void DrawMainScene(Math::Color inputColor);
 	void SetResumeWindows();
 	void DynamicDraw2D();
 	void CreateTerrainObject();

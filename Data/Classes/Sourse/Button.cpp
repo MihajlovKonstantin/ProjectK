@@ -20,6 +20,8 @@ Button::Button(std::array<float, 2> inputSize, std::array<float, 2> inputPositio
 	 scale = inputScale;
 	 SwitchControlIndex = inputSwitchControlIndex;
 	 DataControlIndex = inputDataControlIndex;
+	 visable = true;
+	 active = true;
  }
 
  Button::Button()
@@ -87,6 +89,16 @@ Button::Button(std::array<float, 2> inputSize, std::array<float, 2> inputPositio
  bool Button::GetActive()
  {
 	 return active;
+ }
+
+ void Button::SetVisable(bool input)
+ {
+	 visable = input;
+ }
+
+ void Button::SetActive(bool input)
+ {
+	 active = input;
  }
 
 
