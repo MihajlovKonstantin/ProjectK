@@ -53,6 +53,10 @@ void Scene::Draw2D()
 				break;
 			case BlockEditerSelect::IceWater:
 				_string[1] += "IceWater";
+				break;
+			case BlockEditerSelect::Ladder:
+				_string[1] += "ladder";
+				break;
 			}
 			_string[2] = "CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
@@ -377,6 +381,9 @@ void Scene::CreateTerrainObject()
 	default:
 		_currentTex = NULL;
 		break;
+	case BlockEditerSelect::Ladder:
+		_currentTex = &m_ladderTex;
+		break;
 	}
 
 	
@@ -418,7 +425,19 @@ void Scene::CreateTerrainObject()
 					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 					break;
 				}
-				
+				switch(m_unitType)
+				{
+				case BlockEditerSelect::Ice:
+					m_blocks[m_blocks.size() - 1].m_iceBlock = true;
+					break;
+				case BlockEditerSelect::IceWater:
+					m_blocks[m_blocks.size() - 1].m_snowBlock = true;
+					break;
+				case BlockEditerSelect::Ladder:
+					m_blocks[m_blocks.size() - 1].m_backStage = true;
+					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
+					break;
+				}
 		}
 		m_blocks[j].SetScroll(&m_scroll);
 	}
@@ -1297,6 +1316,8 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_iceSurfaceTex[2].Load("Texture/GroundBlock/Ice2.png");
 	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
+
+	m_ladderTex.Load("Texture/GimmickBlock/ladder_mid.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));

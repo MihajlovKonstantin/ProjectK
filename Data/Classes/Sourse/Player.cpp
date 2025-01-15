@@ -34,36 +34,58 @@ void Player::Update()
 	if (!m_collisionData.empty())
 	{
 		std::pair<float, float> _comparePos = { m_collisionData[0].pos };
+		OnLadderBlockFlag = m_collisionData[0].OnladerFlag;
 		
 		index = 0;
 		if (m_collisionData.size() > 1)
 		{
+			
 			for (int i = 1; i < m_collisionData.size(); i++)
 			{
+				if (m_collisionData[i].BackStage)
+				{
+					if (m_collisionData[i].OnladerFlag)
+					{
+						OnLadderBlockFlag = true;
+					}
+				}
 				switch (m_direction)
 				{
 				case Left:
+					if (m_collisionData[index].BackStage)
+					{
+						index = i;
+					}
 					if (m_collisionData[i].pos.first <= _comparePos.first)
 					{
 						if (m_collisionData[i].sideRad == float(M_PI) * 1.5f)
 						{
-							m_stopFlag = true;
+							if (!m_collisionData[i].BackStage)
+							{
+								m_stopFlag = true;
+							}
 						}
 						else
 						{
 							index = i;
 							_comparePos = m_collisionData[i].pos;
-
-							
 						}
 					}
 					break;
 				case Right:
+					if (m_collisionData[index].BackStage)
+					{
+						index = i;
+					}
 					if (m_collisionData[i].pos.first >= _comparePos.first)
 					{
 						if (m_collisionData[i].sideRad == float(M_PI) * 0.5f)
 						{
-							m_stopFlag = true;
+							if (!m_collisionData[i].BackStage)
+							{
+								m_stopFlag = true;
+							}
+							
 						}
 						else
 						{
@@ -131,6 +153,9 @@ void Player::Update()
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
+		OnIceBlockFlag = m_collisionData[index].OnIceFlag;
+		OnSnowBlockFlag = m_collisionData[index].OnSnowFlag;
+
 		if (m_rad < 0)
 		{
 			m_rad += 2.0f * float(M_PI);
@@ -265,6 +290,17 @@ void Player::Update()
 	{
 		m_groundFlag = false;
 		m_currentSpeed.second = m_speedBase.second;
+	}
+	m_speed.first = m_speedBase.first;
+	if (OnIceBlockFlag)
+	{
+		m_speed.first *= 0.5f;
+		m_speed.second *= 1;
+	}
+	if (OnSnowBlockFlag)
+	{
+		m_speed.first *= 1.5f;
+		m_speed.second *= 1;
 	}
 	switch (m_direction)
 		{
@@ -427,28 +463,15 @@ void Player::Update()
 	{
 		int i = 0;
 	}
-	//デバッグ用true,falseキー制御
-	if (GetAsyncKeyState('O'))OnSnowBlockFlag = true;
-	if (GetAsyncKeyState('I'))OnSnowBlockFlag = false;
-	if (OnSnowBlockFlag == true)//雪ブロックの上にいるとき足が遅くなる
+	
+	if (OnSnowBlockFlag == true)
 	{
-		m_speed.first = m_speed.first - 0.02;
-		if (m_speed.first < 1.0f) 
-		{
-			m_speed.first = 1.0f;
-		}
+		OnSnowBlockFlag = false;
 	}
-	if (OnSnowBlockFlag == false)//雪ブロックの上じゃないとき普通の速度に戻る
-	{
-		m_speed.first = m_speed.first + 0.02;
-		if (m_speed.first > 2.0f)
-		{
-			m_speed.first = 2.0f;
-		}
-	}
+	
 	if (OnIceBlockFlag == true)
 	{
-		
+		OnIceBlockFlag = false;
 	}
 	
 }
@@ -545,7 +568,11 @@ bool Player::CollisionToBlock(Block block)
 		{
 			if ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f)||(_bRad==float(M_PI)))
 			{
-				m_moveBlock[1] = true;
+				if (!block.m_backStage)
+				{
+					m_moveBlock[1] = true;
+				}
+				
 			}
 			
 		}
@@ -567,7 +594,10 @@ bool Player::CollisionToBlock(Block block)
 		{
 			if ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI)))
 			{
-				m_moveBlock[3] = true;
+				if (!block.m_backStage)
+				{
+					m_moveBlock[3] = true;
+				}
 			}
 			
 		}
@@ -582,7 +612,10 @@ bool Player::CollisionToBlock(Block block)
 			
 			if ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI)))
 			{
-				m_moveBlock[0] = true;
+				if (!block.m_backStage)
+				{
+					m_moveBlock[0] = true;
+				}
 			}
 		}
 		_intersectNum++;
@@ -595,7 +628,10 @@ bool Player::CollisionToBlock(Block block)
 		{
 			if ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI)))
 			{
-				m_moveBlock[2] = true;
+				if (!block.m_backStage)
+				{
+					m_moveBlock[2] = true;
+				}
 			}
 		}
 		_intersectNum++;
@@ -771,7 +807,7 @@ bool Player::CollisionToBlock(Block block)
 		{
 			m_groundFlag = true;
 		}
-		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY} });
+		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock});
 
 	}
 	return _result;

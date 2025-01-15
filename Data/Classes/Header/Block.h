@@ -4,6 +4,7 @@ class Block
 protected:
 	std::pair<int, int> _scroll = {0,0};
 	std::pair<int, int>* m_scroll = &_scroll;
+
 	std::pair<float, float> m_localPos;
 	std::pair<float, float>m_globalPos;
 	std::pair<float, float> m_speed;
@@ -17,8 +18,12 @@ protected:
 	Math::Rectangle m_rectangle;
 	float m_radius;
 	float m_rad;
-	bool m_backStage;
 	bool m_deleteState = false;
+public:
+	bool m_iceBlock = false;
+	bool m_snowBlock = false;
+	bool m_backStage = false;
+	bool m_laderBlock = false;
 public:
 	void SetScroll(std::pair<int, int>* scroll);
 	void SetDeleteState(bool state);
