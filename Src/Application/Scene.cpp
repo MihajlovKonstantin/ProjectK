@@ -1009,10 +1009,6 @@ void Scene::LoadSpawn()
 
 void Scene::CreateSpawn()
 {
-	/*if (m_spawner.empty())
-	{
-		m_spawner.push_back(Spawner(0, { 0,0 }, NULL));
-	}*/
 	SpawnPos.first = m_point[0].x-640;
 	SpawnPos.second = -m_point[0].y+360;
 	int charaIndex = m_unitType;
@@ -1317,7 +1313,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
+	m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
@@ -1347,7 +1343,7 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
-	//m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
+	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
 	m_lKey = false;
 	m_pKey = false;
 	
@@ -1417,7 +1413,7 @@ void Scene::Init(WindowsControlData* WCInput)
 void Scene::Release()
 {
 	// �摜�̉������
-	m_BlockTex.Release();
+	m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }

@@ -1,12 +1,11 @@
 #include "Pch.h"
 
-NPC::NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture, int type)
+NPC::NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture)
 {
 	m_pos = pos;
 	m_speedBase = speed;
 	m_speed = m_speedBase;
 	m_texture = texture;
-	m_type = type;
 }
 
 NPC::NPC()
@@ -18,9 +17,9 @@ void NPC::AIUpdate()	//プレイヤーを追尾する
 	if (m_groundFlag)
 		m_onGroundFlag = true;
 
-	//プレイヤーが敵の左側に居たら左に移動する
-	if (Discovery())
+	if (Discovery() && m_emyMoveFlg)
 	{
+		//プレイヤーが敵の左側に居たら左に移動する
 		if (m_player->GetPlayerPos().first < m_pos.first)Player::SetDirection(Left);
 		//右ver
 		else Player::SetDirection(Right);
@@ -39,7 +38,6 @@ void NPC::AIUpdate()	//プレイヤーを追尾する
 
 void NPC::BotUpdate()	//同じ動きを繰り返す
 {
-
 	if (m_groundFlag)
 		m_onGroundFlag = true;
 
@@ -95,10 +93,10 @@ bool NPC::Discovery()
 	auto _curenntDistance = GetDistance();
 	//auto _curenntDistance = 1;
 	
-	if (m_discoveryCoolTime-- < 0)
+	if (m_discoveryCoolTime-- < 0)	//30フレーム毎に発見判定を行う
 	{
 		m_discoveryCoolTime = 30;
-		if (_curenntDistance <= m_discoveryDistance)
+		if (_curenntDistance <= m_discoveryDistance)	//発見可能距離かどうか
 		{
 			m_result = true;
 			m_box.clear();
@@ -111,7 +109,7 @@ bool NPC::Discovery()
 			{
 				int deltaX, deltaY;
 				auto v = m_terrain[i]->GetTypeBlockSize();
-				switch (m_terrain[i]->GetAngle())
+				switch (m_terrain[i]->GetAngle())	//ブロックには角度があるため
 				{
 				case 0:
 					deltaX = 16 * v * 1;
@@ -155,7 +153,7 @@ bool NPC::Discovery()
 					DirectX::XMFLOAT3(16 * v, 16 * v, 0));
 				m_box.push_back(_boundBox);
 
-
+				//必要なBoundingBoxを抽出する
 				if (!m_box[i].Intersects(_enemyPos, Normalize, foo))
 				{
 					m_terrainBool[i] = false;
@@ -171,16 +169,17 @@ bool NPC::Discovery()
 			{
 				if (m_terrainBool[i])
 				{
-					m_BlockBuff = m_terrain[i]->GetBlocks();
+					m_blockBuff = m_terrain[i]->GetBlocks();
 					m_sphere.clear();
-					for (size_t j = 0; m_BlockBuff->size() > j; j++)
+					for (size_t j = 0; m_blockBuff->size() > j; j++)
 					{
-						_blockPos = m_BlockBuff->at(j).GetGPos();
+						_blockPos = m_blockBuff->at(j).GetGPos();
 						_newSphere = DirectX::BoundingSphere({ _blockPos.first,_blockPos.second,0 }, 16.0f);
 						m_sphere.push_back(_newSphere);
 					}
 					for (size_t k = 0; m_sphere.size() > k; k++)
 					{
+						//xray上にブロックがあるかどうか
 						if (m_sphere.at(k).Intersects(_enemyPos, Normalize, foo))
 						{
 							m_result = false;
