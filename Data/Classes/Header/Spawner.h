@@ -1,15 +1,17 @@
 #pragma once
 #include "Pch.h"
 
+enum SpawnType { PlayerType = 1, EnemyType, EnemysType};
+
 class Spawner
 {
 	//std::vector<int>m_Index;
-	int m_index,m_Type, m_Interval, m_Num;
-	std::pair<float, float> m_CharaPos;
+	int m_index,m_type, m_interval, m_num;
+	std::pair<float, float> m_charaPos;
 	std::vector<NPC> m_enemy;
 	std::vector<TerrainObject>*m_terrain;
 	//std::vector<Spawner> m_spawner;
-	PC* m_Player;
+	PC* m_player;
 	bool m_spawnFlg = false;
 	int cnt = 0;
 	KdTexture* m_enemyTex;

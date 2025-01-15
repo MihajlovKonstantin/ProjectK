@@ -13,8 +13,8 @@ private:
 	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
-	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
-	enum ItemSelect{COUNTIS = 1,Key = 0};
+	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
+	enum ItemSelect { COUNTIS = 1, Key = 0 };
 	enum BlockEditerSelect { COUNTBES = 4, Ground = 1, Ice, IceWater };
 	//ObjectVector
 	std::vector<Item> m_item;
@@ -29,7 +29,7 @@ private:
 	std::array<KdTexture, 5> m_iceInsideTex;
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
 	//OtherTex
-	KdTexture m_BlockTex;
+	KdTexture m_blockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;

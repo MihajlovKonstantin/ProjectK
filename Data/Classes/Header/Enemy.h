@@ -15,23 +15,23 @@ protected:
     bool m_discovery = false;
     bool m_result = false;
     bool m_onGroundFlag;
-    bool m_directionFlg = false;       
+    bool m_directionFlg = false;
+    bool m_emyMoveFlg = true;
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;
-    int m_type;
     std::vector<TerrainObject>* m_allTerrain;
     std::vector<TerrainObject*> m_terrain;
     std::vector<DirectX::BoundingBox> m_box;
     std::vector<DirectX::BoundingSphere> m_sphere;
     DirectX::XMVECTOR Normalize;
     std::vector<bool> m_terrainBool;
-    std::vector<Block>* m_BlockBuff;
+    std::vector<Block>* m_blockBuff;
 
     //m_terrain.GetBlockTypeSize();
     //DirectX::BoundingBox m_box[];
 
 public:
-    NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture, int type);
+    NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture);
     NPC();
     //void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
     void AIUpdate();

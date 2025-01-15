@@ -3,13 +3,13 @@
 
 Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, std::vector<TerrainObject >* terrain, int type, int interval, int num)
 {
-	m_Player = player;
+	m_player = player;
 	m_index = charaIndex;
-	m_CharaPos = pos;
+	m_charaPos = pos;
 	m_terrain = terrain;
-	m_Type = type;
-	m_Interval = interval;
-	m_Num = num;
+	m_type = type;
+	m_interval = interval;
+	m_num = num;
 }
 
 //Spawner::Spawner(int charaIndex, std::pair<float, float> pos, int type, KdTexture& tex, int interval, int num)
@@ -24,22 +24,22 @@ int Spawner::GetIndex()
 
 int Spawner::GetType()
 {
-	return m_Type;
+	return m_type;
 }
 
 int Spawner::GetInterval()
 {
-	return m_Interval;
+	return m_interval;
 }
 
 int Spawner::GetNum()
 {
-	return m_Num;
+	return m_num;
 }
 
 std::pair<float, float> Spawner::GetCharaPos()
 {
-	return m_CharaPos;
+	return m_charaPos;
 }
 
 void Spawner::Update()
@@ -47,31 +47,31 @@ void Spawner::Update()
 
 	switch (m_index)
 	{
-	case 1:
+	case PlayerType:	//プレイヤー用
 		if (!m_spawnFlg)
 		{
-			m_Player->Init(m_CharaPos);
+			m_player->Init(m_charaPos);
 		}
 		m_spawnFlg = true;
 		break;
-	case 2:
+	case EnemyType:		//敵(単体)
 		if (!m_spawnFlg)
 		{
-			m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex, m_Type));
-			m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
+			m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
+			m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
 			m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 		}
 		m_spawnFlg = true;
 		break;
-	case 3:
-		if (m_enemy.size() < m_Num)
+	case EnemysType:	//敵(複数)
+		if (m_enemy.size() < m_num)
 		{
 			cnt++;
-			if (cnt < m_Interval) {}
+			if (cnt < m_interval) {}
 			else
 			{
-				m_enemy.push_back(NPC(m_CharaPos, { 0,0 }, m_enemyTex, m_Type));
-				m_enemy[m_enemy.size() - 1].InitPlayer(m_Player);
+				m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
+				m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
 				m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 				cnt = 0;
 			}
