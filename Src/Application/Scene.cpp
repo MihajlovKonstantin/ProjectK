@@ -375,8 +375,25 @@ void Scene::CreateTerrainObject()
 			break;
 		}
 		break;
-	case 3:
-		_currentTex = &m_iceWaterBlockTex[0];
+	case BlockEditerSelect::IceWater:
+		switch (buffer)
+		{
+		case 1:
+			_currentTex = &m_iceWaterBlockTex[2];
+			break;
+		case 3:
+			_currentTex = &m_iceWaterBlockTex[1];
+			break;
+		case 5:
+			_currentTex = &m_iceWaterBlockTex[4];
+			break;
+		case 7:
+			_currentTex = &m_iceWaterBlockTex[3];
+			break;
+		default:
+			_currentTex = &m_iceWaterBlockTex[0];
+			break;
+		}
 		break;
 	default:
 		_currentTex = NULL;
@@ -1313,9 +1330,9 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
+	//m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
-	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
+	
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	m_playerTex.Load("Texture/Creature/player.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
@@ -1335,6 +1352,12 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_iceSurfaceTex[2].Load("Texture/GroundBlock/Ice2.png");
 	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
+
+	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWater0.png");
+	m_iceWaterBlockTex[1].Load("Texture/GimmickBlock/iceWater1.png");
+	m_iceWaterBlockTex[2].Load("Texture/GimmickBlock/iceWater2.png");
+	m_iceWaterBlockTex[3].Load("Texture/GimmickBlock/iceWater3.png");
+	m_iceWaterBlockTex[4].Load("Texture/GimmickBlock/iceWater4.png");
 
 	m_ladderTex[0].Load("Texture/GimmickBlock/ladder_mid.png");
 	m_ladderTex[1].Load("Texture/GimmickBlock/ladder_mid.png");
@@ -1413,7 +1436,7 @@ void Scene::Init(WindowsControlData* WCInput)
 void Scene::Release()
 {
 	// �摜�̉������
-	m_blockTex.Release();
+	//m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }
