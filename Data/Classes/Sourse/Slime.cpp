@@ -7,17 +7,17 @@ Slime::Slime()
 
 void Slime::Update()
 {
-	if (m_type != TypeSlime)return;
-
 	NPC::AIUpdate();
 	if (Discovery())	//プレイヤー発見判定
 	{
 		if (m_jumpCoolTime-- < 0)
 		{
 			Jump();
-			
-			m_jumpCoolTime = m_SlimeJumpCoolTime;
+
+			m_jumpCoolTime = m_slimeJumpCoolTime;
 		}
+		
+		if (m_onGroundFlag)m_emyMoveFlg = false;	//スライムはジャンプ中のみ動いてほしい
+		else m_emyMoveFlg = true;
 	}
-	else Player::SetDirection(Stand);
 }

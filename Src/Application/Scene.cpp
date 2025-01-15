@@ -53,6 +53,10 @@ void Scene::Draw2D()
 				break;
 			case BlockEditerSelect::IceWater:
 				_string[1] += "IceWater";
+				break;
+			case BlockEditerSelect::Ladder:
+				_string[1] += "ladder";
+				break;
 			}
 			_string[2] = "CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
@@ -377,6 +381,9 @@ void Scene::CreateTerrainObject()
 	default:
 		_currentTex = NULL;
 		break;
+	case BlockEditerSelect::Ladder:
+		_currentTex = &m_ladderTex[0];
+		break;
 	}
 
 	
@@ -418,7 +425,19 @@ void Scene::CreateTerrainObject()
 					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
 					break;
 				}
-				
+				switch(m_unitType)
+				{
+				case BlockEditerSelect::Ice:
+					m_blocks[m_blocks.size() - 1].m_iceBlock = true;
+					break;
+				case BlockEditerSelect::IceWater:
+					m_blocks[m_blocks.size() - 1].m_snowBlock = true;
+					break;
+				case BlockEditerSelect::Ladder:
+					m_blocks[m_blocks.size() - 1].m_backStage = true;
+					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
+					break;
+				}
 		}
 		m_blocks[j].SetScroll(&m_scroll);
 	}
@@ -584,6 +603,25 @@ void Scene::UpdateGameScene()
 	}
 	else m_rightFlg = false;
 	
+	if (GetAsyncKeyState(VK_UP))
+	{
+		if ((!m_downFlg)&&(m_player.GetOnLadderFlag()))
+		{
+
+			m_upFlg = true;
+			m_player.SetDirection(Direction::Up);
+		}
+	}
+	else m_upFlg = false;
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+		{
+			m_downFlg = true;
+			m_player.SetDirection(Direction::Down);
+		}
+	}
+	else m_downFlg = false;
 	
 	if (GetAsyncKeyState(VK_SPACE))
 	{
@@ -974,10 +1012,6 @@ void Scene::LoadSpawn()
 
 void Scene::CreateSpawn()
 {
-	/*if (m_spawner.empty())
-	{
-		m_spawner.push_back(Spawner(0, { 0,0 }, NULL));
-	}*/
 	SpawnPos.first = m_point[0].x-640;
 	SpawnPos.second = -m_point[0].y+360;
 	int charaIndex = m_unitType;
@@ -1329,7 +1363,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_BlockTex.Load("Texture/GroundBlock/Ground0.png");;
+	m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
@@ -1351,9 +1385,15 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_iceSurfaceTex[2].Load("Texture/GroundBlock/Ice2.png");
 	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
+
+	m_ladderTex[0].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[1].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[2].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[3].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
-	//m_blocks.push_back(Block(0, 0, 32, 32, &m_BlockTex, false,   0));
+	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
 	m_lKey = false;
 	m_pKey = false;
 	
@@ -1400,10 +1440,17 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 				}
 			}
 			break;
-		case 3:
+		case BlockEditerSelect::IceWater:
 			for (int l = 0; l < 5; l++)
 			{
 				_loadarray[l] = (&m_iceWaterBlockTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
+		case BlockEditerSelect::Ladder:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_ladderTex[l]);
 			}
 			_loadVector.push_back(_loadarray);
 			break;
@@ -1416,7 +1463,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 void Scene::Release()
 {
 	// �摜�̉������
-	m_BlockTex.Release();
+	m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }

@@ -12,7 +12,10 @@ protected:
 		float collisionValue;
 		std::pair<float, float> pos;
 		std::pair<float, float>dPos;
-
+		bool BackStage = false;
+		bool OnIceFlag = false;
+		bool OnSnowFlag = false;
+		bool OnladerFlag = false;
 	};
 	int animation = 0;
 	float m_jumpPower = 0.0f;
@@ -22,6 +25,8 @@ protected:
 	bool m_stopFlag;
 	bool OnSnowBlockFlag = false;
 	bool OnIceBlockFlag = false;
+	bool OnLadderBlockFlag = false;
+
 	std::vector<CollisionBlockData> m_collisionData;
 
 	
@@ -68,6 +73,7 @@ public:
 	void SetDirection(Direction direction);
 	void CollisionClear();
 	bool GetOnGroundFlag();
+	bool GetOnLadderFlag();
 	void SetScroll(std::pair<int, int>* scroll);
 	std::pair<float, float> GetGPos();
 };

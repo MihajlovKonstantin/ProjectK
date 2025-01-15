@@ -15,7 +15,7 @@ private:
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
-	enum BlockEditerSelect { COUNTBES = 4, Ground = 1, Ice, IceWater };
+	enum BlockEditerSelect { COUNTBES = 5, Ground = 1, Ice, IceWater ,Ladder};
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
@@ -28,14 +28,15 @@ private:
 	std::array<KdTexture, 5> m_iceSurfaceTex;
 	std::array<KdTexture, 5> m_iceInsideTex;
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
+	std::array<KdTexture, 5> m_ladderTex;
 	//OtherTex
 	KdTexture m_BlockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
 	//BlockLib
-	static const int m_typeBlockNum = 4;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 4> m_blockLiblary;
+	static const int m_typeBlockNum = 5;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 5> m_blockLiblary;
 	//Editer
 	std::pair<float, float> SpawnPos;
 	Item _lastItem;
@@ -73,6 +74,8 @@ private:
 	bool _tKey = false;
 	bool m_leftFlg;
 	bool m_rightFlg;
+	bool m_upFlg;
+	bool m_downFlg;
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
 	int RELEASE = 0;
