@@ -41,9 +41,9 @@ Menu::Menu()
 void Menu::InitMainMenu()
 {
 	buttons.clear();
-	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Start",1.0f,1,1,2);
+	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Start",1.0f,1,goScene,game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,1,3);
+	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,goScene,option);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, -70.0f }, "Record",1.0f,3,0,0);
 	buttons.push_back(_newButton);
@@ -52,17 +52,17 @@ void Menu::InitMainMenu()
 void Menu::InitSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,1,1,1);
-	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, 3, 3, 21);
+	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,change,goScene,title);
+	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, nochange, volumeDown, volume);
 	buttons.push_back(_newButton);
 	buttons.push_back(_musicButton);
-	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, 3, 2, 21);
+	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, nochange, volumeUp, volume);
 	buttons.push_back(_musicButton);
 }
 void Menu::InitInGameSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.0f, 1, 1, 1);
+	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.0f, change, goScene, title);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
