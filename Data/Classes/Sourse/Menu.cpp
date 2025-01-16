@@ -102,6 +102,7 @@ void Menu::Update()
 	m_matrix = Math::Matrix::CreateTranslation(m_pos.first, m_pos.second, 0);
 }
 
+
 Menu::Menu()
 {
 
@@ -111,9 +112,9 @@ void Menu::InitMainMenu(std::string dataPath)
 {
 	m_dataPath = dataPath;
 	buttons.clear();
-	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Start",1.0f,1,goScene,game);
+	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Start", 1.0f, 1, goScene, SelectPlaybleMap);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,goScene,option);
+	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,goScene,Option);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, -70.0f }, "Record",1.0f,3,0,0);
 	buttons.push_back(_newButton);
@@ -128,24 +129,24 @@ void Menu::InitMainMenu(std::string dataPath)
 		selectedPath = line;
 	}
 	ifFile.close();
-	_newButton = Button({ 100.0f,40.0f }, { 350.0f,170.0f }, "Push", 1.0f, 1, 9, 0);
+	_newButton = Button({ 100.0f,40.0f }, { 350.0f,170.0f }, "Push", 1.0f, 1, pushMap, 0);
 	buttons.push_back(_newButton);
 }
 
 void Menu::InitSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,change,goScene,title);
-	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, nochange, volumeDown, volume);
+	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,change,goScene,Title);
+	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, nochange, decreaseByIndex, volume);
 	buttons.push_back(_newButton);
 	buttons.push_back(_musicButton);
-	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, nochange, volumeUp, volume);
+	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, nochange, increaseByIndex, volume);
 	buttons.push_back(_musicButton);
 }
 void Menu::InitInGameSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.0f, change, goScene, title);
+	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.0f, change, goScene, Title);
 	buttons.push_back(_newButton);
 }
 void Menu::InitSelectMap(std::vector<std::string> mapList, std::string path,std::string dataPath)
@@ -191,15 +192,15 @@ void Menu::InitSelectMap(std::vector<std::string> mapList, std::string path,std:
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
-	_newButton = Button({60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, 7, 2);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, 8, 2);
+	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, 1, 1);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, 3, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1027, 2, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1027, increaseByIndex, 31);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
@@ -227,25 +228,25 @@ void Menu::EventClick(array<int, 2> eventData)
 	//_getcwd(current_work_dir, sizeof(current_work_dir));
 	switch (eventData[0])
 	{
-	case 1:
+	case goScene:
 		SwitchWindowsEvent(eventData[1]);
 		break;
-	case 2:
+	case increaseByIndex:
 		IncreaceByIndex(eventData[1]);
 		break;
-	case 3:
+	case decreaseByIndex:
 		DecreaceByIndex(eventData[1]);
 		break;
-	case 4:
+	case setEndFlg:
 		data->SetEndState(true);
 		break;
-	case 5:
+	case switchBool:
 		SwitchBoolEvent(eventData[1]);
 		break;
-	case 6:
+	case selectMap:
 		selectedMap = buttons[eventData[1]].GetText();
 		break;
-	case 7:
+	case openMap:
 		
 		_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
 		system(_dirFinder.c_str());
@@ -257,7 +258,7 @@ void Menu::EventClick(array<int, 2> eventData)
 		data->SetPath(selectedPath);
 		SwitchWindowsEvent(eventData[1]);
 		break;
-	case 8:
+	case newMap:
 		_dirFinder = "echo. > \""+selectedPath+"\\NewMap.map\"";
 		system(_dirFinder.c_str());
 		_dirFinder = "" + selectedPath + "\\NewMap.map";
@@ -280,7 +281,7 @@ void Menu::EventClick(array<int, 2> eventData)
 		data->SetPath(selectedPath);
 		SwitchWindowsEvent(eventData[1]);
 		break;
-	case 9:
+	case pushMap:
 		_dirFinder = m_dataPath + "\\CurrentMap.map";
 		inFile = ifstream(_dirFinder.c_str());
 		if (inFile.is_open())

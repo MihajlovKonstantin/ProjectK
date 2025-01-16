@@ -1363,7 +1363,6 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
 	charaRect = Math::Rectangle(0, 0, 32, 32);
@@ -1463,7 +1462,6 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 void Scene::Release()
 {
 	// �摜�̉������
-	m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }
