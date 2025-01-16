@@ -57,6 +57,8 @@ void Scene::Draw2D()
 			case BlockEditerSelect::Ladder:
 				_string[1] += "ladder";
 				break;
+			case BlockEditerSelect::Lava:
+				_string[1] += "Lave";
 			}
 			_string[2] = "CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
@@ -400,6 +402,9 @@ void Scene::CreateTerrainObject()
 		break;
 	case BlockEditerSelect::Ladder:
 		_currentTex = &m_ladderTex[0];
+		break;
+	case BlockEditerSelect::Lava:
+		_currentTex = &m_lavaTex[0];
 		break;
 	}
 
@@ -1414,6 +1419,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_ladderTex[2].Load("Texture/GimmickBlock/ladder_mid.png");
 	m_ladderTex[3].Load("Texture/GimmickBlock/ladder_mid.png");
 	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
+
+	m_lavaTex[0].Load("Texture/GimmickBlock/liquidLava.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
