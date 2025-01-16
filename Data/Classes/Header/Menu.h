@@ -2,8 +2,9 @@
 #include"Pch.h"
 #include <optional>
 using namespace std;
-enum SceneSelect { title = 1, game = 2, option = 3, volume = 21 };
-enum OptionSelect { goScene = 1, volumeUp = 2, volumeDown = 3 };
+enum SceneSelect { Title = 1, Game = 2, Option ,Records,SelectPlaybleMap,SelectEditMap};
+enum DataValue { volume = 21 };
+enum OptionSelect { goScene = 1, increaseByIndex = 2, decreaseByIndex = 3 ,setEndFlg=4,switchBool=5,selectMap=6,openMap=7,newMap=8,pushMap=9};
 enum ChangeSelect { change = 1, nochange = 3 };
 class Menu
 {
