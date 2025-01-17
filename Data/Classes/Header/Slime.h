@@ -5,13 +5,13 @@ class Slime :
 {
 private:
 
-    Slime();
-    ~Slime() {};
-
     static const int m_slimeJumpCoolTime = 60;
     int m_jumpCoolTime = m_slimeJumpCoolTime;
 
 public:
+
+    Slime();
+    ~Slime() {};
 
    void Update();
 
