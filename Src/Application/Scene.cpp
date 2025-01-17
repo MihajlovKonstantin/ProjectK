@@ -57,6 +57,8 @@ void Scene::Draw2D()
 			case BlockEditerSelect::Ladder:
 				_string[1] += "ladder";
 				break;
+			case BlockEditerSelect::Lava:
+				_string[1] += "Lave";
 			}
 			_string[2] = "CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
@@ -375,14 +377,34 @@ void Scene::CreateTerrainObject()
 			break;
 		}
 		break;
-	case 3:
-		_currentTex = &m_iceWaterBlockTex[0];
+	case BlockEditerSelect::IceWater:
+		switch (buffer)
+		{
+		case 1:
+			_currentTex = &m_iceWaterBlockTex[2];
+			break;
+		case 3:
+			_currentTex = &m_iceWaterBlockTex[1];
+			break;
+		case 5:
+			_currentTex = &m_iceWaterBlockTex[4];
+			break;
+		case 7:
+			_currentTex = &m_iceWaterBlockTex[3];
+			break;
+		default:
+			_currentTex = &m_iceWaterBlockTex[0];
+			break;
+		}
 		break;
 	default:
 		_currentTex = NULL;
 		break;
 	case BlockEditerSelect::Ladder:
-		_currentTex = &m_ladderTex;
+		_currentTex = &m_ladderTex[0];
+		break;
+	case BlockEditerSelect::Lava:
+		_currentTex = &m_lavaTex[0];
 		break;
 	}
 
@@ -495,6 +517,9 @@ void Scene::SaveStage()
 {
 	std::ofstream outFile("StageData");
 	if (outFile.is_open()) {
+		outFile << m_selectedMap<<"\n";
+		outFile << m_selectedPath << "\n";
+		outFile << RELEASE << "\n";
 		outFile << m_stageType << "\n";
 		outFile << m_terrain.size() << "\n";
 		for (int i = 0; i < m_terrain.size(); i++)
@@ -529,37 +554,37 @@ void Scene::LoadStage()
 		std::vector<int> typeBlock;
 		std::vector<int> _varBlock;
 		std::string line;
-		getline(inFile, line, '\n');
+		std::getline(inFile, line, '\n');
 		m_stageType = stoi(line);
-		getline(inFile, line, '\n');
+		std::getline(inFile, line, '\n');
 		size = stoi(line);
 		for (int j = 0; j < size; j++)
 		{
 			typeBlock.clear();
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			angle = stoi(line);
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			x = stoi(line);
-			getline(inFile, line, ',');
+			std::getline(inFile, line, ',');
 			y = stoi(line);
-			getline(inFile, line, '\n');
+			std::getline(inFile, line, '\n');
 			typeBlockSize = stoi(line);
 			for (int i = 0; i < typeBlockSize; i++)
 			{
-				getline(inFile, line, ',');
+				std::getline(inFile, line, ',');
 				_buff = stoi(line);
 				typeBlock.push_back(_buff);
 			}
 			for (int i = 0; i < typeBlockSize; i++)
 			{
-				getline(inFile, line, ',');
+				std::getline(inFile, line, ',');
 				_buff = stoi(line);
 				_varBlock.push_back(_buff);
 			}
 
 			m_terrain.push_back(TerrainObject({ x,y }, angle, typeBlock,_varBlock, &m_blockLiblary));
 			m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
-			getline(inFile, line, '\n');
+			std::getline(inFile, line, '\n');
 
 
 		}
@@ -600,6 +625,25 @@ void Scene::UpdateGameScene()
 	}
 	else m_rightFlg = false;
 	
+	if (GetAsyncKeyState(VK_UP))
+	{
+		if ((!m_downFlg)&&(m_player.GetOnLadderFlag()))
+		{
+
+			m_upFlg = true;
+			m_player.SetDirection(Direction::Up);
+		}
+	}
+	else m_upFlg = false;
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+		{
+			m_downFlg = true;
+			m_player.SetDirection(Direction::Down);
+		}
+	}
+	else m_downFlg = false;
 	
 	if (GetAsyncKeyState(VK_SPACE))
 	{
@@ -666,7 +710,7 @@ void Scene::UpdateGameScene()
 	}
 	if (m_stageType == 0)
 	{
-		if (m_player.GetPos().second >= 220)
+		if (m_player.GetGPos().second >= 220)
 		{
 			CLEARFLAG = true;
 		}
@@ -1048,6 +1092,10 @@ void Scene::SaveMap()
 	std::ifstream inFile("StageData");
 	std::string line;
 	if (inFile.is_open()) {
+		std::getline( inFile,line);
+		outFile << line << std::endl;
+		std::getline(inFile, line);
+		outFile << line << std::endl;
 		while (std::getline(inFile, line)) {
 			outFile << line << std::endl;
 		}
@@ -1061,19 +1109,42 @@ void Scene::SaveMap()
 	}
 	inFile.close();
 	outFile.close();
+
+	std::string _dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+	system(_dirFinder.c_str());
+	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
+	system(_dirFinder.c_str());
+	if (RELEASE == 0)
+	{
+		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
+		system(_dirFinder.c_str());
+		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + m_selectedPath + "\\\"";
+		system(_dirFinder.c_str());
+		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
+		system(_dirFinder.c_str());
+	}
+	m_stageType;
+	m_selectedMap;
 }
 
 void Scene::LoadMap()
 {
-	std::ifstream inFile("CurrentMap.map");
+	std::ifstream inFile(m_dataPath+"\\CurrentMap.map");
 	m_terrain.clear();
 	m_spawner.clear();
 	std::string line;
 	if (inFile.is_open()) {
+		std::string line;
+		getline(inFile, line);
+		WC->SetMap(line);
+		getline(inFile, line);
+		WC->SetPath(line);
+		getline(inFile, line);
+		RELEASE = stoi(line);
 		int x, y, angle, size, typeBlockSize, _buff;
 		std::vector<int> typeBlock;
 		std::vector<int> _varBlock;
-		std::string line;
+		
 		std::getline(inFile, line, '\n');
 		m_stageType = stoi(line);
 		getline(inFile, line, '\n');
@@ -1109,7 +1180,10 @@ void Scene::LoadMap()
 		int charaIndex, type, interval, num;
 		std::pair<float, float>pos;
 		std::getline(inFile, line, '\n');
-		std::getline(inFile, line, '\n');
+		if (line == "")
+		{
+			std::getline(inFile, line, '\n');
+		}
 		size = stoi(line);
 		for (int i = 0; i < size; i++)
 			{
@@ -1144,10 +1218,27 @@ void Scene::LoadMap()
 					break;
 				}
 		}
-
+		
 		
 	}
 		inFile.close();
+		CLEARFLAG = false;
+		for (size_t i = 0; i < m_keyFlag.size(); i++)
+		{
+			m_keyFlag[i] = false;
+		}
+		switch (m_stageType)
+		{
+		case 0:
+			m_clearStateString = "";
+			break;
+		case 1:
+			m_clearStateString = "0/0";
+			m_clearExpress = m_clearStateString.c_str();
+			m_clearState[0] = 0;
+			break;
+		}
+		m_selectedMap = WC->GetMap();
 }
 
 void Scene::Update()
@@ -1174,8 +1265,6 @@ void Scene::Update()
 		{
 			if (!m_pKey)
 			{
-				//LoadStage();
-				//LoadSpawn();
 				LoadMap();
 			}
 			m_pKey = true;
@@ -1202,7 +1291,7 @@ void Scene::Update()
 			}
 			else
 			{
-				m_item[i].Update();
+				m_item[i].Update(m_scroll);
 				i++;
 			}
 		}
@@ -1283,8 +1372,10 @@ void Scene::UpdateMainMenu()
 
 }
 
-void Scene::Init(WindowsControlData* WCInput)
+void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string selectedPath)
 {
+	m_dataPath = dataPath;
+	m_selectedPath = selectedPath;
 	// �摜�̓ǂݍ��ݏ���
 	ShowCursor(true);
 	spriteBatch = new DirectX::SpriteBatch(D3D.GetDevContext());
@@ -1294,9 +1385,9 @@ void Scene::Init(WindowsControlData* WCInput)
 	SC = new SceneControlData();
 	SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 	m_inGameSetting.AddData(*WC);
-	m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
+	//m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
-	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWaterDeepStars.png");;
+	
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	m_playerTex.Load("Texture/Creature/player.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
@@ -1317,7 +1408,19 @@ void Scene::Init(WindowsControlData* WCInput)
 	m_iceSurfaceTex[3].Load("Texture/GroundBlock/Ice3.png");
 	m_iceSurfaceTex[4].Load("Texture/GroundBlock/Ice4.png");
 
-	m_ladderTex.Load("Texture/GimmickBlock/ladder_mid.png");
+	m_iceWaterBlockTex[0].Load("Texture/GimmickBlock/iceWater0.png");
+	m_iceWaterBlockTex[1].Load("Texture/GimmickBlock/iceWater1.png");
+	m_iceWaterBlockTex[2].Load("Texture/GimmickBlock/iceWater2.png");
+	m_iceWaterBlockTex[3].Load("Texture/GimmickBlock/iceWater3.png");
+	m_iceWaterBlockTex[4].Load("Texture/GimmickBlock/iceWater4.png");
+
+	m_ladderTex[0].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[1].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[2].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[3].Load("Texture/GimmickBlock/ladder_mid.png");
+	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
+
+	m_lavaTex[0].Load("Texture/GimmickBlock/liquidLava.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
@@ -1367,10 +1470,17 @@ void Scene::Init(WindowsControlData* WCInput)
 				}
 			}
 			break;
-		case 3:
+		case BlockEditerSelect::IceWater:
 			for (int l = 0; l < 5; l++)
 			{
 				_loadarray[l] = (&m_iceWaterBlockTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
+		case BlockEditerSelect::Ladder:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_ladderTex[l]);
 			}
 			_loadVector.push_back(_loadarray);
 			break;
@@ -1383,7 +1493,7 @@ void Scene::Init(WindowsControlData* WCInput)
 void Scene::Release()
 {
 	// �摜�̉������
-	m_blockTex.Release();
+	//m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
 }

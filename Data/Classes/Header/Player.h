@@ -73,6 +73,7 @@ public:
 	void SetDirection(Direction direction);
 	void CollisionClear();
 	bool GetOnGroundFlag();
+	bool GetOnLadderFlag();
 	void SetScroll(std::pair<int, int>* scroll);
 	std::pair<float, float> GetGPos();
 };

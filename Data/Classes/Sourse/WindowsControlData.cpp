@@ -68,3 +68,23 @@ void WindowsControlData::SetEndState(bool input)
 {
 	EndState = input;
 }
+
+void WindowsControlData::SetMap(std::string map)
+{
+	currentMap = map;
+}
+
+std::string WindowsControlData::GetMap()
+{
+	return currentMap;
+}
+
+void WindowsControlData::SetPath(std::string path)
+{
+	currentPath = path;
+}
+
+std::string WindowsControlData::Getpath()
+{
+	return currentPath;
+}
