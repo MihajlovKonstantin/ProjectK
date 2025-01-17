@@ -30,7 +30,7 @@ private:
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
 	KdTexture m_ladderTex;
 	//OtherTex
-	KdTexture m_BlockTex;
+	KdTexture m_blockTex;
 	KdTexture m_playerTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
