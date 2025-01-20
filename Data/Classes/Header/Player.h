@@ -17,6 +17,7 @@ protected:
 		bool OnSnowFlag = false;
 		bool OnladerFlag = false;
 	};
+	float m_hp = 100.f, m_maxHP = 100.0f;
 	int animation = 0;
 	float m_jumpPower = 0.0f;
 	float m_jumpSpeed = 3.0f;
