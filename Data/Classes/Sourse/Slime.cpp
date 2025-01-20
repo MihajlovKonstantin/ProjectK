@@ -28,10 +28,9 @@ void Slime::Update()
 			m_groundFlag = false;
 			m_jumpCoolTime = m_slimeJumpCoolTime;
 		}
+		//スライムはジャンプ中のみ動いてほしい
 		(m_groundFlag) ? m_emyMoveFlg = false : m_emyMoveFlg = true;
 	}
 	
 	NPC::AIUpdate();
-		
-;
 }
