@@ -129,7 +129,7 @@ void Menu::InitMainMenu(std::string dataPath)
 		selectedPath = line;
 	}
 	ifFile.close();
-	_newButton = Button({ 100.0f,40.0f }, { 350.0f,170.0f }, "Push", 1.0f, 1, pushMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { 350.0f,170.0f }, "Push", 1.0f, 1, updateMap, 0);
 	buttons.push_back(_newButton);
 }
 
@@ -149,13 +149,14 @@ void Menu::InitInGameSetting()
 	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.0f, change, goScene, Title);
 	buttons.push_back(_newButton);
 }
-void Menu::InitSelectMap(std::vector<std::string> mapList, std::string path,std::string dataPath)
+void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string path,std::string dataPath)
 {
 	IsSelectMapMenu = true;
 	m_dataPath = dataPath;
 	buttons.clear();
 	Button _newButton;
 	selectedPath = path;
+	newPath = dataPath + "\\EditMap";
 	int dX = 0, dY = 0;
 	for (size_t i = 0; i < mapList.size(); i++)
 	{
@@ -200,7 +201,66 @@ void Menu::InitSelectMap(std::vector<std::string> mapList, std::string path,std:
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1027, increaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	buttons.push_back(_newButton);
+}
+void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string path, std::string dataPath)
+{
+	IsSelectMapMenu = true;
+	m_dataPath = dataPath;
+	buttons.clear();
+	Button _newButton;
+	selectedPath = path;
+	newPath = dataPath + "\\EditMap";
+	int dX = 0, dY = 0;
+	for (size_t i = 0; i < mapList.size(); i++)
+	{
+		switch (i % 3)
+		{
+		case 0:
+			dX = 0;
+			break;
+		case 1:
+			dX = 300;
+			break;
+		case 2:
+			dX = 600;
+			break;
+		}
+		div_t _index = div(i, 9);
+		_index = div(_index.rem, 3);
+		switch (_index.quot)
+		{
+		case 0:
+			dY = 0;
+			break;
+		case 1:
+			dY = -100;
+			break;
+		case 2:
+			dY = -200;
+			break;
+		}
+		_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
+		_newButton.ChangeVisiable();
+		_newButton.ChangeActive();
+		buttons.push_back(_newButton);
+	}
+	maxBlockData = buttons.size() / 9;
+	mapNum = buttons.size();
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
@@ -224,6 +284,7 @@ void Menu::EventClick(array<int, 2> eventData)
 	std::ofstream ofFile;
 	std::ifstream inFile;
 	std::string _line;
+	std::vector<std::string> _lines;
 	//char current_work_dir[FILENAME_MAX];
 	//_getcwd(current_work_dir, sizeof(current_work_dir));
 	switch (eventData[0])
@@ -281,7 +342,7 @@ void Menu::EventClick(array<int, 2> eventData)
 		data->SetPath(selectedPath);
 		SwitchWindowsEvent(eventData[1]);
 		break;
-	case pushMap:
+	case updateMap:
 		_dirFinder = m_dataPath + "\\CurrentMap.map";
 		inFile = ifstream(_dirFinder.c_str());
 		if (inFile.is_open())
@@ -302,6 +363,37 @@ void Menu::EventClick(array<int, 2> eventData)
 				system(_dirFinder.c_str());
 				_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
 				system(_dirFinder.c_str());
+			}
+		}
+		break;
+	case releaseMap:
+		_dirFinder = selectedPath + "\\" + selectedMap;
+		inFile = ifstream(_dirFinder.c_str());
+		if (inFile.is_open())
+		{
+			std::getline(inFile, _line);
+			selectedMap = _line;
+			std::getline(inFile, _line);
+			selectedPath = _line;
+			std::getline(inFile, _line);
+			if (stoi(_line) == 0)
+			{
+				while (std::getline(inFile, _line))
+				{
+					_lines.push_back(_line);
+				}
+
+				_dirFinder = newPath + "\\" + selectedMap;
+				ofFile = ofstream(_dirFinder.c_str());
+				{
+					ofFile << "NewMap.map" << endl;
+					ofFile << newPath << endl;
+					ofFile << 1 << endl;
+
+					for (const auto& l : _lines) {
+						ofFile << l << std::endl;
+					}
+				}
 			}
 		}
 
@@ -348,7 +440,7 @@ void Menu::DecreaceByIndex(int dataIndex)
 	{
 	case 21:
 		_currentValue = data->GetMusicVolume();
-		_currentValue -= 0.001f;
+		_currentValue -= 0.01f;
 		if (_currentValue < 0.0f)
 		{
 			_currentValue = 0.0f;
@@ -472,7 +564,7 @@ bool Menu::IsCD()
 	return false;
 }
 
-void Menu::SendMap()
+void Menu::UpdateMap()
 {
 	std::string _dirFinder = "delete \"" + selectedPath + "\\" + selectedMap + "\"";
 	system(_dirFinder.c_str());
@@ -480,6 +572,11 @@ void Menu::SendMap()
 	system(_dirFinder.c_str());
 	_dirFinder = "rename \"" + selectedPath + "\\CurrentMap.map\" \"" + selectedMap + "\"";
 	system(_dirFinder.c_str());
+}
+
+void Menu::ReleaseMap()
+{
+	std::string _dirFinder;
 }
 
 

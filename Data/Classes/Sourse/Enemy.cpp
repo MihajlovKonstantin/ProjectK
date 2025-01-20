@@ -18,7 +18,7 @@ void NPC::AIUpdate()	//プレイヤーを追尾する
 	if (m_groundFlag)
 		m_onGroundFlag = true;
 
-	if (Discovery() && !m_groundFlag)
+	if (Discovery() && ((m_emyMoveFlg)|| ((m_groundFlag)&&(OnLadderBlockFlag)) ))
 	{
 		//プレイヤーが敵の左側に居たら左に移動する
 		if (m_player->GetGPos().first < m_gPos.first)Player::SetDirection(Left);
@@ -175,8 +175,12 @@ bool NPC::Discovery()
 					for (size_t j = 0; m_blockBuff->size() > j; j++)
 					{
 						_blockPos = m_blockBuff->at(j).GetGPos();
-						_newSphere = DirectX::BoundingSphere({ _blockPos.first,_blockPos.second,0 }, 16.0f);
-						m_sphere.push_back(_newSphere);
+						if (!m_blockBuff->at(0).GetBackStage())
+						{
+							_newSphere = DirectX::BoundingSphere({ _blockPos.first,_blockPos.second,0 }, 16.0f);
+							m_sphere.push_back(_newSphere);
+						}
+						
 					}
 					for (size_t k = 0; m_sphere.size() > k; k++)
 					{

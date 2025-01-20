@@ -19,7 +19,7 @@ Slime::~Slime()
 void Slime::Update()
 {
 	Discovery();
-	if (m_discovery)	//ƒvƒŒƒCƒ„[”­Œ©”»’è
+	if (m_discovery)	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		if (m_jumpCoolTime-- < 0)
 		{
@@ -28,8 +28,9 @@ void Slime::Update()
 			m_groundFlag = false;
 			m_jumpCoolTime = m_slimeJumpCoolTime;
 		}
-		//ƒXƒ‰ƒCƒ€‚ÍƒWƒƒƒ“ƒv’†‚Ì‚İ“®‚¢‚Ä‚Ù‚µ‚¢
+		//ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÍƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Ì‚İ“ï¿½ï¿½ï¿½ï¿½Ä‚Ù‚ï¿½ï¿½ï¿½
 		(m_groundFlag) ? m_emyMoveFlg = false : m_emyMoveFlg = true;
+		if (OnLadderBlockFlag) m_emyMoveFlg = true;
 	}
 	
 	NPC::AIUpdate();
