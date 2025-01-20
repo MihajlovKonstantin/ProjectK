@@ -16,6 +16,7 @@ protected:
     bool m_onGroundFlag;
     bool m_directionFlg = false;
     bool m_emyMoveFlg = true;
+    bool m_hitFlg = false;
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;
     std::vector<TerrainObject>* m_allTerrain;
@@ -44,4 +45,5 @@ public:
     void InitPlayer(PC*player);
     void InitTrreainObject(std::vector<TerrainObject>* terrain);
     void SetOnGroundFlag(bool flag);
+    void Hit();
 };

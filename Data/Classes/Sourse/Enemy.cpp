@@ -238,3 +238,15 @@ void NPC::SetOnGroundFlag(bool flag)
 {
 	m_onGroundFlag = flag;
 }
+
+void NPC::Hit()
+{
+	//“G‚ÆƒLƒƒƒ‰‚Ì“–‚½‚è”»’è(‰~”»’è)
+	float _hight = m_gPos.second - m_player->GetGPos().second;
+	float _width = m_gPos.first - m_player->GetGPos().first;
+
+	float _distance = sqrt(_hight * _hight + _width * _width);
+
+	if (_distance < 16)m_hitFlg = true;
+	else m_hitFlg = false;
+}
