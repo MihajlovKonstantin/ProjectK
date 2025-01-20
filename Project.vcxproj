@@ -186,10 +186,13 @@
     <ClInclude Include="Data\Classes\Header\Player.h" />
     <ClInclude Include="Data\Classes\Header\Menu.h" />
     <ClInclude Include="Data\Classes\Header\SceneControlData.h" />
+    <ClInclude Include="Data\Classes\Header\Slime.h" />
+    <ClInclude Include="Data\Classes\Header\SnowBall.h" />
     <ClInclude Include="Data\Classes\Header\Spawner.h" />
     <ClInclude Include="Data\Classes\Header\Stage.h" />
     <ClInclude Include="Data\Classes\Header\TerrainObject.h" />
     <ClInclude Include="Data\Classes\Header\WindowsControlData.h" />
+    <ClInclude Include="Src\Application\BlockEnum.h" />
     <ClInclude Include="Src\Application\Direction.h" />
     <ClInclude Include="Src\Application\Scene.h" />
     <ClInclude Include="Src\Application\main.h" />
@@ -227,6 +230,8 @@
     <ClCompile Include="Data\Classes\Sourse\Player.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Menu.cpp" />
     <ClCompile Include="Data\Classes\Sourse\SceneControlData.cpp" />
+    <ClCompile Include="Data\Classes\Sourse\Slime.cpp" />
+    <ClCompile Include="Data\Classes\Sourse\SnowBall.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Spawner.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Stage.cpp" />
     <ClCompile Include="Data\Classes\Sourse\TerrainObject.cpp" />
