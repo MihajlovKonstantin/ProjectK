@@ -1,7 +1,6 @@
-#include "Pch.h"
 #include "Data/Classes/Header/Spawner.h"
 
-Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, std::vector<TerrainObject >* terrain, int type, int interval, int num)
+Spawner::Spawner(int charaIndex, std::pair<float, float> pos, std::array<std::vector<KdTexture*>, 2>* texLib, PC* player, std::vector<TerrainObject >* terrain, int type, int interval, int num)
 {
 	m_player = player;
 	m_index = charaIndex;
@@ -10,12 +9,19 @@ Spawner::Spawner(int charaIndex, std::pair<float, float> pos, PC* player, std::v
 	m_type = type;
 	m_interval = interval;
 	m_num = num;
-}
+	m_enemylibrary = texLib;
+	m_enemyTex = NULL;
 
-//Spawner::Spawner(int charaIndex, std::pair<float, float> pos, int type, KdTexture& tex, int interval, int num)
-//{
-//
-//}
+	switch (m_type)
+	{
+	case EnemyType::TypeSlime:
+		m_enemyTex = m_enemylibrary->at(EnemyType::TypeSlime).at(0);
+		break;
+	case EnemyType::TypeSnowBall:
+		m_enemyTex = m_enemylibrary->at(EnemyType::TypeSnowBall).at(0);
+		break;
+	}
+}
 
 int Spawner::GetIndex()
 {
@@ -57,9 +63,25 @@ void Spawner::Update()
 	case EnemyType:		//“G(’P‘Ì)
 		if (!m_spawnFlg)
 		{
-			m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
-			m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
-			m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
+			//m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
+			switch (m_type)
+			{
+			case EnemyType::TypeSlime:
+				m_slimes.push_back(Slime(m_enemyTex, m_charaPos));
+				m_slimes[m_slimes.size() - 1].SetScroll(m_scroll);
+				m_slimes[m_slimes.size() - 1].InitPlayer(m_player);
+				m_slimes[m_slimes.size() - 1].InitTrreainObject(m_terrain);
+				break;
+			case EnemyType::TypeSnowBall:
+				m_snowBall.push_back(SnowBall(m_enemyTex, m_charaPos));
+				m_snowBall[m_snowBall.size() - 1].SetScroll(m_scroll);
+				m_snowBall[m_snowBall.size() - 1].InitPlayer(m_player);
+				m_snowBall[m_snowBall.size() - 1].InitTrreainObject(m_terrain);
+				break;
+			}
+			
+			//m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
+			//m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 		}
 		m_spawnFlg = true;
 		break;
@@ -70,9 +92,24 @@ void Spawner::Update()
 			if (cnt < m_interval) {}
 			else
 			{
-				m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
-				m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
-				m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
+				//m_enemy.push_back(NPC(m_charaPos, { 0,0 }, m_enemyTex));
+				switch (m_type)
+				{
+				case EnemyType::TypeSlime:
+					m_slimes.push_back(Slime(m_enemyTex, m_charaPos));
+					m_slimes[m_slimes.size() - 1].SetScroll(m_scroll);
+					m_slimes[m_slimes.size() - 1].InitPlayer(m_player);
+					m_slimes[m_slimes.size() - 1].InitTrreainObject(m_terrain);
+					break;
+				case EnemyType::TypeSnowBall:
+					m_snowBall.push_back(SnowBall(m_enemyTex, m_charaPos));
+					m_snowBall[m_snowBall.size() - 1].SetScroll(m_scroll);
+					m_snowBall[m_snowBall.size() - 1].InitPlayer(m_player);
+					m_snowBall[m_snowBall.size() - 1].InitTrreainObject(m_terrain);
+					break;
+				}
+				//m_enemy[m_enemy.size() - 1].InitPlayer(m_player);
+				//m_enemy[m_enemy.size() - 1].InitTrreainObject(m_terrain);
 				cnt = 0;
 			}
 		}
@@ -80,10 +117,15 @@ void Spawner::Update()
 	}
 
 
-	for (int j = 0; j < m_enemy.size(); j++)
+	for (int j = 0; j < m_slimes.size(); j++)
 	{
-		m_enemy[j].Update();
-		m_enemy[j].Discovery();
+		m_slimes[j].Update();
+		//m_slimes[j].Discovery();
+	}
+	for (int k = 0; k < m_snowBall.size(); k++)
+	{
+		m_snowBall[k].Update();
+		m_snowBall[k].Discovery();
 	}
 }
 	
@@ -96,4 +138,19 @@ void Spawner::SetTexture(KdTexture texture)
 KdTexture* Spawner::GetTexture()
 {
 	return m_enemyTex;
+}
+
+std::vector<Slime>* Spawner::GetSlime()
+{
+	return &m_slimes;
+}
+
+std::vector<SnowBall>* Spawner::GetSnowBall()
+{
+	return &m_snowBall;
+}
+
+void Spawner::SetScroll(std::pair<int, int>* scroll)
+{
+	m_scroll = scroll;
 }

@@ -1,4 +1,9 @@
-#include "Pch.h"
+#include "Data/Classes/Header/SnowBall.h"
+
+SnowBall::SnowBall(KdTexture* texture, std::pair<float, float> pos, std::pair<float, float> speed)
+{
+	//NPC(pos, speed, texture);
+}
 
 void SnowBall::Update()
 {

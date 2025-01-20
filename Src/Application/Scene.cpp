@@ -238,6 +238,19 @@ void Scene::DynamicDraw2D()
 			SHADER.m_spriteShader.DrawTex(m_item[i].GetTexture(), m_item[i].GetRect());
 		}
 		
+		for (int i = 0; i < m_spawner.size(); i++)
+		{
+			auto test = m_spawner[i].GetSlime();
+
+			for (int j = 0; test->size() > j; j++)
+			{
+				auto _matrix = test->at(j).GetMatrix();
+				auto _texture = test->at(j).GetTexture();
+				auto _rect = test->at(j).GetRect();
+				SHADER.m_spriteShader.SetMatrix(_matrix);
+				SHADER.m_spriteShader.DrawTex(_texture, _rect);
+			}
+		}
 
 	}
 	
@@ -706,6 +719,26 @@ void Scene::UpdateGameScene()
 	}
 	for (int i = 0; i < m_spawner.size(); i++)
 	{
+		auto _slimeArr = m_spawner[i].GetSlime();
+		for (int k = 0; k < _slimeArr->size(); k++)
+		{
+			for (int m = 0; m < m_terrain.size(); m++)
+			{
+				if (m_terrain[m].OnCollisionRange(_slimeArr->at(k).GetGPos()))
+				{
+					auto _blocks = m_terrain[m].GetBlocks();
+					for (int j = 0; j < _blocks->size(); j++)
+					{
+						auto _block = _blocks->at(j);
+						m_testCollision = _slimeArr->at(k).CollisionToBlock(_block);
+						if (m_testCollision)
+						{
+							_slimeArr->at(k).SetOnGroundFlag(true);
+						}
+					}
+				}
+			}
+		}
 		m_spawner[i].Update();
 	}
 	if (m_stageType == 0)
@@ -1006,14 +1039,14 @@ void Scene::LoadSpawn()
 			case 1:
 				std::getline(inFile, line, '\n');
 				pos.second = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos, &m_player));
+				m_spawner.push_back(Spawner(charaIndex, pos,&m_enemylibrary, &m_player));
 				break;
 			case 2:
 				std::getline(inFile, line, ',');
 				pos.second = stoi(line);
 				std::getline(inFile, line, '\n');
 				type = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type));
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type));
 				break;
 			case 3:
 				std::getline(inFile, line, ',');
@@ -1024,7 +1057,7 @@ void Scene::LoadSpawn()
 				interval = stoi(line);
 				std::getline(inFile, line, '\n');
 				num = stoi(line);
-				m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type, interval, num));
+				m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type, interval, num));
 				break;
 			}
 		}
@@ -1043,15 +1076,17 @@ void Scene::CreateSpawn()
 		if (m_spawner.size() != 0)
 		{
 			if(m_spawner[0].GetIndex() == 1)m_spawner.erase(m_spawner.begin());
-			m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_player)));
+			m_spawner.insert(m_spawner.begin(), (Spawner(charaIndex, SpawnPos, &m_enemylibrary, &m_player)));
 		}
-		else m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player));
+		else m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_enemylibrary, &m_player));
 		break;
 	case SpawnerSelect::Enemy:
-		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player, &m_terrain, m_selectedUnitVariant));
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_enemylibrary, &m_player, &m_terrain, m_selectedUnitVariant));
+		m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 		break;
 	default:
-		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_player, &m_terrain, m_selectedUnitVariant, 300, 5));
+		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_enemylibrary, &m_player, &m_terrain, m_selectedUnitVariant, 300, 5));
+		m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 		break;
 	}
 }
@@ -1196,14 +1231,14 @@ void Scene::LoadMap()
 				case 1:
 					std::getline(inFile, line, '\n');
 					pos.second = stoi(line);
-					m_spawner.push_back(Spawner(charaIndex, pos, &m_player));
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player));
 					break;
 				case 2:
 					std::getline(inFile, line, ',');
 					pos.second = stoi(line);
 					std::getline(inFile, line, '\n');
 					type = stoi(line);
-					m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type));
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type));
 					break;
 				case 3:
 					std::getline(inFile, line, ',');
@@ -1214,7 +1249,7 @@ void Scene::LoadMap()
 					interval = stoi(line);
 					std::getline(inFile, line, '\n');
 					num = stoi(line);
-					m_spawner.push_back(Spawner(charaIndex, pos, &m_player, &m_terrain, type, interval, num));
+					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type, interval, num));
 					break;
 				}
 		}
@@ -1433,6 +1468,9 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	
 	m_backGround.Load("Texture/BackGround/Title.png");
 
+	m_slimeTex.Load("Texture/Creature/slime.png");
+	m_snowBallTex.Load("Texture/Creature/snowball.png");
+
 	m_enemy = NPC();
 	m_enemy.InitTO(m_terrain);
 	for (int i = 1; i < m_typeBlockNum; i++)
@@ -1487,6 +1525,23 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 		}
 		m_blockLiblary[i] = _loadVector;
 	}
+
+	for (int i = 0; i < m_enemyNum; i++)
+	{
+		std::vector<KdTexture*> _loadvector;
+
+		switch (i)
+		{
+		case EnemySelect::Slime:
+			_loadvector.push_back(&m_slimeTex);
+			break;
+		case EnemySelect::SnowBall:
+			_loadvector.push_back(&m_snowBallTex);
+			break;
+		}
+		m_enemylibrary[i] = _loadvector;
+	}
+
 	m_player.SetScroll(&m_scroll);
 }
 

@@ -45,7 +45,7 @@ protected:
 	Math::Matrix m_mScale;
 	Math::Matrix m_matrix;
 	Math::Rectangle m_rectangle = Math::Rectangle(0,33,32,32);
-	float m_rad;
+	float m_rad = 0.0f;
 	float m_sideRad=-1.0f;
 	float m_currentCollisionValue = -1.0f;
 	std::pair<float, float> m_speed;

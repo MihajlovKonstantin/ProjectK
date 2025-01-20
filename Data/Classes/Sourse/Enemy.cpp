@@ -1,5 +1,5 @@
 #include "Pch.h"
-
+#include "Data/Classes/Header/Enemy.h"
 NPC::NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture)
 {
 	m_pos = pos;
@@ -14,13 +14,14 @@ NPC::NPC()
 
 void NPC::AIUpdate()	//プレイヤーを追尾する
 {
+	
 	if (m_groundFlag)
 		m_onGroundFlag = true;
 
-	if (Discovery() && m_emyMoveFlg)
+	if (Discovery() && !m_groundFlag)
 	{
 		//プレイヤーが敵の左側に居たら左に移動する
-		if (m_player->GetPlayerPos().first < m_pos.first)Player::SetDirection(Left);
+		if (m_player->GetGPos().first < m_gPos.first)Player::SetDirection(Left);
 		//右ver
 		else Player::SetDirection(Right);
 	}
@@ -89,7 +90,7 @@ float NPC::GetDistance()
 
 bool NPC::Discovery()
 {
-	auto _playerPos = m_player->GetPos();
+	auto _playerPos = m_player->GetGPos();
 	auto _curenntDistance = GetDistance();
 	//auto _curenntDistance = 1;
 	
@@ -101,8 +102,8 @@ bool NPC::Discovery()
 			m_result = true;
 			m_box.clear();
 			FindTerrainObject();
-			Normalize = DirectX::XMVector3Normalize({ m_player->GetPos().first - m_gPos.first ,
-													  m_player->GetPos().second - m_gPos.second,0 });
+			Normalize = DirectX::XMVector3Normalize({ m_player->GetGPos().first - m_gPos.first ,
+													  m_player->GetGPos().second - m_gPos.second,0 });
 			float foo;
 			auto _enemyPos = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
 			for (size_t i = 0; i < m_terrain.size(); i++)
@@ -182,13 +183,18 @@ bool NPC::Discovery()
 						//xray上にブロックがあるかどうか
 						if (m_sphere.at(k).Intersects(_enemyPos, Normalize, foo))
 						{
-							m_result = false;
+							if (_curenntDistance > foo)
+							{
+								m_result = false;
+							}
+							
 						}
 					}
 				}
 			}
 		}
 		else m_result = false;
+		m_discovery = m_result;
 	}
 
 	return m_result;
@@ -196,14 +202,15 @@ bool NPC::Discovery()
 
 void NPC::FindTerrainObject()
 {
+	m_terrain.clear();
 	for (size_t i = 0; i < m_allTerrain->size(); i++)
 	{
 		auto _xBorder = m_allTerrain->at(i).GetBorderX();
 		auto _yBorder = m_allTerrain->at(i).GetBorderY();
 		//auto _test = &terreain->at(i);
-		if ((m_pos.first >= _xBorder.first) && (m_pos.first <= _xBorder.second))
+		if ((m_gPos.first >= _xBorder.first) && (m_gPos.first <= _xBorder.second))
 		{
-			if ((m_pos.second >= _xBorder.second) && (m_pos.second <= _xBorder.second))
+			if ((m_gPos.second >= _yBorder.first) && (m_gPos.second <= _yBorder.second))
 			{
 				m_terrain.push_back(&m_allTerrain->at(i));
 			}
@@ -225,4 +232,9 @@ void NPC::InitPlayer(PC* player)
 void NPC::InitTrreainObject(std::vector<TerrainObject>* terrain)
 {
 	m_allTerrain = terrain;
+}
+
+void NPC::SetOnGroundFlag(bool flag)
+{
+	m_onGroundFlag = flag;
 }
