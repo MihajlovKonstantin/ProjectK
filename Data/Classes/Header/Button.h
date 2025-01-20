@@ -1,6 +1,6 @@
 #pragma once
 #include "Pch.h"
-#include "Data//Classes/Header/WindowsControlData.h"
+#include "Data/Classes/Header/WindowsControlData.h"
 class Button
 {
 private:

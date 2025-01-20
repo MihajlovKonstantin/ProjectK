@@ -496,6 +496,7 @@ void Player::Update()
 	{
 		OnIceBlockFlag = false;
 	}
+	m_collisionData.clear();
 }
 
 void Player::Jump()

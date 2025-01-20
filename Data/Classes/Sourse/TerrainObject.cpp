@@ -1,4 +1,4 @@
-#include "Pch.h"
+#include "Data/Classes/Header/TerrainObject.h"
 
 bool TerrainObject::OnCollisionRange(std::pair<float, float> pos)
 {

@@ -8,9 +8,9 @@ private:
     int m_jumpCoolTime = m_slimeJumpCoolTime;
 
 public:
-
-    Slime();
-    ~Slime() {};
+    Slime() {};
+    Slime(KdTexture* texture,std::pair<float, float> pos, std::pair<float, float>speed ={1.5,-2});
+    ~Slime();
 
    void Update();
 

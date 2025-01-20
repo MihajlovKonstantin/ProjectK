@@ -1,18 +1,4 @@
 #pragma once
-//===============================================
-//
-// プリコンパイル済みヘッダー
-//  ここに書いたものは初回のみ解析されるため、コンパイル時間が高速になる。
-//  全てのcppからインクルードされる必要がある。
-//
-//===============================================
-
-
-//===============================================
-//
-// 基本
-//
-//===============================================
 #pragma comment(lib,"winmm.lib")
 
 #define NOMINMAX
@@ -21,11 +7,6 @@
 
 #include <wrl/client.h>
 
-//===============================================
-//
-// STL
-//
-//===============================================
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
@@ -58,11 +39,6 @@
 #include <optional>
 #include <random>
 
-//===============================================
-//
-// Direct3D11
-//
-//===============================================
 #pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"dxgi.lib")
@@ -74,40 +50,24 @@
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
 
-// DirectX Tool Kit
 #pragma comment(lib, "DirectXTK.lib")
 #pragma comment(lib, "DirectXTKAudioWin8.lib")
 #include <SimpleMath.h>
 #include <Audio.h>
 
-// DirectX Tex
 #pragma comment(lib, "DirectXTex.lib")
 #include <DirectXTex.h>
 
-//===============================================
-//
-// imgui
-//
-//===============================================
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
-//===============================================
-// 文字コード変換
-//===============================================
 #include "strconv.h"
 
-//===============================================
-//
-// 自作System
-//
-//===============================================
 #include "System/KdSystem.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-//#include "unistd.h"
-//CustomLib
+
 #include "Data/Classes/Header/Button.h"
 #include "Data/Classes/Header/Menu.h"
 #include "Data/Classes/Header/Item.h"
@@ -121,9 +81,9 @@
 #include "Data/Classes/Header/PC.h"
 #include "Data/Classes/Header/Stage.h"
 #include "Data/Classes/Header/Enemy.h"
-#include "Data/Classes/Header/Spawner.h"
 #include "Data/Classes/Header/SnowBall.h"
 #include "Data/Classes/Header/Slime.h"
+#include "Data/Classes/Header/Spawner.h"
 
 
 

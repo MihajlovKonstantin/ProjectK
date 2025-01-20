@@ -5,9 +5,6 @@ class SnowBall :
 {
 private:
 
-    SnowBall() {};
-    ~SnowBall() {};
-
     static const int m_directionCoolTime = 20;
     int m_leftCoolTime = m_directionCoolTime;
     int m_rightCoolTime = m_directionCoolTime;
@@ -16,6 +13,9 @@ private:
     bool m_onlyFlg = false;
 
 public:
+
+    SnowBall(KdTexture* texture, std::pair<float, float> pos, std::pair<float, float>speed = { 2,3 });
+    ~SnowBall() {};
 
     void Update();
 

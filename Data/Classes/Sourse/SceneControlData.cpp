@@ -1,4 +1,3 @@
-#include "Pch.h"
 #include "Data/Classes/Header/SceneControlData.h"
 
 bool SceneControlData::GetEditMode()

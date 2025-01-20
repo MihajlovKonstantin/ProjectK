@@ -1,6 +1,5 @@
 #pragma once
 #include "Pch.h"
-
 enum EnemyType
 {
     TypeSlime = 0, TypeSnowBall
@@ -26,7 +25,6 @@ protected:
     DirectX::XMVECTOR Normalize;
     std::vector<bool> m_terrainBool;
     std::vector<Block>* m_blockBuff;
-
     //m_terrain.GetBlockTypeSize();
     //DirectX::BoundingBox m_box[];
 
@@ -45,4 +43,5 @@ public:
     void InitTO(std::vector<TerrainObject> &terrain);
     void InitPlayer(PC*player);
     void InitTrreainObject(std::vector<TerrainObject>* terrain);
+    void SetOnGroundFlag(bool flag);
 };
