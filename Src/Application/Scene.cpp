@@ -1123,8 +1123,6 @@ void Scene::SaveMap()
 		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 	}
-	m_stageType;
-	m_selectedMap;
 }
 
 void Scene::LoadMap()

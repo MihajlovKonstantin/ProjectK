@@ -4,7 +4,7 @@
 using namespace std;
 enum SceneSelect { Title = 1, Game = 2, Option ,Records,SelectPlaybleMap,SelectEditMap};
 enum DataValue { volume = 21 };
-enum OptionSelect { goScene = 1, increaseByIndex = 2, decreaseByIndex = 3 ,setEndFlg=4,switchBool=5,selectMap=6,openMap=7,newMap=8,pushMap=9};
+enum OptionSelect { goScene = 1, increaseByIndex = 2, decreaseByIndex = 3 ,setEndFlg=4,switchBool=5,selectMap=6,openMap=7,newMap=8,updateMap=9, releaseMap};
 enum ChangeSelect { change = 1, nochange = 3 };
 class Menu
 {
@@ -21,6 +21,7 @@ private:
     std::string selectedMap;
     std::string selectedPath;
     std::string  m_dataPath;
+    std::string newPath;
     int selectedBlockData = 0; //31 index
     int maxBlockData = 1;
     int mapNum;
@@ -38,7 +39,8 @@ public:
     void InitMainMenu(std::string dataPath);
     void InitSetting();
     void InitInGameSetting();
-    void InitSelectMap(std::vector<std::string > mapList,std::string path,std::string dataPath);
+    void InitSelectMapPlayeble(std::vector<std::string > mapList,std::string path,std::string dataPath);
+    void InitSelectEditingMap(std::vector<std::string > mapList, std::string path, std::string dataPath);
     Button GetButton();
     Button GetButton(int cnt);
     int GetButtonsCNT();
@@ -66,6 +68,7 @@ public:
     void SetDirty(bool input);
     void SetColdown();
     bool IsCD();
-    void SendMap();
+    void UpdateMap();
+    void ReleaseMap();
 };
 
