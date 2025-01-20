@@ -10,7 +10,7 @@ class TerrainObject
 	std::pair<float, float> m_globalPos;//position
 	std::pair<float, float> m_xBorder;
 	std::pair<float, float> m_yBorder;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 5>* m_texture;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 6>* m_texture;
 	int m_type;							//angle
 	std::vector<Block> m_block;
 	std::vector<int> m_blockType;//type
@@ -28,8 +28,9 @@ public:
 	void IceBlock(int type, int j,int typeblock);
 	void IceWaterBlock(int type, int j);
 	void LadderBlock(int type, int j);
+	void LavaBlock(int type, int j);
 	std::vector<Block>* GetBlocks();
-	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar, std::array<std::vector<std::array<KdTexture*,5>>,5>* textLib);
+	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar, std::array<std::vector<std::array<KdTexture*,5>>,6>* textLib);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar,std::vector<Block> block);
 	TerrainObject(const TerrainObject& object);
 	bool IsContain();

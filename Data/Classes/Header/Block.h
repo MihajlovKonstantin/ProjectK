@@ -25,6 +25,7 @@ public:
 	bool m_snowBlock = false;
 	bool m_backStage = false;
 	bool m_laderBlock = false;
+	bool m_lavaBlock = false;
 public:
 	void SetScroll(std::pair<int, int>* scroll);
 	void SetDeleteState(bool state);
