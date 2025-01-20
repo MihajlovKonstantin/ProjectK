@@ -113,7 +113,8 @@ void Application::InitDataFile()
 	mainMenu.InitMainMenu(dataFolderPath);
 	settingMenu.InitSetting();
 	WindowsData.Init();
-	selectPlaybleMapMenu.InitSelectMap(playebleMapList, mapFolderPath, dataFolderPath);
+	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
+	selectEditerMapMenu.InitSelectEditingMap(editerMapList, mapFolderPath, dataFolderPath);
 }
 void Application::MakeDataLink()
 {
@@ -208,7 +209,7 @@ void Application::LoadMapList()
 		}
 	}
 	inFile.close();
-	selectPlaybleMapMenu.InitSelectMap(playebleMapList, _path,dataFolderPath);
+	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, _path,dataFolderPath);
 
 
 	_path = "";
