@@ -38,8 +38,8 @@ private:
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
 	//BlockLib
-	static const int m_typeBlockNum = 5;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 5> m_blockLiblary;
+	static const int m_typeBlockNum = 6;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 6> m_blockLiblary;
 	//EnemyLib
 	static const int m_enemyNum = COUNTENS;
 	std::array<std::vector<KdTexture*>, 2> m_enemylibrary;
