@@ -1237,6 +1237,7 @@ void Scene::LoadMap()
 					std::getline(inFile, line, '\n');
 					type = stoi(line);
 					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type));
+					m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 					break;
 				case 3:
 					std::getline(inFile, line, ',');
@@ -1248,6 +1249,7 @@ void Scene::LoadMap()
 					std::getline(inFile, line, '\n');
 					num = stoi(line);
 					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type, interval, num));
+					m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 					break;
 				}
 		}
