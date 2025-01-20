@@ -16,6 +16,7 @@ protected:
 		bool OnIceFlag = false;
 		bool OnSnowFlag = false;
 		bool OnladerFlag = false;
+		bool OnLavaFlag = false;
 	};
 	float m_hp = 100.f, m_maxHP = 100.0f;
 	int animation = 0;
@@ -27,6 +28,7 @@ protected:
 	bool OnSnowBlockFlag = false;
 	bool OnIceBlockFlag = false;
 	bool OnLadderBlockFlag = false;
+	bool OnLavaBlockFlag = false;
 
 	std::vector<CollisionBlockData> m_collisionData;
 

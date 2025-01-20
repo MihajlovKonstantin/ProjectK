@@ -472,6 +472,10 @@ void Scene::CreateTerrainObject()
 					m_blocks[m_blocks.size() - 1].m_backStage = true;
 					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
 					break;
+				case BlockEditerSelect::Lava:
+					m_blocks[m_blocks.size() - 1].m_lavaBlock = true;
+					break;
+
 				}
 		}
 		m_blocks[j].SetScroll(&m_scroll);
@@ -1520,6 +1524,13 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 			}
 			_loadVector.push_back(_loadarray);
 			break;
+		case BlockEditerSelect::Lava:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_lavaTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
 		}
 		m_blockLiblary[i] = _loadVector;
 	}
@@ -1571,6 +1582,7 @@ void Scene::ImGuiUpdate()
 		{
 			ImGui::Text("Fly");
 		}
+
 		ImGui::Text("%d", m_player.GetDirection());
 		ImGui::Text("%f", m_player.GetAngle());
 		ImGui::Text("Mouse x %d", m_mouse.x);

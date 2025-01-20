@@ -158,6 +158,9 @@
     <ClInclude Include="Data\Classes\Header\Enemy.h" />
     <ClInclude Include="Data\Classes\Header\Spawner.h" />
     <ClInclude Include="Data\Classes\Header\Item.h" />
+    <ClInclude Include="Data\Classes\Header\Slime.h" />
+    <ClInclude Include="Data\Classes\Header\SnowBall.h" />
+    <ClInclude Include="Src\Application\BlockEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -238,6 +241,8 @@
     <ClCompile Include="Data\Classes\Sourse\Enemy.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Spawner.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Item.cpp" />
+    <ClCompile Include="Data\Classes\Sourse\Slime.cpp" />
+    <ClCompile Include="Data\Classes\Sourse\SnowBall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="説明.txt" />

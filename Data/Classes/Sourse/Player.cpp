@@ -155,6 +155,7 @@ void Player::Update()
 		m_currentCollisionValue = m_collisionData[index].collisionValue;
 		OnIceBlockFlag = m_collisionData[index].OnIceFlag;
 		OnSnowBlockFlag = m_collisionData[index].OnSnowFlag;
+		OnLavaBlockFlag = m_collisionData[index].OnLavaFlag;
 
 		if (m_rad < 0)
 		{
@@ -306,6 +307,12 @@ void Player::Update()
 	{
 		m_speed.first *= 1.5f;
 		m_speed.second *= 1;
+	}
+	if (OnLavaBlockFlag)
+	{
+		m_hp -= 5;
+		if(m_hp < 0)
+		m_hp = 0;
 	}
 	switch (m_direction)
 		{
@@ -495,6 +502,11 @@ void Player::Update()
 	if (OnIceBlockFlag == true)
 	{
 		OnIceBlockFlag = false;
+	}
+
+	if (OnLavaBlockFlag == true)
+	{
+		OnLavaBlockFlag = false;
 	}
 	m_collisionData.clear();
 }
@@ -830,7 +842,7 @@ bool Player::CollisionToBlock(Block block)
 		{
 			m_groundFlag = true;
 		}
-		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock});
+		m_collisionData.push_back({ (_bRad),_sideAngle,_bRad,{block.GetGPos()} ,{_dX,_dY},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock,block.m_lavaBlock } );
 
 	}
 	return _result;
