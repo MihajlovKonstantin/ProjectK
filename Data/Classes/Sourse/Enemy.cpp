@@ -24,6 +24,18 @@ void NPC::AIUpdate()	//プレイヤーを追尾する
 		if (m_player->GetGPos().first < m_gPos.first)Player::SetDirection(Left);
 		//右ver
 		else Player::SetDirection(Right);
+		if ((m_player->GetGPos().second > m_gPos.second)&&OnLadderBlockFlag&&(abs(m_player->GetGPos().second - m_gPos.second)> abs(m_player->GetGPos().first - m_gPos.first)))
+		{
+			Player::SetDirection(Up);
+		}
+		else
+		{
+			if (OnLadderBlockFlag && (abs(m_player->GetGPos().second - m_gPos.second) > abs(m_player->GetGPos().first - m_gPos.first)))
+			{
+				Player::SetDirection(Down);
+			}
+			
+		}
 	}
 	else Player::SetDirection(Stand);
 	

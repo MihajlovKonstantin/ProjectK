@@ -26,9 +26,31 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
-	
+	/*
+	if (m_moveBlock[3] && m_moveBlock[0])
+	{
+		if (!m_moveBlock[1] && !m_moveBlock[0])
+		{
+			Move(0.01f, 0.02f);
+		}
+	}
+	if (m_moveBlock[1] && m_moveBlock[0])
+	{
+		if (!m_moveBlock[3] && !m_moveBlock[0])
+		{
+			Move(-0.01f, 0.02f);
+		}
+	}
+	*/
+	if (!m_collisionData.empty())
+	{
+		if (m_moveBlock[0])
+		{
+			m_gPos.second =  int(m_gPos.second / 32)*32.0f;
+		}
+		
+	}
 	m_stopFlag = false;
-	//m_scale = { 1,1 };
 	
 	int index;
 	if (!m_collisionData.empty())
@@ -175,9 +197,15 @@ void Player::Update()
 	{
 		m_speed.second = 0;
 	}
-	else if((!m_collisionData.empty())&&(!m_collisionData[0].BackStage))
+	else if((!m_collisionData.empty()))
 	{
-		m_jumpPower = 0.0f;
+		{
+			if (m_moveBlock[2])
+			{
+				m_jumpPower = 0.0f;
+			}
+		}
+		
 		m_speed.second = m_speedBase.second;
 	}
 	else

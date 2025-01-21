@@ -21,15 +21,25 @@ void Slime::Update()
 	Discovery();
 	if (m_discovery)	//�v���C���[��������
 	{
+		int _coolTime = 10;
+		int _coolTimeMax = 10;
 		if (m_jumpCoolTime-- < 0)
 		{
 			Jump();
 			m_onGroundFlag = false;
 			m_groundFlag = false;
 			m_jumpCoolTime = m_slimeJumpCoolTime;
+			_coolTime = 0;
+		}
+		else
+		{
+			_coolTime++;
 		}
 		//�X���C���̓W�����v���̂ݓ����Ăق���
-		(m_groundFlag) ? m_emyMoveFlg = false : m_emyMoveFlg = true;
+		if (_coolTime >= _coolTimeMax)
+		{
+			(m_groundFlag) ? m_emyMoveFlg = false : m_emyMoveFlg = true;
+		}
 		if (OnLadderBlockFlag) m_emyMoveFlg = true;
 	}
 	

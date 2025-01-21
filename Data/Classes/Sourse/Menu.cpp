@@ -112,7 +112,9 @@ void Menu::InitMainMenu(std::string dataPath)
 {
 	m_dataPath = dataPath;
 	buttons.clear();
-	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Start", 1.0f, 1, goScene, SelectPlaybleMap);
+	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 270.0f }, "Play", 1.0f, 1, goScene, SelectPlaybleMap);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Edit", 1.0f, 1, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,goScene,Option);
 	buttons.push_back(_newButton);
@@ -151,6 +153,8 @@ void Menu::InitInGameSetting()
 }
 void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string path,std::string dataPath)
 {
+	dirty = true;
+	selectedBlockData = 0;
 	IsSelectMapMenu = true;
 	m_dataPath = dataPath;
 	buttons.clear();
@@ -194,8 +198,8 @@ void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string p
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
 	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
-	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	//buttons.push_back(_newButton);
+	//_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
 	buttons.push_back(_newButton);
@@ -203,17 +207,17 @@ void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string p
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
-	buttons.push_back(_newButton);
 }
 void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string path, std::string dataPath)
 {
+	dirty = true;
+	selectedBlockData = 0;
 	IsSelectMapMenu = true;
 	m_dataPath = dataPath;
 	buttons.clear();
 	Button _newButton;
 	selectedPath = path;
-	newPath = dataPath + "\\EditMap";
+	newPath = dataPath + "\\Map";
 	int dX = 0, dY = 0;
 	for (size_t i = 0; i < mapList.size(); i++)
 	{

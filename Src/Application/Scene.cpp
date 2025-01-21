@@ -1149,6 +1149,8 @@ void Scene::SaveMap()
 	inFile.close();
 	outFile.close();
 
+	
+
 	std::string _dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
 	system(_dirFinder.c_str());
 	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
@@ -1161,6 +1163,15 @@ void Scene::SaveMap()
 		system(_dirFinder.c_str());
 		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
+		
+	}
+	_dirFinder = "del \"CurrentMap.map\"";
+	system(_dirFinder.c_str());
+	char buffer[1024];
+	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
+		std::string currentDir(buffer);
+		std::string newDir = " delete \"" + currentDir + "\\CurrentMap.map\"";
+		system(newDir.c_str());
 	}
 }
 
@@ -1176,6 +1187,7 @@ void Scene::LoadMap()
 		WC->SetMap(line);
 		getline(inFile, line);
 		WC->SetPath(line);
+		m_selectedPath = line;
 		getline(inFile, line);
 		RELEASE = stoi(line);
 		int x, y, angle, size, typeBlockSize, _buff;
@@ -1260,24 +1272,33 @@ void Scene::LoadMap()
 		
 		
 	}
-		inFile.close();
-		CLEARFLAG = false;
-		for (size_t i = 0; i < m_keyFlag.size(); i++)
-		{
-			m_keyFlag[i] = false;
-		}
-		switch (m_stageType)
-		{
-		case 0:
-			m_clearStateString = "";
-			break;
-		case 1:
-			m_clearStateString = "0/0";
-			m_clearExpress = m_clearStateString.c_str();
-			m_clearState[0] = 0;
-			break;
-		}
-		m_selectedMap = WC->GetMap();
+	inFile.close();
+	char buffer[1024];
+	if (getcwd(buffer, sizeof(buffer)) != nullptr)
+	{
+		std::string currentDir(buffer);
+		std::string newDir = " delete /Q \"" + currentDir + "\\CurrentMap.map\"";
+		system(newDir.c_str());
+	}
+	CLEARFLAG = false;
+	for (size_t i = 0; i < m_keyFlag.size(); i++)
+	{
+		m_keyFlag[i] = false;
+	}
+	switch (m_stageType)
+	{
+	case 0:
+		m_clearStateString = "";
+		break;
+	case 1:
+		m_clearStateString = "0/0";
+		m_clearExpress = m_clearStateString.c_str();
+		m_clearState[0] = 0;
+		break;
+	}
+	m_selectedMap = WC->GetMap();
+	std::string _dirFinder = "del \"CurrentMap.map\"";
+	system(_dirFinder.c_str());
 }
 
 void Scene::Update()

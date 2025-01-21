@@ -114,13 +114,14 @@ void Application::InitDataFile()
 	settingMenu.InitSetting();
 	WindowsData.Init();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
-	selectEditerMapMenu.InitSelectEditingMap(editerMapList, mapFolderPath, dataFolderPath);
+	selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
 }
 void Application::MakeDataLink()
 {
 	mainMenu.AddData(WindowsData);
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
+	selectEditerMapMenu.AddData(WindowsData);
 }
 
 // アプリケーション終了
@@ -195,6 +196,7 @@ void Application::LoadMapList()
 		}
 	}
 
+	playebleMapList.clear();
 	std::string _dirFinder = "dir \"" + _path + "\" *.map /b  > temp1.txt";
 	system(_dirFinder.c_str());
 	std::ifstream inFile("temp1.txt");
@@ -211,7 +213,7 @@ void Application::LoadMapList()
 	inFile.close();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, _path,dataFolderPath);
 
-
+	editerMapList.clear();
 	_path = "";
 	_path += dataFolderPath;
 	_path += "\\EditMap";
@@ -590,6 +592,7 @@ void Application::Execute()
 			}
 			baseTime = timeGetTime();
 			count = 0;
+			SCENE.LoadMap();
 			do
 			{
 				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
@@ -610,11 +613,24 @@ void Application::Execute()
 			break;
 		case WindowsControl::SelectPlayebleMapMenu:
 			lastSelectedPath = mapFolderPath;
+			LoadMapList();
+			selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
 			do
 			{
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectPlaybleMapMenu.Update();
 				MenuExecute(selectPlaybleMapMenu);
+			} while ((m_endFlagWindows != true));
+			break;
+		case WindowsControl::SelectEditerMapMenu:
+			lastSelectedPath = mapFolderPath;
+			LoadMapList();
+			selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
+			do
+			{
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
+				selectEditerMapMenu.Update();
+				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
 		default:

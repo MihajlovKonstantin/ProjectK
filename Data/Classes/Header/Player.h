@@ -57,7 +57,7 @@ protected:
 	bool m_groundFlag;
 	bool m_collision;
 	Direction m_direction;
-	std::pair<float, float> m_currentSpeed;
+	std::pair<float, float> m_currentSpeed = { 0,-1 };
 	bool IsPossibleAngle(float radian);
 	bool m_secondJumpFlg = false;
 	bool m_notJumpFlg;
