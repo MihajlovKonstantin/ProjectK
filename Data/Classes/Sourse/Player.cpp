@@ -328,19 +328,18 @@ void Player::Update()
 	m_speed.first = m_speedBase.first;
 	if (OnIceBlockFlag)
 	{
-		m_speed.first *= 0.5f;
+		m_speed.first *= 0.7f;
 		m_speed.second *= 1;
 	}
 	if (OnSnowBlockFlag)
 	{
-		m_speed.first *= 1.5f;
+		m_speed.first *= 1.8f;
 		m_speed.second *= 1;
 	}
 	if (OnLavaBlockFlag)
 	{
 		m_hp -= 5;
-		if(m_hp < 0)
-		m_hp = 0;
+		if(m_hp < 0)m_hp = 0;
 	}
 	switch (m_direction)
 		{
@@ -1037,4 +1036,14 @@ void Player::SetScroll(std::pair<int, int>* scroll)
 std::pair<float, float> Player::GetGPos()
 {
 	return m_gPos;
+}
+
+void Player::SetHp(float hp)
+{
+	m_hp = hp;
+}
+
+float Player::GetHp()
+{
+	return m_hp;
 }

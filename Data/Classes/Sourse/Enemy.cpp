@@ -46,6 +46,7 @@ void NPC::AIUpdate()	//ƒvƒŒƒCƒ„[‚ğ’Ç”ö‚·‚é
 		m_currentCollisionValue = -1.0f;
 	}
 	m_groundFlag = m_onGroundFlag;
+	Hit();
 	Player::Update();
 }
 
@@ -54,9 +55,12 @@ void NPC::BotUpdate()	//“¯‚¶“®‚«‚ğŒJ‚è•Ô‚·
 	if (m_groundFlag)
 		m_onGroundFlag = true;
 
-	//•Ç‚É“–‚½‚é‚ÆŒü‚«‚ğ•Ï‚¦‚é
-	if (!m_directionFlg)Player::SetDirection(Left);
-	else Player::SetDirection(Right);
+	if (!m_snowBallFlg)
+	{
+		//•Ç‚É“–‚½‚é‚ÆŒü‚«‚ğ•Ï‚¦‚é
+		if (!m_directionFlg)Player::SetDirection(Left);
+		else Player::SetDirection(Right);
+	}
 
 	if (m_stopFlag)m_directionFlg != m_directionFlg;
 
@@ -67,6 +71,7 @@ void NPC::BotUpdate()	//“¯‚¶“®‚«‚ğŒJ‚è•Ô‚·
 		m_currentCollisionValue = -1.0f;
 	}
 	m_groundFlag = m_onGroundFlag;
+	Hit();
 	Player::Update();
 }
 
@@ -263,6 +268,13 @@ void NPC::Hit()
 
 	float _distance = sqrt(_hight * _hight + _width * _width);
 
-	if (_distance < 16)m_hitFlg = true;
-	else m_hitFlg = false;
+	//–³“GŠÔ
+	if (m_hitCooltime-- < 0)m_hitCooltime = 0;
+
+	if (_distance < 16 && m_hitCooltime == 0)
+	{
+		m_player->SetHp(m_player->GetHp() - 10);
+		m_hitCooltime = m_hitHpCoolTime;
+	}
+	
 }
