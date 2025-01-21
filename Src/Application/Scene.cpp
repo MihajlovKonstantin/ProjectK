@@ -483,6 +483,10 @@ void Scene::CreateTerrainObject()
 					m_blocks[m_blocks.size() - 1].m_backStage = true;
 					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
 					break;
+				case BlockEditerSelect::Lava:
+					m_blocks[m_blocks.size() - 1].m_lavaBlock = true;
+					break;
+
 				}
 		}
 		m_blocks[j].SetScroll(&m_scroll);
@@ -1269,6 +1273,7 @@ void Scene::LoadMap()
 					std::getline(inFile, line, '\n');
 					type = stoi(line);
 					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type));
+					m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 					break;
 				case 3:
 					std::getline(inFile, line, ',');
@@ -1280,6 +1285,7 @@ void Scene::LoadMap()
 					std::getline(inFile, line, '\n');
 					num = stoi(line);
 					m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type, interval, num));
+					m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 					break;
 				}
 		}
@@ -1552,6 +1558,13 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 			}
 			_loadVector.push_back(_loadarray);
 			break;
+		case BlockEditerSelect::Lava:
+			for (int l = 0; l < 5; l++)
+			{
+				_loadarray[l] = (&m_lavaTex[l]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
 		}
 		m_blockLiblary[i] = _loadVector;
 	}
@@ -1603,6 +1616,7 @@ void Scene::ImGuiUpdate()
 		{
 			ImGui::Text("Fly");
 		}
+
 		ImGui::Text("%d", m_player.GetDirection());
 		ImGui::Text("%f", m_player.GetAngle());
 		ImGui::Text("Mouse x %d", m_mouse.x);

@@ -1,1 +1,2 @@
+NewMap.map
 CurrentMap.map
