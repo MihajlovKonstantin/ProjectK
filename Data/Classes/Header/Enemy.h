@@ -16,9 +16,11 @@ protected:
     bool m_onGroundFlag;
     bool m_directionFlg = false;
     bool m_emyMoveFlg = true;
-    bool m_hitFlg = false;
+    bool m_snowBallFlg = false;
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;
+    static const int m_hitHpCoolTime = 20;
+    int m_hitCooltime = m_hitHpCoolTime;
     std::vector<TerrainObject>* m_allTerrain;
     std::vector<TerrainObject*> m_terrain;
     std::vector<DirectX::BoundingBox> m_box;

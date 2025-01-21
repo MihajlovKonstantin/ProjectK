@@ -240,13 +240,24 @@ void Scene::DynamicDraw2D()
 		
 		for (int i = 0; i < m_spawner.size(); i++)
 		{
-			auto test = m_spawner[i].GetSlime();
+			auto _slime = m_spawner[i].GetSlime();
 
-			for (int j = 0; test->size() > j; j++)
+			for (int j = 0; _slime->size() > j; j++)
 			{
-				auto _matrix = test->at(j).GetMatrix();
-				auto _texture = test->at(j).GetTexture();
-				auto _rect = test->at(j).GetRect();
+				auto _matrix = _slime->at(j).GetMatrix();
+				auto _texture = _slime->at(j).GetTexture();
+				auto _rect = _slime->at(j).GetRect();
+				SHADER.m_spriteShader.SetMatrix(_matrix);
+				SHADER.m_spriteShader.DrawTex(_texture, _rect);
+			}
+
+			auto _snowBall = m_spawner[i].GetSnowBall();
+			
+			for (int j = 0; j < _snowBall->size(); j++)
+			{
+				auto _matrix = _snowBall->at(j).GetMatrix();
+				auto _texture = _snowBall->at(j).GetTexture();
+				auto _rect = _snowBall->at(j).GetRect();
 				SHADER.m_spriteShader.SetMatrix(_matrix);
 				SHADER.m_spriteShader.DrawTex(_texture, _rect);
 			}
@@ -734,6 +745,27 @@ void Scene::UpdateGameScene()
 						if (m_testCollision)
 						{
 							_slimeArr->at(k).SetOnGroundFlag(true);
+						}
+					}
+				}
+			}
+		}
+
+		auto _snowBzllArr = m_spawner[i].GetSnowBall();
+		for (int k = 0; k < _snowBzllArr->size(); k++)
+		{
+			for (int m = 0; m < m_terrain.size(); m++)
+			{
+				if (m_terrain[m].OnCollisionRange(_snowBzllArr->at(k).GetGPos()))
+				{
+					auto _blocks = m_terrain[m].GetBlocks();
+					for (int j = 0; j < _blocks->size(); j++)
+					{
+						auto _block = _blocks->at(j);
+						m_testCollision = _snowBzllArr->at(k).CollisionToBlock(_block);
+						if (m_testCollision)
+						{
+							_snowBzllArr->at(k).SetOnGroundFlag(true);
 						}
 					}
 				}

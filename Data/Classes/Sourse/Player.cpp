@@ -998,3 +998,13 @@ std::pair<float, float> Player::GetGPos()
 {
 	return m_gPos;
 }
+
+void Player::SetHp(float hp)
+{
+	m_hp = hp;
+}
+
+float Player::GetHp()
+{
+	return m_hp;
+}

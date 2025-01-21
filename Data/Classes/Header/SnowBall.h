@@ -11,10 +11,12 @@ private:
     static const int m_regenerationTime = 60 * 3;
     int m_regenerationCoolTime = m_regenerationTime;
     bool m_onlyFlg = false;
+    bool m_rightFlg = false;
+    bool m_leftFlg = true;
 
 public:
 
-    SnowBall(KdTexture* texture, std::pair<float, float> pos, std::pair<float, float>speed = { 2,3 });
+    SnowBall(KdTexture* texture, std::pair<float, float> pos, std::pair<float, float>speed = {1.5,-2 });
     ~SnowBall() {};
 
     void Update();

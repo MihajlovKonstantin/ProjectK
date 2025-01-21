@@ -77,4 +77,6 @@ public:
 	bool GetOnLadderFlag();
 	void SetScroll(std::pair<int, int>* scroll);
 	std::pair<float, float> GetGPos();
+	void SetHp(float hp);
+	float GetHp();
 };
