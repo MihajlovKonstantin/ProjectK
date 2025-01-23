@@ -553,7 +553,6 @@ bool Player::CollisionToBlock(Block block)
 	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
 	_position.second = __buffer.first * sin(_bRad) + cos(_bRad) * __buffer.second;
 
-	//float _dX = 0.0f, _dY = 0.0f;
 	
 	
 	_bPos = { 0,0 };
@@ -712,128 +711,7 @@ bool Player::CollisionToBlock(Block block)
 				_sideAngle = m_sideRad;
 			}
 		}
-		/*
-			switch (m_direction)
-			{
-			case Right:
-				
-					
-				if (_sideAngle == 0)
-				{
-					if ((_playerBox.Center.y - 16.0f) < 16.0f)
-					{
-						_dY = 16.0f - (_playerBox.Center.y - 16.0f);
-						_dX = _dY * sin(_bRad);
-						_dY *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI))
-				{
-					if ((_playerBox.Center.y + 16.0f) > -16.0f)
-					{
-						_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
-						_dX = _dY * sin(_bRad);
-						_dY *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI) * 0.5f)
-				{
-					if ((_playerBox.Center.x + 16.0f) > -16.0f)
-					{
-						_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
-						_dY = -_dX * sin(_bRad);
-						_dX *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI) * 1.5f)
-				{
-					if ((_playerBox.Center.x - 16.0f) < 16.0f)
-					{
-						_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
-						_dY = -_dX * sin(_bRad);
-						_dX *= cos(_bRad);
-					}
-				}
-				break;
-			case Left:
-				
-				if (_sideAngle == 0)
-				{
-					if ((_playerBox.Center.y - 16.0f) < 16.0f)
-					{
-						_dY = 16.0f - (_playerBox.Center.y - 16.0f);
-						_dX = _dY * sin(_bRad);
-						_dY *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI))
-				{
-					if ((_playerBox.Center.y + 16.0f) > -16.0f)
-					{
-						_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
-						_dX = _dY * sin(_bRad);
-						_dY *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI) * 0.5f)
-				{
-					if ((_playerBox.Center.x + 16.0f) > -16.0f)
-					{
-						_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
-						_dY = -_dX * sin(_bRad);
-						_dX *= cos(_bRad);
-					}
-				}
-				if (_sideAngle == float(M_PI) * 1.5f)
-				{
-					if ((_playerBox.Center.x - 16.0f) < 16.0f)
-					{
-						_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
-						_dY = -_dX * sin(_bRad);
-						_dX *= cos(_bRad);
-					}
-				}
-				break;
-			}
-
-			if (_sideAngle == 0)
-			{
-				if ((_playerBox.Center.y - 16.0f) < 16.0f)
-				{
-					_dY = 16.0f - (_playerBox.Center.y - 16.0f);
-					_dX = _dY * sin(_bRad);
-					_dY *= cos(_bRad);
-				}
-			}
-			if (_sideAngle == float(M_PI))
-			{
-				if ((_playerBox.Center.y + 16.0f) > -16.0f)
-				{
-					_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
-					_dX = _dY * sin(_bRad);
-					_dY *= cos(_bRad);
-				}
-			}
-			if (_sideAngle == float(M_PI) * 0.5f)
-			{
-				if ((_playerBox.Center.x + 16.0f) > -16.0f)
-				{
-					_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
-					_dY = -_dX * sin(_bRad);
-					_dX *= cos(_bRad);
-				}
-			}
-			if (_sideAngle == float(M_PI) * 1.5f)
-			{
-				if ((_playerBox.Center.x - 16.0f) < 16.0f)
-				{
-					_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
-					_dY = -_dX * sin(_bRad);
-					_dX *= cos(_bRad);
-				}
-			}
-			*/
-
+		
 		switch (m_direction)
 		{
 		case Left:
