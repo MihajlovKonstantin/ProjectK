@@ -4,6 +4,8 @@ class Slime :
     public NPC
 {
 private:
+    int _coolTime = 10;
+    int _coolTimeMax = 10;
     static const int m_slimeJumpCoolTime = 60;
     int m_jumpCoolTime = m_slimeJumpCoolTime;
 

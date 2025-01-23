@@ -15,7 +15,7 @@ protected:
     bool m_result = false;
     bool m_onGroundFlag;
     bool m_directionFlg = false;
-    bool m_emyMoveFlg = true;
+    bool m_emyMoveFlg = false;
     bool m_snowBallFlg = false;
     int m_discoveryDistance = 200;
     int m_discoveryCoolTime = 30;

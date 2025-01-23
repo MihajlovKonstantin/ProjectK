@@ -18,9 +18,9 @@ void PC::Init(std::pair<float, float>pos)
 {
 	
 	m_gPos = pos;
+	m_hp = m_maxHP;
 	m_rad = 0;
 	m_sideRad = -1.0f;
-	m_currentCollisionValue = -1.0f;
 	m_groundFlag = false;
 	Update();
 	m_mRotation = Math::Matrix::CreateRotationZ(0);
@@ -43,13 +43,11 @@ void PC::Update()
 	case Direction::Right:
 		break;
 	}
-	if (!m_onGroundFlag)
+	if (!m_groundFlag)
 	{
 		m_sideRad = -1;
 		m_rad = 0;
-		m_currentCollisionValue = -1.0f;
 	}
-	m_groundFlag = m_onGroundFlag;
 	Player::Update();
 }
 

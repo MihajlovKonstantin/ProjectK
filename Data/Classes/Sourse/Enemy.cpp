@@ -43,7 +43,6 @@ void NPC::AIUpdate()	//ƒvƒŒƒCƒ„[‚ğ’Ç”ö‚·‚é
 	{
 		m_sideRad = -1;
 		m_rad = 0;
-		m_currentCollisionValue = -1.0f;
 	}
 	m_groundFlag = m_onGroundFlag;
 	Hit();
@@ -62,15 +61,12 @@ void NPC::BotUpdate()	//“¯‚¶“®‚«‚ğŒJ‚è•Ô‚·
 		else Player::SetDirection(Right);
 	}
 
-	if (m_stopFlag)m_directionFlg != m_directionFlg;
 
-	if (!m_onGroundFlag)
+	if (!m_groundFlag)
 	{
 		m_sideRad = -1;
 		m_rad = 0;
-		m_currentCollisionValue = -1.0f;
 	}
-	m_groundFlag = m_onGroundFlag;
 	Hit();
 	Player::Update();
 }

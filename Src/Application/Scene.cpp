@@ -34,10 +34,23 @@ void Scene::Draw2D()
 		case EditerSelect::CharaMenu:
 			_string[0] += "Chara";
 			break;
+		case EditerSelect::StageTypeMenu:
+			_string[0] += "StageType";
 			break;
 		}
 		switch (m_editerMenuIndex)
 		{
+		case EditerSelect::StageTypeMenu:
+			switch (m_unitType)
+			{
+			case StageTypeSelect::Base:
+				_string[1] += "Base";
+				break;
+			case StageTypeSelect::KeyCollect:
+				_string[1] += "Key";
+				break;
+			}
+			break;
 		case EditerSelect::BlockMenu:
 			_string[1] = "CurrentBlockType ";
 			switch (m_unitType)
@@ -133,19 +146,35 @@ void Scene::Draw2D()
 		DrawString(300, 200, _text[2], { 0, 0, 0, 1 }, 0.5f);
 		
 	}
-	
-	if (CLEARFLAG)
+	if (!WC->IsPause())
 	{
-		DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
-	}
-	else
-	{
-		if (m_stageType == 1)
+		if (CLEARFLAG)
 		{
-			DrawString(-300, 300, m_clearExpress, { 1,0,0,1 }, 2.0f);
+			DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
+		}
+		else
+		{
+			if (m_stageType == 1)
+			{
+				DrawString(-300, 300, m_clearExpress, { 1,0,0,1 }, 2.0f);
+
+			}
+		}
+		if ((m_player.GetHp() <= 0) && (!CLEARFLAG))
+		{
+			SHADER.m_spriteShader.DrawString(0, 0, "GameOver", { 0,0,1,1 });
+		}
+		else
+		{
+			if (!CLEARFLAG)
+			{
+				m_hpBar = to_string(int(m_player.GetHp())) + "/100";
+				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);
+			}
 
 		}
 	}
+	
 }
 
 void Scene::DrawButton(Button inputButton)
@@ -244,6 +273,10 @@ void Scene::DynamicDraw2D()
 
 			for (int j = 0; _slime->size() > j; j++)
 			{
+				if (SC->GetEditMode())
+				{
+					_slime->at(j).UpdateTransMat();
+				}
 				auto _matrix = _slime->at(j).GetMatrix();
 				auto _texture = _slime->at(j).GetTexture();
 				auto _rect = _slime->at(j).GetRect();
@@ -255,6 +288,10 @@ void Scene::DynamicDraw2D()
 			
 			for (int j = 0; j < _snowBall->size(); j++)
 			{
+				if (SC->GetEditMode())
+				{
+					_snowBall->at(j).UpdateTransMat();
+				}
 				auto _matrix = _snowBall->at(j).GetMatrix();
 				auto _texture = _snowBall->at(j).GetTexture();
 				auto _rect = _snowBall->at(j).GetRect();
@@ -659,46 +696,49 @@ void Scene::UpdateGameScene()
 		m_player.SetDirection(Direction::Stand);
 	}
 
-	
-	if (GetAsyncKeyState(VK_RIGHT))
+	if ((m_player.GetHp() > 0) && (!CLEARFLAG))
 	{
-		if (!m_leftFlg)
+		if (GetAsyncKeyState(VK_RIGHT))
 		{
-			m_rightFlg = true;
-			m_player.SetDirection(Direction::Right);
-		}	
-	}
-	else m_rightFlg = false;
-	
-	if (GetAsyncKeyState(VK_UP))
-	{
-		if ((!m_downFlg)&&(m_player.GetOnLadderFlag()))
-		{
+			if (!m_leftFlg)
+			{
+				m_rightFlg = true;
+				m_player.SetDirection(Direction::Right);
+			}
+		}
+		else m_rightFlg = false;
 
-			m_upFlg = true;
-			m_player.SetDirection(Direction::Up);
-		}
-	}
-	else m_upFlg = false;
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+		if (GetAsyncKeyState(VK_UP))
 		{
-			m_downFlg = true;
-			m_player.SetDirection(Direction::Down);
+			if ((!m_downFlg) && (m_player.GetOnLadderFlag()))
+			{
+
+				m_upFlg = true;
+				m_player.SetDirection(Direction::Up);
+			}
 		}
+		else m_upFlg = false;
+		if (GetAsyncKeyState(VK_DOWN))
+		{
+			if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+			{
+				m_downFlg = true;
+				m_player.SetDirection(Direction::Down);
+			}
+		}
+		else m_downFlg = false;
+
+		if (GetAsyncKeyState(VK_SPACE))
+		{
+			if (!m_jumpFlg)
+			{
+				m_player.Jump();
+				m_jumpFlg = true;
+			}
+		}
+		else m_jumpFlg = false;
 	}
-	else m_downFlg = false;
 	
-	if (GetAsyncKeyState(VK_SPACE))
-	{
-		if (!m_jumpFlg)
-		{
- 			m_player.Jump();
-			m_jumpFlg = true;
-		}
-	}
-	else m_jumpFlg = false;
 	for (int i = 0; i < m_item.size(); i++)
 	{
 		if (m_player.CollisionToItem(&m_item[i]))
@@ -929,6 +969,9 @@ void Scene::UpdateEditScene()
 			case EditerSelect::CharaMenu:
 				_maxType = SpawnerSelect::COUNTSS;
 				break;
+			case EditerSelect::StageTypeMenu:
+				_maxType = 2;
+				break;
 			}
 			if (m_unitType >= _maxType)
 			{
@@ -953,6 +996,9 @@ void Scene::UpdateEditScene()
 				break;
 			case EditerSelect::CharaMenu:
 				_maxType = SpawnerSelect::COUNTSS;
+				break;
+			case EditerSelect::StageTypeMenu:
+				_maxType = 2;
 				break;
 			}
 			if (m_unitType < 0)
@@ -989,6 +1035,9 @@ void Scene::UpdateEditScene()
 				CreateItem();
 				m_drawStartBool = false;
 				break;
+			case StageTypeMenu:
+				m_stageType = m_unitType;
+				break;
 			}
 		}
 	}
@@ -1011,6 +1060,7 @@ void Scene::UpdateEditScene()
 		}
 	}
 	m_blocks.clear();
+	m_player.UpdateTransMat();
 }
 
 int Scene::MaxTypeBlock(int index)
@@ -1226,6 +1276,7 @@ void Scene::SaveMap()
 
 void Scene::LoadMap()
 {
+	SC->SetEditMode(false);
 	std::ifstream inFile(m_dataPath+"\\CurrentMap.map");
 	m_terrain.clear();
 	m_spawner.clear();
@@ -1411,7 +1462,21 @@ void Scene::Update()
 		
 		if ((GetAsyncKeyState('E') && !m_controlButtonClick))
 		{
-			SC->SetEditMode(!SC->GetEditMode());
+			if (RELEASE == 0)
+			{
+				SC->SetEditMode(!SC->GetEditMode());
+			}
+			else
+			{
+				if (WC->IsPause())
+				{
+					WC->Resume();
+				}
+				else
+				{
+					WC->PauseGame();
+				}
+			}
 			m_controlButtonClick = true;
 		};
 		if (!WC->IsPause())
@@ -1640,7 +1705,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	//return;
+	return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);

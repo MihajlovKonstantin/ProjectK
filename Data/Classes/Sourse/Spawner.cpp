@@ -86,7 +86,7 @@ void Spawner::Update()
 		m_spawnFlg = true;
 		break;
 	case EnemysType:	//“G(•¡”)
-		if (m_enemy.size() < m_num)
+		if (m_slimes.size()+m_snowBall.size() < m_num)
 		{
 			cnt++;
 			if (cnt < m_interval) {}
@@ -120,12 +120,28 @@ void Spawner::Update()
 	for (int j = 0; j < m_slimes.size(); j++)
 	{
 		m_slimes[j].Update();
+		if (m_slimes[j].GetHp() == 0)
+		{
+			m_slimes.erase(m_slimes.begin() + j);
+		}
+		else
+		{
+			j++;
+		}
 		//m_slimes[j].Discovery();
 	}
-	for (int k = 0; k < m_snowBall.size(); k++)
+	for (int k = 0; k < m_snowBall.size();)
 	{
 		m_snowBall[k].Update();
-		m_snowBall[k].Discovery();
+		if (m_snowBall[k].GetHp() == 0)
+		{
+			m_snowBall.erase(m_snowBall.begin() + k);
+		}
+		else
+		{
+			k++;
+		}
+		//m_snowBall[k].Discovery();
 	}
 }
 	

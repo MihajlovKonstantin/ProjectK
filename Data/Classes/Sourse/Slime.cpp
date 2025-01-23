@@ -19,25 +19,25 @@ void Slime::Update()
 {
 	if (m_discovery)	//プレイヤー発見判定
 	{
-		int _coolTime = 10;
-		int _coolTimeMax = 10;
+		
 		if (m_jumpCoolTime-- < 0)
 		{
 			Jump();
 			m_onGroundFlag = false;
 			m_groundFlag = false;
 			m_jumpCoolTime = m_slimeJumpCoolTime;
-			_coolTime = 0;
+			_coolTime = 1;
 		}
 		else
 		{
 			_coolTime++;
 		}
 		//�X���C���̓W�����v���̂ݓ����Ăق���
-		if (_coolTime >= _coolTimeMax)
+		if (_coolTime < _coolTimeMax)
 		{
 			(m_groundFlag) ? m_emyMoveFlg = false : m_emyMoveFlg = true;
 		}
+		if (m_groundFlag) m_emyMoveFlg = false;
 		if (OnLadderBlockFlag) m_emyMoveFlg = true;
 	}
 	

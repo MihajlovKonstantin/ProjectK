@@ -10,12 +10,13 @@ private:
 	int m_selectedUnitVariant = 0;
 	//enum
 	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
-	enum EditerSelect { COUNTES = 3, BlockMenu = 0, CharaMenu, ItemMenu };
+	enum EditerSelect { COUNTES = 4, BlockMenu = 0, CharaMenu, ItemMenu,StageTypeMenu };
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
 	enum BlockEditerSelect { COUNTBES = 6, Ground = 1, Ice, IceWater ,Ladder ,Lava};
+	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
@@ -95,6 +96,9 @@ private:
 	int m_clearState[2];
 	std::string m_clearStateString;
 	const char* m_clearExpress = m_clearStateString.c_str();
+
+	std::string m_hpBar;
+	const char* m_hpBarExpress = m_hpBar.c_str();
 	bool CLEARFLAG = false;
 	Menu m_inGameSetting;
 	Stage m_stage;

@@ -9,7 +9,6 @@ protected:
 	{
 		float rad;
 		float sideRad;
-		float collisionValue;
 		std::pair<float, float> pos;
 		std::pair<float, float>dPos;
 		bool BackStage = false;
@@ -18,67 +17,76 @@ protected:
 		bool OnladerFlag = false;
 		bool OnLavaFlag = false;
 	};
+	//stats
 	float m_hp = 100.f, m_maxHP = 100.0f;
-	int animation = 0;
 	float m_jumpPower = 0.0f;
 	float m_jumpSpeed = 3.0f;
 	float m_secondJumpSpeed = 2.0f;
+	bool m_secondJumpFlg = false;
+	bool m_notJumpFlg;
+	std::pair<float, float> m_speed;//speed after mods
+	std::pair<float, float> m_speedBase;//basic speed
+	std::pair<float, float> m_currentSpeed = { 0,-1 };//speed with angle comp
+	std::pair<float, float> m_pos;//screen pos
+	std::pair<float, float> m_gPos;//world pos
+
+	Direction m_direction;
+	
+	bool m_aliveFlg = true;
+	//graphic
+	int animation = 0;
+	std::pair<int, int> _scroll = { 0,0 };
+	std::pair<int, int>* m_scroll = &_scroll;
+	KdTexture* m_texture;
+
+	Math::Matrix m_mTrans;
+	Math::Matrix m_mRotation;
+	Math::Matrix m_mScale;
+	Math::Matrix m_matrix;
+
+	Math::Rectangle m_rectangle = Math::Rectangle(0, 33, 32, 32);
+
+	//collision
 	bool m_moveBlock[4] = {false,false,false,false};
-	bool m_stopFlag;
+	std::vector<CollisionBlockData> m_collisionData;
+
 	bool OnSnowBlockFlag = false;
 	bool OnIceBlockFlag = false;
 	bool OnLadderBlockFlag = false;
 	bool OnLavaBlockFlag = false;
 
-	std::vector<CollisionBlockData> m_collisionData;
-
-	
-	std::pair<float, float> m_pos;
-	std::pair<float, float> m_gPos;
-
-	std::pair<int, int> _scroll = { 0,0 };
-	std::pair<int, int>* m_scroll = &_scroll;
-
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
-	KdTexture* m_texture;
-	//std::pair<float, float>m_scale = { 1,1 };
-	Math::Matrix m_mTrans;
-	Math::Matrix m_mRotation;
-	Math::Matrix m_mScale;
-	Math::Matrix m_matrix;
-	Math::Rectangle m_rectangle = Math::Rectangle(0,33,32,32);
 	float m_rad = 0.0f;
-	float m_sideRad=-1.0f;
-	float m_currentCollisionValue = -1.0f;
-	std::pair<float, float> m_speed;
-	std::pair<float, float> m_speedBase;
-	virtual ~Player();
+	float m_sideRad = -1.0f;
+
 	bool m_groundFlag;
 	bool m_collision;
-	Direction m_direction;
-	std::pair<float, float> m_currentSpeed = { 0,-1 };
+	//Destructor
+	virtual ~Player();
+	//Legacy
 	bool IsPossibleAngle(float radian);
-	bool m_secondJumpFlg = false;
-	bool m_notJumpFlg;
-	bool m_aliveFlg = true;
+	
 public:
+	//Setter
+	float GetAngle();
+	void SetDirection(Direction direction);
+	void SetHp(float hp);
+	void SetScroll(std::pair<int, int>* scroll);
+	//Getter
+	bool GetOnGroundFlag();
+	bool GetOnLadderFlag();
 	Math::Rectangle GetRect();
+	Math::Matrix GetMatrix();
+	KdTexture* GetTexture();
+	std::pair<float, float> GetGPos();
+	float GetHp();
+	//Other
 	void Update();
 	void Jump();
 	bool CollisionToBlock(Block block);
-	bool CollisionToBlock(std::pair<float, float> b_pos, std::pair<float, float> b_size, float b_rad);
 	bool CollisionToItem(Item* item);
 	void Move(float x,float y);//�ړ��֐�
-	Math::Matrix GetMatrix();
-	KdTexture* GetTexture();
-	float GetAngle();
-	void SetDirection(Direction direction);
 	void CollisionClear();
-	bool GetOnGroundFlag();
-	bool GetOnLadderFlag();
-	void SetScroll(std::pair<int, int>* scroll);
-	std::pair<float, float> GetGPos();
-	void SetHp(float hp);
-	float GetHp();
+	void UpdateTransMat();
 };
