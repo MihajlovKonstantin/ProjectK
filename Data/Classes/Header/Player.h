@@ -10,7 +10,6 @@ protected:
 		float rad;
 		float sideRad;
 		std::pair<float, float> pos;
-		std::pair<float, float>dPos;
 		bool BackStage = false;
 		bool OnIceFlag = false;
 		bool OnSnowFlag = false;

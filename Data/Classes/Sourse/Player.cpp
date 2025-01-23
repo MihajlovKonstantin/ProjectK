@@ -26,6 +26,7 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
+	//if we in texture - push us away
 	if (!m_collisionData.empty())
 	{
 		if (m_moveBlock[0])
@@ -533,23 +534,32 @@ void Player::Jump()
 
 bool Player::CollisionToBlock(Block block)
 {
+	//result of function
 	bool _result = false;
+	//block Collision data
+	DirectX::BoundingBox _box;
 	std::pair<float, float> _bPos = block.GetGPos();
 	std::pair<float, float> _bSize = block.GetSize();
-	std::pair<float, float> _position;
-	DirectX::BoundingBox _sphere;
-	DirectX::BoundingBox _box;
 	float _sideAngle = 0.0f;
-	float _dX = 0.0f, _dY = 0.0f;
 	float _bRad = block.GetRad();
+	//player collision data
+	DirectX::BoundingBox _playerBox;
+	std::pair<float, float> _position;
+	//position after normalize with block without angle
 	_position.first = m_gPos.first - _bPos.first;
 	_position.second = m_gPos.second - _bPos.second;
-	_bPos = { 0,0 };
+	//after angle normalizing
 	std::pair<float, float>__buffer = { _position.first,_position.second };
 	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
 	_position.second = __buffer.first * sin(_bRad) + cos(_bRad) * __buffer.second;
 
-	_sphere = DirectX::BoundingBox(DirectX::XMFLOAT3(_position.first, _position.second, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
+	//float _dX = 0.0f, _dY = 0.0f;
+	
+	
+	_bPos = { 0,0 };
+	
+
+	_playerBox = DirectX::BoundingBox(DirectX::XMFLOAT3(_position.first, _position.second, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
 	_box = DirectX::BoundingBox(DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
 	std::array<DirectX::XMVECTOR, 4> _bOriginVector;
 	std::array<DirectX::XMVECTOR, 4> _bNorVector;
@@ -568,13 +578,13 @@ bool Player::CollisionToBlock(Block block)
 
 	for (int i = 0; i < 4; i++)
 	{
-		_intersectVector[i] = _sphere.Intersects(_bOriginVector[i], _bNorVector[i], _distanceBuf);
+		_intersectVector[i] = _playerBox.Intersects(_bOriginVector[i], _bNorVector[i], _distanceBuf);
 		if (_distanceBuf < _distance && _intersectVector[i])
 		{
 			_distance = _distanceBuf;
 		}
 	}
-	_result = _sphere.Intersects(_box);
+	_result = _playerBox.Intersects(_box);
 	if (!_result)
 	{
 		if (_distance <= 0)
@@ -608,7 +618,7 @@ bool Player::CollisionToBlock(Block block)
 			
 		}
 		_intersectNum++;
-		_absDelta[1] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+		_absDelta[1] = abs(abs(_playerBox.Center.x) - 32.0f) + abs(abs(_playerBox.Center.y) - 32.0f);
 	}
 
 	if (_intersectVector[3])
@@ -633,7 +643,7 @@ bool Player::CollisionToBlock(Block block)
 			
 		}
 		_intersectNum++;
-		_absDelta[3] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+		_absDelta[3] = abs(abs(_playerBox.Center.x) - 32.0f) + abs(abs(_playerBox.Center.y) - 32.0f);
 	}
 	if (_intersectVector[0])
 	{
@@ -650,7 +660,7 @@ bool Player::CollisionToBlock(Block block)
 			}
 		}
 		_intersectNum++;
-		_absDelta[0] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+		_absDelta[0] = abs(abs(_playerBox.Center.x) - 32.0f) + abs(abs(_playerBox.Center.y) - 32.0f);
 	}
 	if (_intersectVector[2])
 	{
@@ -666,7 +676,7 @@ bool Player::CollisionToBlock(Block block)
 			}
 		}
 		_intersectNum++;
-		_absDelta[2] = abs(abs(_sphere.Center.x) - 32.0f) + abs(abs(_sphere.Center.y) - 32.0f);
+		_absDelta[2] = abs(abs(_playerBox.Center.x) - 32.0f) + abs(abs(_playerBox.Center.y) - 32.0f);
 	}
 	if ((_bRad == m_rad)&&(m_sideRad!=-1))
 	{
@@ -702,6 +712,7 @@ bool Player::CollisionToBlock(Block block)
 				_sideAngle = m_sideRad;
 			}
 		}
+		/*
 			switch (m_direction)
 			{
 			case Right:
@@ -709,36 +720,36 @@ bool Player::CollisionToBlock(Block block)
 					
 				if (_sideAngle == 0)
 				{
-					if ((_sphere.Center.y - 16.0f) < 16.0f)
+					if ((_playerBox.Center.y - 16.0f) < 16.0f)
 					{
-						_dY = 16.0f - (_sphere.Center.y - 16.0f);
+						_dY = 16.0f - (_playerBox.Center.y - 16.0f);
 						_dX = _dY * sin(_bRad);
 						_dY *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI))
 				{
-					if ((_sphere.Center.y + 16.0f) > -16.0f)
+					if ((_playerBox.Center.y + 16.0f) > -16.0f)
 					{
-						_dY = -(16.0f - abs(_sphere.Center.y + 16.0f));
+						_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
 						_dX = _dY * sin(_bRad);
 						_dY *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI) * 0.5f)
 				{
-					if ((_sphere.Center.x + 16.0f) > -16.0f)
+					if ((_playerBox.Center.x + 16.0f) > -16.0f)
 					{
-						_dX = -(16.0f - abs(_sphere.Center.x + 16.0f));
+						_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
 						_dY = -_dX * sin(_bRad);
 						_dX *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI) * 1.5f)
 				{
-					if ((_sphere.Center.x - 16.0f) < 16.0f)
+					if ((_playerBox.Center.x - 16.0f) < 16.0f)
 					{
-						_dX = (16.0f - abs(_sphere.Center.x - 16.0f));
+						_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
 						_dY = -_dX * sin(_bRad);
 						_dX *= cos(_bRad);
 					}
@@ -748,36 +759,36 @@ bool Player::CollisionToBlock(Block block)
 				
 				if (_sideAngle == 0)
 				{
-					if ((_sphere.Center.y - 16.0f) < 16.0f)
+					if ((_playerBox.Center.y - 16.0f) < 16.0f)
 					{
-						_dY = 16.0f - (_sphere.Center.y - 16.0f);
+						_dY = 16.0f - (_playerBox.Center.y - 16.0f);
 						_dX = _dY * sin(_bRad);
 						_dY *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI))
 				{
-					if ((_sphere.Center.y + 16.0f) > -16.0f)
+					if ((_playerBox.Center.y + 16.0f) > -16.0f)
 					{
-						_dY = -(16.0f - abs(_sphere.Center.y + 16.0f));
+						_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
 						_dX = _dY * sin(_bRad);
 						_dY *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI) * 0.5f)
 				{
-					if ((_sphere.Center.x + 16.0f) > -16.0f)
+					if ((_playerBox.Center.x + 16.0f) > -16.0f)
 					{
-						_dX = -(16.0f - abs(_sphere.Center.x + 16.0f));
+						_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
 						_dY = -_dX * sin(_bRad);
 						_dX *= cos(_bRad);
 					}
 				}
 				if (_sideAngle == float(M_PI) * 1.5f)
 				{
-					if ((_sphere.Center.x - 16.0f) < 16.0f)
+					if ((_playerBox.Center.x - 16.0f) < 16.0f)
 					{
-						_dX = (16.0f - abs(_sphere.Center.x - 16.0f));
+						_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
 						_dY = -_dX * sin(_bRad);
 						_dX *= cos(_bRad);
 					}
@@ -787,40 +798,41 @@ bool Player::CollisionToBlock(Block block)
 
 			if (_sideAngle == 0)
 			{
-				if ((_sphere.Center.y - 16.0f) < 16.0f)
+				if ((_playerBox.Center.y - 16.0f) < 16.0f)
 				{
-					_dY = 16.0f - (_sphere.Center.y - 16.0f);
+					_dY = 16.0f - (_playerBox.Center.y - 16.0f);
 					_dX = _dY * sin(_bRad);
 					_dY *= cos(_bRad);
 				}
 			}
 			if (_sideAngle == float(M_PI))
 			{
-				if ((_sphere.Center.y + 16.0f) > -16.0f)
+				if ((_playerBox.Center.y + 16.0f) > -16.0f)
 				{
-					_dY = -(16.0f - abs(_sphere.Center.y + 16.0f));
+					_dY = -(16.0f - abs(_playerBox.Center.y + 16.0f));
 					_dX = _dY * sin(_bRad);
 					_dY *= cos(_bRad);
 				}
 			}
 			if (_sideAngle == float(M_PI) * 0.5f)
 			{
-				if ((_sphere.Center.x + 16.0f) > -16.0f)
+				if ((_playerBox.Center.x + 16.0f) > -16.0f)
 				{
-					_dX = -(16.0f - abs(_sphere.Center.x + 16.0f));
+					_dX = -(16.0f - abs(_playerBox.Center.x + 16.0f));
 					_dY = -_dX * sin(_bRad);
 					_dX *= cos(_bRad);
 				}
 			}
 			if (_sideAngle == float(M_PI) * 1.5f)
 			{
-				if ((_sphere.Center.x - 16.0f) < 16.0f)
+				if ((_playerBox.Center.x - 16.0f) < 16.0f)
 				{
-					_dX = (16.0f - abs(_sphere.Center.x - 16.0f));
+					_dX = (16.0f - abs(_playerBox.Center.x - 16.0f));
 					_dY = -_dX * sin(_bRad);
 					_dX *= cos(_bRad);
 				}
 			}
+			*/
 
 		switch (m_direction)
 		{
@@ -837,7 +849,7 @@ bool Player::CollisionToBlock(Block block)
 		{
 			m_groundFlag = true;
 		}
-		m_collisionData.push_back({ (_bRad),_sideAngle,{block.GetGPos()} ,{_dX,_dY},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock,block.m_lavaBlock } );
+		m_collisionData.push_back({ (_bRad),_sideAngle,{block.GetGPos()},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock,block.m_lavaBlock } );
 
 	}
 	return _result;
