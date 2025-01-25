@@ -42,7 +42,7 @@ void NPC::AIUpdate()	//ƒvƒŒƒCƒ„[‚ğ’Ç”ö‚·‚é
 	if (!m_onGroundFlag)
 	{
 		m_sideRad = -1;
-		m_rad = 0;
+		m_rad = -1;
 	}
 	m_groundFlag = m_onGroundFlag;
 	Hit();

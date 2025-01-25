@@ -18,5 +18,6 @@ public:
     int GetDirection();
     std::pair<float, float> GetPlayerPos();
     void SetPlayerPos(std::pair<float, float>pos);
+    bool GetMoveBlock(int index);
 };
 

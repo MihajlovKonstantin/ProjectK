@@ -778,10 +778,6 @@ void Scene::UpdateGameScene()
 			{
 				auto _block = _blocks->at(j);
 				m_testCollision = m_player.CollisionToBlock(_block);
-				if (m_testCollision)
-				{
-					m_player.SetOnGroundFlag(true);
-				}
 			}
 		}
 	}
@@ -791,6 +787,7 @@ void Scene::UpdateGameScene()
 	}
 	for (int i = 0; i < m_spawner.size(); i++)
 	{
+		
 		auto _slimeArr = m_spawner[i].GetSlime();
 		for (int k = 0; k < _slimeArr->size(); k++)
 		{
@@ -803,10 +800,6 @@ void Scene::UpdateGameScene()
 					{
 						auto _block = _blocks->at(j);
 						m_testCollision = _slimeArr->at(k).CollisionToBlock(_block);
-						if (m_testCollision)
-						{
-							_slimeArr->at(k).SetOnGroundFlag(true);
-						}
 					}
 				}
 			}
@@ -824,10 +817,6 @@ void Scene::UpdateGameScene()
 					{
 						auto _block = _blocks->at(j);
 						m_testCollision = _snowBzllArr->at(k).CollisionToBlock(_block);
-						if (m_testCollision)
-						{
-							_snowBzllArr->at(k).SetOnGroundFlag(true);
-						}
 					}
 				}
 			}
@@ -1705,7 +1694,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	return;
+	//return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);
@@ -1723,11 +1712,21 @@ void Scene::ImGuiUpdate()
 		{
 			ImGui::Text("Fly");
 		}
-
+		if (m_player.GetMoveBlock(0))
+		{
+			ImGui::Text("Yes");
+		}
+		else
+		{
+			ImGui::Text("No");
+		}
 		ImGui::Text("%d", m_player.GetDirection());
 		ImGui::Text("%f", m_player.GetAngle());
 		ImGui::Text("Mouse x %d", m_mouse.x);
 		ImGui::Text("Mouse y  %d", m_mouse.y);
+		ImGui::Text("Player x %f", m_player.GetGPos().first);
+		ImGui::Text("Player y  %f", m_player.GetGPos().second);
+		ImGui::Text("%d", m_player.GetColissionDataSize());
 	}
 	ImGui::Text("%f %f", m_player.GetPos().first, m_player.GetPos().second);
 	ImGui::End();

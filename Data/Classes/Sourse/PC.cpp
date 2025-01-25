@@ -88,3 +88,8 @@ void PC::SetPlayerPos(std::pair<float, float> pos)
 {
 	m_pos = pos;
 }
+
+bool PC::GetMoveBlock(int index)
+{
+	return m_moveBlockBuff[index];
+}
