@@ -292,6 +292,7 @@ void Player::Update()
 	{
 		m_groundFlag = true;
 		m_currentSpeed.second = 0;
+		m_speed.second = 0;
 	}
 	switch (m_direction)
 		{
@@ -369,6 +370,7 @@ void Player::Update()
 			m_currentSpeed.second = m_speed.second;
 			break;
 		}
+
 	if (m_rad == 0||(m_rad ==float(M_PI)*0.5f)|| (m_rad == float(M_PI) * 1.0f)|| (m_rad == float(M_PI) * 1.5f))
 	{
 		if (m_speed.second < 0)

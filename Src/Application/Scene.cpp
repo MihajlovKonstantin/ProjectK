@@ -306,6 +306,7 @@ void Scene::DynamicDraw2D()
 
 void Scene::CreateTerrainObject()
 {
+	bool _anglePossible = true;
 	float __dx = int((m_point[1].x - 640) / 32.0f) * 32.0f - int((m_point[0].x - 640) / 32.0f) * 32.0f;
 	(__dx < 1) && (__dx > -1) ? __dx = 32.0f : __dx = __dx;
 	float __dy = int((-m_point[1].y + 360) / 32.0f) * 32.0f - int((-m_point[0].y + 360) / 32.0f) * 32.0f;
@@ -362,10 +363,9 @@ void Scene::CreateTerrainObject()
 	}
 	if ((radian >= float(M_PI) * 2.0f - float(M_PI) / 16.0f) && (radian <= float(M_PI) * 2.0f))
 	{
-		radian = 2.0f * float(M_PI);
+		radian = 0.0f * float(M_PI);
 	}
 	buffer = int(radian / (float(M_PI) * 0.25f));
-	int _terrainType = m_unitType;
 	switch (m_unitType)
 	{
 	case BlockEditerSelect::Ground:
@@ -390,7 +390,7 @@ void Scene::CreateTerrainObject()
 		}
 
 		break;
-		
+
 	case BlockEditerSelect::Ice:
 		switch (m_selectedUnitVariant)
 		{
@@ -462,6 +462,7 @@ void Scene::CreateTerrainObject()
 		_currentTex = NULL;
 		break;
 	case BlockEditerSelect::Ladder:
+		_anglePossible = false;
 		_currentTex = &m_ladderTex[0];
 		break;
 	case BlockEditerSelect::Lava:
@@ -485,16 +486,21 @@ void Scene::CreateTerrainObject()
 		}
 		break;
 	}
+	if (buffer == 8)
+	{
+		buffer = 0;
+	}
 
-	
 	std::vector<int> _terrainTypeVector;
 	std::vector<int> _terrainVarVector;
 	m_blocks.clear();
 	for (int j = 0; j < i; j++)
 	{
-		_terrainTypeVector.push_back(_terrainType);
+		_terrainTypeVector.push_back(m_unitType);
 		_terrainVarVector.push_back(m_selectedUnitVariant);
 		{
+			if (_anglePossible)
+			{
 				switch (buffer)
 				{
 				case 0:
@@ -521,11 +527,8 @@ void Scene::CreateTerrainObject()
 				case 7:
 					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.75f));
 					break;
-				case 8:
-					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
-					break;
 				}
-				switch(m_unitType)
+				switch (m_unitType)
 				{
 				case BlockEditerSelect::Ice:
 					m_blocks[m_blocks.size() - 1].m_iceBlock = true;
@@ -542,10 +545,46 @@ void Scene::CreateTerrainObject()
 					break;
 
 				}
+			}
+			else
+			{
+				buffer = buffer / 2 * 2;
+				switch (buffer)
+				{
+				case 0:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 2:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 4:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 6:
+					m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				}
+				switch (m_unitType)
+				{
+				case BlockEditerSelect::Ice:
+					m_blocks[m_blocks.size() - 1].m_iceBlock = true;
+					break;
+				case BlockEditerSelect::IceWater:
+					m_blocks[m_blocks.size() - 1].m_snowBlock = true;
+					break;
+				case BlockEditerSelect::Ladder:
+					m_blocks[m_blocks.size() - 1].m_backStage = true;
+					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
+					break;
+				case BlockEditerSelect::Lava:
+					m_blocks[m_blocks.size() - 1].m_lavaBlock = true;
+					break;
+
+				}
+			}
+			m_blocks[j].SetScroll(&m_scroll);
 		}
-		m_blocks[j].SetScroll(&m_scroll);
 	}
-	
 	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
 	{
 		for (int j = 0; (j < m_blocks.size()) && (!m_blocks.empty()); j++)
@@ -556,16 +595,116 @@ void Scene::CreateTerrainObject()
 			}
 		}
 	}
-	if(_terrainType==0)
-	{ 
+	if (m_unitType == 0)
+	{
+		m_blocks.clear();
+	}
+
+	if (!m_blocks.empty())
+	{
+		m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector, _terrainVarVector, m_blocks));
+		m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
+	}
+	m_blocks.clear();
+	_terrainTypeVector.clear();
+	_terrainVarVector.clear();
+	//Angle Sup Block
+	switch (m_unitType)
+	{
+	case BlockEditerSelect::Ground:
+		_currentTex = &m_groundTex[0];
+			break;
+	case BlockEditerSelect::Ice:
+		switch (m_selectedUnitVariant)
+		{
+		case Surface:
+			_currentTex = &m_iceSurfaceTex[0];
+			break;
+		case Inside:
+			_currentTex = &m_iceInsideTex[0];
+			break;
+		}
+	case BlockEditerSelect::IceWater:
+		_currentTex = &m_iceWaterBlockTex[0];
+			break;
+
+	case BlockEditerSelect::Ladder:
+		_anglePossible = false;
+		_currentTex = &m_ladderTex[0];
+		break;
+	case BlockEditerSelect::Lava:
+			_currentTex = &m_lavaTex[0];
+			break;
+	default:
+		_currentTex = NULL;
+		break;
+	}
+	for (int j = 0; j <= i; j++)
+	{
+		_terrainTypeVector.push_back(m_unitType);
+		_terrainVarVector.push_back(m_selectedUnitVariant);
+		{
+			switch (buffer)
+			{
+			case 1:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f-32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 3:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f + j * 32.0f-32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 5:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f - j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f+32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 7:
+				m_blocks.push_back(Block(int((m_point[0].x - 640) / 32) * 32.0f + j * 32.0f, (int(-m_point[0].y + 360) / 32) * 32.0f - j * 32.0f + 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			}
+			if (!m_blocks.empty())
+			{
+				switch (m_unitType)
+				{
+				case BlockEditerSelect::Ice:
+					m_blocks[m_blocks.size() - 1].m_iceBlock = true;
+					break;
+				case BlockEditerSelect::IceWater:
+					m_blocks[m_blocks.size() - 1].m_snowBlock = true;
+					break;
+				case BlockEditerSelect::Ladder:
+					m_blocks[m_blocks.size() - 1].m_backStage = true;
+					m_blocks[m_blocks.size() - 1].m_laderBlock = true;
+					break;
+				case BlockEditerSelect::Lava:
+					m_blocks[m_blocks.size() - 1].m_lavaBlock = true;
+					break;
+
+				}
+				m_blocks[j].SetScroll(&m_scroll);
+			}
+			
+			
+		}
+		
+	}
+	for (int i = 0; i < (m_terrain.size()) && (!m_terrain.empty()); i++)
+	{
+		for (int j = 0; (j < m_blocks.size()) && (!m_blocks.empty()); j++)
+		{
+			if (m_terrain[i].IsContain())
+			{
+				m_terrain[i].Replace(m_blocks[j]);
+			}
+		}
+	}
+	if (m_unitType == 0)
+	{
+		m_blocks.clear();
+	}
+	if (!m_blocks.empty())
+	{
+		m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer + 8, _terrainTypeVector, _terrainVarVector, m_blocks));
 		m_blocks.clear();
 	}
 	
-
-	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector,_terrainVarVector, m_blocks));
-	m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
-	
-	m_blocks.clear();
 	m_drawStartBool = false;
 }
 
@@ -1521,15 +1660,6 @@ void Scene::Update()
 			break;
 		}
 	}
-	
-	//Test
-	
-	//m_enemy.Discovery();
-}
-
-void Scene::UpdateMainMenu()
-{
-
 }
 
 void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string selectedPath)

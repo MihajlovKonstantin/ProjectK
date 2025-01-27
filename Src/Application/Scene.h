@@ -108,7 +108,6 @@ public:
 
 	// �X�V����
 	void Update();
-	void UpdateMainMenu();
 	// �`�揈��
 	void Draw2D();
 	void DrawButton(Button inputButton);

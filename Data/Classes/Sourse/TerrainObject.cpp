@@ -121,297 +121,6 @@ void TerrainObject::Update()
 	}
 }
 
-void TerrainObject::EarthBlock(int type,int j)
-{
-	KdTexture* _currentTexture;
-	auto test = *m_texture;
-	switch (type)
-	{
-	case 1:
-		_currentTexture = test[1][0][2];
-		break;
-	case 3:
-		_currentTexture = test[1][0][1];
-		break;
-	case 5:
-		_currentTexture = test[1][0][4];
-		break;
-	case 7:
-		_currentTexture = test[1][0][3];
-		break;
-	default:
-		_currentTexture = test[1][0][0];
-		break;
-	}
-	switch (type)
-	{
-	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
-		break;
-	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
-		break;
-	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
-		break;
-	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
-		break;
-	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	}
-}
-void TerrainObject::IceBlock(int type, int j,int typeblock)
-{
-	KdTexture* _currentTexture;
-	auto test = *m_texture;
-	switch (typeblock)
-	{
-	case 0:
-		switch (type)
-		{
-		case 1:
-			_currentTexture = test[2][0][2];
-			break;
-		case 3:
-			_currentTexture = test[2][0][1];
-			break;
-		case 5:
-			_currentTexture = test[2][0][4];
-			break;
-		case 7:
-			_currentTexture = test[2][0][3];
-			break;
-		default:
-			_currentTexture = test[2][0][0];
-			break;
-		}
-		break;
-	case 1:
-		switch (type)
-		{
-		case 1:
-			_currentTexture = test[2][1][2];
-			break;
-		case 3:
-			_currentTexture = test[2][1][1];
-			break;
-		case 5:
-			_currentTexture = test[2][1][4];
-			break;
-		case 7:
-			_currentTexture = test[2][1][3];
-			break;
-		default:
-			_currentTexture = test[2][1][0];
-			break;
-		}
-		break;
-	}
-
-	switch (type)
-	{
-	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
-		break;
-	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
-		break;
-	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
-		break;
-	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
-		break;
-	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	}
-}
-void TerrainObject::IceWaterBlock(int type, int j)
-{
-	KdTexture* _currentTexture;
-	auto test = *m_texture;
-	switch (type)
-	{
-	case 1:
-		_currentTexture = test[3][0][2];
-		break;
-	case 3:
-		_currentTexture = test[3][0][1];
-		break;
-	case 5:
-		_currentTexture = test[3][0][4];
-		break;
-	case 7:
-		_currentTexture = test[3][0][3];
-		break;
-	default:
-		_currentTexture = test[3][0][0];
-		break;
-	}
-	switch (type)
-	{
-	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
-		break;
-	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
-		break;
-	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
-		break;
-	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
-		break;
-	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	}
-}
-void TerrainObject::LadderBlock(int type, int j)
-{
-	KdTexture* _currentTexture;
-	auto test = *m_texture;
-	switch (type)
-	{
-	case 1:
-		_currentTexture = test[4][0][2];
-		break;
-	case 3:
-		_currentTexture = test[4][0][1];
-		break;
-	case 5:
-		_currentTexture = test[4][0][4];
-		break;
-	case 7:
-		_currentTexture = test[4][0][3];
-		break;
-	default:
-		_currentTexture = test[4][0][0];
-		break;
-	}
-	switch (type)
-	{
-	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
-		break;
-	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
-		break;
-	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
-		break;
-	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
-		break;
-	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	}
-}
-void TerrainObject::LavaBlock(int type, int j)
-{
-	KdTexture* _currentTexture;
-	auto test = *m_texture;
-	switch (type)
-	{
-	case 1:
-		_currentTexture = test[5][0][2];
-		break;
-	case 3:
-		_currentTexture = test[5][0][1];
-		break;
-	case 5:
-		_currentTexture = test[5][0][4];
-		break;
-	case 7:
-		_currentTexture = test[5][0][3];
-		break;
-	default:
-		_currentTexture = test[5][0][0];
-		break;
-	}
-	switch (type)
-	{
-	case 0:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 1:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.25f));
-		break;
-	case 2:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 3:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second + j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 0.75f));
-		break;
-	case 4:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 5:
-		m_block.push_back(Block(m_globalPos.first - j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.25f));
-		break;
-	case 6:
-		m_block.push_back(Block(m_globalPos.first, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	case 7:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second - j * 32.0f, 32.0f, 32.0f, _currentTexture, false, float(M_PI) * 1.75f));
-		break;
-	case 8:
-		m_block.push_back(Block(m_globalPos.first + j * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTexture, false, 0));
-		break;
-	}
-}
 std::vector<Block>* TerrainObject::GetBlocks()
 {
 	return &m_block;
@@ -424,30 +133,150 @@ TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<
 	m_type = type;
 	m_blockType = blockType;
 	m_blockVar = blockVar;
-	
-	for (int i = 0;i < m_blockType.size();i++)
+	KdTexture* _currentTex;
+	auto test = *m_texture;
+	bool _anglePossible = true;
+	int _texIndex;
+	switch (m_type)
 	{
+	case 1:
+		_texIndex = 2;
+		break;
+	case 3:
+		_texIndex = 1;
+		break;
+	case 5:
+		_texIndex = 4;
+		break;
+	case 7:
+		_texIndex = 3;
+		break;
+	default:
+		_texIndex = 0;
+		break;
+	}
+	for (int i = 0; i < m_blockType.size(); i++)
+	{
+		
 		switch (m_blockType[i])
 		{
-		case 0:
+		default:
+			if (m_blockType[i] != 0)
+			{
+				_currentTex = test[m_blockType[i]][m_blockVar[i]][_texIndex];
+			}
+			
 			break;
-		case 1:
-			EarthBlock(m_type, i);
-			break;
-		case 2:
-			IceBlock(m_type, i, m_blockVar[i]);
-			break;
-		case 3:
-			IceWaterBlock(m_type, i);
-			break;
-		case 4:
-			LadderBlock(m_type, i);
-			break;
-		case 5:
-			LavaBlock(m_type, i);
+		case BlockEditerSelect::Ladder:
+			_anglePossible = false;
+			_currentTex = test[m_blockType[i]][m_blockVar[i]][0];
 			break;
 		}
-		
+	}
+
+	for (int j = 0; j < m_blockType.size(); j++)
+	{
+		if (_anglePossible&&(m_blockType[j] != 0))
+		{
+			switch (m_type)
+			{
+			case 0:
+				m_block.push_back(Block(m_globalPos.first + (j- 0) * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 1:
+				m_block.push_back(Block(m_globalPos.first + (j - 0) * 32.0f, m_globalPos.second + (j- 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.25f));
+				break;
+			case 2:
+				m_block.push_back(Block(m_globalPos.first, m_globalPos.second + (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 3:
+				m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second + (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 0.75f));
+				break;
+			case 4:
+				m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 5:
+				m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second - (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.25f));
+				break;
+			case 6:
+				m_block.push_back(Block(m_globalPos.first, m_globalPos.second - (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 7:
+				m_block.push_back(Block(m_globalPos.first + (j - 0) * 32.0f, m_globalPos.second - (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, float(M_PI) * 1.75f));
+				break;
+			case 9:
+				m_block.push_back(Block(m_globalPos.first + (j - 0) * 32.0f, m_globalPos.second + (j - 1) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 11:
+				m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second + (j - 1) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 13:
+				m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second - (j - 1) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			case 15:
+				m_block.push_back(Block(m_globalPos.first + (j - 0) * 32.0f, m_globalPos.second - (j - 1) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+				break;
+			}
+			switch (m_blockType[j])
+			{
+			case BlockEditerSelect::Ice:
+				m_block[m_block.size() - 1].m_iceBlock = true;
+				break;
+			case BlockEditerSelect::IceWater:
+				m_block[m_block.size() - 1].m_snowBlock = true;
+				break;
+			case BlockEditerSelect::Ladder:
+				m_block[m_block.size() - 1].m_backStage = true;
+				m_block[m_block.size() - 1].m_laderBlock = true;
+				break;
+			case BlockEditerSelect::Lava:
+				m_block[m_block.size() - 1].m_lavaBlock = true;
+				break;
+			}
+		}
+		else
+		{
+			if (m_blockType[j] != 0)
+			{
+				m_type = m_type / 2 * 2;
+				switch (m_type)
+				{
+				case 0:
+					m_block.push_back(Block(m_globalPos.first + (j - 0) * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 2:
+					m_block.push_back(Block(m_globalPos.first, m_globalPos.second + (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 4:
+					m_block.push_back(Block(m_globalPos.first - (j - 0) * 32.0f, m_globalPos.second, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				case 6:
+					m_block.push_back(Block(m_globalPos.first, m_globalPos.second - (j - 0) * 32.0f, 32.0f, 32.0f, _currentTex, false, 0));
+					break;
+				}
+				switch (m_blockType[j])
+				{
+				case BlockEditerSelect::Ice:
+					m_block[m_block.size() - 1].m_iceBlock = true;
+					break;
+				case BlockEditerSelect::IceWater:
+					m_block[m_block.size() - 1].m_snowBlock = true;
+					break;
+				case BlockEditerSelect::Ladder:
+					m_block[m_block.size() - 1].m_backStage = true;
+					m_block[m_block.size() - 1].m_laderBlock = true;
+					break;
+				case BlockEditerSelect::Lava:
+					m_block[m_block.size() - 1].m_lavaBlock = true;
+					break;
+				}
+			}
+		}
+	}
+
+
+	for (int i = 0;i < m_blockType.size();i++)
+	{
 		switch (m_blockType[i])
 		{
 		case BlockEditerSelect::Ice:

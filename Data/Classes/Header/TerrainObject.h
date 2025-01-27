@@ -24,11 +24,6 @@ public:
 	void ClearReplace();
 	void FoundBorder();
 	void Update();
-	void EarthBlock(int type,int j);
-	void IceBlock(int type, int j,int typeblock);
-	void IceWaterBlock(int type, int j);
-	void LadderBlock(int type, int j);
-	void LavaBlock(int type, int j);
 	std::vector<Block>* GetBlocks();
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar, std::array<std::vector<std::array<KdTexture*,5>>,6>* textLib);
 	TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType,std::vector<int>blockVar,std::vector<Block> block);
