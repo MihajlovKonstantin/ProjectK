@@ -676,69 +676,93 @@ void Scene::LoadStage()
 void Scene::UpdateGameScene()
 {
 	m_scroll = m_player.GetGPos();
-	if (m_stageType == 1)
-	{
-		m_clearState[1] = m_keyFlag.size();
-	}
 
-	
-	if (GetAsyncKeyState(VK_LEFT))
+	//StageClear Data
 	{
-		if (!m_rightFlg)
+		if (m_stageType == 1)
 		{
-			m_leftFlg = true;
-			m_player.SetDirection(Direction::Left);
+			m_clearState[1] = m_keyFlag.size();
 		}
-	}
-	else 
-	{
-		m_leftFlg = false;
-		m_player.SetDirection(Direction::Stand);
-	}
-
-	if ((m_player.GetHp() > 0) && (!CLEARFLAG))
-	{
-		if (GetAsyncKeyState(VK_RIGHT))
+		if (m_stageType == 1)
 		{
-			if (!m_leftFlg)
+			m_clearStateString = to_string(m_clearState[0]) + "/" + to_string(m_clearState[1]);
+		}
+		if (m_stageType == 0)
+		{
+			if (m_player.GetGPos().second >= 220)
 			{
-				m_rightFlg = true;
-				m_player.SetDirection(Direction::Right);
+				CLEARFLAG = true;
 			}
 		}
-		else m_rightFlg = false;
-
-		if (GetAsyncKeyState(VK_UP))
-		{
-			if ((!m_downFlg) && (m_player.GetOnLadderFlag()))
-			{
-
-				m_upFlg = true;
-				m_player.SetDirection(Direction::Up);
-			}
-		}
-		else m_upFlg = false;
-		if (GetAsyncKeyState(VK_DOWN))
-		{
-			if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
-			{
-				m_downFlg = true;
-				m_player.SetDirection(Direction::Down);
-			}
-		}
-		else m_downFlg = false;
-
-		if (GetAsyncKeyState(VK_SPACE))
-		{
-			if (!m_jumpFlg)
-			{
-				m_player.Jump();
-				m_jumpFlg = true;
-			}
-		}
-		else m_jumpFlg = false;
 	}
-	
+
+	//Player Controll
+	{
+		if ((m_player.GetHp() > 0) && (!CLEARFLAG))
+		{
+			if (GetAsyncKeyState(VK_LEFT))
+			{
+				if (!m_rightFlg)
+				{
+					m_leftFlg = true;
+					m_player.SetDirection(Direction::Left);
+				}
+			}
+			else m_leftFlg = false;
+			if (GetAsyncKeyState(VK_RIGHT))
+			{
+				if (!m_leftFlg)
+				{
+					m_rightFlg = true;
+					m_player.SetDirection(Direction::Right);
+				}
+			}
+			else m_rightFlg = false;
+
+			if (GetAsyncKeyState(VK_UP))
+			{
+				if ((!m_downFlg) && (m_player.GetOnLadderFlag()))
+				{
+
+					m_upFlg = true;
+					m_player.SetDirection(Direction::Up);
+				}
+			}
+			else m_upFlg = false;
+			if (GetAsyncKeyState(VK_DOWN))
+			{
+				if ((!m_upFlg) && (m_player.GetOnLadderFlag()))
+				{
+					m_downFlg = true;
+					m_player.SetDirection(Direction::Down);
+				}
+			}
+			else m_downFlg = false;
+
+			if (GetAsyncKeyState(VK_SPACE))
+			{
+				if (!m_jumpFlg)
+				{
+					m_player.Jump();
+					m_jumpFlg = true;
+				}
+			}
+			else m_jumpFlg = false;
+
+		}
+		else
+		{
+			m_player.SetDirection(Stand);
+		}
+		if (!m_leftFlg && !m_rightFlg)
+		{
+			if (!m_upFlg && !m_downFlg)
+			{
+				m_player.SetDirection(Stand);
+			}
+		}
+	}
+	//Player to Item Collision
 	for (int i = 0; i < m_item.size(); i++)
 	{
 		if (m_player.CollisionToItem(&m_item[i]))
@@ -763,11 +787,9 @@ void Scene::UpdateGameScene()
 			}
 		}
 	}
-	if (m_stageType == 1)
-	{
-		m_clearStateString = to_string(m_clearState[0]) + "/" + to_string(m_clearState[1]);
-	}
 
+	
+	//Player to Block collision
 	m_testCollision = false;
 	for (int i = 0; i < m_terrain.size(); i++)
 	{
@@ -781,13 +803,11 @@ void Scene::UpdateGameScene()
 			}
 		}
 	}
-	if (!m_player.MovePossible())
-	{
-		m_player.Stop();
-	}
+
+	//Spawner Update
 	for (int i = 0; i < m_spawner.size(); i++)
 	{
-		
+		//Slime Collision
 		auto _slimeArr = m_spawner[i].GetSlime();
 		for (int k = 0; k < _slimeArr->size(); k++)
 		{
@@ -804,7 +824,7 @@ void Scene::UpdateGameScene()
 				}
 			}
 		}
-
+		//SnowBall Collision
 		auto _snowBzllArr = m_spawner[i].GetSnowBall();
 		for (int k = 0; k < _snowBzllArr->size(); k++)
 		{
@@ -821,31 +841,10 @@ void Scene::UpdateGameScene()
 				}
 			}
 		}
+		//Update
 		m_spawner[i].Update();
 	}
-	if (m_stageType == 0)
-	{
-		if (m_player.GetGPos().second >= 220)
-		{
-			CLEARFLAG = true;
-		}
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-			m_scroll.first--;
-			if (m_scroll.first < m_scrollMax[0])
-			{
-				m_scrollMax[0] = m_scroll.first;
-			}
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		m_scroll.first++;
-		if (m_scroll.first > m_scrollMax[1])
-		{
-			m_scrollMax[1] = m_scroll.first;
-		}
-	}
+
 	m_player.Update();
 }
 
@@ -1028,24 +1027,6 @@ void Scene::UpdateEditScene()
 				m_stageType = m_unitType;
 				break;
 			}
-		}
-	}
-	
-	
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		//m_scroll.first--;
-		if (m_scroll.first < m_scrollMax[0])
-		{
-			//m_scrollMax[0] = m_scroll.first;
-		}
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		//m_scroll.first++;
-		if (m_scroll.first > m_scrollMax[1])
-		{
-			//m_scrollMax[1] = m_scroll.first;
 		}
 	}
 	m_blocks.clear();

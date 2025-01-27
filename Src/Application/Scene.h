@@ -73,7 +73,6 @@ private:
 	std::string m_selectedMap;
 	//Scroll
 	std::pair<int, int> m_scroll = { 0,0 };
-	std::array<int, 4> m_scrollMax; //MinX,MaxX,MinY,MaxY
 	//Bool
 	bool m_controlButtonClick = false;
 	bool m_lKey;

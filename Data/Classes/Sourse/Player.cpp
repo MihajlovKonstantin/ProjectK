@@ -27,20 +27,7 @@ Math::Rectangle Player::GetRect()
 void Player::Update()
 {
 	__test = m_collisionData.size();
-	//if we in texture - push us away
-	if (!m_collisionData.empty())
-	{
-		if (m_moveBlock[0])
-		{
-			float _dY = int(m_gPos.second / 32)*32.0f;
-			if (abs(_dY - m_gPos.second) >= 32)
-			{
-				m_gPos.second = _dY;
-			}
-		}
-		
-	}
-	
+
 	int index;
 	if (!m_collisionData.empty())
 	{
@@ -135,36 +122,6 @@ void Player::Update()
 				}
 			}
 		}
-		/*
-		if (m_collision&&(m_rad != m_collisionData[index].rad))
-		{
-			switch (m_direction)
-			{
-			case Direction::Left:
-				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) < float(M_PI) * 0.5f)
-				{
-					if (m_collisionData[0].rad != m_collisionData[1].rad)
-					{
-						Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-					}
-
-				}
-				break;
-			case Direction::Right:
-				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) > float(M_PI) * 0.5f)
-				{
-					if (m_collisionData[0].rad != m_collisionData[1].rad)
-					{
-						Move(16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-					}
-
-				}
-				break;
-			}
-			
-			
-		}
-		*/
 
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
@@ -408,6 +365,8 @@ void Player::Update()
 			}
 			break;
 		case Stand:
+			m_currentSpeed.first = 0;
+			m_currentSpeed.second = m_speed.second;
 			break;
 		}
 	if (m_rad == 0||(m_rad ==float(M_PI)*0.5f)|| (m_rad == float(M_PI) * 1.0f)|| (m_rad == float(M_PI) * 1.5f))

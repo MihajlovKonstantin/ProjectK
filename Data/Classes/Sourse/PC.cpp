@@ -25,13 +25,12 @@ void PC::Init(std::pair<float, float>pos)
 	Update();
 	m_mRotation = Math::Matrix::CreateRotationZ(0);
 	m_matrix = m_mTrans * m_mRotation;
+	OnLavaBlockFlag = false;
 }
 
 
 void PC::Update()
 {
-	if (m_groundFlag)
-		m_onGroundFlag = true;
 	switch (m_direction)
 	{
 	case Direction::Up:
@@ -49,17 +48,6 @@ void PC::Update()
 		m_rad = 0;
 	}
 	Player::Update();
-}
-
-
-void PC::Stop()
-{
-	m_onGroundFlag = false;
-}
-
-void PC::SetOnGroundFlag(bool flag)
-{
-	m_onGroundFlag = flag;
 }
 
 bool PC::MovePossible()
