@@ -564,9 +564,8 @@ void Scene::CreateTerrainObject()
 
 	m_terrain.push_back(TerrainObject({ int((m_point[0].x - 640) / 32) * 32.0f ,(int(-m_point[0].y + 360) / 32) * 32.0f }, buffer, _terrainTypeVector,_terrainVarVector, m_blocks));
 	m_terrain[m_terrain.size() - 1].SetScroll(&m_scroll);
-	//auto _terrain = new ;
 	
-	
+	m_blocks.clear();
 	m_drawStartBool = false;
 }
 
@@ -850,186 +849,202 @@ void Scene::UpdateGameScene()
 
 void Scene::UpdateEditScene()
 {
-	if (GetAsyncKeyState('T'))
+	//Editer Menu Select
 	{
-		if (!m_controlButtonClick)
+		if (GetAsyncKeyState('T'))
 		{
-			m_editerMenuIndex++;
-			if (m_editerMenuIndex >= EditerSelect::COUNTES)
+			if (!m_controlButtonClick)
 			{
-				m_editerMenuIndex = 0;
+				m_editerMenuIndex++;
+				if (m_editerMenuIndex >= EditerSelect::COUNTES)
+				{
+					m_editerMenuIndex = 0;
+				}
+				m_controlButtonClick = true;
 			}
-			m_controlButtonClick = true;
+		}
+		if (GetAsyncKeyState('Y'))
+		{
+			if (!m_controlButtonClick)
+			{
+				m_editerMenuIndex--;
+				if (m_editerMenuIndex < 0)
+				{
+					m_editerMenuIndex = EditerSelect::COUNTES - 1;
+				}
+				m_controlButtonClick = true;
+			}
 		}
 	}
-	if (GetAsyncKeyState('Y'))
+	//Unit Select
 	{
-		if (!m_controlButtonClick)
+		if (GetAsyncKeyState('G'))
 		{
-			m_editerMenuIndex--;
-			if (m_editerMenuIndex <0)
+			if (!m_controlButtonClick)
 			{
-				m_editerMenuIndex = EditerSelect::COUNTES-1;
-			}
-			m_controlButtonClick = true;
-		}
-	}
-	if (GetAsyncKeyState('B'))
-	{
-		if (!m_controlButtonClick)
-		{
-			m_selectedUnitVariant++;
-			int _maxType = 1;
-			switch (m_editerMenuIndex)
-			{
-			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock(m_unitType);
-				break;
-			case EditerSelect::ItemMenu:
-				_maxType = MaxTypeItem();
-				break;
-			case EditerSelect::CharaMenu:
-				_maxType = MaxTypeEnemy();
-				break;
-			}
-			if (m_selectedUnitVariant >= _maxType)
-			{
+				m_unitType++;
 				m_selectedUnitVariant = 0;
+				int _maxType = 1;
+				switch (m_editerMenuIndex)
+				{
+				case EditerSelect::BlockMenu:
+					_maxType = BlockEditerSelect::COUNTBES;
+					break;
+				case EditerSelect::ItemMenu:
+					break;
+				case EditerSelect::CharaMenu:
+					_maxType = SpawnerSelect::COUNTSS;
+					break;
+				case EditerSelect::StageTypeMenu:
+					_maxType = 2;
+					break;
+				}
+				if (m_unitType >= _maxType)
+				{
+					m_unitType = 0;
+				}
+				m_controlButtonClick = true;
 			}
-			m_controlButtonClick = true;
 		}
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		m_scroll.first-=5;
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		m_scroll.first += 5;
-	}
-	if (GetAsyncKeyState(VK_UP))
-	{
-		m_scroll.second += 5;
-	}
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		m_scroll.second -= 5;
-	}
-	if (GetAsyncKeyState('N'))
-	{
-		if (!m_controlButtonClick)
+		if (GetAsyncKeyState('H'))
 		{
-			m_selectedUnitVariant--;
-			int _maxType = 1;
-			switch (m_editerMenuIndex)
+			if (!m_controlButtonClick)
 			{
-			case EditerSelect::BlockMenu:
-				_maxType = MaxTypeBlock(m_unitType);
-				break;
-			case EditerSelect::ItemMenu:
-				_maxType = MaxTypeItem();
-				break;
-			case EditerSelect::CharaMenu:
-				_maxType = MaxTypeEnemy();
-				break;
+				m_unitType--;
+				m_selectedUnitVariant = 0;
+				int _maxType = 1;
+				switch (m_editerMenuIndex)
+				{
+				case EditerSelect::BlockMenu:
+					_maxType = BlockEditerSelect::COUNTBES;
+					break;
+				case EditerSelect::ItemMenu:
+					break;
+				case EditerSelect::CharaMenu:
+					_maxType = SpawnerSelect::COUNTSS;
+					break;
+				case EditerSelect::StageTypeMenu:
+					_maxType = 2;
+					break;
+				}
+				if (m_unitType < 0)
+				{
+					m_unitType = _maxType - 1;
+				}
+				m_controlButtonClick = true;
 			}
-			if (m_selectedUnitVariant < 0)
-			{
-				m_selectedUnitVariant = _maxType-1;
-			}
-			m_controlButtonClick = true;
 		}
 	}
-	if (GetAsyncKeyState('G'))
+	//Variant Select
 	{
-		if (!m_controlButtonClick)
+		if (GetAsyncKeyState('B'))
 		{
-			m_unitType++;
-			m_selectedUnitVariant = 0;
-			int _maxType = 1;
-			switch (m_editerMenuIndex)
+			if (!m_controlButtonClick)
 			{
-			case EditerSelect::BlockMenu:
-				_maxType = BlockEditerSelect::COUNTBES;
-				break;
-			case EditerSelect::ItemMenu:
-				break;
-			case EditerSelect::CharaMenu:
-				_maxType = SpawnerSelect::COUNTSS;
-				break;
-			case EditerSelect::StageTypeMenu:
-				_maxType = 2;
-				break;
+				m_selectedUnitVariant++;
+				int _maxType = 1;
+				switch (m_editerMenuIndex)
+				{
+				case EditerSelect::BlockMenu:
+					_maxType = MaxTypeBlock(m_unitType);
+					break;
+				case EditerSelect::ItemMenu:
+					_maxType = MaxTypeItem();
+					break;
+				case EditerSelect::CharaMenu:
+					_maxType = MaxTypeEnemy();
+					break;
+				}
+				if (m_selectedUnitVariant >= _maxType)
+				{
+					m_selectedUnitVariant = 0;
+				}
+				m_controlButtonClick = true;
 			}
-			if (m_unitType >= _maxType)
+		}
+
+		if (GetAsyncKeyState('N'))
+		{
+			if (!m_controlButtonClick)
 			{
-				m_unitType = 0;
+				m_selectedUnitVariant--;
+				int _maxType = 1;
+				switch (m_editerMenuIndex)
+				{
+				case EditerSelect::BlockMenu:
+					_maxType = MaxTypeBlock(m_unitType);
+					break;
+				case EditerSelect::ItemMenu:
+					_maxType = MaxTypeItem();
+					break;
+				case EditerSelect::CharaMenu:
+					_maxType = MaxTypeEnemy();
+					break;
+				}
+				if (m_selectedUnitVariant < 0)
+				{
+					m_selectedUnitVariant = _maxType - 1;
+				}
+				m_controlButtonClick = true;
 			}
-			m_controlButtonClick = true;
 		}
 	}
-	if (GetAsyncKeyState('H'))
+	//Scroll Controll
 	{
-		if (!m_controlButtonClick)
+		if (GetAsyncKeyState(VK_LEFT))
 		{
-			m_unitType--;
-			m_selectedUnitVariant = 0;
-			int _maxType = 1;
-			switch (m_editerMenuIndex)
-			{
-			case EditerSelect::BlockMenu:
-				_maxType = BlockEditerSelect::COUNTBES;
-				break;
-			case EditerSelect::ItemMenu:
-				break;
-			case EditerSelect::CharaMenu:
-				_maxType = SpawnerSelect::COUNTSS;
-				break;
-			case EditerSelect::StageTypeMenu:
-				_maxType = 2;
-				break;
-			}
-			if (m_unitType < 0)
-			{
-				m_unitType = _maxType-1;
-			}
-			m_controlButtonClick = true;
+			m_scroll.first -= 5;
+		}
+		if (GetAsyncKeyState(VK_RIGHT))
+		{
+			m_scroll.first += 5;
+		}
+		if (GetAsyncKeyState(VK_UP))
+		{
+			m_scroll.second += 5;
+		}
+		if (GetAsyncKeyState(VK_DOWN))
+		{
+			m_scroll.second -= 5;
 		}
 	}
-	if (GetAsyncKeyState(VK_SPACE))
+	//Draw Controll
 	{
-		if (!m_drawStartBool)
+		if (GetAsyncKeyState(VK_SPACE))
 		{
-			m_point[0] = m_mouse;
-		}
-		m_drawStartBool = true;
-	}
-	else
-	{
-		if (m_drawStartBool)
-		{
-			m_point[1] = m_mouse;
- 			switch (m_editerMenuIndex)
+			if (!m_drawStartBool)
 			{
-			case BlockMenu:
-				CreateTerrainObject();
-				m_drawStartBool = false;
-				break;
-			case CharaMenu:
-				CreateSpawn();
-				m_drawStartBool = false;
-				break;
-			case ItemMenu:
-				CreateItem();
-				m_drawStartBool = false;
-				break;
-			case StageTypeMenu:
-				m_stageType = m_unitType;
-				break;
+				m_point[0] = m_mouse;
+			}
+			m_drawStartBool = true;
+		}
+		else
+		{
+			if (m_drawStartBool)
+			{
+				m_point[1] = m_mouse;
+				switch (m_editerMenuIndex)
+				{
+				case BlockMenu:
+					CreateTerrainObject();
+					m_drawStartBool = false;
+					break;
+				case CharaMenu:
+					CreateSpawn();
+					m_drawStartBool = false;
+					break;
+				case ItemMenu:
+					CreateItem();
+					m_drawStartBool = false;
+					break;
+				case StageTypeMenu:
+					m_stageType = m_unitType;
+					m_drawStartBool = false;
+					break;
+				}
 			}
 		}
 	}
-	m_blocks.clear();
 	m_player.UpdateTransMat();
 }
 
@@ -1369,6 +1384,7 @@ void Scene::LoadMap()
 	m_selectedMap = WC->GetMap();
 	std::string _dirFinder = "del \"CurrentMap.map\"";
 	system(_dirFinder.c_str());
+	m_player.Init({0,0});
 }
 
 void Scene::Update()
@@ -1584,8 +1600,6 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_slimeTex.Load("Texture/Creature/slime.png");
 	m_snowBallTex.Load("Texture/Creature/snowball.png");
 
-	m_enemy = NPC();
-	m_enemy.InitTO(m_terrain);
 	for (int i = 1; i < m_typeBlockNum; i++)
 	{
 		std::vector<std::array<KdTexture*,5>> _loadVector ;

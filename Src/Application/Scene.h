@@ -86,7 +86,6 @@ private:
 	bool m_jumpFlg = false;
 	int RELEASE = 0;
 
-	NPC m_enemy;
 	std::array<bool, 3> m_keyFlag;
 	//Player
 	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
