@@ -95,6 +95,9 @@ bool Application::Init(int w, int h)
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
 	m_backGround.Load("Texture/BackGround/Title.png");
+	m_backGround2.Load("Texture/BackGround/Title2.png");
+	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
+	m_frame.Load("Texture/BackGround/frame.png");
 	{
 		// 日本語対応
 		#include "imgui/ja_glyph_ranges.h"
@@ -256,7 +259,55 @@ void Application::DrawButton(Button inputButton)
 {
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
-	SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0.6, 0.6, 1, 1), true);
+	std::pair<float, float> _mouse(mouse.x - 640, 360 - mouse.y);
+
+	//全画面かどうか検知する
+	//if (GetAsyncKeyState('A'))D3D.GetSwapChain()->SetFullscreenState(TRUE, 0);
+	//if (GetAsyncKeyState('D'))D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
+	
+	HWND hwnd = GetForegroundWindow();
+	LONG style = GetWindowLong(hwnd, GWL_STYLE);
+	auto _borderLess = (style & WS_CAPTION) != 0;
+	//int a = 1;
+	//GetConsoleWindow;
+	HWND hWnd = GetConsoleWindow();
+	if (IsZoomed(hWnd))
+	{
+		int a = 1;
+	}
+
+	//if (_borderLess)
+	/*{
+		if (_mouse.first >= (position[0] + 150 - size[0]) && _mouse.first <= (position[0] + 150 + size[0]))
+		{
+			if (_mouse.second <= (position[1] - 100 + size[1]) && _mouse.second >= (position[1] - 100 - size[1]))
+			{
+				if (size[0] > 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
+				else m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
+				m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
+				m_mat = m_scaleMat * m_transMat;
+				SHADER.m_spriteShader.SetMatrix(m_mat);
+				SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+			}
+		}
+	}*/
+	//else
+	{
+		if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
+		{
+			if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
+			{
+				if (size[0] > 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
+				else m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
+				m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
+				m_mat = m_scaleMat * m_transMat;
+				SHADER.m_spriteShader.SetMatrix(m_mat);
+				SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+			}
+		}
+	}
+	
+	//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), true);
 }
 void Application::DrawButtonText(Button inputButton)
 {
@@ -265,6 +316,7 @@ void Application::DrawButtonText(Button inputButton)
 	float scale = inputButton.GetScale();
 	size = inputButton.GetSize();
 	DrawString(position[0] - size[0], position[1] + size[1] / 2, text, Math::Vector4(1, 0, 1, 1), scale);
+	//DrawString(position[0], position[1], text, Math::Vector4(1, 1, 1, 1), scale);
 }
 void Application::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
 {
@@ -296,11 +348,12 @@ bool Application::ClickButton(POINT inputMouse, Button inputButton)
 {
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
-	if ((inputMouse.x - 640) >= (position[0] - size[0]) && (inputMouse.x - 640) <= (position[0] + size[0] * 1.05))
+	std::pair<float, float> _mouse(inputMouse.x - 640, 360 - inputMouse.y);
+	if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
 	{
-		if ((360 - inputMouse.y) <= (position[1] + size[1] / 2) && (360 - inputMouse.y) >= (position[1] - size[1] * 2))
+		if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
 		{
-			SHADER.m_spriteShader.DrawString(mouse.x - 640, 360 - mouse.y, "CLICK", Math::Vector4(1, 1, 1, 1));
+			SHADER.m_spriteShader.DrawString(_mouse.first, _mouse.second, "CLICK", Math::Vector4(1, 1, 1, 1));
 			return true;
 		}
 	}
@@ -564,7 +617,11 @@ void Application::Execute()
 				SHADER.m_spriteShader.SetMatrix(mainMenu.GetMatrix());
 				SHADER.m_spriteShader.DrawTex(mainMenu.GetTexture(), mainMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawString(-200, 300, "ダンジョンメーカー", { 1,0,0,1 });
+				SHADER.m_spriteShader.DrawTex(&m_backGround2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(50, 170, 0));
+				SHADER.m_spriteShader.DrawTex(&m_titleLogo, Math::Rectangle(0, 0, 510, 111), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				//SHADER.m_spriteShader.DrawString(-200, 300, "ダンジョンメーカー", { 1,0,0,1 });
 				MenuExecute(mainMenu);
 			} while ((m_endFlagWindows!=true));
 				break;

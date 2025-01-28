@@ -25,7 +25,7 @@ void Menu::Update()
 {
 	D3D.GetDevContext()->ClearRenderTargetView(D3D.GetBackBuffer(), Math::Color(0.0f, 0.0f, 0.0f, 1));
 	D3D.GetDevContext()->ClearDepthStencilView(D3D.GetZBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
-	m_pos.first -= 0.05f;
+	m_pos.first -= 0.05;
 	if (m_pos.first < -1280.0f)
 	{
 		m_pos.first = 0;
@@ -112,13 +112,13 @@ void Menu::InitMainMenu(std::string dataPath)
 {
 	m_dataPath = dataPath;
 	buttons.clear();
-	Button _newButton = Button({ 200.0f, 40.0f }, { 0.0f, 270.0f }, "Play", 1.0f, 1, goScene, SelectPlaybleMap);
+	Button _newButton = Button({ 70.0f, 45.0f }, { -280.0f, -180.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 170.0f }, "Edit", 1.0f, 1, goScene, SceneSelect::SelectEditMap);
+	_newButton = Button({ 70.0f, 45.0f }, { -280.0f, -300.0f }, "Edit", 1.5f, change, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, 50.0f }, "Setting",1.0f,1,goScene,Option);
+	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -180.0f }, "Setting",1.5f,change,goScene,Option);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 200.0f, 40.0f }, { 0.0f, -70.0f }, "Record",1.0f,3,0,0);
+	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -300.0f }, "Record",1.5f,nochange,0,0);
 	buttons.push_back(_newButton);
 	std::string _dirrectory = dataPath + "\\CurrentMap.map";
 	std::ifstream ifFile(_dirrectory);
@@ -131,7 +131,7 @@ void Menu::InitMainMenu(std::string dataPath)
 		selectedPath = line;
 	}
 	ifFile.close();
-	_newButton = Button({ 100.0f,40.0f }, { 350.0f,170.0f }, "Push", 1.0f, 1, updateMap, 0);
+	_newButton = Button({ 70.0f,45.0f }, { -30.0f,-180.0f }, "Push", 1.5f, change, updateMap, 0);
 	buttons.push_back(_newButton);
 }
 

@@ -15,7 +15,7 @@ private:
     bool visable;
     bool active;
     KdTexture* m_texture;
-    Math::Rectangle m_rect = { 0,0,3840,780 };
+    Math::Rectangle m_rect = { 0,0,3840,720 };
     Math::Matrix m_matrix;
     std::pair<float, float> m_pos = {0.0f,0.0f};
     std::string selectedMap;

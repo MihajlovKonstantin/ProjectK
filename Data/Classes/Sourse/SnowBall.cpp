@@ -15,32 +15,9 @@ void SnowBall::Update()
 	m_snowBallFlg = true;
 	if (m_aliveFlg)
 	{
-		//最初は左に動く
-		/*if (!m_onlyFlg)
-		{
-			Player::SetDirection(Left);
-			auto test = GetAngle();
-			if (GetAngle() == 45 || m_leftCoolTime < m_directionCoolTime)
-			{
-				if (m_leftCoolTime-- < 0)
-				{
-
-					m_onlyFlg = true;
-				}
-			}
-			if (GetAngle() == 135 || m_rightCoolTime < m_directionCoolTime)
-			{
-				if (m_rightCoolTime-- < 0)
-				{
-
-					m_onlyFlg = true;
-				}
-			}
-		}*/
-
-		auto test = GetAngle();
+		auto _angle = GetAngle();
 		//左下がりの坂だと左に進む
-		if ((test >= 44)&&(test<=46))
+		if ((_angle >= 44) && (_angle <= 46))
 		{
 			m_leftFlg = true;
 			if (m_leftFlg && m_rightFlg)
@@ -55,7 +32,7 @@ void SnowBall::Update()
 			}
 		}
 		//右下がりの坂だと右に進む
-		if ((test >= 134) && (test <= 136))
+		if ((_angle >= 134) && (_angle <= 136))
 		{
 			m_rightFlg = true;
 
@@ -73,6 +50,7 @@ void SnowBall::Update()
 			if (m_leftFlg && !m_rightFlg)Player::SetDirection(Left);
 			if (m_rightFlg && !m_leftFlg)Player::SetDirection(Right);
 
+			//壁にぶつかると壊れるため
 			if (m_moveBlock[1] || m_moveBlock[2])
 			{
 				m_hp -= 10;
