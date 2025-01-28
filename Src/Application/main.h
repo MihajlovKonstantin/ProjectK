@@ -1,5 +1,9 @@
 #pragma once
 #include "Pch.h"
+//extern "C"
+//{
+//	#include "Windows.h"
+//}
 
 //============================================================
 // アプリケーションクラス
@@ -50,6 +54,12 @@ private:
 	Menu selectPlaybleMapMenu;
 	Menu selectEditerMapMenu;
 	KdTexture m_backGround;
+	KdTexture m_backGround2;
+	KdTexture m_titleLogo;
+	KdTexture m_frame;
+	Math::Matrix m_scaleMat;
+	Math::Matrix m_transMat;
+	Math::Matrix m_mat;
 	// FPS計測
 	DWORD baseTime;
 	int count;

@@ -5,9 +5,9 @@ class SnowBall :
 {
 private:
 
-    static const int m_directionCoolTime = 10;
-    int m_leftCoolTime = 0;
-    int m_rightCoolTime = 0;
+    static const int m_directionCoolTime = 5;
+    int m_leftCoolTime = m_directionCoolTime;
+    int m_rightCoolTime = m_directionCoolTime;
     static const int m_regenerationTime = 60 * 3;
     int m_regenerationCoolTime = m_regenerationTime;
     bool m_onlyFlg = false;
