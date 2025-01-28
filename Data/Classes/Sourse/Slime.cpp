@@ -2,7 +2,7 @@
 
 Slime::Slime(KdTexture* texture, std::pair<float, float> pos, std::pair<float, float>speed)
 {
-	m_jumpSpeed *= 0.85;
+	m_jumpSpeed *= 1.0f;
 	m_gPos = pos;
 	m_pos.first = m_gPos.first-m_scroll->first;
 	m_pos.second = m_gPos.second - m_scroll->second;
@@ -22,7 +22,7 @@ void Slime::Update()
 		
 		if (m_jumpCoolTime-- < 0)
 		{
-			Jump();
+  			Jump();
 			m_onGroundFlag = false;
 			m_groundFlag = false;
 			m_jumpCoolTime = m_slimeJumpCoolTime;
@@ -39,7 +39,17 @@ void Slime::Update()
 		}
 		if (m_groundFlag) m_emyMoveFlg = false;
 		if (OnLadderBlockFlag) m_emyMoveFlg = true;
+		m_moveBlock;
+		m_direction;
+		m_jumpPower;
+		m_currentSpeed;
+		m_gPos;
+		
+		NPC::AIUpdate();
+	}
+	else
+	{
+		NPC::AIUpdate();
 	}
 	
-	NPC::AIUpdate();
 }

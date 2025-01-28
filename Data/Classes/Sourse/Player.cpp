@@ -26,26 +26,15 @@ Math::Rectangle Player::GetRect()
 }
 void Player::Update()
 {
-	//if we in texture - push us away
-	if (!m_collisionData.empty())
-	{
-		if (m_moveBlock[0])
-		{
-			float _dY = int(m_gPos.second / 32)*32.0f;
-			if (abs(_dY - m_gPos.second) >= 32)
-			{
-				m_gPos.second = _dY;
-			}
-		}
-		
-	}
-	
+	__test = m_collisionData.size();
+
 	int index;
 	if (!m_collisionData.empty())
 	{
 		std::pair<float, float> _comparePos = { m_collisionData[0].pos };
 		OnLadderBlockFlag = m_collisionData[0].OnladerFlag;
-		OnLavaBlockFlag = m_collisionData[0].OnLavaFlag;
+		if(!OnLavaBlockFlag)OnLavaBlockFlag = m_collisionData[0].OnLavaFlag;
+		
 		index = 0;
 		if (m_collisionData.size() > 1)
 		{
@@ -58,10 +47,10 @@ void Player::Update()
 					{
 						OnLadderBlockFlag = true;
 					}
-					if (m_collisionData[i].OnLavaFlag)
-					{
-						OnLavaBlockFlag = m_collisionData[0].OnLavaFlag;
-					}
+				}
+				if (m_collisionData[i].OnLavaFlag)
+				{
+					OnLavaBlockFlag = m_collisionData[i].OnLavaFlag;
 				}
 				switch (m_direction)
 				{
@@ -101,7 +90,25 @@ void Player::Update()
 		if (!m_collisionData.empty())
 		{
 			m_collision = true;
-			m_groundFlag = true;
+			if (m_rad!=-1&&(!(m_rad == 0) || (m_rad == float(M_PI) * 2.0f) || (m_rad == float(M_PI))))
+			{
+				m_groundFlag = true;
+			}
+			else
+			{
+				if (m_jumpPower == 0)
+				{
+					if (m_moveBlock[0])
+					{
+						m_groundFlag = true;
+					}
+					else
+					{
+						m_groundFlag = false;
+					}
+				}
+			}
+			
 			if (m_collisionData.size() == 1)
 			{
 				m_rad = m_collisionData[0].rad;
@@ -115,41 +122,11 @@ void Player::Update()
 				}
 			}
 		}
-		
-		if (m_collision&&(m_rad != m_collisionData[index].rad))
-		{
-			switch (m_direction)
-			{
-			case Direction::Left:
-				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) < float(M_PI) * 0.5f)
-				{
-					if (m_collisionData[0].rad != m_collisionData[1].rad)
-					{
-						Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-					}
 
-				}
-				break;
-			case Direction::Right:
-				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) > float(M_PI) * 0.5f)
-				{
-					if (m_collisionData[0].rad != m_collisionData[1].rad)
-					{
-						Move(16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
-					}
-
-				}
-				break;
-			}
-			
-			
-		}
-		
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		OnIceBlockFlag = m_collisionData[index].OnIceFlag;
 		OnSnowBlockFlag = m_collisionData[index].OnSnowFlag;
-		OnLavaBlockFlag = m_collisionData[index].OnLavaFlag;
 
 		if (m_rad < 0)
 		{
@@ -174,7 +151,7 @@ void Player::Update()
 		{
 			if (m_moveBlock[2])
 			{
-				m_jumpPower = 0.0f;
+ 				m_jumpPower = 0.0f;
 			}
 		}
 		
@@ -311,52 +288,73 @@ void Player::Update()
  		m_hp -= 5;
 		if(m_hp < 0)m_hp = 0;
 	}
+	if (OnLadderBlockFlag)
+	{
+		m_groundFlag = true;
+		m_currentSpeed.second = 0;
+		m_speed.second = 0;
+	}
 	switch (m_direction)
 		{
 			case Right:
 				
 				m_currentSpeed.first = 0;
 				if (m_groundFlag == true)
-					{
-						m_currentSpeed.first = m_speed.first * abs(cos(_moveRad)) - m_speed.second * sin(_moveRad);
-						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second*cos(_moveRad);
-						if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second))&&(m_rad!=0))
+				{
+					m_currentSpeed.first = m_speed.first * abs(cos(_moveRad)) - m_speed.second * sin(_moveRad);
+					m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+					if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second)) && (m_rad != 0))
 						{
 							m_currentSpeed.first = m_currentSpeed.second;
 						}
-					}
+				}
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad) - m_speed.second * sin(_moveRad);
-						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						if (m_jumpPower <= 0)
+						{
+							m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						}
+						else
+						{
+							m_currentSpeed.second = 0;
+						}
 					}
 			
 			break;
 		case Left:
 				m_currentSpeed.first = 0;
 				if (m_groundFlag == true)
+				{
+					m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) - m_speed.second * sin(_moveRad);
+					m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+					if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second)) && (m_rad != 0))
 					{
-						m_currentSpeed.first = m_speed.first * (-abs(cos(_moveRad))) - m_speed.second * sin(_moveRad);
-						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
-						if ((abs(m_currentSpeed.first) != abs(m_currentSpeed.second)) && (m_rad != 0))
-						{
-							m_currentSpeed.first = -m_currentSpeed.second;
-						}
+						m_currentSpeed.first = -m_currentSpeed.second;
 					}
+				}
 				else
 					{
 						m_currentSpeed.first = m_speed.first * cos(_moveRad + float(M_PI)) - m_speed.second * sin(_moveRad + float(M_PI));
-						m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						if (m_jumpPower <= 0)
+						{
+							m_currentSpeed.second = m_speed.first * (sin(_moveRad)) + m_speed.second * cos(_moveRad);
+						}
+						else
+						{
+							m_currentSpeed.second = 0;
+						}
+						
 					}
 			break;
 		case Up:
-			
+			m_groundFlag = true;
 			m_currentSpeed.first = 0;
 			m_currentSpeed.second = 2;
 			break;
 
 		case Down:
-
+			m_groundFlag = true;
 			m_currentSpeed.first = 0;
 			if (m_moveBlock[0])
 			{
@@ -367,7 +365,12 @@ void Player::Update()
 				m_currentSpeed.second = - 2;
 			}
 			break;
+		case Stand:
+			m_currentSpeed.first = 0;
+			m_currentSpeed.second = m_speed.second;
+			break;
 		}
+
 	if (m_rad == 0||(m_rad ==float(M_PI)*0.5f)|| (m_rad == float(M_PI) * 1.0f)|| (m_rad == float(M_PI) * 1.5f))
 	{
 		if (m_speed.second < 0)
@@ -438,6 +441,10 @@ void Player::Update()
 			}
 		}
 	}
+	if ((!m_groundFlag)&&(!(m_jumpPower>0)))
+	{
+		m_currentSpeed.second = m_speedBase.second;
+	}
 	m_gPos.first += m_currentSpeed.first;
 	m_gPos.second += m_currentSpeed.second+m_jumpPower;
 	m_pos.first = m_gPos.first - m_scroll->first;
@@ -476,6 +483,7 @@ void Player::Update()
 	m_matrix = m_mRotation * m_mTrans;
 	for (int i = 0; i < 4; i++)
 	{
+		m_moveBlockBuff[i] = m_moveBlock[i];
 		m_moveBlock[i] = false;
 	}
 	if (m_jumpPower > 0)
@@ -536,54 +544,75 @@ bool Player::CollisionToBlock(Block block)
 {
 	//result of function
 	bool _result = false;
+
 	//block Collision data
 	DirectX::BoundingBox _box;
 	std::pair<float, float> _bPos = block.GetGPos();
 	std::pair<float, float> _bSize = block.GetSize();
 	float _sideAngle = 0.0f;
 	float _bRad = block.GetRad();
+
 	//player collision data
 	DirectX::BoundingBox _playerBox;
 	std::pair<float, float> _position;
+
 	//position after normalize with block without angle
 	_position.first = m_gPos.first - _bPos.first;
 	_position.second = m_gPos.second - _bPos.second;
+
 	//after angle normalizing
 	std::pair<float, float>__buffer = { _position.first,_position.second };
 	_position.first = _position.first * cos(_bRad) - sin(_bRad) * _position.second;
 	_position.second = __buffer.first * sin(_bRad) + cos(_bRad) * __buffer.second;
 
-	
-	
+	//normalize block pos
 	_bPos = { 0,0 };
 	
-
+	//create collizion box
 	_playerBox = DirectX::BoundingBox(DirectX::XMFLOAT3(_position.first, _position.second, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
 	_box = DirectX::BoundingBox(DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(_bSize.first / 2.0f, _bSize.second / 2.0f, 0));
+
+	//Vector creating
 	std::array<DirectX::XMVECTOR, 4> _bOriginVector;
 	std::array<DirectX::XMVECTOR, 4> _bNorVector;
 	std::array<bool, 4> _intersectVector;
 	std::array< float, 4> _absDelta;
+
+
 	_bOriginVector[0] = { -_bSize.first / 2.0f,_bSize.second / 2.0f,0 };
 	_bOriginVector[1] = { -_bSize.first / 2.0f,_bSize.second / 2.0f,0 };
 	_bOriginVector[2] = { _bSize.first / 2.0f,-_bSize.second / 2.0f,0 };
 	_bOriginVector[3] = { _bSize.first / 2.0f,-_bSize.second / 2.0f,0 };
+
 	_bNorVector[0] = DirectX::XMVector3Normalize({ _bSize.first,0,0 });
 	_bNorVector[1] = DirectX::XMVector3Normalize({ 0,-_bSize.second,0 });
 	_bNorVector[2] = DirectX::XMVector3Normalize({ -_bSize.first,0,0 });
 	_bNorVector[3] = DirectX::XMVector3Normalize({ 0,_bSize.second,0 });
+
 	float _distanceBuf = FLT_MAX;
 	float _distance = _distanceBuf;
 
 	for (int i = 0; i < 4; i++)
 	{
 		_intersectVector[i] = _playerBox.Intersects(_bOriginVector[i], _bNorVector[i], _distanceBuf);
-		if (_distanceBuf < _distance && _intersectVector[i])
+		if ((_distanceBuf < _distance) && (_intersectVector[i]))
 		{
 			_distance = _distanceBuf;
 		}
 	}
 	_result = _playerBox.Intersects(_box);
+	if (_result)
+	{
+		if (block.GetBackStage())
+		{
+			m_groundFlag = true;
+		}
+		if ((_bRad<float(M_PI)) && !((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI))))
+		{
+			m_groundFlag = true;
+		}
+	}
+	/*
 	if (!_result)
 	{
 		if (_distance <= 0)
@@ -591,11 +620,8 @@ bool Player::CollisionToBlock(Block block)
 			_result = true;
 		}
 	}
+	*/
 
-	if (m_direction == Direction::Right)
-	{
-		_bRad += float(M_PI);
-	}
 	int _intersectNum = 0;
 	if (_intersectVector[1])
 	{
@@ -677,6 +703,10 @@ bool Player::CollisionToBlock(Block block)
 		_intersectNum++;
 		_absDelta[2] = abs(abs(_playerBox.Center.x) - 32.0f) + abs(abs(_playerBox.Center.y) - 32.0f);
 	}
+	if (m_direction == Direction::Right)
+	{
+		//_bRad += float(M_PI);
+	}
 	if ((_bRad == m_rad)&&(m_sideRad!=-1))
 	{
 		_sideAngle = m_sideRad;
@@ -710,22 +740,39 @@ bool Player::CollisionToBlock(Block block)
 			{
 				_sideAngle = m_sideRad;
 			}
+			auto test = float(M_PI);
+			if (!block.GetBackStage()&& ((_bRad == 0) || (_bRad == float(M_PI) * 2.0f) || (_bRad == float(M_PI))))
+			{
+				if (abs(_position.first) > abs(_position.second))
+				{
+					if (_position.first > 0)
+					{
+						Move(32.0f - _position.first, 0);
+					}
+					else
+					{
+						Move(-(_position.first + 32.0f), 0);
+					}
+				}
+				else
+				{
+					if (_position.second > 0)
+					{
+						Move(0, 32.0f - _position.second);
+					}
+					else
+					{
+						Move(0, -(_position.second + 32.0f));
+					}
+				}
+			}
+			
 		}
 		
-		switch (m_direction)
-		{
-		case Left:
-			//_bRad = _bRad + float(M_PI);
-			break;
-		case Right:
-			_bRad = _bRad + float(M_PI);
-			break;
-		case Stand:
-			break;
-		};
+
 		if (_bRad <float(M_PI))
 		{
-			m_groundFlag = true;
+			//m_groundFlag = true;
 		}
 		m_collisionData.push_back({ (_bRad),_sideAngle,{block.GetGPos()},block.m_backStage,block.m_iceBlock,block.m_snowBlock ,block.m_laderBlock,block.m_lavaBlock } );
 
@@ -814,4 +861,9 @@ void Player::UpdateTransMat()
 {
 	m_mTrans = Math::Matrix::CreateTranslation(m_gPos.first - m_scroll->first, m_gPos.second - m_scroll->second, 0.0f);
 	m_matrix = m_mRotation * m_mTrans;
+}
+
+int Player::GetColissionDataSize()
+{
+	return __test;
 }

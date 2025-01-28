@@ -47,6 +47,7 @@ protected:
 
 	//collision
 	bool m_moveBlock[4] = {false,false,false,false};
+	bool m_moveBlockBuff[4] = { false,false,false,false };
 	std::vector<CollisionBlockData> m_collisionData;
 
 	bool OnSnowBlockFlag = false;
@@ -65,7 +66,7 @@ protected:
 	virtual ~Player();
 	//Legacy
 	bool IsPossibleAngle(float radian);
-	
+	int __test;
 public:
 	//Setter
 	float GetAngle();
@@ -88,4 +89,5 @@ public:
 	void Move(float x,float y);//�ړ��֐�
 	void CollisionClear();
 	void UpdateTransMat();
+	int GetColissionDataSize();
 };
