@@ -42,10 +42,11 @@ bool Application::Init(int w, int h)
 	// フルスクリーン確認
 	//===================================================================
 	bool bFullScreen = false;
-	/*if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
+	
+	if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
 		bFullScreen = true;
-	}*/
-
+	}
+	
 
 	//===================================================================
 	// Direct3D
@@ -66,7 +67,7 @@ bool Application::Init(int w, int h)
 
 	// フルスクリーン設定
 	if (bFullScreen) {
-		D3D.GetSwapChain()->SetFullscreenState(TRUE, 0);
+		D3D.GetSwapChain()->SetFullscreenState(true, 0);
 	}
 
 	// シェーダー初期化
@@ -506,6 +507,7 @@ void Application::CreateDataPath()
 // アプリケーション実行
 void Application::Execute()
 {
+	
 	std::vector<std::string> test;
 	//===================================================================
 	// 初期設定(ウィンドウ作成、Direct3D初期化など)
@@ -550,13 +552,11 @@ void Application::Execute()
 		soundInstance->SetVolume(WindowsData.GetMusicVolume());
 	}
 
-	
 	do//GameLoop
 	{
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
-
 			do
 			{
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
@@ -566,8 +566,6 @@ void Application::Execute()
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				SHADER.m_spriteShader.DrawString(-200, 300, "ダンジョンメーカー", { 1,0,0,1 });
 				MenuExecute(mainMenu);
-				
-				
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::GameScene:

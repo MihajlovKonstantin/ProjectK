@@ -116,5 +116,7 @@ public:
 	}
 };
 
+
+
 // 簡単にアクセスできるようにするためのマクロ
 #define APP Application::GetInstance()
