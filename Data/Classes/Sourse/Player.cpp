@@ -63,8 +63,12 @@ void Player::Update()
 					{
 						if (!(m_collisionData[i].sideRad == float(M_PI) * 1.5f))
 						{
-							index = i;
-							_comparePos = m_collisionData[i].pos;
+							if (!(m_collisionData[index].rad > m_collisionData[i].rad)&&!(m_collisionData[index].rad== m_collisionData[i].rad==0))
+							{
+								index = i;
+								_comparePos = m_collisionData[i].pos;
+							}
+							
 						}
 					}
 					break;
@@ -77,8 +81,12 @@ void Player::Update()
 					{
 						if (!(m_collisionData[i].sideRad == float(M_PI) * 0.5f))
 						{
-							index = i;
-							_comparePos = m_collisionData[i].pos;
+							if (!(m_collisionData[index].rad > m_collisionData[i].rad))
+							{
+								index = i;
+								_comparePos = m_collisionData[i].pos;
+							}
+							
 						}
 					}
 					break;
@@ -90,7 +98,7 @@ void Player::Update()
 		if (!m_collisionData.empty())
 		{
 			m_collision = true;
-			if (m_rad!=-1&&(!(m_rad == 0) || (m_rad == float(M_PI) * 2.0f) || (m_rad == float(M_PI))))
+			if (m_rad!=-1&&(!((m_rad == 0) || (m_rad == float(M_PI) * 2.0f) || (m_rad == float(M_PI)))))
 			{
 				m_groundFlag = true;
 			}
@@ -122,11 +130,39 @@ void Player::Update()
 				}
 			}
 		}
+		if (m_collision && (m_rad != m_collisionData[index].rad))
+		{
+			switch (m_direction)
+			{
+			case Direction::Left:
+				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) < float(M_PI) * 0.5f)
+				{
+					if (m_collisionData[0].rad != m_collisionData[1].rad)
+					{
+						Move(-16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
+					}
 
+				}
+				break;
+			case Direction::Right:
+				if (fmod(m_collisionData[index].rad, 1.0f * float(M_PI)) > float(M_PI) * 0.5f)
+				{
+					if (m_collisionData[0].rad != m_collisionData[1].rad)
+					{
+						Move(16 * sqrt(2) * 0.5, 16 * sqrt(2) * 0.5);
+					}
+
+				}
+				break;
+			}
+
+
+		}
 		m_rad = m_collisionData[index].rad;
 		m_sideRad = m_collisionData[index].sideRad;
 		OnIceBlockFlag = m_collisionData[index].OnIceFlag;
 		OnSnowBlockFlag = m_collisionData[index].OnSnowFlag;
+
 
 		if (m_rad < 0)
 		{
@@ -551,6 +587,7 @@ bool Player::CollisionToBlock(Block block)
 	std::pair<float, float> _bSize = block.GetSize();
 	float _sideAngle = 0.0f;
 	float _bRad = block.GetRad();
+	float _dX = 0.0f, _dY = 0.0f;
 
 	//player collision data
 	DirectX::BoundingBox _playerBox;
@@ -766,7 +803,6 @@ bool Player::CollisionToBlock(Block block)
 					}
 				}
 			}
-			
 		}
 		
 

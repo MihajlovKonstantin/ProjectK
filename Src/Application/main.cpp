@@ -42,11 +42,11 @@ bool Application::Init(int w, int h)
 	// フルスクリーン確認
 	//===================================================================
 	bool bFullScreen = false;
-	
+	/*
 	if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
 		bFullScreen = true;
 	}
-	
+	*/
 
 	//===================================================================
 	// Direct3D
@@ -182,6 +182,21 @@ void Application::CreateExtensions()
 	if (_result == ERROR_SUCCESS)
 	{
 		const char* _description = "Map_Data";
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
+		RegCloseKey(_hkey);
+	}
+	const std::wstring _extensionCampain = L".campain";
+	const std::wstring _fileTypeCampain = L"Campain";
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _extensionCampain.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_fileTypeCampain.c_str(), (_fileTypeCampain.length()) * sizeof(wchar_t) + 1);
+		RegCloseKey(_hkey);
+	}
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _fileTypeCampain.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		const char* _description = "Campain_Data";
 		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
 		RegCloseKey(_hkey);
 	}
