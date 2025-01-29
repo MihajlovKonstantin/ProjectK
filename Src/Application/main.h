@@ -57,6 +57,8 @@ private:
 	KdTexture m_backGround2;
 	KdTexture m_titleLogo;
 	KdTexture m_frame;
+	KdTexture m_editorBack;
+	KdTexture m_editorBackBlock;
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;

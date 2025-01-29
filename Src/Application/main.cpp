@@ -98,6 +98,8 @@ bool Application::Init(int w, int h)
 	m_backGround2.Load("Texture/BackGround/Title2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
 	m_frame.Load("Texture/BackGround/frame.png");
+	m_editorBack.Load("Texture/BackGround/bg_shroom.png");
+	m_editorBackBlock.Load("Texture/BackGround/editorTerrain.png");
 	{
 		// “ú–{Œê‘Î‰ž
 		#include "imgui/ja_glyph_ranges.h"
@@ -685,6 +687,10 @@ void Application::Execute()
 			{
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
+				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				//SHADER.m_spriteShader.DrawTex(&m_editorBackBlock, Math::Rectangle(0, 0, 320, 32), 1.0f);
+				//SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
