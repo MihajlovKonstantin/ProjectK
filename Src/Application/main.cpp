@@ -43,9 +43,9 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	bool bFullScreen = false;
 	
-	if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
+	/*if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
 		bFullScreen = true;
-	}
+	}*/
 	
 
 	//===================================================================
@@ -94,10 +94,12 @@ bool Application::Init(int w, int h)
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
-	m_backGround.Load("Texture/BackGround/Title.png");
-	m_backGround2.Load("Texture/BackGround/Title2.png");
+	m_mainMenuBackGround1.Load("Texture/BackGround/Title.png");
+	m_mainMenuBackGround2.Load("Texture/BackGround/Title2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
 	m_frame.Load("Texture/BackGround/frame.png");
+	m_settingBack1.Load("Texture/BackGround/setting.png");
+	m_settingBack2.Load("Texture/BackGround/backSetting.png");
 	{
 		// 日本語対応
 		#include "imgui/ja_glyph_ranges.h"
@@ -425,12 +427,34 @@ void Application::MenuUpdate(Menu &inputMenu)
 				{
 					if (!inputMenu.IsCD())
 					{
-						inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
-						inputMenu.SetColdown();
+						if (m_settingFlg)
+						{
+							if (m_musicCnt++ < 35)
+							{
+								inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
+								inputMenu.SetColdown(5);
+							}
+							else
+							{
+								inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
+								inputMenu.SetColdown(1);
+							}
+						}
+						else if (!m_lButtonFlg)
+						{
+							inputMenu.EventClick(inputMenu.GetButton(i).SendClickData());
+							inputMenu.SetColdown(30);
+						}
 					}
 				}
 			}
 		}
+		m_lButtonFlg = true;
+	}
+	else
+	{
+		m_lButtonFlg = false;
+		m_musicCnt = 0;
 	}
 }
 void Application::MenuDraw(Menu inputMenu)
@@ -448,6 +472,8 @@ void Application::MenuDraw(Menu inputMenu)
 			DrawButtonText(inputMenu.GetButton(i));
 
 	}
+	//__text = to_string(APP.GetInstance().m_fps);
+	//SHADER.m_spriteShader.DrawString(-600, 0, _convText, { 1,0,0,1 });
 }
 
 void Application::Game()
@@ -568,7 +594,8 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
-	mainMenu.SetTexture(&m_backGround);
+	mainMenu.SetTexture(&m_mainMenuBackGround1);
+	settingMenu.SetTexture(&m_settingBack2);
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	InitDataFile();//Inicialize menu and e.t.c
@@ -607,22 +634,43 @@ void Application::Execute()
 
 	do//GameLoop
 	{
+		
+		
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
 			do
 			{
+				m_settingFlg = false;
+				DWORD st = timeGetTime();
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				mainMenu.Update();
 				SHADER.m_spriteShader.SetMatrix(mainMenu.GetMatrix());
 				SHADER.m_spriteShader.DrawTex(mainMenu.GetTexture(), mainMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_backGround2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.DrawTex(&m_mainMenuBackGround2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(50, 170, 0));
 				SHADER.m_spriteShader.DrawTex(&m_titleLogo, Math::Rectangle(0, 0, 510, 111), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				//SHADER.m_spriteShader.DrawString(-200, 300, "ダンジョンメーカー", { 1,0,0,1 });
 				MenuExecute(mainMenu);
+				// 処理終了時間Get
+				DWORD et = timeGetTime();
+				// Fps制御
+				DWORD ms = 1000 / m_maxFps;
+				if (et - st < ms)
+				{
+					Sleep(ms - (et - st));	// 速すぎたら待つ
+				}
+
+				// FPS計測
+				count++;
+				if (st - baseTime >= 1000)
+				{
+					m_fps = (count * 1000) / (st - baseTime);
+					baseTime = st;
+					count = 0;
+				}
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::GameScene:
@@ -650,6 +698,7 @@ void Application::Execute()
 			SCENE.LoadMap();
 			do
 			{
+				m_settingFlg = false;
 				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				Game();
 			}while ((m_endFlagWindows != true));
@@ -659,8 +708,13 @@ void Application::Execute()
 		case WindowsControl::Setting:
 			do
 			{
+				m_settingFlg = true;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				settingMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(settingMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(settingMenu.GetTexture(), settingMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_settingBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(settingMenu);
 			} while ((m_endFlagWindows != true));
 			break;
@@ -672,6 +726,7 @@ void Application::Execute()
 			selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
 			do
 			{
+				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectPlaybleMapMenu.Update();
 				MenuExecute(selectPlaybleMapMenu);
@@ -683,6 +738,7 @@ void Application::Execute()
 			selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
 			do
 			{
+				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
 				MenuExecute(selectEditerMapMenu);
@@ -691,6 +747,7 @@ void Application::Execute()
 		default:
 			break;
 		}
+		
 		if(!soundInstance->IsPlay())
 			{
 					//RandomMusic();

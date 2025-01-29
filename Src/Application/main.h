@@ -53,16 +53,26 @@ private:
 	Menu recordMenu;
 	Menu selectPlaybleMapMenu;
 	Menu selectEditerMapMenu;
-	KdTexture m_backGround;
-	KdTexture m_backGround2;
+	KdTexture m_mainMenuBackGround1;
+	KdTexture m_mainMenuBackGround2;
 	KdTexture m_titleLogo;
 	KdTexture m_frame;
+	KdTexture m_settingBack1;
+	KdTexture m_settingBack2;
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;
+	//クリック関係
+	bool m_settingFlg = false;
+	bool m_lButtonFlg = false;
+	int m_musicCnt = 0;
 	// FPS計測
 	DWORD baseTime;
 	int count;
+
+	//Test
+	string __text;
+	const char* _convText = __text.c_str();
 public:
 
 	// アプリケーション実行
