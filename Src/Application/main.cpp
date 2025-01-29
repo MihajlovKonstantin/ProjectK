@@ -3,47 +3,47 @@
 #include "Scene.h"
 #pragma comment(lib, "Shlwapi.lib")
 //===================================================================
-// ƒƒCƒ“
+// ï¿½ï¿½ï¿½Cï¿½ï¿½
 //===================================================================
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpszArgs, int nWinMode)
 {
-	// ƒƒ‚ƒŠƒŠ[ƒN‚ğ’m‚ç‚¹‚é
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Nï¿½ï¿½mï¿½ç‚¹ï¿½ï¿½
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	// COM‰Šú‰»
+	// COMï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-	// mbstowcs_sŠÖ”‚Å“ú–{Œê‘Î‰‚É‚·‚é‚½‚ß‚ÉŒÄ‚Ô
+	// mbstowcs_sï¿½Öï¿½ï¿½Å“ï¿½ï¿½{ï¿½ï¿½Î‰ï¿½ï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚ÉŒÄ‚ï¿½
 	setlocale(LC_ALL, "japanese");
 
 	//===================================================================
-	// Às
+	// ï¿½ï¿½ï¿½s
 	//===================================================================
 	APP.Execute();
 
-	// COM‰ğ•ú
+	// COMï¿½ï¿½ï¿½
 	CoUninitialize();
 
 	return 0;
 }
 
 
-// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‰Šúİ’è
+// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 bool Application::Init(int w, int h)
 {
 	system("dir >temp.txt");
 	//===================================================================
-	// ƒEƒBƒ“ƒhƒEì¬
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ì¬
 	//===================================================================
-	if (m_window.Create(w, h, "ƒ_ƒ“ƒWƒ‡ƒ“ƒ[ƒJ[", "Window") == false) {
-		MessageBoxA(nullptr, "ƒEƒBƒ“ƒhƒEì¬‚É¸”s", "ƒGƒ‰[", MB_OK);
+	if (m_window.Create(w, h, "ï¿½_ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Jï¿½[", "Window") == false) {
+		MessageBoxA(nullptr, "ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ì¬ï¿½Éï¿½ï¿½s", "ï¿½Gï¿½ï¿½ï¿½[", MB_OK);
 		return false;
 	}
 
 	//===================================================================
-	// ƒtƒ‹ƒXƒNƒŠ[ƒ“Šm”F
+	// ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½mï¿½F
 	//===================================================================
 	bool bFullScreen = false;
 	
-	/*if (MessageBoxA(m_window.GetWndHandle(), "ƒtƒ‹ƒXƒNƒŠ[ƒ“‚É‚µ‚Ü‚·‚©H", "Šm”F", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
+	/*if (MessageBoxA(m_window.GetWndHandle(), "ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½É‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½H", "ï¿½mï¿½F", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
 		bFullScreen = true;
 	}*/
 	
@@ -52,25 +52,25 @@ bool Application::Init(int w, int h)
 	// Direct3D
 	//===================================================================
 
-	// ƒfƒoƒCƒX‚ÌƒfƒoƒbƒOƒ‚[ƒh‚ğ—LŒø‚É‚·‚é
+	// ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìƒfï¿½oï¿½bï¿½Oï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 	bool deviceDebugMode = false;
 	#ifdef _DEBUG
 	deviceDebugMode = true;
 	#endif
 
-	// Direct3D‰Šú‰»
+	// Direct3Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::string errorMsg;
 	if (D3D.Init(m_window.GetWndHandle(), w, h, deviceDebugMode, errorMsg) == false) {
-		MessageBoxA(m_window.GetWndHandle(), errorMsg.c_str(), "Direct3D‰Šú‰»¸”s", MB_OK | MB_ICONSTOP);
+		MessageBoxA(m_window.GetWndHandle(), errorMsg.c_str(), "Direct3Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s", MB_OK | MB_ICONSTOP);
 		return false;
 	}
 
-	// ƒtƒ‹ƒXƒNƒŠ[ƒ“İ’è
+	// ï¿½tï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½İ’ï¿½
 	if (bFullScreen) {
 		D3D.GetSwapChain()->SetFullscreenState(true, 0);
 	}
 
-	// ƒVƒF[ƒ_[‰Šú‰»
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SHADER.Init();
 
 	//===================================================================
@@ -78,12 +78,12 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	if (AUDIO.Init() == false)
 	{
-		MessageBoxA(m_window.GetWndHandle(), errorMsg.c_str(), "ƒTƒEƒ“ƒh‰Šú‰»¸”s", MB_OK | MB_ICONSTOP);
+		MessageBoxA(m_window.GetWndHandle(), errorMsg.c_str(), "ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s", MB_OK | MB_ICONSTOP);
 		return false;
 	}
 
 	//===================================================================
-	// imgui‰Šúİ’è
+	// imguiï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
 	//===================================================================
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -100,8 +100,10 @@ bool Application::Init(int w, int h)
 	m_frame.Load("Texture/BackGround/frame.png");
 	m_settingBack1.Load("Texture/BackGround/setting.png");
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
+	m_editorBack.Load("Texture/BackGround/bg_shroom.png");
+	m_editorBackBlock.Load("Texture/BackGround/editorTerrain.png");
 	{
-		// “ú–{Œê‘Î‰
+		// ï¿½ï¿½ï¿½{ï¿½ï¿½Î‰ï¿½
 		#include "imgui/ja_glyph_ranges.h"
 		ImFontConfig config;
 		config.MergeMode = true;
@@ -130,26 +132,26 @@ void Application::MakeDataLink()
 	selectEditerMapMenu.AddData(WindowsData);
 }
 
-// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“I—¹
+// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
 void Application::Release()
 {
 	D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
 
-	// imgui‰ğ•ú
+	// imguiï¿½ï¿½ï¿½
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 
-	// ƒVƒF[ƒ_‰ğ•ú
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½ï¿½ï¿½
 	SHADER.Release();
 
-	// Direct3D‰ğ•ú
+	// Direct3Dï¿½ï¿½ï¿½
 	D3D.Release();
 
-	// XAudio2‰ğ•ú
+	// XAudio2ï¿½ï¿½ï¿½
 	AUDIO.Release();
 
-	// ƒEƒBƒ“ƒhƒEíœ
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½íœ
 	m_window.Release();
 
 }
@@ -184,6 +186,21 @@ void Application::CreateExtensions()
 	if (_result == ERROR_SUCCESS)
 	{
 		const char* _description = "Map_Data";
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
+		RegCloseKey(_hkey);
+	}
+	const std::wstring _extensionCampain = L".campain";
+	const std::wstring _fileTypeCampain = L"Campain";
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _extensionCampain.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_fileTypeCampain.c_str(), (_fileTypeCampain.length()) * sizeof(wchar_t) + 1);
+		RegCloseKey(_hkey);
+	}
+	_result = RegCreateKeyEx(HKEY_CLASSES_ROOT, _fileTypeCampain.c_str(), 0, NULL, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &_hkey, NULL);
+	if (_result == ERROR_SUCCESS)
+	{
+		const char* _description = "Campain_Data";
 		RegSetValueEx(_hkey, NULL, 0, REG_SZ, (BYTE*)_description, strlen(_description) + 1);
 		RegCloseKey(_hkey);
 	}
@@ -256,14 +273,14 @@ void Application::InitSelectMapMenu()
 
 }
 
-//•`‰æŠÖ”
+//ï¿½`ï¿½ï¿½Öï¿½
 void Application::DrawButton(Button inputButton)
 {
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
 	std::pair<float, float> _mouse(mouse.x - 640, 360 - mouse.y);
 
-	//‘S‰æ–Ê‚©‚Ç‚¤‚©ŒŸ’m‚·‚é
+	//ï¿½Sï¿½ï¿½Ê‚ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ï¿½
 	//if (GetAsyncKeyState('A'))D3D.GetSwapChain()->SetFullscreenState(TRUE, 0);
 	//if (GetAsyncKeyState('D'))D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
 	
@@ -322,30 +339,30 @@ void Application::DrawButtonText(Button inputButton)
 }
 void Application::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
 {
-	//ƒƒCƒh•¶š—ñ‚É•ÏŠ·‚·‚é•K—v‚ª‚ ‚é
+	//ï¿½ï¿½ï¿½Cï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	WCHAR* _wtext = new WCHAR[strlen(_text) + 1];
 	mbstowcs_s(nullptr, _wtext, strlen(_text) + 1, _text, _TRUNCATE);
 
-	//Begin‘O‚ÌBlendState‚ğæ“¾
+	//Beginï¿½Oï¿½ï¿½BlendStateï¿½ï¿½ï¿½æ“¾
 	ID3D11BlendState* oldBlendState = 0;
 	float oldFactor[4];
 	UINT oldMask = 0;
 	D3D.GetDevContext()->OMGetBlendState(&oldBlendState, oldFactor, &oldMask);
 
-	//BlendState‚ğˆø‚«Œp‚¢‚ÅBegin
+	//BlendStateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½Begin
 	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, oldBlendState);
 	spriteFont->DrawString(spriteBatch, _wtext, Math::Vector2(_x + 640, -_y + 360), _color, 0.0f, { 0,0 }, scale);
 	spriteBatch->End();
 
-	//Begin‘O‚ÌBlendState‚ğ•œŒ³
+	//Beginï¿½Oï¿½ï¿½BlendStateï¿½ğ•œŒï¿½
 	D3D.GetDevContext()->OMSetBlendState(oldBlendState, oldFactor, oldMask);
 
-	//ˆêæ“¾‚µ‚½BlendState‚ğ‰ğ•ú (‰ğ•ú‚µ‚È‚¢‚ÆQÆƒJƒEƒ“ƒg‚ªŒ¸‚ç‚È‚¢)
+	//ï¿½êï¿½æ“¾ï¿½ï¿½ï¿½ï¿½BlendStateï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ÆQï¿½ÆƒJï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½)
 	KdSafeRelease(oldBlendState);
 
 	delete[] _wtext;
 }
-//Mouse/Button ŠÇ—
+//Mouse/Button ï¿½Ç—ï¿½
 bool Application::ClickButton(POINT inputMouse, Button inputButton)
 {
 	size = inputButton.GetSize();
@@ -372,14 +389,14 @@ void Application::MenuExecute(Menu& inputMenu)
 
 	//=========================================
 	//
-	// ƒEƒBƒ“ƒhƒEŠÖŒW‚Ìˆ—
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÖŒWï¿½Ìï¿½ï¿½ï¿½
 	//
 	//=========================================
 
-	// ƒEƒBƒ“ƒhƒE‚ÌƒƒbƒZ[ƒW‚ğˆ—‚·‚é
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_window.ProcessMessage();
 
-	// ƒEƒBƒ“ƒhƒE‚ª”jŠü‚³‚ê‚Ä‚é‚È‚çƒ‹[ƒvI—¹
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½È‚çƒ‹ï¿½[ï¿½vï¿½Iï¿½ï¿½
 	if (m_window.IsCreated() == false)
 	{
 		m_endFlag = true;
@@ -390,10 +407,10 @@ void Application::MenuExecute(Menu& inputMenu)
 	
 	
 	SHADER.m_spriteShader.Begin();
-	// Menu•`‰æˆ—
+	// Menuï¿½`ï¿½æˆï¿½ï¿½
 	MenuDraw(inputMenu);
 
-	// MenuUpdateˆ—
+	// MenuUpdateï¿½ï¿½ï¿½ï¿½
 
 	MenuUpdate(inputMenu);
 	SHADER.m_spriteShader.End();
@@ -402,7 +419,7 @@ void Application::MenuExecute(Menu& inputMenu)
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	// GUI•`‰æÀs
+	// GUIï¿½`ï¿½ï¿½ï¿½ï¿½s
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	D3D.GetSwapChain()->Present(0, 0);
@@ -488,14 +505,14 @@ void Application::Game()
 
 	//=========================================
 	//
-	// ƒEƒBƒ“ƒhƒEŠÖŒW‚Ìˆ—
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÖŒWï¿½Ìï¿½ï¿½ï¿½
 	//
 	//=========================================
 
-	// ƒEƒBƒ“ƒhƒE‚ÌƒƒbƒZ[ƒW‚ğˆ—‚·‚é
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_window.ProcessMessage();
 
-	// ƒEƒBƒ“ƒhƒE‚ª”jŠü‚³‚ê‚Ä‚é‚È‚çƒ‹[ƒvI—¹
+	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½È‚çƒ‹ï¿½[ï¿½vï¿½Iï¿½ï¿½
 	if (m_window.IsCreated() == false)
 	{
 		m_endFlag = true;
@@ -522,7 +539,7 @@ void Application::Game()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 	SCENE.ImGuiUpdate();
-	// GUI•`‰æÀs
+	// GUIï¿½`ï¿½ï¿½ï¿½ï¿½s
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	
@@ -533,14 +550,14 @@ void Application::Game()
 		m_endFlagWindows = true;
 	}
 	DWORD et = timeGetTime();
-	// Fps§Œä
+	// Fpsï¿½ï¿½ï¿½ï¿½
 	DWORD ms = 1000 / m_maxFps;
 	if (et - st < ms)
 	{
-		Sleep(ms - (et - st));	// ‘¬‚·‚¬‚½‚ç‘Ò‚Â
+		Sleep(ms - (et - st));	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò‚ï¿½
 	}
 
-	// FPSŒv‘ª
+	// FPSï¿½vï¿½ï¿½
 	count++;
 	if (st - baseTime >= 1000)
 	{
@@ -562,7 +579,7 @@ void Application::CreateDataPath()
 	const char* _homePath = std::getenv("USERPROFILE");
 	if (!_homePath)
 	{
-		std::cerr << "ƒAƒNƒZƒX‚ªo—ˆ‚Ü‚¹‚ñ‚Å‚µ‚½";
+		std::cerr << "ï¿½Aï¿½Nï¿½Zï¿½Xï¿½ï¿½ï¿½oï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½";
 		return;
 	}
 	char _documentPath[512];
@@ -574,7 +591,7 @@ void Application::CreateDataPath()
 	std::strcat(_result, "\\Dungeon Meka");
 
 	if (!PathFileExistsA(_result)) {
-		// „D„y„‚„u„{„„„€„‚„y„‘ „~„u „ƒ„…„‹„u„ƒ„„„r„…„u„„, „ƒ„€„x„t„p„u„} „u„v
+		// ï¿½Dï¿½yï¿½ï¿½ï¿½uï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ ï¿½~ï¿½u ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½rï¿½ï¿½ï¿½uï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½tï¿½pï¿½uï¿½} ï¿½uï¿½v
 		if (SHCreateDirectoryExA(NULL, _result, NULL) != ERROR_SUCCESS) {
 			std::cerr << "Unable to create directory." << std::endl;
 			return;
@@ -583,13 +600,13 @@ void Application::CreateDataPath()
 	dataFolderPath = _result;
 }
 
-// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“Às
+// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
 void Application::Execute()
 {
 	
 	std::vector<std::string> test;
 	//===================================================================
-	// ‰Šúİ’è(ƒEƒBƒ“ƒhƒEì¬ADirect3D‰Šú‰»‚È‚Ç)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½(ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ì¬ï¿½ADirect3Dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½)
 	//===================================================================
 	if (APP.Init(1280, 720) == false) {
 		return;
@@ -599,7 +616,7 @@ void Application::Execute()
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	InitDataFile();//Inicialize menu and e.t.c
-	MakeDataLink();//Data ‚Æ@Menu Class object Ú‘±‚·‚é
+	MakeDataLink();//Data ï¿½Æ@Menu Class object ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½ï¿½
 	CreateExtensions();
 	
 	{
@@ -652,18 +669,18 @@ void Application::Execute()
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(50, 170, 0));
 				SHADER.m_spriteShader.DrawTex(&m_titleLogo, Math::Rectangle(0, 0, 510, 111), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				//SHADER.m_spriteShader.DrawString(-200, 300, "ƒ_ƒ“ƒWƒ‡ƒ“ƒ[ƒJ[", { 1,0,0,1 });
+				//SHADER.m_spriteShader.DrawString(-200, 300, "ï¿½_ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Jï¿½[", { 1,0,0,1 });
 				MenuExecute(mainMenu);
-				// ˆ—I—¹ŠÔGet
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Get
 				DWORD et = timeGetTime();
-				// Fps§Œä
+				// Fpsï¿½ï¿½ï¿½ï¿½
 				DWORD ms = 1000 / m_maxFps;
 				if (et - st < ms)
 				{
-					Sleep(ms - (et - st));	// ‘¬‚·‚¬‚½‚ç‘Ò‚Â
+					Sleep(ms - (et - st));	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò‚ï¿½
 				}
 
-				// FPSŒv‘ª
+				// FPSï¿½vï¿½ï¿½
 				count++;
 				if (st - baseTime >= 1000)
 				{
@@ -741,6 +758,10 @@ void Application::Execute()
 				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
+				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				//SHADER.m_spriteShader.DrawTex(&m_editorBackBlock, Math::Rectangle(0, 0, 320, 32), 1.0f);
+				//SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
@@ -762,10 +783,10 @@ void Application::Execute()
 	while (1)
 	{
 
-		// ˆ—ŠJnŠÔGet
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½Get
 		DWORD st = timeGetTime();
 
-		// ƒQ[ƒ€I—¹w’è‚ª‚ ‚é‚Æ‚«‚Íƒ‹[ƒvI—¹
+		// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½wï¿½è‚ªï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Íƒï¿½ï¿½[ï¿½vï¿½Iï¿½ï¿½
 		if (m_endFlag)
 		{ 
 			break;
@@ -773,14 +794,14 @@ void Application::Execute()
 
 		//=========================================
 		//
-		// ƒEƒBƒ“ƒhƒEŠÖŒW‚Ìˆ—
+		// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÖŒWï¿½Ìï¿½ï¿½ï¿½
 		//
 		//=========================================
 
-		// ƒEƒBƒ“ƒhƒE‚ÌƒƒbƒZ[ƒW‚ğˆ—‚·‚é
+		// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_window.ProcessMessage();
 
-		// ƒEƒBƒ“ƒhƒE‚ª”jŠü‚³‚ê‚Ä‚é‚È‚çƒ‹[ƒvI—¹
+		// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½È‚çƒ‹ï¿½[ï¿½vï¿½Iï¿½ï¿½
 		if (m_window.IsCreated() == false)
 		{
 			break;
@@ -788,39 +809,39 @@ void Application::Execute()
 
 		//=========================================
 		//
-		// ƒI[ƒfƒBƒIˆ—
+		// ï¿½Iï¿½[ï¿½fï¿½Bï¿½Iï¿½ï¿½ï¿½ï¿½
 		//
 		//=========================================
 		AUDIO.Update();
 
 		//=========================================
 		//
-		// ƒQ[ƒ€ˆ—
+		// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//
 		//=========================================
 
-		// ƒoƒbƒNƒoƒbƒtƒ@ƒNƒŠƒA
+		// ï¿½oï¿½bï¿½Nï¿½oï¿½bï¿½tï¿½@ï¿½Nï¿½ï¿½ï¿½A
 		D3D.GetDevContext()->ClearRenderTargetView(D3D.GetBackBuffer(), Math::Color(0.3f, 0.3f, 0.5f, 1));
-		// Zƒoƒbƒtƒ@ƒNƒŠƒA
+		// Zï¿½oï¿½bï¿½tï¿½@ï¿½Nï¿½ï¿½ï¿½A
 		D3D.GetDevContext()->ClearDepthStencilView(D3D.GetZBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 
-		// ƒQ[ƒ€XVˆ—
+		// ï¿½Qï¿½[ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 		SCENE.Update(&currentWindow);
 
-		// ƒQ[ƒ€•`‰æˆ—
+		// ï¿½Qï¿½[ï¿½ï¿½ï¿½`ï¿½æˆï¿½ï¿½
 		SHADER.m_spriteShader.Begin();
 		SCENE.Draw2D();
 		SHADER.m_spriteShader.End();
 
 
-		//ƒŠƒŠ[ƒX‚ÍImGui‚Ì•”•ª‚Í’Ê‚ç‚È‚¢‚æ‚¤‚É‚·‚é
-		// ImGuiŠJn
+		//ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½ImGuiï¿½Ì•ï¿½ï¿½ï¿½ï¿½Í’Ê‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
+		// ImGuiï¿½Jï¿½n
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
-		// ImGuiˆ—
+		// ImGuiï¿½ï¿½ï¿½ï¿½
 		SCENE.ImGuiUpdate();
-		// GUI•`‰æÀs
+		// GUIï¿½`ï¿½ï¿½ï¿½ï¿½s
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		//---------------------
@@ -832,19 +853,19 @@ void Application::Execute()
 
 		//=========================================
 		//
-		// ƒtƒŒ[ƒ€ƒŒ[ƒg§Œä
+		// ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
 		//
 		//=========================================
-		// ˆ—I—¹ŠÔGet
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Get
 		DWORD et = timeGetTime();
-		// Fps§Œä
+		// Fpsï¿½ï¿½ï¿½ï¿½
 		DWORD ms = 1000 / m_maxFps;
 		if (et - st < ms)
 		{
-			Sleep(ms - (et - st));	// ‘¬‚·‚¬‚½‚ç‘Ò‚Â
+			Sleep(ms - (et - st));	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò‚ï¿½
 		}
 
-		// FPSŒv‘ª
+		// FPSï¿½vï¿½ï¿½
 		count++;
 		if (st - baseTime >= 1000)
 		{
@@ -855,12 +876,12 @@ void Application::Execute()
 
 	}
 
-	// ƒQ[ƒ€‰ğ•ú
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	*/
 
 	//===================================================================
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‰ğ•ú
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//===================================================================
 	SCENE.Release();
 	Release();

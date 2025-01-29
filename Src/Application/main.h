@@ -6,15 +6,15 @@
 //}
 
 //============================================================
-// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒNƒ‰ƒX
-//	APP.` ‚Å‚Ç‚±‚©‚ç‚Å‚àƒAƒNƒZƒX‰Â”\
+// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½X
+//	APP.ï¿½` ï¿½Å‚Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Aï¿½Nï¿½Zï¿½Xï¿½Â”\
 //============================================================
 class Application
 {
-// ƒƒ“ƒo
+// ï¿½ï¿½ï¿½ï¿½ï¿½o
 private:
 	POINT mouse;
-	//WindowsŠÇ—
+	//Windowsï¿½Ç—ï¿½
 	enum WindowsControl
 	{
 		MainMenu = 1,
@@ -24,7 +24,7 @@ private:
 		SelectPlayebleMapMenu,
 		SelectEditerMapMenu
 	};
-	//Data‚Ì“Ç‚İ‚İ
+	//Dataï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	std::string dataFolderPath;
 	std::string mapFolderPath;
 	//std::string currentMapPath;
@@ -42,7 +42,7 @@ private:
 	//SpriteFont
 	DirectX::SpriteBatch* spriteBatch;
 	DirectX::SpriteFont* spriteFont;
-	//DrawButton •Ï”
+	//DrawButton ï¿½Ïï¿½
 	std::array<float, 2> size;
 	std::array<float, 2>position;
 	std::string message;
@@ -53,20 +53,23 @@ private:
 	Menu recordMenu;
 	Menu selectPlaybleMapMenu;
 	Menu selectEditerMapMenu;
+	Menu campainMenu;
 	KdTexture m_mainMenuBackGround1;
 	KdTexture m_mainMenuBackGround2;
 	KdTexture m_titleLogo;
 	KdTexture m_frame;
 	KdTexture m_settingBack1;
 	KdTexture m_settingBack2;
+	KdTexture m_editorBack;
+	KdTexture m_editorBackBlock;
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;
-	//ƒNƒŠƒbƒNŠÖŒW
+	//ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ÖŒW
 	bool m_settingFlg = false;
 	bool m_lButtonFlg = false;
 	int m_musicCnt = 0;
-	// FPSŒv‘ª
+	// FPSï¿½vï¿½ï¿½
 	DWORD baseTime;
 	int count;
 
@@ -75,55 +78,55 @@ private:
 	const char* _convText = __text.c_str();
 public:
 
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“Às
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
 	void Execute();
 
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“I—¹
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½
 	void End() { m_endFlag = true; }
 
 
 	//=====================================================
-	// ƒOƒ[ƒoƒ‹ƒf[ƒ^
+	// ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½fï¿½[ï¿½^
 	//=====================================================
 
-	// ƒQ[ƒ€ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½X
 	KdGameWindow		m_window;
 
-	// FPS§Œä
-	int				m_fps = 0;					// Œ»İ‚ÌFPS’l
-	int				m_maxFps = 60;				// Å‘åFPS
+	// FPSï¿½ï¿½ï¿½ï¿½
+	int				m_fps = 0;					// ï¿½ï¿½ï¿½İ‚ï¿½FPSï¿½l
+	int				m_maxFps = 60;				// ï¿½Å‘ï¿½FPS
 
 
 private:
 
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‰Šú‰»
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool Init(int w, int h);
 	void InitDataFile();
 	void MakeDataLink();
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‰ğ•ú
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Release();
 	
-	// ƒQ[ƒ€I—¹ƒtƒ‰ƒO true‚ÅI—¹‚·‚é
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O trueï¿½ÅIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool		m_endFlag = false;
 	bool m_endFlagWindows = false;
-	//•`‰æŠÖ”
+	//ï¿½`ï¿½ï¿½Öï¿½
 	void DrawButton(Button inputButton);
 	void DrawButtonText(Button inputButton);
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
-	//MenuŠÇ—ŠÖ”
+	//Menuï¿½Ç—ï¿½ï¿½Öï¿½
 	void MenuUpdate(Menu &inputMenu);
 	void MenuDraw(Menu inputMenu);
 	bool ClickButton(POINT inputMouse, Button inputButton);
 	void MenuExecute(Menu& inputMenu);
 	//GameLoop
 	void Game();
-	//Initˆ—/data‚Ì“Ç‚İ‚İ
+	//Initï¿½ï¿½ï¿½ï¿½/dataï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	void CreateDataPath();
 	void CreateExtensions();
 	void LoadMapList();
 	void InitSelectMapMenu();
 //=====================================================
-// ƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“
+// ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½ï¿½pï¿½^ï¿½[ï¿½ï¿½
 //=====================================================
 private:
 	// 
@@ -138,5 +141,5 @@ public:
 
 
 
-// ŠÈ’P‚ÉƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚É‚·‚é‚½‚ß‚Ìƒ}ƒNƒ
+// ï¿½È’Pï¿½ÉƒAï¿½Nï¿½Zï¿½Xï¿½Å‚ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚Ìƒ}ï¿½Nï¿½ï¿½
 #define APP Application::GetInstance()
