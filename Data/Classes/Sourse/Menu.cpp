@@ -139,10 +139,10 @@ void Menu::InitSetting()
 {
 	buttons.clear();
 	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,change,goScene,Title);
-	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, nochange, decreaseByIndex, volume);
+	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,120.0f }, " Music-", 1.0f, nochange, decreaseByIndex, volume);
 	buttons.push_back(_newButton);
 	buttons.push_back(_musicButton);
-	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, nochange, increaseByIndex, volume);
+	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,250.0f }, " Music+", 1.0f, nochange, increaseByIndex, volume);
 	buttons.push_back(_musicButton);
 }
 void Menu::InitInGameSetting()
@@ -417,9 +417,9 @@ void Menu::IncreaceByIndex(int dataIndex)
 	float _currentValue;
 	switch (dataIndex)
 	{
-	case 21:
+	case DataValue::volume:
 		_currentValue = data->GetMusicVolume();
-		_currentValue += 0.001f;
+		_currentValue += 0.01f;
 		if (_currentValue > 1.0f)
 		{
 			_currentValue = 1.0f;
@@ -442,7 +442,7 @@ void Menu::DecreaceByIndex(int dataIndex)
 	float _currentValue;
 	switch (dataIndex)
 	{
-	case 21:
+	case DataValue::volume:
 		_currentValue = data->GetMusicVolume();
 		_currentValue -= 0.01f;
 		if (_currentValue < 0.0f)
@@ -554,7 +554,7 @@ void Menu::SetDirty(bool input)
 	dirty = input;
 }
 
-void Menu::SetColdown()
+void Menu::SetColdown(int coldownInterval)
 {
 	currentColdown = coldownInterval;
 }

@@ -121,7 +121,7 @@ bool NPC::Discovery()
 			auto _enemyPos = DirectX::XMVECTOR{ m_gPos.first, float(m_gPos.second),0 };
 			for (size_t i = 0; i < m_terrain.size(); i++)
 			{
-				int deltaX, deltaY;
+				int deltaX = 0, deltaY = 0;
 				auto v = m_terrain[i]->GetTypeBlockSize();
 				switch (m_terrain[i]->GetAngle())	//ブロックには角度があるため
 				{

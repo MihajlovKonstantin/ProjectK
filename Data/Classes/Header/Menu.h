@@ -27,8 +27,8 @@ private:
     int mapNum;
     bool IsSelectMapMenu = false;
     bool dirty = true;
+
     int currentColdown = 0;
-    int coldownInterval = 300;
 public:
     KdTexture* GetTexture();
     void SetTexture(KdTexture* texture);
@@ -66,7 +66,7 @@ public:
     bool IsDirty();
     int GetBlockData();
     void SetDirty(bool input);
-    void SetColdown();
+    void SetColdown(int coldownInterval);
     bool IsCD();
     void UpdateMap();
     void ReleaseMap();
