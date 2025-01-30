@@ -15,7 +15,7 @@ private:
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
-	enum BlockEditerSelect { COUNTBES = 6, Ground = 1, Ice, IceWater ,Ladder ,Lava};
+	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater ,Ladder ,Lava ,Crate};
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	//ObjectVector
 	std::vector<Item> m_item;
@@ -31,6 +31,7 @@ private:
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
 	std::array<KdTexture, 5> m_ladderTex;
 	std::array<KdTexture, 5> m_lavaTex;
+	std::array<KdTexture, 5> m_crateTex;
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
