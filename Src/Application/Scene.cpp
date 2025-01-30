@@ -168,8 +168,8 @@ void Scene::Draw2D()
 		{
 			if (!CLEARFLAG)
 			{
-				m_hpBar = to_string(int(m_player.GetHp())) + "/100";
-				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);
+				/*m_hpBar = to_string(int(m_player.GetHp())) + "/100";
+				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);*/
 			}
 
 		}
@@ -229,7 +229,7 @@ void Scene::SetResumeWindows()
 
 void Scene::DynamicDraw2D()
 {
-	tmpTex.ClearRenerTarget(Math::Color(0,0, 0, 1));
+	tmpTex.ClearRenerTarget(Math::Color(0, 0, 0, 1));
 	tmpTex.SetRenderTarget();
 	SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 	SHADER.m_spriteShader.DrawTex(&m_backGround, Math::Rectangle(0, 0, 1280, 720));
@@ -249,6 +249,22 @@ void Scene::DynamicDraw2D()
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), m_player.GetRect(), 1.0f);
+		if (m_player.GetHpAlpha())
+		{
+			if (m_hpAlphaCnt <= 20)m_hpAlpha = 1.0f;
+			if (m_hpAlphaCnt-- < 0)
+			{
+				m_hpAlphaCnt = m_BaseHpAlphaCnt;
+				m_player.SetHpAlpha(false);
+			}
+		}
+
+		m_hpAlpha -= 0.01f;
+
+		if (m_hpAlpha < 0)m_hpAlpha = 0;
+
+		SHADER.m_spriteShader.SetMatrix(m_player.GetHpMatrix());
+		SHADER.m_spriteShader.DrawTex(m_player.GetHpTexture(), m_player.GetHpRect(), m_hpAlpha);
 		for (auto _terrainObject : m_terrain)
 		{
 			auto _blocks = *_terrainObject.GetBlocks();
@@ -1226,14 +1242,14 @@ void Scene::SaveSpawn()
 			outFile << m_spawner[i].GetCharaPos().first << ",";
 			switch (m_spawner[i].GetIndex())
 			{
-			case 1:
+			case SpawnerSelect::Player:
 				outFile << m_spawner[i].GetCharaPos().second << "\n";
 				break;
-			case 2:
+			case SpawnerSelect::Enemy:
 				outFile << m_spawner[i].GetCharaPos().second << ",";
 				outFile << m_spawner[i].GetType() << "\n";
 				break;
-			case 3:
+			case SpawnerSelect::Enemys:
 				outFile << m_spawner[i].GetCharaPos().second << ",";
 				outFile << m_spawner[i].GetType() << ",";
 				outFile << m_spawner[i].GetInterval() << ",";
@@ -1263,19 +1279,19 @@ void Scene::LoadSpawn()
 			pos.first = stoi(line);
 			switch (charaIndex)
 			{
-			case 1:
+			case SpawnerSelect::Player:
 				std::getline(inFile, line, '\n');
 				pos.second = stoi(line);
 				m_spawner.push_back(Spawner(charaIndex, pos,&m_enemylibrary, &m_player));
 				break;
-			case 2:
+			case SpawnerSelect::Enemy:
 				std::getline(inFile, line, ',');
 				pos.second = stoi(line);
 				std::getline(inFile, line, '\n');
 				type = stoi(line);
 				m_spawner.push_back(Spawner(charaIndex, pos, &m_enemylibrary, &m_player, &m_terrain, type));
 				break;
-			case 3:
+			case SpawnerSelect::Enemys:
 				std::getline(inFile, line, ',');
 				pos.second = stoi(line);
 				std::getline(inFile, line, ',');
@@ -1688,7 +1704,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	
 	charaRect = Math::Rectangle(0, 0, 32, 32);
-	m_playerTex.Load("Texture/Creature/player.png");
+	m_playerTex.Load("Texture/Player/player.png");
+	m_playerHpTex.Load("Texture/Player/hp.png");
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -1824,6 +1841,19 @@ void Scene::Release()
 	//m_blockTex.Release();
 	delete SC;
 	tmpTex.Release();
+	m_playerTex.Release();
+	m_playerHpTex.Release();
+	m_blockTex.Release();
+	m_backGround.Release();
+	m_snowBallTex.Release();
+	m_slimeTex.Release();
+	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
+	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
+	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();
+	for (int i = 0; i < m_iceSurfaceTex.size(); i++)m_iceSurfaceTex[i].Release();
+	for (int i = 0; i < m_iceWaterBlockTex.size(); i++)m_iceWaterBlockTex[i].Release();
+	for (int i = 0; i < m_ladderTex.size(); i++)m_ladderTex[i].Release();
+	for (int i = 0; i < m_lavaTex.size(); i++)m_lavaTex[i].Release();
 }
 
 void Scene::ImGuiUpdate()

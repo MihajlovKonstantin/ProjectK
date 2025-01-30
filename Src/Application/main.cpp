@@ -34,7 +34,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// �E�B���h�E�쐬
 	//===================================================================
-	if (m_window.Create(w, h, "�_���W�������[�J�[", "Window") == false) {
+	if (m_window.Create(w, h, "DungenMaker", "Window") == false) {
 		MessageBoxA(nullptr, "�E�B���h�E�쐬�Ɏ��s", "�G���[", MB_OK);
 		return false;
 	}
@@ -101,8 +101,8 @@ bool Application::Init(int w, int h)
 	m_frame.Load("Texture/BackGround/frame.png");
 	m_settingBack1.Load("Texture/BackGround/setting.png");
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
-	m_editorBack.Load("Texture/BackGround/bg_shroom.png");
-	m_editorBackBlock.Load("Texture/BackGround/editorBackBlock.png");
+	m_editorBack1.Load("Texture/BackGround/Title.png");
+	m_editorBack2.Load("Texture/BackGround/editorBackBlock.png");
 	{
 		// ���{��Ή�
 		#include "imgui/ja_glyph_ranges.h"
@@ -155,6 +155,15 @@ void Application::Release()
 
 	// �E�B���h�E�폜
 	m_window.Release();
+
+	m_mainMenuBackGround1.Release();
+	m_mainMenuBackGround2.Release();
+	m_titleLogo.Release();
+	m_frame.Release();
+	m_settingBack1.Release();
+	m_settingBack2.Release();
+	m_editorBack1.Release();
+	m_editorBack2.Release();
 
 }
 void Application::CreateExtensions()
@@ -706,6 +715,7 @@ void Application::Execute()
 	CreateExtensions();
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
+	selectEditerMapMenu.SetTexture(&m_editorBack1);
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	LoadCampain();
@@ -854,13 +864,13 @@ void Application::Execute()
 			selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
 			do
 			{
-				m_settingFlg = false;
+				m_settingFlg = true;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
-				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(selectEditerMapMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(selectEditerMapMenu.GetTexture(), selectEditerMapMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_editorBackBlock, Math::Rectangle(0, 0, 1280, 720), 1.0f);
-				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_editorBack2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;

@@ -1,10 +1,11 @@
 #include "Pch.h"
 #include "Data/Classes/Header/PC.h"
 
-PC::PC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture)
+PC::PC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture, KdTexture* hpTexture)
 {
 	m_pos = pos;
 	m_texture = texture;
+	m_hpTexture = hpTexture;
 	m_speedBase = speed;
 	m_speed = m_speedBase;
 }

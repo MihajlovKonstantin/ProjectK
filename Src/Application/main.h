@@ -66,10 +66,11 @@ private:
 	KdTexture m_frame;
 	KdTexture m_settingBack1;
 	KdTexture m_settingBack2;
-	KdTexture m_editorBack;
-	KdTexture m_editorBackBlock;
+	KdTexture m_editorBack1;
+	KdTexture m_editorBack2;
 
 	Campain m_campain;
+	
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;
