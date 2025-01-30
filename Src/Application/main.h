@@ -1,5 +1,7 @@
 #pragma once
 #include "Pch.h"
+#include <algorithm>
+#include <sstream>
 //extern "C"
 //{
 //	#include "Windows.h"
@@ -22,7 +24,8 @@ private:
 		Setting,
 		Records,
 		SelectPlayebleMapMenu,
-		SelectEditerMapMenu
+		SelectEditerMapMenu,
+		Campain
 	};
 	//Dataの読み込み
 	std::string dataFolderPath;
@@ -32,6 +35,8 @@ private:
 	std::string lastSelectedPath;
 	std::vector<std::string> playebleMapList;
 	std::vector<std::string> editerMapList;
+	std::vector<std::string> campainMap;
+
 
 	WindowsControlData WindowsData;
 	KeyEvent event;
@@ -114,7 +119,8 @@ private:
 	void CreateDataPath();
 	void CreateExtensions();
 	void LoadMapList();
-	void InitSelectMapMenu();
+	int ExtractNumber(const string& s);
+	void BubbleSort(vector<string>& strings);
 //=====================================================
 // シングルトンパターン
 //=====================================================

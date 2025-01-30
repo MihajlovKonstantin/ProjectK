@@ -32,68 +32,137 @@ void Menu::Update()
 	}
 	if (GetSelectMapMenuState())
 	{
-		if (IsDirty())
+		if (!IsCampainMenu)
 		{
-			int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
-			lastMapIndex = GetMapNum();
-			dataBlockIndex = GetBlockData();
-			if ((dataBlockIndex == 0) && (lastMapIndex < 9))
+			if (IsDirty())
 			{
-				for (int i = 0; i < lastMapIndex; i++)
+				int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
+				lastMapIndex = GetMapNum();
+				dataBlockIndex = GetBlockData();
+				if ((dataBlockIndex == 0) && (lastMapIndex < 9))
 				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
+					for (int i = 0; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
 				}
+				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
+				{
+					int i;
+					for (i = 0; i < 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				SetDirty(false);
 			}
-			if (((dataBlockIndex+1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
-			{
-				int i;
-				for (i = 0; i < dataBlockIndex * 9; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-				for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-			}
-			if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
-			{
-				int i;
-				for (i = 0; i < 9; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-				for (i = 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-			}
-			if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
-			{
-				int i;
-				for (i = 0; i < dataBlockIndex * 9; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-				for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-				for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-			}
-			SetDirty(false);
 		}
+		else
+		{
+			if (IsDirty())
+			{
+				int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
+				lastMapIndex = GetMapNum();
+				dataBlockIndex = GetBlockData();
+				if ((dataBlockIndex == 0) && (lastMapIndex < 9))
+				{
+					for (int i = 0; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
+				{
+					int i;
+					for (i = 0; i < 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				SetDirty(false);
+			}
+		}
+		
 	}
 	if (currentColdown > 0)
 	{
@@ -267,6 +336,65 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
+void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPath)
+{
+	dirty = true;
+	selectedBlockData = 0;
+	IsSelectMapMenu = true;
+	IsCampainMenu = true;
+	m_dataPath = dataPath;
+	buttons.clear();
+	Button _newButton;
+	int dX = 0, dY = 0;
+	for (size_t i = 0; i < mapList.size(); i++)
+	{
+		switch (i % 3)
+		{
+		case 0:
+			dX = 0;
+			break;
+		case 1:
+			dX = 300;
+			break;
+		case 2:
+			dX = 600;
+			break;
+		}
+		div_t _index = div(i, 9);
+		_index = div(_index.rem, 3);
+		switch (_index.quot)
+		{
+		case 0:
+			dY = 0;
+			break;
+		case 1:
+			dY = -100;
+			break;
+		case 2:
+			dY = -200;
+			break;
+		}
+		mapList[i] = mapList[i].substr(0, mapList[i].length() - 4);
+		_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
+		_newButton.ChangeVisiable();
+		_newButton.ChangeActive();
+		buttons.push_back(_newButton);
+	}
+	maxBlockData = buttons.size() / 9;
+	mapNum = buttons.size();
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	buttons.push_back(_newButton);
+}
 Button Menu::GetButton()
 {
 	return testButton;
@@ -309,6 +437,7 @@ void Menu::EventClick(array<int, 2> eventData)
 		SwitchBoolEvent(eventData[1]);
 		break;
 	case selectMap:
+		selectedMap.clear();
 		selectedMap = buttons[eventData[1]].GetText();
 		break;
 	case openMap:

@@ -26,6 +26,7 @@ private:
     int maxBlockData = 1;
     int mapNum;
     bool IsSelectMapMenu = false;
+    bool IsCampainMenu = false;
     bool dirty = true;
     int currentColdown = 0;
     int coldownInterval = 300;
@@ -41,6 +42,7 @@ public:
     void InitInGameSetting();
     void InitSelectMapPlayeble(std::vector<std::string > mapList,std::string path,std::string dataPath);
     void InitSelectEditingMap(std::vector<std::string > mapList, std::string path, std::string dataPath);
+    void InitCampainMenu(std::vector<std::string> mapList, std::string dataPath);
     Button GetButton();
     Button GetButton(int cnt);
     int GetButtonsCNT();

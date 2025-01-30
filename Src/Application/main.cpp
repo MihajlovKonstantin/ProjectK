@@ -128,6 +128,7 @@ void Application::MakeDataLink()
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
 	selectEditerMapMenu.AddData(WindowsData);
+	campainMenu.AddData(WindowsData);
 }
 
 // アプリケーション終了
@@ -263,13 +264,46 @@ void Application::LoadMapList()
 	}
 	inFile.close();
 
-	
+	campainMap.clear();
+	_dirFinder = "dir Data\\Map  *.map /b  > temp3.txt";
+	system(_dirFinder.c_str());
+	inFile = std::ifstream("temp3.txt");
+	{
+		if (inFile.is_open())
+		{
+			std::string line;
+			while (std::getline(inFile, line, '\n'))
+			{
+				campainMap.push_back(line);
+			}
+		}
+	}
+	inFile.close();
+	BubbleSort(campainMap);
 }
 
-void Application::InitSelectMapMenu()
+
+int Application::ExtractNumber(const string& s)
 {
-
+	stringstream _ss(s);
+	int _num;
+	_ss >> _num;
+	return _num;
 }
+
+void Application::BubbleSort(vector<string>& strings)
+{
+	int n = strings.size();
+	for (int i = 0; i < n - 1; ++i) {
+		for (int j = 0; j < n - i - 1; ++j) {
+			if (ExtractNumber(strings[j]) > ExtractNumber(strings[j + 1])) {
+				swap(strings[j], strings[j + 1]);
+			}
+		}
+	}
+}
+
+
 
 //描画関数
 void Application::DrawButton(Button inputButton)
@@ -578,7 +612,7 @@ void Application::CreateDataPath()
 void Application::Execute()
 {
 	
-	std::vector<std::string> test;
+	//std::vector<std::string> test;
 	//===================================================================
 	// 初期設定(ウィンドウ作成、Direct3D初期化など)
 	//===================================================================
@@ -591,7 +625,6 @@ void Application::Execute()
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data と　Menu Class object 接続する
 	CreateExtensions();
-	
 	{
 		std::ofstream outFile("example.menu");
 		if (outFile.is_open()) {
@@ -687,6 +720,7 @@ void Application::Execute()
 			lastSelectedPath = mapFolderPath;
 			LoadMapList();
 			selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
+			//selectPlaybleMapMenu.InitCampainMenu(campainMap, dataFolderPath);
 			do
 			{
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
@@ -708,6 +742,10 @@ void Application::Execute()
 				//SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
+			break;
+		case WindowsControl::Campain:
+			LoadMapList();
+			campainMenu.InitCampainMenu(campainMap, dataFolderPath);
 			break;
 		default:
 			break;
