@@ -100,8 +100,8 @@ bool Application::Init(int w, int h)
 	m_frame.Load("Texture/BackGround/frame.png");
 	m_settingBack1.Load("Texture/BackGround/setting.png");
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
-	m_editorBack.Load("Texture/BackGround/bg_shroom.png");
-	m_editorBackBlock.Load("Texture/BackGround/editorBackBlock.png");
+	m_editorBack1.Load("Texture/BackGround/Title.png");
+	m_editorBack2.Load("Texture/BackGround/editorBackBlock.png");
 	{
 		// ���{��Ή�
 		#include "imgui/ja_glyph_ranges.h"
@@ -790,13 +790,13 @@ void Application::Execute()
 			selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
 			do
 			{
-				m_settingFlg = false;
+				m_settingFlg = true;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
-				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_editorBackBlock, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.DrawTex(&m_editorBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_editorBack2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
