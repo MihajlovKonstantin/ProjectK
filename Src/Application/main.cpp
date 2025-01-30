@@ -648,6 +648,7 @@ void Application::Execute()
 	}
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
+	selectEditerMapMenu.SetTexture(&m_editorBack1);
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	InitDataFile();//Inicialize menu and e.t.c
@@ -793,8 +794,8 @@ void Application::Execute()
 				m_settingFlg = true;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
-				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_editorBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(selectEditerMapMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(selectEditerMapMenu.GetTexture(), selectEditerMapMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
 				SHADER.m_spriteShader.DrawTex(&m_editorBack2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(selectEditerMapMenu);
