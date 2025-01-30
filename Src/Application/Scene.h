@@ -35,6 +35,7 @@ private:
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
+	KdTexture m_playerHpTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
 	KdTexture m_slimeTex;
@@ -89,15 +90,19 @@ private:
 
 	std::array<bool, 3> m_keyFlag;
 	//Player
-	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
+	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex, &m_playerHpTex);
 	//Stage
 	int m_stageType = 0;
 	int m_clearState[2];
 	std::string m_clearStateString;
 	const char* m_clearExpress = m_clearStateString.c_str();
-
+	//hp関係
 	std::string m_hpBar;
 	const char* m_hpBarExpress = m_hpBar.c_str();
+	float m_BaseHpAlphaCnt = 20.0f;
+	float m_hpAlphaCnt = m_BaseHpAlphaCnt;
+	float m_hpAlpha = 0;
+
 	bool CLEARFLAG = false;
 	Menu m_inGameSetting;
 	Stage m_stage;
