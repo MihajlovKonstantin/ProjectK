@@ -183,6 +183,8 @@ void Menu::InitMainMenu(std::string dataPath)
 	buttons.clear();
 	Button _newButton = Button({ 70.0f, 45.0f }, { -280.0f, -180.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap);
 	buttons.push_back(_newButton);
+	_newButton = Button({ 70.0f, 45.0f }, { -30.0f, -180.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
+	buttons.push_back(_newButton);
 	_newButton = Button({ 70.0f, 45.0f }, { -280.0f, -300.0f }, "Edit", 1.5f, change, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -180.0f }, "Setting",1.5f,change,goScene,Option);
@@ -200,7 +202,7 @@ void Menu::InitMainMenu(std::string dataPath)
 		selectedPath = line;
 	}
 	ifFile.close();
-	_newButton = Button({ 70.0f,45.0f }, { -30.0f,-180.0f }, "Push", 1.5f, change, updateMap, 0);
+	_newButton = Button({ 70.0f,45.0f }, { -30.0f,-300.0f }, "Push", 1.5f, change, updateMap, 0);
 	buttons.push_back(_newButton);
 }
 
@@ -344,6 +346,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	IsCampainMenu = true;
 	m_dataPath = dataPath;
 	buttons.clear();
+	selectedPath = "C:\\Lessons\\DIGITAL WORKS\\ProjectK\\Data\\Map";
 	Button _newButton;
 	int dX = 0, dY = 0;
 	for (size_t i = 0; i < mapList.size(); i++)
@@ -374,7 +377,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 			dY = -200;
 			break;
 		}
-		mapList[i] = mapList[i].substr(0, mapList[i].length() - 4);
+		//mapList[i] = mapList[i].substr(0, mapList[i].length() - 4);
 		_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
 		_newButton.ChangeVisiable();
 		_newButton.ChangeActive();
@@ -497,6 +500,7 @@ void Menu::EventClick(array<int, 2> eventData)
 				_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
 				system(_dirFinder.c_str());
 			}
+			data->Restart();
 		}
 		break;
 	case releaseMap:
@@ -538,6 +542,10 @@ void Menu::EventClick(array<int, 2> eventData)
 
 void Menu::SwitchWindowsEvent(int newWindowsIndex)
 {
+	if (newWindowsIndex == WindowsEnum::GameScene)
+	{
+		data->SetPreviousWindows(data->GetWindow());
+	}
 	data->SetWindow(newWindowsIndex);
 }
 
@@ -710,6 +718,18 @@ void Menu::UpdateMap()
 void Menu::ReleaseMap()
 {
 	std::string _dirFinder;
+}
+
+void Menu::SetClearState(int input)
+{
+	if (input == 1)
+	{
+		LastMapClearState = true;
+	}
+	else
+	{
+		LastMapClearState=  false;
+	}
 }
 
 

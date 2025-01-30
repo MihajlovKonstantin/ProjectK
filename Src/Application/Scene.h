@@ -135,6 +135,7 @@ public:
 	void InitMap(std::string mapName);
 	void SaveMap();
 	void LoadMap();
+	int GetClearFlag();
 private:
 
 	Scene() {}

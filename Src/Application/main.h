@@ -25,13 +25,14 @@ private:
 		Records,
 		SelectPlayebleMapMenu,
 		SelectEditerMapMenu,
-		Campain
+		CampainMenu
 	};
 	//Data�̓ǂݍ���
 	std::string dataFolderPath;
 	std::string mapFolderPath;
 	//std::string currentMapPath;
 	std::string editerMapFolderPath;
+	std::string programmPath;
 	std::string lastSelectedPath;
 	std::vector<std::string> playebleMapList;
 	std::vector<std::string> editerMapList;
@@ -67,6 +68,8 @@ private:
 	KdTexture m_settingBack2;
 	KdTexture m_editorBack;
 	KdTexture m_editorBackBlock;
+
+	Campain m_campain;
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;
@@ -129,6 +132,7 @@ private:
 	void CreateDataPath();
 	void CreateExtensions();
 	void LoadMapList();
+	void LoadCampain();
 	int ExtractNumber(const string& s);
 	void BubbleSort(vector<string>& strings);
 //=====================================================

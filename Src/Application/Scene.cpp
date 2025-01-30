@@ -1526,6 +1526,15 @@ void Scene::LoadMap()
 	m_player.Init({0,0});
 }
 
+int Scene::GetClearFlag()
+{
+	if (CLEARFLAG)
+	{
+		return 1;
+	}
+	return 0;
+}
+
 void Scene::Update()
 {
 	//if(soundInstance.IsPause())

@@ -29,6 +29,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpszArgs, in
 // �A�v���P�[�V���������ݒ�
 bool Application::Init(int w, int h)
 {
+	
 	system("dir >temp.txt");
 	//===================================================================
 	// �E�B���h�E�쐬
@@ -280,8 +281,63 @@ void Application::LoadMapList()
 			}
 		}
 	}
-	inFile.close();
+	inFile.close();	
 	BubbleSort(campainMap);
+}
+
+void Application::LoadCampain()
+{
+	std::string line;
+	std::string _name;
+	int _visable;
+	int _clear;
+	std::string _string = dataFolderPath + "\\MainCampain.campain";
+	std::ifstream _campain(_string.c_str());
+	std::ofstream _newCampain;
+	if (_campain)
+	{
+
+		std::getline(_campain, line, '\n');
+		int index = stoi(line);
+		for (size_t j = 0; j < index; j++)
+		{
+			std::getline(_campain, line, '\n');
+			_name = line;
+			std::getline(_campain, line, '\n');
+			_visable = stoi(line);
+			std::getline(_campain, line, '\n');
+			_clear = stoi(line);
+			m_campain.m_data.push_back({ _name,_visable,_clear });
+		}
+
+		if (!(m_campain.CheckData(campainMap)))
+		{
+			m_campain.CreateCampain(campainMap);
+			_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
+			_newCampain << m_campain.m_data.size() << endl;
+			for (size_t i = 0; i < m_campain.m_data.size(); i++)
+			{
+				_newCampain << m_campain.m_data[i].name << endl;
+				_newCampain << m_campain.m_data[i].visableStatus << endl;
+				_newCampain << m_campain.m_data[i].clearStatus << endl;
+			}
+			_newCampain.close();
+		}
+	}
+	else
+	{
+		m_campain.CreateCampain(campainMap);
+		_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
+		_newCampain << m_campain.m_data.size() << endl;
+		for (size_t i = 0; i < m_campain.m_data.size(); i++)
+		{
+			_newCampain << m_campain.m_data[i].name << endl;
+			_newCampain << m_campain.m_data[i].visableStatus << endl;
+			_newCampain << m_campain.m_data[i].clearStatus << endl;
+		}
+		_newCampain.close();
+	}
+	_campain.close();
 }
 
 
@@ -607,6 +663,7 @@ void Application::CreateDataPath()
 	char buffer[1024];
 	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
 		std::string currentDir(buffer);
+		programmPath = currentDir;
 		std::string newDir = " dir \"" + currentDir + "\\Data\\Classes\\Header\" /b *.h > temp.txt";
 		system(newDir.c_str());
 	}
@@ -646,13 +703,15 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
+	CreateExtensions();
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
+	LoadCampain();
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data �Ɓ@Menu Class object �ڑ�����
-	CreateExtensions();
+	
 	{
 		std::ofstream outFile("example.menu");
 		if (outFile.is_open()) {
@@ -690,6 +749,10 @@ void Application::Execute()
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
+			if (WindowsData.IsStarted())
+			{
+				mainMenu.SetClearState(SCENE.GetClearFlag());
+			}
 			do
 			{
 				m_settingFlg = false;
@@ -773,6 +836,7 @@ void Application::Execute()
 			break;
 		case WindowsControl::SelectPlayebleMapMenu:
 			lastSelectedPath = mapFolderPath;
+			//lastSelectedPath = "C:\\Lessons\\DIGITAL WORKS\\ProjectK\\Data\\Map";
 			LoadMapList();
 			selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
 			//selectPlaybleMapMenu.InitCampainMenu(campainMap, dataFolderPath);
@@ -800,9 +864,17 @@ void Application::Execute()
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
-		case WindowsControl::Campain:
+		case WindowsControl::CampainMenu:
 			LoadMapList();
 			campainMenu.InitCampainMenu(campainMap, dataFolderPath);
+			lastSelectedPath = programmPath;
+			do
+			{
+				m_settingFlg = false;
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
+				campainMenu.Update();
+				MenuExecute(campainMenu);
+			} while ((m_endFlagWindows != true));
 			break;
 		default:
 			break;
