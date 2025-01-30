@@ -1,5 +1,7 @@
 #pragma once
 #include "Pch.h"
+#include <algorithm>
+#include <sstream>
 //extern "C"
 //{
 //	#include "Windows.h"
@@ -22,7 +24,8 @@ private:
 		Setting,
 		Records,
 		SelectPlayebleMapMenu,
-		SelectEditerMapMenu
+		SelectEditerMapMenu,
+		Campain
 	};
 	//Data�̓ǂݍ���
 	std::string dataFolderPath;
@@ -32,6 +35,8 @@ private:
 	std::string lastSelectedPath;
 	std::vector<std::string> playebleMapList;
 	std::vector<std::string> editerMapList;
+	std::vector<std::string> campainMap;
+
 
 	WindowsControlData WindowsData;
 	KeyEvent event;
@@ -60,8 +65,8 @@ private:
 	KdTexture m_frame;
 	KdTexture m_settingBack1;
 	KdTexture m_settingBack2;
-	KdTexture m_editorBack;
-	KdTexture m_editorBackBlock;
+	KdTexture m_editorBack1;
+	KdTexture m_editorBack2;
 	Math::Matrix m_scaleMat;
 	Math::Matrix m_transMat;
 	Math::Matrix m_mat;
@@ -124,7 +129,8 @@ private:
 	void CreateDataPath();
 	void CreateExtensions();
 	void LoadMapList();
-	void InitSelectMapMenu();
+	int ExtractNumber(const string& s);
+	void BubbleSort(vector<string>& strings);
 //=====================================================
 // �V���O���g���p�^�[��
 //=====================================================

@@ -100,8 +100,8 @@ bool Application::Init(int w, int h)
 	m_frame.Load("Texture/BackGround/frame.png");
 	m_settingBack1.Load("Texture/BackGround/setting.png");
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
-	m_editorBack.Load("Texture/BackGround/bg_shroom.png");
-	m_editorBackBlock.Load("Texture/BackGround/editorTerrain.png");
+	m_editorBack1.Load("Texture/BackGround/Title.png");
+	m_editorBack2.Load("Texture/BackGround/editorBackBlock.png");
 	{
 		// ���{��Ή�
 		#include "imgui/ja_glyph_ranges.h"
@@ -130,6 +130,7 @@ void Application::MakeDataLink()
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
 	selectEditerMapMenu.AddData(WindowsData);
+	campainMenu.AddData(WindowsData);
 }
 
 // �A�v���P�[�V�����I��
@@ -274,14 +275,48 @@ void Application::LoadMapList()
 	}
 	inFile.close();
 
-	
+	campainMap.clear();
+	_dirFinder = "dir Data\\Map  *.map /b  > temp3.txt";
+	system(_dirFinder.c_str());
+	inFile = std::ifstream("temp3.txt");
+	{
+		if (inFile.is_open())
+		{
+			std::string line;
+			while (std::getline(inFile, line, '\n'))
+			{
+				campainMap.push_back(line);
+			}
+		}
+	}
+	inFile.close();
+	BubbleSort(campainMap);
 }
 
-void Application::InitSelectMapMenu()
+
+int Application::ExtractNumber(const string& s)
 {
-
+	stringstream _ss(s);
+	int _num;
+	_ss >> _num;
+	return _num;
 }
 
+void Application::BubbleSort(vector<string>& strings)
+{
+	int n = strings.size();
+	for (int i = 0; i < n - 1; ++i) {
+		for (int j = 0; j < n - i - 1; ++j) {
+			if (ExtractNumber(strings[j]) > ExtractNumber(strings[j + 1])) {
+				swap(strings[j], strings[j + 1]);
+			}
+		}
+	}
+}
+
+
+
+//�`��֐�
 //�`��֐�
 void Application::DrawButton(Button inputButton)
 {
@@ -613,7 +648,7 @@ void Application::CreateDataPath()
 void Application::Execute()
 {
 	
-	std::vector<std::string> test;
+	//std::vector<std::string> test;
 	//===================================================================
 	// �����ݒ�(�E�B���h�E�쐬�ADirect3D�������Ȃ�)
 	//===================================================================
@@ -627,7 +662,6 @@ void Application::Execute()
 	InitDataFile();//Inicialize menu and e.t.c
 	MakeDataLink();//Data �Ɓ@Menu Class object �ڑ�����
 	CreateExtensions();
-	
 	{
 		std::ofstream outFile("example.menu");
 		if (outFile.is_open()) {
@@ -750,6 +784,7 @@ void Application::Execute()
 			lastSelectedPath = mapFolderPath;
 			LoadMapList();
 			selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
+			//selectPlaybleMapMenu.InitCampainMenu(campainMap, dataFolderPath);
 			do
 			{
 				m_settingFlg = false;
@@ -764,15 +799,19 @@ void Application::Execute()
 			selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
 			do
 			{
-				m_settingFlg = false;
+				m_settingFlg = true;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectEditerMapMenu.Update();
-				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				//SHADER.m_spriteShader.DrawTex(&m_editorBackBlock, Math::Rectangle(0, 0, 320, 32), 1.0f);
-				//SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_editorBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_editorBack2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
+			break;
+		case WindowsControl::Campain:
+			LoadMapList();
+			campainMenu.InitCampainMenu(campainMap, dataFolderPath);
 			break;
 		default:
 			break;
