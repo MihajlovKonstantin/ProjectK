@@ -33,7 +33,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// �E�B���h�E�쐬
 	//===================================================================
-	if (m_window.Create(w, h, "ダンジョンメーカー", "Window") == false) {
+	if (m_window.Create(w, h, "DungenMaker", "Window") == false) {
 		MessageBoxA(nullptr, "�E�B���h�E�쐬�Ɏ��s", "�G���[", MB_OK);
 		return false;
 	}
@@ -161,8 +161,8 @@ void Application::Release()
 	m_frame.Release();
 	m_settingBack1.Release();
 	m_settingBack2.Release();
-	m_editorBack.Release();
-	m_editorBackBlock.Release();
+	m_editorBack1.Release();
+	m_editorBack2.Release();
 
 }
 void Application::CreateExtensions()
