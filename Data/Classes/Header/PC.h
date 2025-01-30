@@ -6,7 +6,7 @@ class PC :
 protected :
     std::pair<float, float> InitPos;
 public:
-    PC(std::pair<float, float>pos, std::pair<float, float>speed, KdTexture* texture);
+    PC(std::pair<float, float>pos, std::pair<float, float>speed, KdTexture* texture, KdTexture* hpTexture);
     PC();
     std::pair<float, float> GetPos();
     void Init(std::pair<float, float>);

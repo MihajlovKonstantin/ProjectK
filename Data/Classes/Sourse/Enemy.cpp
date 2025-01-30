@@ -271,6 +271,7 @@ void NPC::Hit()
 	{
 		m_player->SetHp(m_player->GetHp() - 10);
 		m_hitCooltime = m_hitHpCoolTime;
+		m_player->SetHpAlpha(true);
 	}
 	
 }

@@ -33,7 +33,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// �E�B���h�E�쐬
 	//===================================================================
-	if (m_window.Create(w, h, "�_���W�������[�J�[", "Window") == false) {
+	if (m_window.Create(w, h, "ダンジョンメーカー", "Window") == false) {
 		MessageBoxA(nullptr, "�E�B���h�E�쐬�Ɏ��s", "�G���[", MB_OK);
 		return false;
 	}
@@ -153,6 +153,15 @@ void Application::Release()
 
 	// �E�B���h�E�폜
 	m_window.Release();
+
+	m_mainMenuBackGround1.Release();
+	m_mainMenuBackGround2.Release();
+	m_titleLogo.Release();
+	m_frame.Release();
+	m_settingBack1.Release();
+	m_settingBack2.Release();
+	m_editorBack.Release();
+	m_editorBackBlock.Release();
 
 }
 void Application::CreateExtensions()
