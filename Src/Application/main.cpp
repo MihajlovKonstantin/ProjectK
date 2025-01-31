@@ -120,6 +120,7 @@ bool Application::Init(int w, int h)
 void Application::InitDataFile()
 {
 	mainMenu.InitMainMenu(dataFolderPath);
+	
 	settingMenu.InitSetting();
 	WindowsData.Init();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
@@ -128,15 +129,21 @@ void Application::InitDataFile()
 void Application::MakeDataLink()
 {
 	mainMenu.AddData(WindowsData);
+	mainMenu.AddCampain(m_campain);
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
 	selectEditerMapMenu.AddData(WindowsData);
 	campainMenu.AddData(WindowsData);
+	campainMenu.AddCampain(m_campain);
 }
 
 // �A�v���P�[�V�����I��
 void Application::Release()
 {
+	{
+		SaveCampain();
+	}
+
 	D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
 
 	// imgui���
@@ -336,15 +343,7 @@ void Application::LoadCampain()
 	else
 	{
 		m_campain.CreateCampain(campainMap);
-		_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
-		_newCampain << m_campain.m_data.size() << endl;
-		for (size_t i = 0; i < m_campain.m_data.size(); i++)
-		{
-			_newCampain << m_campain.m_data[i].name << endl;
-			_newCampain << m_campain.m_data[i].visableStatus << endl;
-			_newCampain << m_campain.m_data[i].clearStatus << endl;
-		}
-		_newCampain.close();
+		SaveCampain();
 	}
 	_campain.close();
 }
@@ -368,6 +367,19 @@ void Application::BubbleSort(vector<string>& strings)
 			}
 		}
 	}
+}
+
+void Application::SaveCampain()
+{
+	 std::ofstream _newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
+	_newCampain << m_campain.m_data.size() << endl;
+	for (size_t i = 0; i < m_campain.m_data.size(); i++)
+	{
+		_newCampain << m_campain.m_data[i].name << endl;
+		_newCampain << m_campain.m_data[i].visableStatus << endl;
+		_newCampain << m_campain.m_data[i].clearStatus << endl;
+	}
+	_newCampain.close();
 }
 
 
