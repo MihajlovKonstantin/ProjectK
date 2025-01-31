@@ -136,6 +136,7 @@ private:
 	void LoadCampain();
 	int ExtractNumber(const string& s);
 	void BubbleSort(vector<string>& strings);
+	void SaveCampain();
 //=====================================================
 // �V���O���g���p�^�[��
 //=====================================================

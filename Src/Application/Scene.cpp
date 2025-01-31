@@ -1403,7 +1403,7 @@ void Scene::SaveMap()
 	system(_dirFinder.c_str());
 	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
 	system(_dirFinder.c_str());
-	if (RELEASE == 0)
+	if (RELEASE == 0&&!WC->IsCampain())
 	{
 		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());

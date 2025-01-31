@@ -13,6 +13,7 @@ private:
     std::vector<Button> buttons;
     Button testButton;
     WindowsControlData* data;
+    Campain* m_campain;
     bool visable;
     bool active;
     KdTexture* m_texture;
@@ -74,5 +75,6 @@ public:
     void UpdateMap();
     void ReleaseMap();
     void SetClearState(int input);
+    void AddCampain(Campain& data);
 };
 
