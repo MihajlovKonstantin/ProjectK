@@ -34,7 +34,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// �E�B���h�E�쐬
 	//===================================================================
-	if (m_window.Create(w, h, "DungenMaker", "Window") == false) {
+	if (m_window.Create(w, h, "DungeonMaker", "Window") == false) {
 		MessageBoxA(nullptr, "�E�B���h�E�쐬�Ɏ��s", "�G���[", MB_OK);
 		return false;
 	}
@@ -428,17 +428,16 @@ void Application::DrawButton(Button inputButton)
 		{
 			if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
 			{
-				if (size[0] > 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
+				if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
 				else m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
 				m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
 				m_mat = m_scaleMat * m_transMat;
 				SHADER.m_spriteShader.SetMatrix(m_mat);
 				SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+				//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), false);
 			}
 		}
 	}
-	
-	//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), true);
 }
 void Application::DrawButtonText(Button inputButton)
 {

@@ -249,6 +249,7 @@ void Scene::DynamicDraw2D()
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), m_player.GetRect(), 1.0f);
+		//ダメージを受けるとhpバーが出てくる
 		if (m_player.GetHpAlpha())
 		{
 			if (m_hpAlphaCnt <= 20)m_hpAlpha = 1.0f;

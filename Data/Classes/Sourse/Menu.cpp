@@ -183,7 +183,7 @@ void Menu::InitMainMenu(std::string dataPath)
 	buttons.clear();
 	Button _newButton = Button({ 70.0f, 45.0f }, { -280.0f, -180.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 70.0f, 45.0f }, { -30.0f, -180.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
+	_newButton = Button({ 120.0f, 45.0f }, { -30.0f, -180.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 70.0f, 45.0f }, { -280.0f, -300.0f }, "Edit", 1.5f, change, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
@@ -325,17 +325,17 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -390.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
+	_newButton = Button({ 60.0f, 40.0f }, { -540.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPath)
@@ -412,7 +412,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
