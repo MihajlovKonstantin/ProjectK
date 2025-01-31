@@ -126,7 +126,7 @@ std::vector<Block>* TerrainObject::GetBlocks()
 	return &m_block;
 }
 
-TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int> blockVar,std::array<std::vector<std::array<KdTexture*, 5>>, 6>* textLib)
+TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<int> blockType, std::vector<int> blockVar,std::array<std::vector<std::array<KdTexture*, 5>>, 7>* textLib)
 {
 	m_globalPos = pos;
 	m_texture = textLib;
@@ -168,6 +168,10 @@ TerrainObject::TerrainObject(std::pair<float, float> pos, int type, std::vector<
 			
 			break;
 		case BlockEditerSelect::Ladder:
+			_anglePossible = false;
+			_currentTex = test[m_blockType[i]][m_blockVar[i]][0];
+			break;
+		case BlockEditerSelect::Crate:
 			_anglePossible = false;
 			_currentTex = test[m_blockType[i]][m_blockVar[i]][0];
 			break;
