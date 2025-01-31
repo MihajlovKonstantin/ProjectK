@@ -161,7 +161,6 @@
     <ClInclude Include="Data\Classes\Header\Slime.h" />
     <ClInclude Include="Data\Classes\Header\SnowBall.h" />
     <ClInclude Include="Src\Application\BlockEnum.h" />
-    <ClInclude Include="Data\Classes\Header\Campain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -244,15 +243,9 @@
     <ClCompile Include="Data\Classes\Sourse\Item.cpp" />
     <ClCompile Include="Data\Classes\Sourse\Slime.cpp" />
     <ClCompile Include="Data\Classes\Sourse\SnowBall.cpp" />
-    <ClCompile Include="Data\Classes\Sourse\Campain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="説明.txt" />
-    <Text Include="Save Structure.txt" />
-    <Text Include="temp1.txt" />
-    <Text Include="temp.txt" />
-    <Text Include="temp2.txt" />
-    <Text Include="temp3.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\System\Shader\EffectShader\inc_KdEffectShader.hlsli">
@@ -269,14 +262,6 @@
     </None>
     <None Include="imgui.ini" />
     <None Include="SpriteFont.dat" />
-    <None Include=".gitattributes" />
-    <None Include=".gitignore" />
-    <None Include="CurrentMap.map" />
-    <None Include="desktop.ini" />
-    <None Include="Documentation.docx" />
-    <None Include="example.menu" />
-    <None Include="SpawnData" />
-    <None Include="StageData" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\System\Shader\EffectShader\KdEffectShader_PS.hlsl">
@@ -300,7 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\player.png" />
-    <Image Include="rei.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
