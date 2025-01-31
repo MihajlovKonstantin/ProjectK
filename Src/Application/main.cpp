@@ -43,9 +43,9 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	bool bFullScreen = false;
 	
-	if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
+	/*if (MessageBoxA(m_window.GetWndHandle(), "フルスクリーンにしますか？", "確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES) {
 		bFullScreen = true;
-	}
+	}*/
 	
 
 	//===================================================================
@@ -96,8 +96,11 @@ bool Application::Init(int w, int h)
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
 	m_backGround.Load("Texture/BackGround/Title.png");
 	m_backGround2.Load("Texture/BackGround/Title2.png");
+	m_playBack1.Load("Texture/BackGround/Back_Play1.png");
+	m_playBack2.Load("Texture/BackGround/Back_Play2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
 	m_frame.Load("Texture/BackGround/frame.png");
+
 	{
 		// 日本語対応
 		#include "imgui/ja_glyph_ranges.h"
@@ -569,6 +572,7 @@ void Application::Execute()
 		return;
 	}
 	mainMenu.SetTexture(&m_backGround);
+	selectPlaybleMapMenu.SetTexture(&m_playBack2);
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	InitDataFile();//Inicialize menu and e.t.c
@@ -674,6 +678,12 @@ void Application::Execute()
 			{
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectPlaybleMapMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_playBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				//SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				//SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
 				MenuExecute(selectPlaybleMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;

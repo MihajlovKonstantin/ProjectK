@@ -55,6 +55,8 @@ private:
 	Menu selectEditerMapMenu;
 	KdTexture m_backGround;
 	KdTexture m_backGround2;
+	KdTexture m_playBack1;
+	KdTexture m_playBack2;
 	KdTexture m_titleLogo;
 	KdTexture m_frame;
 	Math::Matrix m_scaleMat;
