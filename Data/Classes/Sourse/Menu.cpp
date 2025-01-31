@@ -32,68 +32,137 @@ void Menu::Update()
 	}
 	if (GetSelectMapMenuState())
 	{
-		if (IsDirty())
+		if (!IsCampainMenu)
 		{
-			int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
-			lastMapIndex = GetMapNum();
-			dataBlockIndex = GetBlockData();
-			if ((dataBlockIndex == 0) && (lastMapIndex < 9))
+			if (IsDirty())
 			{
-				for (int i = 0; i < lastMapIndex; i++)
+				int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
+				lastMapIndex = GetMapNum();
+				dataBlockIndex = GetBlockData();
+				if ((dataBlockIndex == 0) && (lastMapIndex < 9))
 				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
+					for (int i = 0; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
 				}
+				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
+				{
+					int i;
+					for (i = 0; i < 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				SetDirty(false);
 			}
-			if (((dataBlockIndex+1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
-			{
-				int i;
-				for (i = 0; i < dataBlockIndex * 9; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-				for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-			}
-			if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
-			{
-				int i;
-				for (i = 0; i < 9; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-				for (i = 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-			}
-			if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
-			{
-				int i;
-				for (i = 0; i < dataBlockIndex * 9; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-				for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
-				{
-					buttons[i].SetVisable(true);
-					buttons[i].SetActive(true);
-				}
-				for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
-				{
-					buttons[i].SetVisable(false);
-					buttons[i].SetActive(false);
-				}
-			}
-			SetDirty(false);
 		}
+		else
+		{
+			if (IsDirty())
+			{
+				int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
+				lastMapIndex = GetMapNum();
+				dataBlockIndex = GetBlockData();
+				if ((dataBlockIndex == 0) && (lastMapIndex < 9))
+				{
+					for (int i = 0; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+				}
+				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
+				{
+					int i;
+					for (i = 0; i < 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				if ((dataBlockIndex != 0) && ((dataBlockIndex + 1) * 9 <= lastMapIndex))
+				{
+					int i;
+					for (i = 0; i < dataBlockIndex * 9; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
+					{
+						buttons[i].SetVisable(true);
+						buttons[i].SetActive(true);
+					}
+					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
+					{
+						buttons[i].SetVisable(false);
+						buttons[i].SetActive(false);
+					}
+				}
+				SetDirty(false);
+			}
+		}
+		
 	}
 	if (currentColdown > 0)
 	{
@@ -114,6 +183,8 @@ void Menu::InitMainMenu(std::string dataPath)
 	buttons.clear();
 	Button _newButton = Button({ 70.0f, 45.0f }, { -280.0f, -180.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap);
 	buttons.push_back(_newButton);
+	_newButton = Button({ 120.0f, 45.0f }, { -30.0f, -180.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
+	buttons.push_back(_newButton);
 	_newButton = Button({ 70.0f, 45.0f }, { -280.0f, -300.0f }, "Edit", 1.5f, change, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -180.0f }, "Setting",1.5f,change,goScene,Option);
@@ -131,7 +202,7 @@ void Menu::InitMainMenu(std::string dataPath)
 		selectedPath = line;
 	}
 	ifFile.close();
-	_newButton = Button({ 70.0f,45.0f }, { -30.0f,-180.0f }, "Push", 1.5f, change, updateMap, 0);
+	_newButton = Button({ 70.0f,45.0f }, { -30.0f,-300.0f }, "Push", 1.5f, change, updateMap, 0);
 	buttons.push_back(_newButton);
 }
 
@@ -139,10 +210,10 @@ void Menu::InitSetting()
 {
 	buttons.clear();
 	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT",1.0f,change,goScene,Title);
-	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,100.0f }, "Music-", 1.0f, nochange, decreaseByIndex, volume);
+	Button _musicButton = Button({ 80.0f,40.0f }, { 300.0f,120.0f }, " Music-", 1.0f, nochange, decreaseByIndex, volume);
 	buttons.push_back(_newButton);
 	buttons.push_back(_musicButton);
-	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,230.0f }, "Music+", 1.0f, nochange, increaseByIndex, volume);
+	_musicButton = Button({ 80.0f,40.0f }, { 300.0f,250.0f }, " Music+", 1.0f, nochange, increaseByIndex, volume);
 	buttons.push_back(_musicButton);
 }
 void Menu::InitInGameSetting()
@@ -254,6 +325,83 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
+	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -390.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f, 40.0f }, { -540.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, Title);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	buttons.push_back(_newButton);
+}
+void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPath)
+{
+	dirty = true;
+	selectedBlockData = 0;
+	IsSelectMapMenu = true;
+	IsCampainMenu = true;
+	m_dataPath = dataPath;
+	buttons.clear();
+	selectedPath = "C:\\Lessons\\DIGITAL WORKS\\ProjectK\\Data\\Map";
+	Button _newButton;
+	int dX = 0, dY = 0;
+	{
+		m_campain->m_data[0].visableStatus = 1;
+		for (int i = 0; i < m_campain->m_data.size()-1;i++)
+		{
+			if (m_campain->m_data.size() != 1)
+			{
+				if (m_campain->m_data[i].clearStatus==1)
+				{
+					m_campain->m_data[i+1].visableStatus = 1;
+				}
+			}
+			
+		}
+	}
+	for (size_t i = 0; i < mapList.size(); i++)
+	{
+		switch (i % 3)
+		{
+		case 0:
+			dX = 0;
+			break;
+		case 1:
+			dX = 300;
+			break;
+		case 2:
+			dX = 600;
+			break;
+		}
+		div_t _index = div(i, 9);
+		_index = div(_index.rem, 3);
+		switch (_index.quot)
+		{
+		case 0:
+			dY = 0;
+			break;
+		case 1:
+			dY = -100;
+			break;
+		case 2:
+			dY = -200;
+			break;
+		}
+		if (m_campain->m_data[i].visableStatus)
+		{
+			_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
+			_newButton.ChangeVisiable();
+			_newButton.ChangeActive();
+			buttons.push_back(_newButton);
+		}
+		
+	}
+	maxBlockData = buttons.size() / 9;
+	mapNum = buttons.size();
 	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
@@ -264,7 +412,7 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
@@ -280,6 +428,13 @@ Button Menu::GetButton(int cnt)
 int Menu::GetButtonsCNT()
 {
 	return buttons.size();
+}
+int ExtractNumber(const string& s)
+{
+	stringstream _ss(s);
+	int _num;
+	_ss >> _num;
+	return _num;
 }
 
 void Menu::EventClick(array<int, 2> eventData)
@@ -309,6 +464,8 @@ void Menu::EventClick(array<int, 2> eventData)
 		SwitchBoolEvent(eventData[1]);
 		break;
 	case selectMap:
+		selectedMap.clear();
+		data->SetCampainMapIndex(ExtractNumber(buttons[eventData[1]].GetText()));
 		selectedMap = buttons[eventData[1]].GetText();
 		break;
 	case openMap:
@@ -357,16 +514,34 @@ void Menu::EventClick(array<int, 2> eventData)
 			selectedPath = _line;
 			std::getline(inFile, _line);
 			inFile.close();
-			if (stoi(_line) == 0)
+			if (!data->IsCampain())
 			{
-				_dirFinder = "del \"" + selectedPath + "\\" + selectedMap + "\"";
-				system(_dirFinder.c_str());
-				_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + selectedPath + "\\\"";
-				system(_dirFinder.c_str());
-				_dirFinder = "rename \"" + selectedPath + "\\CurrentMap.map\" \"" + selectedMap + "\"";
-				system(_dirFinder.c_str());
-				_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
-				system(_dirFinder.c_str());
+				if (stoi(_line) == 0)
+				{
+					_dirFinder = "del \"" + selectedPath + "\\" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + selectedPath + "\\\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "rename \"" + selectedPath + "\\CurrentMap.map\" \"" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+					system(_dirFinder.c_str());
+				}
+				data->Restart();
+			}
+			else
+			{
+				for (size_t i = 0;m_campain->m_data.size()>i;i++)
+				{
+					if (m_campain->m_data[i].name == selectedMap)
+					{
+						auto _clear = m_campain->m_data[i].clearStatus;
+						if (!_clear)
+						{
+							m_campain->m_data[i].clearStatus = LastMapClearState;
+						}
+					}
+				}
 			}
 		}
 		break;
@@ -386,7 +561,7 @@ void Menu::EventClick(array<int, 2> eventData)
 				{
 					_lines.push_back(_line);
 				}
-
+				inFile.close();
 				_dirFinder = newPath + "\\" + selectedMap;
 				ofFile = ofstream(_dirFinder.c_str());
 				{
@@ -398,7 +573,9 @@ void Menu::EventClick(array<int, 2> eventData)
 						ofFile << l << std::endl;
 					}
 				}
+				
 			}
+			ofFile.close();
 		}
 
 		
@@ -409,6 +586,10 @@ void Menu::EventClick(array<int, 2> eventData)
 
 void Menu::SwitchWindowsEvent(int newWindowsIndex)
 {
+	if (newWindowsIndex == WindowsEnum::GameScene)
+	{
+		data->SetPreviousWindows(data->GetWindow());
+	}
 	data->SetWindow(newWindowsIndex);
 }
 
@@ -417,9 +598,9 @@ void Menu::IncreaceByIndex(int dataIndex)
 	float _currentValue;
 	switch (dataIndex)
 	{
-	case 21:
+	case DataValue::volume:
 		_currentValue = data->GetMusicVolume();
-		_currentValue += 0.001f;
+		_currentValue += 0.01f;
 		if (_currentValue > 1.0f)
 		{
 			_currentValue = 1.0f;
@@ -442,7 +623,7 @@ void Menu::DecreaceByIndex(int dataIndex)
 	float _currentValue;
 	switch (dataIndex)
 	{
-	case 21:
+	case DataValue::volume:
 		_currentValue = data->GetMusicVolume();
 		_currentValue -= 0.01f;
 		if (_currentValue < 0.0f)
@@ -554,7 +735,7 @@ void Menu::SetDirty(bool input)
 	dirty = input;
 }
 
-void Menu::SetColdown()
+void Menu::SetColdown(int coldownInterval)
 {
 	currentColdown = coldownInterval;
 }
@@ -581,6 +762,23 @@ void Menu::UpdateMap()
 void Menu::ReleaseMap()
 {
 	std::string _dirFinder;
+}
+
+void Menu::SetClearState(int input)
+{
+	if (input == 1)
+	{
+		LastMapClearState = true;
+	}
+	else
+	{
+		LastMapClearState=  false;
+	}
+}
+
+void Menu::AddCampain(Campain& data)
+{
+	m_campain = &data;
 }
 
 

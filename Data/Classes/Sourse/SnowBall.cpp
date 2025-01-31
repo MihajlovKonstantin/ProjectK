@@ -51,7 +51,7 @@ void SnowBall::Update()
 			if (m_rightFlg && !m_leftFlg)Player::SetDirection(Right);
 
 			//•Ç‚É‚Ô‚Â‚©‚é‚Æ‰ó‚ê‚é‚½‚ß
-			if (m_moveBlock[1] || m_moveBlock[2])
+			if (m_moveBlock[1] || m_moveBlock[3])
 			{
 				m_hp -= 10;
 			}

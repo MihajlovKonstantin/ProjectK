@@ -15,7 +15,7 @@ private:
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
 	enum ItemSelect{COUNTIS = 1,Key = 0};
-	enum BlockEditerSelect { COUNTBES = 6, Ground = 1, Ice, IceWater ,Ladder ,Lava};
+	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater ,Ladder ,Lava ,Crate};
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	//ObjectVector
 	std::vector<Item> m_item;
@@ -31,16 +31,18 @@ private:
 	std::array<KdTexture, 5> m_iceWaterBlockTex;
 	std::array<KdTexture, 5> m_ladderTex;
 	std::array<KdTexture, 5> m_lavaTex;
+	std::array<KdTexture, 5> m_crateTex;
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
+	KdTexture m_playerHpTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
 	//BlockLib
 	static const int m_typeBlockNum = 6;
-	std::array<std::vector<std::array<KdTexture*, 5>>, 6> m_blockLiblary;
+	std::array<std::vector<std::array<KdTexture*, 5>>, 7> m_blockLiblary;
 	//EnemyLib
 	static const int m_enemyNum = COUNTENS;
 	std::array<std::vector<KdTexture*>, 2> m_enemylibrary;
@@ -88,15 +90,19 @@ private:
 
 	std::array<bool, 3> m_keyFlag;
 	//Player
-	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex);
+	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex, &m_playerHpTex);
 	//Stage
 	int m_stageType = 0;
 	int m_clearState[2];
 	std::string m_clearStateString;
 	const char* m_clearExpress = m_clearStateString.c_str();
-
+	//hp関係
 	std::string m_hpBar;
 	const char* m_hpBarExpress = m_hpBar.c_str();
+	float m_BaseHpAlphaCnt = 20.0f;
+	float m_hpAlphaCnt = m_BaseHpAlphaCnt;
+	float m_hpAlpha = 0;
+
 	bool CLEARFLAG = false;
 	Menu m_inGameSetting;
 	Stage m_stage;
@@ -135,6 +141,7 @@ public:
 	void InitMap(std::string mapName);
 	void SaveMap();
 	void LoadMap();
+	int GetClearFlag();
 private:
 
 	Scene() {}

@@ -1,5 +1,39 @@
 #include "Data/Classes/Header/WindowsControlData.h"
 
+
+
+bool WindowsControlData::IsCampain()
+{
+	return CampainMap;
+}
+
+void WindowsControlData::SetCampainMod(bool data)
+{
+	CampainMap = data;
+}
+
+int WindowsControlData::GetCampainMapIndex()
+{
+	return CampainMapIndex;
+}
+void WindowsControlData::SetPreviousWindows(int data)
+{
+	PreviousWindows = data;
+	if (PreviousWindows == WindowsEnum::CampainMenu)
+	{
+		SetCampainMod(true);
+	}
+	else
+	{
+		SetCampainMod(false);
+	}
+}
+
+void WindowsControlData::SetCampainMapIndex(int data)
+{
+	CampainMapIndex = data;
+}
+
 bool WindowsControlData::IsPause()
 {
 	return Pause;
@@ -88,3 +122,4 @@ std::string WindowsControlData::Getpath()
 {
 	return currentPath;
 }
+
