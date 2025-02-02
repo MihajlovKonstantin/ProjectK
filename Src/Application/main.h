@@ -68,6 +68,8 @@ private:
 	KdTexture m_settingBack2;
 	KdTexture m_editorBack1;
 	KdTexture m_editorBack2;
+	KdTexture m_playBack1;
+	KdTexture m_playBack2;
 
 	Campain m_campain;
 	

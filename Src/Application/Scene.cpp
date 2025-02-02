@@ -72,6 +72,10 @@ void Scene::Draw2D()
 				break;
 			case BlockEditerSelect::Lava:
 				_string[1] += "Lave";
+				break;
+			case BlockEditerSelect::Crate:
+				_string[1] += "Crate";
+				break;
 			}
 			_string[2] = "CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
@@ -501,6 +505,10 @@ void Scene::CreateTerrainObject()
 			_currentTex = &m_lavaTex[0];
 			break;
 		}
+		break;
+	case BlockEditerSelect::Crate:
+		_anglePossible = false;
+		_currentTex = &m_crateTex[0];
 		break;
 	}
 	if (buffer == 8)
@@ -1732,16 +1740,14 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_iceWaterBlockTex[4].Load("Texture/GimmickBlock/iceWater4.png");
 
 	m_ladderTex[0].Load("Texture/GimmickBlock/ladder_mid.png");
-	m_ladderTex[1].Load("Texture/GimmickBlock/ladder_mid.png");
-	m_ladderTex[2].Load("Texture/GimmickBlock/ladder_mid.png");
-	m_ladderTex[3].Load("Texture/GimmickBlock/ladder_mid.png");
-	m_ladderTex[4].Load("Texture/GimmickBlock/ladder_mid.png");
 
 	m_lavaTex[0].Load("Texture/GimmickBlock/liquidLava0.png");
 	m_lavaTex[1].Load("Texture/GimmickBlock/liquidLava1.png");
 	m_lavaTex[2].Load("Texture/GimmickBlock/liquidLava2.png");
 	m_lavaTex[3].Load("Texture/GimmickBlock/liquidLava3.png");
 	m_lavaTex[4].Load("Texture/GimmickBlock/liquidLava4.png");
+
+	m_crateTex[0].Load("Texture/GimmickBlock/crate.png");
 	//
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));

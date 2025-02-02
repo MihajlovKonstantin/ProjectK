@@ -95,6 +95,8 @@ bool Application::Init(int w, int h)
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
+	m_playBack1.Load("Texture/BackGround/Back_Play1.png");
+	m_playBack2.Load("Texture/BackGround/Back_Play2.png");
 	m_mainMenuBackGround1.Load("Texture/BackGround/Title.png");
 	m_mainMenuBackGround2.Load("Texture/BackGround/Title2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
@@ -729,10 +731,11 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
-	CreateExtensions();
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
 	selectEditerMapMenu.SetTexture(&m_editorBack1);
+	selectPlaybleMapMenu.SetTexture(&m_playBack2);
+	CreateExtensions();
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	LoadCampain();
@@ -872,6 +875,12 @@ void Application::Execute()
 				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectPlaybleMapMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_playBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				//SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				//SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
 				MenuExecute(selectPlaybleMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
