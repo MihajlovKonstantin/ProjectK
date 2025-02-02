@@ -30,6 +30,39 @@ void Menu::Update()
 	{
 		m_pos.first = 0;
 	}
+	if (inputMode)
+	{
+		for (char c = 'A'; c <= 'Z'; ++c)
+		{
+			if (GetAsyncKeyState(c) & 0x8000)
+			{
+				inputUser += tolower(c);
+				Sleep(100);
+			}
+		}
+		for (char c = '0'; c <= '9'; ++c)
+		{
+			if (GetAsyncKeyState(c) & 0x8000) 
+			{
+				inputUser += c;
+				Sleep(100);
+			}
+		}
+		if (GetAsyncKeyState(VK_RETURN) & 0x8000) 
+		{
+			inputMode = false;
+			endInput = true;
+		} 
+		if (GetAsyncKeyState(VK_BACK) & 0x8000)
+		{
+			if(!inputUser.empty())
+			{
+				inputUser.resize(inputUser.size() - 1);
+			}
+			
+			Sleep(100);
+		}
+	}
 	if (GetSelectMapMenuState())
 	{
 		if (!IsCampainMenu)
@@ -99,6 +132,10 @@ void Menu::Update()
 		}
 		else
 		{
+			if (inputMode)
+			{
+
+			}
 			if (IsDirty())
 			{
 				int firstVisableIndex = 0, lastVisableIndex = 0, lastMapIndex = 0, dataBlockIndex = 0;
@@ -363,7 +400,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 			
 		}
 	}
-	for (size_t i = 0; i < mapList.size(); i++)
+	for (size_t i = 0; i < mapList.size()-1; i++)
 	{
 		switch (i % 3)
 		{
@@ -481,27 +518,44 @@ void Menu::EventClick(array<int, 2> eventData)
 		SwitchWindowsEvent(eventData[1]);
 		break;
 	case newMap:
-		_dirFinder = "echo. > \""+selectedPath+"\\NewMap.map\"";
-		system(_dirFinder.c_str());
-		_dirFinder = "" + selectedPath + "\\NewMap.map";
-		ofFile = ofstream(_dirFinder);
-		ofFile << "NewMap.map" << endl;
-		ofFile << selectedPath << endl;
-		ofFile << 0 << endl;
-		ofFile << 0<< endl;
-		ofFile << 0 << endl;
-		ofFile << 0 << endl;
-		ofFile.close();
-		selectedMap = "NewMap.map";
-		_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
-		system(_dirFinder.c_str());
-		_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
-		system(_dirFinder.c_str());
-		_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap.map";
-		system(_dirFinder.c_str());
-		data->SetMap(selectedMap);
-		data->SetPath(selectedPath);
-		SwitchWindowsEvent(eventData[1]);
+		if (!data->IsCampain())
+		{
+			if ((inputMode == false) && (endInput == false))
+			{
+				inputMode = true;
+			}
+			else
+			{
+				if (endInput == true)
+				{
+					_dirFinder = "echo. > \"" + selectedPath +"\\" + inputUser+".map\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "" + selectedPath +"\\" + inputUser + ".map";
+					ofFile = ofstream(_dirFinder);
+					ofFile << inputUser+".map" << endl;
+					ofFile << selectedPath << endl;
+					ofFile << 0 << endl;
+					ofFile << 0 << endl;
+					ofFile << 0 << endl;
+					ofFile << 0 << endl;
+					ofFile.close();
+					selectedMap = inputUser+".map";
+					_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap.map";
+					system(_dirFinder.c_str());
+					data->SetMap(selectedMap);
+					data->SetPath(selectedPath);
+					inputUser = "";
+					endInput = false;
+					inputMode = false;
+					SwitchWindowsEvent(eventData[1]);
+				}
+			}
+		}
+		
 		break;
 	case updateMap:
 		_dirFinder = m_dataPath + "\\CurrentMap.map";
@@ -780,6 +834,12 @@ void Menu::AddCampain(Campain& data)
 {
 	m_campain = &data;
 }
+
+bool Menu::DrawInput()
+{
+	return inputMode||endInput;
+}
+
 
 
 

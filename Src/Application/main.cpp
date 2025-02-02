@@ -600,6 +600,12 @@ void Application::MenuDraw(Menu inputMenu)
 			DrawButtonText(inputMenu.GetButton(i));
 
 	}
+	if (inputMenu.DrawInput())
+	{
+		DrawString(-190.0f, -150.0f, "New Map Name", {1,1,1,1}, 1);
+		DrawString(-190.0f, -200.0f,inputMenu.inputUser.c_str(), {1,1,1,1}, 1);
+		DrawString(-190.0f, -250.0f, "Press New to Create", { 1,1,1,1 }, 1);
+	}
 	//__text = to_string(APP.GetInstance().m_fps);
 	//SHADER.m_spriteShader.DrawString(-600, 0, _convText, { 1,0,0,1 });
 }
@@ -896,6 +902,7 @@ void Application::Execute()
 				campainMenu.Update();
 				MenuExecute(campainMenu);
 			} while ((m_endFlagWindows != true));
+			SaveCampain();
 			break;
 		default:
 			break;
