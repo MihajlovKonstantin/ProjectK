@@ -38,6 +38,7 @@ private:
 	KdTexture m_playerHpTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
+	KdTexture m_stageBaseTex;
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
 	//BlockLib

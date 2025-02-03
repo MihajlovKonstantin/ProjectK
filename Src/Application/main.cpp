@@ -433,7 +433,7 @@ void Application::DrawButtonText(Button inputButton)
 	message = inputButton.GetText();
 	float scale = inputButton.GetScale();
 	size = inputButton.GetSize();
-	DrawString(position[0] - size[0], position[1] + size[1] / 2, text, Math::Vector4(1, 0, 1, 1), scale);
+	DrawString(position[0] - size[0], position[1] + size[1] / 2, text, Math::Vector4(0, 0, 0, 1), scale);
 	//DrawString(position[0], position[1], text, Math::Vector4(1, 1, 1, 1), scale);
 }
 void Application::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)

@@ -246,6 +246,11 @@ void Scene::DynamicDraw2D()
 	}
 	else
 	{
+		if (m_stageType == 0)
+		{
+			SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, -m_scroll.second, 0));
+			SHADER.m_spriteShader.DrawTex(&m_stageBaseTex, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+		}
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), m_player.GetRect(), 1.0f);
@@ -844,7 +849,7 @@ void Scene::UpdateGameScene()
 		}
 		if (m_stageType == 0)
 		{
-			if (m_player.GetGPos().second >= 220)
+			if (m_player.GetGPos().second >= 350)
 			{
 				CLEARFLAG = true;
 			}
@@ -1705,8 +1710,12 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	
 	charaRect = Math::Rectangle(0, 0, 32, 32);
+
+	m_stageBaseTex.Load("Texture/BackGround/clearBack.png");
+
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
+
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -1841,6 +1850,7 @@ void Scene::Release()
 	// �摜�̉������
 	//m_blockTex.Release();
 	delete SC;
+	m_stageBaseTex.Release();
 	tmpTex.Release();
 	m_playerTex.Release();
 	m_playerHpTex.Release();
