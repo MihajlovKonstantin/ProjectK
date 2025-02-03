@@ -23,7 +23,7 @@ void Scene::Draw2D()
 	if (SC->GetEditMode())
 	{
 		string _string[3];
-		_string[0] ="CurrentEditerMenu ";
+		_string[0] ="(T/Y)CurrentEditerMenu ";
 		switch (m_editerMenuIndex)
 		{
 		case EditerSelect::BlockMenu:
@@ -52,7 +52,7 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::BlockMenu:
-			_string[1] = "CurrentBlockType ";
+			_string[1] = "(G/H)CurrentBlockType ";
 			switch (m_unitType)
 			{
 			case 0:
@@ -77,7 +77,7 @@ void Scene::Draw2D()
 				_string[1] += "Crate";
 				break;
 			}
-			_string[2] = "CurrentBlockVariant ";
+			_string[2] = "(B/N)CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
 			{
 			case 0:
@@ -91,14 +91,14 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::ItemMenu:
-			_string[1] = "CurrentItemType ";
+			_string[1] = "(G/H)CurrentItemType ";
 			switch (m_unitType)
 			{
 			case ItemSelect::Key:
 				_string[1] += "Key";
 				break;
 			}
-			_string[2] = "CurrentItemVariant";
+			_string[2] = "(G/H)CurrentItemVariant";
 			switch (m_selectedUnitVariant)
 			{
 			case 0:
@@ -117,7 +117,7 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::CharaMenu:
-			_string[1] = "CurrentCharaType ";
+			_string[1] = "(G/H)CurrentCharaType ";
 			switch (m_unitType)
 			{
 			case SpawnerSelect::Player:
@@ -742,15 +742,15 @@ void Scene::CreateItem()
 		switch (m_selectedUnitVariant)
 		{
 		case KeySelect::Yellow:
-			_lastItem = Item(_pos, &m_keyTexture[0], 0);
+			_lastItem = Item(_pos, &m_itemLibrary, 0);
 			m_item.push_back(_lastItem);
 			break;
 		case KeySelect::Blue:
-			_lastItem = Item(_pos, &m_keyTexture[2], 2);
+			_lastItem = Item(_pos, &m_itemLibrary, 2);
 			m_item.push_back(_lastItem);
 			break;
 		case KeySelect::Red:
-			_lastItem = Item(_pos, &m_keyTexture[1], 1);
+			_lastItem = Item(_pos, &m_itemLibrary, 1);
 			m_item.push_back(_lastItem);
 			break;
 		}
@@ -1026,6 +1026,7 @@ void Scene::UpdateEditScene()
 					m_editerMenuIndex = 0;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 		if (GetAsyncKeyState('Y'))
@@ -1038,6 +1039,7 @@ void Scene::UpdateEditScene()
 					m_editerMenuIndex = EditerSelect::COUNTES - 1;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 	}
@@ -1063,12 +1065,16 @@ void Scene::UpdateEditScene()
 				case EditerSelect::StageTypeMenu:
 					_maxType = 2;
 					break;
+				case EditerSelect::InfoPanelMenu:
+					_maxType = 6;
+					break;
 				}
 				if (m_unitType >= _maxType)
 				{
 					m_unitType = 0;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 		if (GetAsyncKeyState('H'))
@@ -1091,12 +1097,16 @@ void Scene::UpdateEditScene()
 				case EditerSelect::StageTypeMenu:
 					_maxType = 2;
 					break;
+				case EditerSelect::InfoPanelMenu:
+					_maxType = 6;
+					break;
 				}
 				if (m_unitType < 0)
 				{
 					m_unitType = _maxType - 1;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 	}
@@ -1125,6 +1135,7 @@ void Scene::UpdateEditScene()
 					m_selectedUnitVariant = 0;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 
@@ -1151,6 +1162,7 @@ void Scene::UpdateEditScene()
 					m_selectedUnitVariant = _maxType - 1;
 				}
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 			}
 		}
 	}
@@ -1266,6 +1278,21 @@ void Scene::SaveSpawn()
 				outFile << m_spawner[i].GetNum() << "\n";
 				break;
 			}
+		}
+		outFile.close();
+	}
+}
+
+void Scene::SaveItem()
+{
+	std::ofstream outFile("ItemData");
+	if (outFile.is_open()) {
+		outFile << m_item.size() << "\n";
+		for (int i = 0; i < m_item.size(); i++)
+		{
+			outFile << m_item[i].GetIndex() << "\n";
+			outFile << m_item[i].GetPos().first << ",";
+			outFile << m_item[i].GetPos().second << "\n";
 		}
 		outFile.close();
 	}
@@ -1396,6 +1423,12 @@ void Scene::SaveMap()
 		}
 	}
 	inFile.close();
+	inFile = std::ifstream("ItemData");
+	if (inFile.is_open()) {
+		while (std::getline(inFile, line)) {
+			outFile << line << std::endl;
+		}
+	}
 	outFile.close();
 
 	
@@ -1520,7 +1553,30 @@ void Scene::LoadMap()
 				}
 		}
 		
-		
+		int itemIndex, itemNum,xPos,yPos;
+		{
+			std::getline(inFile, line, '\n');
+			if (line == "")
+			{
+				std::getline(inFile, line, '\n');
+			}
+			if (!(line == ""))
+			{
+				itemNum = stoi(line);
+				for (int i = 0; i < itemNum; i++)
+				{
+					std::getline(inFile, line, '\n');
+					itemIndex = stoi(line);
+					std::getline(inFile, line, ',');
+					xPos = stoi(line);
+					std::getline(inFile, line, '\n');
+					yPos = stoi(line);
+					m_item.push_back(Item({ xPos, yPos }, &m_itemLibrary, itemIndex));
+				}
+			}
+			
+		}
+
 	}
 	inFile.close();
 	char buffer[1024];
@@ -1563,11 +1619,24 @@ int Scene::GetClearFlag()
 
 void Scene::Update()
 {
-	//if(soundInstance.IsPause())
-	// {
-	//	soundInstance.Resume();
-	// }
-	//
+	m_message = "";
+	if (m_controlButtonClick == true)
+	{
+		currentCD--;
+		if (currentCD < 0)
+		{
+			currentCD = 0;
+		}
+	}
+	
+	if (currentCD > 0)
+	{
+		m_controlButtonClick = true;
+	}
+	else
+	{
+		m_controlButtonClick = false;
+	}
 	if (SC->GetCurrentScene() == SceneControlData::Scenes::MainScene)
 	{
 		if (GetAsyncKeyState('L'))
@@ -1576,6 +1645,7 @@ void Scene::Update()
 			{
 				SaveStage();
 				SaveSpawn();
+				SaveItem();
 				SaveMap();
 			}
 			m_lKey = true;
@@ -1638,6 +1708,7 @@ void Scene::Update()
 				}
 			}
 			m_controlButtonClick = true;
+			currentCD = MaxCD;
 		};
 		if (!WC->IsPause())
 		{
@@ -1663,11 +1734,13 @@ void Scene::Update()
 				SC->SetCurrentScene(SceneControlData::Scenes::MenuScene);
 				WC->PauseGame();
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 				break;
 			case SceneControlData::Scenes::MenuScene:
 				WC->Resume();
 				SC->SetCurrentScene(SceneControlData::Scenes::MainScene);
 				m_controlButtonClick = true;
+				currentCD = MaxCD;
 				break;
 			}
 	}
@@ -1760,6 +1833,12 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_keyTexture[0].Load("Texture/Item/Key1.png");
 	m_keyTexture[1].Load("Texture/Item/Key2.png");
 	m_keyTexture[2].Load("Texture/Item/Key3.png");
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_itemLibrary.push_back(&m_keyTexture[i]);
+	}
+	
 	
 	m_backGround.Load("Texture/BackGround/Title.png");
 

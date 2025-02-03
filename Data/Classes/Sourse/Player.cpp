@@ -872,7 +872,7 @@ bool Player::CollisionToBlock(Block block)
 bool Player::CollisionToItem(Item* item)
 {
 	bool _result = false;
-	DirectX::BoundingBox _playerBox = DirectX::BoundingBox({ m_pos.first,m_pos.second,0 }, { 16.0f, 16.0f, 0 });
+	DirectX::BoundingBox _playerBox = DirectX::BoundingBox({ m_gPos.first,m_gPos.second,0 }, { 16.0f, 16.0f, 0 });
 	std::pair<float, float> _itemPos = item->GetPos();
 	DirectX::BoundingBox _itemBox = DirectX::BoundingBox({_itemPos.first,_itemPos.second,0}, {16.0f,16.0f,0});
 	_result= _playerBox.Intersects(_itemBox);
@@ -881,6 +881,19 @@ bool Player::CollisionToItem(Item* item)
 		item->Destruct();
 	}
 	return _result;
+}
+
+string Player::CollisionToInform(InformPanel info)
+{
+	auto _infoPos = info.GetGPos();
+	if ((m_gPos.first >= _infoPos.first - 100) && (m_gPos.first<=_infoPos.first+100))
+	{
+		if((m_gPos.second >= _infoPos.second - 100) && (m_gPos.second <= _infoPos.second + 100))
+			{
+				return info.GetText();
+			}
+	}
+	return "";
 }
 
 void Player::Move(float x, float y)

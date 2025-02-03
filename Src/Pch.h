@@ -71,7 +71,7 @@
 #include <algorithm>
 #include <sstream>
 #include "Data/Classes/Header/Campain.h"
-
+#include "Data/Classes/Header/InformPanel.h"
 #include "Data/Classes/Header/Button.h"
 #include "Data/Classes/Header/Menu.h"
 #include "Data/Classes/Header/Item.h"

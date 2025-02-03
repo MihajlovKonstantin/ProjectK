@@ -98,6 +98,7 @@ public:
 	void Jump();
 	bool CollisionToBlock(Block block);
 	bool CollisionToItem(Item* item);
+	string CollisionToInform(InformPanel info);
 	void Move(float x,float y);//�ړ��֐�
 	void CollisionClear();
 	void UpdateTransMat();
