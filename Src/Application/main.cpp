@@ -95,6 +95,8 @@ bool Application::Init(int w, int h)
 	// Setup Platform/Renderer bindings
 	ImGui_ImplWin32_Init(m_window.GetWndHandle());
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
+	m_playBack1.Load("Texture/BackGround/Back_Play1.png");
+	m_playBack2.Load("Texture/BackGround/Back_Play2.png");
 	m_mainMenuBackGround1.Load("Texture/BackGround/Title.png");
 	m_mainMenuBackGround2.Load("Texture/BackGround/Title2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
@@ -120,6 +122,7 @@ bool Application::Init(int w, int h)
 void Application::InitDataFile()
 {
 	mainMenu.InitMainMenu(dataFolderPath);
+	
 	settingMenu.InitSetting();
 	WindowsData.Init();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
@@ -128,15 +131,21 @@ void Application::InitDataFile()
 void Application::MakeDataLink()
 {
 	mainMenu.AddData(WindowsData);
+	mainMenu.AddCampain(m_campain);
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
 	selectEditerMapMenu.AddData(WindowsData);
 	campainMenu.AddData(WindowsData);
+	campainMenu.AddCampain(m_campain);
 }
 
 // �A�v���P�[�V�����I��
 void Application::Release()
 {
+	{
+		SaveCampain();
+	}
+
 	D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
 
 	// imgui���
@@ -336,15 +345,7 @@ void Application::LoadCampain()
 	else
 	{
 		m_campain.CreateCampain(campainMap);
-		_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
-		_newCampain << m_campain.m_data.size() << endl;
-		for (size_t i = 0; i < m_campain.m_data.size(); i++)
-		{
-			_newCampain << m_campain.m_data[i].name << endl;
-			_newCampain << m_campain.m_data[i].visableStatus << endl;
-			_newCampain << m_campain.m_data[i].clearStatus << endl;
-		}
-		_newCampain.close();
+		SaveCampain();
 	}
 	_campain.close();
 }
@@ -368,6 +369,19 @@ void Application::BubbleSort(vector<string>& strings)
 			}
 		}
 	}
+}
+
+void Application::SaveCampain()
+{
+	 std::ofstream _newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
+	_newCampain << m_campain.m_data.size() << endl;
+	for (size_t i = 0; i < m_campain.m_data.size(); i++)
+	{
+		_newCampain << m_campain.m_data[i].name << endl;
+		_newCampain << m_campain.m_data[i].visableStatus << endl;
+		_newCampain << m_campain.m_data[i].clearStatus << endl;
+	}
+	_newCampain.close();
 }
 
 
@@ -588,6 +602,12 @@ void Application::MenuDraw(Menu inputMenu)
 			DrawButtonText(inputMenu.GetButton(i));
 
 	}
+	if (inputMenu.DrawInput())
+	{
+		DrawString(-190.0f, -150.0f, "New Map Name", {1,1,1,1}, 1);
+		DrawString(-190.0f, -200.0f,inputMenu.inputUser.c_str(), {1,1,1,1}, 1);
+		DrawString(-190.0f, -250.0f, "Press New to Create", { 1,1,1,1 }, 1);
+	}
 	//__text = to_string(APP.GetInstance().m_fps);
 	//SHADER.m_spriteShader.DrawString(-600, 0, _convText, { 1,0,0,1 });
 }
@@ -711,10 +731,11 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
-	CreateExtensions();
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
 	selectEditerMapMenu.SetTexture(&m_editorBack1);
+	selectPlaybleMapMenu.SetTexture(&m_playBack2);
+	CreateExtensions();
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
 	LoadCampain();
@@ -854,6 +875,12 @@ void Application::Execute()
 				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				selectPlaybleMapMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_playBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				//SHADER.m_spriteShader.SetMatrix(selectPlaybleMapMenu.GetMatrix());
+				//SHADER.m_spriteShader.DrawTex(selectPlaybleMapMenu.GetTexture(), selectPlaybleMapMenu.GetRect());
 				MenuExecute(selectPlaybleMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
@@ -884,6 +911,7 @@ void Application::Execute()
 				campainMenu.Update();
 				MenuExecute(campainMenu);
 			} while ((m_endFlagWindows != true));
+			SaveCampain();
 			break;
 		default:
 			break;

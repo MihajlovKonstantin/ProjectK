@@ -13,12 +13,13 @@ private:
     std::vector<Button> buttons;
     Button testButton;
     WindowsControlData* data;
+    Campain* m_campain;
     bool visable;
     bool active;
     KdTexture* m_texture;
     Math::Rectangle m_rect = { 0,0,3840,720 };
     Math::Matrix m_matrix;
-    std::pair<float, float> m_pos = {0.0f,0.0f};
+    std::pair<float, float> m_pos = { 0.0f,0.0f };
     std::string selectedMap;
     std::string selectedPath;
     std::string  m_dataPath;
@@ -30,8 +31,13 @@ private:
     bool IsCampainMenu = false;
     bool dirty = true;
     bool LastMapClearState = false;
+    bool inputMode = false;
+    bool endInput = false;
     int currentColdown = 0;
+
+    
 public:
+    std::string inputUser = "";
     KdTexture* GetTexture();
     void SetTexture(KdTexture* texture);
     Math::Matrix GetMatrix();
@@ -41,7 +47,7 @@ public:
     void InitMainMenu(std::string dataPath);
     void InitSetting();
     void InitInGameSetting();
-    void InitSelectMapPlayeble(std::vector<std::string > mapList,std::string path,std::string dataPath);
+    void InitSelectMapPlayeble(std::vector<std::string > mapList, std::string path, std::string dataPath);
     void InitSelectEditingMap(std::vector<std::string > mapList, std::string path, std::string dataPath);
     void InitCampainMenu(std::vector<std::string> mapList, std::string dataPath);
     Button GetButton();
@@ -49,7 +55,7 @@ public:
     int GetButtonsCNT();
     void AddData(WindowsControlData& inputData)
     {
-        data =& inputData;
+        data = &inputData;
     }
     void EventClick(array<int, 2> eventData);
     void SwitchWindowsEvent(int newWindowsIndex);
@@ -74,5 +80,6 @@ public:
     void UpdateMap();
     void ReleaseMap();
     void SetClearState(int input);
+    void AddCampain(Campain& data);
+    bool DrawInput();
 };
-

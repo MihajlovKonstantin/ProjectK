@@ -1,9 +1,6 @@
 #include "Data/Classes/Header/WindowsControlData.h"
 
-void WindowsControlData::SetPreviousWindows(int data)
-{
-	PreviousWindows = data;
-}
+
 
 bool WindowsControlData::IsCampain()
 {
@@ -18,6 +15,18 @@ void WindowsControlData::SetCampainMod(bool data)
 int WindowsControlData::GetCampainMapIndex()
 {
 	return CampainMapIndex;
+}
+void WindowsControlData::SetPreviousWindows(int data)
+{
+	PreviousWindows = data;
+	if (PreviousWindows == WindowsEnum::CampainMenu)
+	{
+		SetCampainMod(true);
+	}
+	else
+	{
+		SetCampainMod(false);
+	}
 }
 
 void WindowsControlData::SetCampainMapIndex(int data)
@@ -113,3 +122,4 @@ std::string WindowsControlData::Getpath()
 {
 	return currentPath;
 }
+

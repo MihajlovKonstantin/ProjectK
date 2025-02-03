@@ -68,6 +68,8 @@ private:
 	KdTexture m_settingBack2;
 	KdTexture m_editorBack1;
 	KdTexture m_editorBack2;
+	KdTexture m_playBack1;
+	KdTexture m_playBack2;
 
 	Campain m_campain;
 	
@@ -100,7 +102,7 @@ public:
 
 	// �Q�[���E�B���h�E�N���X
 	KdGameWindow		m_window;
-
+	KdGameWindow		m_nameSelectWindow;
 	// FPS����
 	int				m_fps = 0;					// ���݂�FPS�l
 	int				m_maxFps = 60;				// �ő�FPS
@@ -136,6 +138,7 @@ private:
 	void LoadCampain();
 	int ExtractNumber(const string& s);
 	void BubbleSort(vector<string>& strings);
+	void SaveCampain();
 //=====================================================
 // �V���O���g���p�^�[��
 //=====================================================
