@@ -32,12 +32,14 @@ private:
 	std::array<KdTexture, 5> m_ladderTex;
 	std::array<KdTexture, 5> m_lavaTex;
 	std::array<KdTexture, 5> m_crateTex;
+	KdTexture m_voidTex;
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
 	KdTexture m_playerHpTex;
 	KdTexture tmpTex;
 	KdTexture m_backGround;
+	KdTexture m_stageBaseTex;
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
 	//BlockLib
@@ -147,6 +149,7 @@ public:
 	void SaveMap();
 	void LoadMap();
 	int GetClearFlag();
+	KdTexture* GetBlockTex();
 private:
 
 	Scene() {}

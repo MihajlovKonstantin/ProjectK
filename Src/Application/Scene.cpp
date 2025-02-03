@@ -144,6 +144,11 @@ void Scene::Draw2D()
 				}
 			}
 		}
+
+		//ブロック表示用
+		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
+		SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
+
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
 		DrawString(300, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
 		DrawString(300, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
@@ -250,6 +255,11 @@ void Scene::DynamicDraw2D()
 	}
 	else
 	{
+		if (m_stageType == 0)
+		{
+			SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, -m_scroll.second, 0));
+			SHADER.m_spriteShader.DrawTex(&m_stageBaseTex, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+		}
 		D3D.SetBlendState(BlendMode::Alpha);
 		SHADER.m_spriteShader.SetMatrix(m_player.GetMatrix());
 		SHADER.m_spriteShader.DrawTex(m_player.GetTexture(), m_player.GetRect(), 1.0f);
@@ -853,7 +863,7 @@ void Scene::UpdateGameScene()
 		}
 		if (m_stageType == 0)
 		{
-			if (m_player.GetGPos().second >= 220)
+			if (m_player.GetGPos().second >= 350)
 			{
 				CLEARFLAG = true;
 			}
@@ -1617,6 +1627,52 @@ int Scene::GetClearFlag()
 	return 0;
 }
 
+KdTexture* Scene::GetBlockTex()
+{
+	KdTexture* _BlockTex;
+
+	switch (m_editerMenuIndex)
+	{
+	case EditerSelect::BlockMenu:
+		switch (m_unitType)
+		{
+		case 0:
+			_BlockTex = &m_voidTex;
+			break;
+		case 1:
+			_BlockTex = &m_groundTex[0];
+			break;
+		case 2:
+			_BlockTex = &m_iceSurfaceTex[0];
+			break;
+		case 3:
+			_BlockTex = &m_iceWaterBlockTex[0];
+			break;
+		case 4:
+			_BlockTex = &m_ladderTex[0];
+			break;	
+		case 5:
+			_BlockTex = &m_lavaTex[0];
+			break;	
+		case 6:
+			_BlockTex = &m_crateTex[0];
+			break;
+		}
+		break;
+	case EditerSelect::ItemMenu:
+
+		break;
+	case EditerSelect::CharaMenu:
+		
+		break;
+	case EditerSelect::StageTypeMenu:
+		
+		break;
+	}
+
+	return _BlockTex;
+}
+
 void Scene::Update()
 {
 	m_message = "";
@@ -1789,8 +1845,12 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
 	WC->Resume();
 	charaRect = Math::Rectangle(0, 0, 32, 32);
+
+	m_stageBaseTex.Load("Texture/BackGround/clearBack.png");
+
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
+
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -1824,7 +1884,9 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_lavaTex[4].Load("Texture/GimmickBlock/liquidLava4.png");
 
 	m_crateTex[0].Load("Texture/GimmickBlock/crate.png");
-	//
+
+	m_voidTex.Load("Texture/GroundBlock/void.png");
+
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
 	m_lKey = false;
@@ -1929,6 +1991,7 @@ void Scene::Release()
 	// �摜�̉������
 	//m_blockTex.Release();
 	delete SC;
+	m_stageBaseTex.Release();
 	tmpTex.Release();
 	m_playerTex.Release();
 	m_playerHpTex.Release();
@@ -1936,6 +1999,7 @@ void Scene::Release()
 	m_backGround.Release();
 	m_snowBallTex.Release();
 	m_slimeTex.Release();
+	m_voidTex.Release();
 	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
 	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
 	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();

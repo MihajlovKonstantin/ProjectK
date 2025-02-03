@@ -60,6 +60,7 @@ private:
 	Menu selectPlaybleMapMenu;
 	Menu selectEditerMapMenu;
 	Menu campainMenu;
+	//Texture
 	KdTexture m_mainMenuBackGround1;
 	KdTexture m_mainMenuBackGround2;
 	KdTexture m_titleLogo;
