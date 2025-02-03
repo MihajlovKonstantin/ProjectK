@@ -35,7 +35,11 @@ private:
     bool endInput = false;
     int currentColdown = 0;
 
-    
+    string _dirFinder;
+    std::ofstream ofFile;
+    std::ifstream inFile;
+    std::string _line;
+    std::vector<std::string> _lines;
 public:
     std::string inputUser = "";
     KdTexture* GetTexture();
@@ -82,4 +86,5 @@ public:
     void SetClearState(int input);
     void AddCampain(Campain& data);
     bool DrawInput();
+    void OpenMap(int input);
 };

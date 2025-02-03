@@ -833,6 +833,7 @@ void Scene::LoadStage()
 
 
 		}
+		inFile.close();
 	}
 }
 
@@ -1403,7 +1404,7 @@ void Scene::SaveMap()
 	system(_dirFinder.c_str());
 	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
 	system(_dirFinder.c_str());
-	if (RELEASE == 0&&!WC->IsCampain())
+	if (RELEASE == 0)
 	{
 		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
@@ -1698,6 +1699,8 @@ void Scene::Update()
 
 void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string selectedPath)
 {
+	
+	m_controlButtonClick = false;
 	m_dataPath = dataPath;
 	m_selectedPath = selectedPath;
 	// �摜�̓ǂݍ��ݏ���
@@ -1711,7 +1714,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_inGameSetting.AddData(*WC);
 	//m_blockTex.Load("Texture/GroundBlock/Ground0.png");;
 	//m_GroundBlockTex.Load("Texture/GroundBlock/Groundslice03_03.png");;
-	
+	WC->Resume();
 	charaRect = Math::Rectangle(0, 0, 32, 32);
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
