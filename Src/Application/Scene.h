@@ -32,6 +32,7 @@ private:
 	std::array<KdTexture, 5> m_ladderTex;
 	std::array<KdTexture, 5> m_lavaTex;
 	std::array<KdTexture, 5> m_crateTex;
+	KdTexture m_voidTex;
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
@@ -143,6 +144,7 @@ public:
 	void SaveMap();
 	void LoadMap();
 	int GetClearFlag();
+	KdTexture* GetBlockTex();
 private:
 
 	Scene() {}
