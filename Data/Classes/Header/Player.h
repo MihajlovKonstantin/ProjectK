@@ -16,6 +16,7 @@ protected:
 		bool OnladerFlag = false;
 		bool OnLavaFlag = false;
 	};
+
 	//stats
 	float m_hp = 100.f, m_maxHP = 100.0f;
 	float m_hpY = 22;
@@ -63,6 +64,9 @@ protected:
 	bool OnIceBlockFlag = false;
 	bool OnLadderBlockFlag = false;
 	bool OnLavaBlockFlag = false;
+
+	static const int m_hitHpCoolTime = 20;
+	int m_hitCooltime = m_hitHpCoolTime;
 
 	float m_collisionSize = 32.0f;
 	float m_collisionRadius = m_collisionSize / 2;
