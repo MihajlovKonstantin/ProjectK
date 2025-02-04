@@ -17,7 +17,7 @@ private:
 	enum ItemSelect { COUNTIS = 1, Key = 0 };
 	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
-	enum InfoPanelEnun {COUNTIPE = 6, Move = 0, Jump, EditerMode,Draw,LavaInf,LadderInfo};
+	enum InfoPanelEnun { COUNTIPE = 6, Move = 0, Jump, EditerMode, Draw, LavaInf, LadderInfo };
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
