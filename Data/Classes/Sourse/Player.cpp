@@ -327,10 +327,16 @@ void Player::Update()
 		m_speed.first *= 1.8f;
 		m_speed.second *= 1;
 	}
-	if (OnLavaBlockFlag)
+
+	if (m_hitCooltime-- < 0)m_hitCooltime = 0;
+	if (OnLavaBlockFlag && m_hitCooltime == 0)
 	{
- 		m_hp -= 5;
 		if(m_hp < 0)m_hp = 0;
+
+		
+			SetHp(GetHp() - 10);
+			m_hitCooltime = m_hitHpCoolTime;
+			SetHpAlpha(true);
 	}
 	if (OnLadderBlockFlag)
 	{
