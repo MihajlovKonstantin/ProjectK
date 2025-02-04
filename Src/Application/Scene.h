@@ -9,12 +9,12 @@ private:
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
 	//enum
-	enum SpawnerSelect { COUNTSS = 3, Player = 0, Enemy, Enemys };
-	enum EditerSelect { COUNTES = 4, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu };
+	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
+	enum EditerSelect { COUNTES = 5, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu, InfoPanelMenu};
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
-	enum ItemSelect { COUNTIS = 1, Key = 0 };
+	enum ItemSelect { COUNTIS = 2, Key = 1 };
 	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	enum InfoPanelEnun { COUNTIPE = 6, Move = 0, Jump, EditerMode, Draw, LavaInf, LadderInfo };
@@ -45,6 +45,7 @@ private:
 	KdTexture m_stageBaseTex;
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
+	KdTexture m_snowBallSpawnerTex, m_slimeSpawnerTex;
 	//BlockLib
 	static const int m_typeBlockNum = 6;
 	std::array<std::vector<std::array<KdTexture*, 5>>, 7> m_blockLiblary;
