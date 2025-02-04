@@ -1,12 +1,13 @@
 #include "Pch.h"
 #include "Data/Classes/Header/Item.h"
 
-Item::Item(std::pair<float, float> pos, KdTexture* texture, int index)
+Item::Item(std::pair<float, float> pos, std::vector<KdTexture*>* texture, int index)
 {
 	m_gPos = pos;
-	m_texture = texture;
+	m_textureLib = texture;
 	m_index = index;
 	m_dirty = true;
+	m_texture = m_textureLib->at(m_index);
 }
 
 Item::Item()
@@ -55,5 +56,5 @@ int Item::GetIndex()
 
 std::pair<float, float> Item::GetPos()
 {
-	return m_pos;
+	return m_gPos;
 }

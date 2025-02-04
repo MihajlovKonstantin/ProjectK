@@ -305,6 +305,7 @@ void Application::LoadMapList()
 
 void Application::LoadCampain()
 {
+	m_campain.m_data.clear();
 	std::string line;
 	std::string _name;
 	int _visable;
@@ -339,7 +340,7 @@ void Application::LoadCampain()
 				_newCampain << m_campain.m_data[i].visableStatus << endl;
 				_newCampain << m_campain.m_data[i].clearStatus << endl;
 			}
-			_newCampain.close();
+			
 		}
 	}
 	else
@@ -347,6 +348,7 @@ void Application::LoadCampain()
 		m_campain.CreateCampain(campainMap);
 		SaveCampain();
 	}
+	_newCampain.close();
 	_campain.close();
 }
 
@@ -378,6 +380,10 @@ void Application::SaveCampain()
 	for (size_t i = 0; i < m_campain.m_data.size(); i++)
 	{
 		_newCampain << m_campain.m_data[i].name << endl;
+		if (m_campain.m_data[i].name == WindowsData.GetMap())
+		{
+			m_campain.m_data[i].clearStatus = SCENE.GetClearFlag();
+		}
 		_newCampain << m_campain.m_data[i].visableStatus << endl;
 		_newCampain << m_campain.m_data[i].clearStatus << endl;
 	}
@@ -587,7 +593,7 @@ void Application::MenuUpdate(Menu &inputMenu)
 		m_musicCnt = 0;
 	}
 }
-void Application::MenuDraw(Menu inputMenu)
+void Application::MenuDraw(Menu& inputMenu)
 {
 	int _buttonCNT = inputMenu.GetButtonsCNT();
 
@@ -780,12 +786,15 @@ void Application::Execute()
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
+			SaveCampain();
+
 			if (WindowsData.IsStarted())
 			{
 				mainMenu.SetClearState(SCENE.GetClearFlag());
 			}
 			do
 			{
+				
 				m_settingFlg = false;
 				DWORD st = timeGetTime();
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
@@ -903,6 +912,7 @@ void Application::Execute()
 			break;
 		case WindowsControl::CampainMenu:
 			LoadMapList();
+			LoadCampain();
 			campainMenu.InitCampainMenu(campainMap, dataFolderPath);
 			lastSelectedPath = programmPath;
 			do
@@ -912,7 +922,7 @@ void Application::Execute()
 				campainMenu.Update();
 				MenuExecute(campainMenu);
 			} while ((m_endFlagWindows != true));
-			SaveCampain();
+			
 			break;
 		default:
 			break;
@@ -1032,6 +1042,7 @@ void Application::Execute()
 	//===================================================================
 	// �A�v���P�[�V�������
 	//===================================================================
+	gameSoundInstance->Stop();
 	SCENE.Release();
 	Release();
 }

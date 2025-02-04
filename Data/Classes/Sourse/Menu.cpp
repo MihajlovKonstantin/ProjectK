@@ -377,6 +377,9 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 }
 void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPath)
 {
+	inputMode = false;
+	endInput = false;
+	inputUser = "";
 	dirty = true;
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
@@ -400,7 +403,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 			
 		}
 	}
-	for (size_t i = 0; i < mapList.size()-1; i++)
+	for (size_t i = 0; i < mapList.size(); i++)
 	{
 		switch (i % 3)
 		{
@@ -487,11 +490,7 @@ int ExtractNumber(const string& s)
 
 void Menu::EventClick(array<int, 2> eventData)
 {
-	string _dirFinder;
-	std::ofstream ofFile;
-	std::ifstream inFile;
-	std::string _line;
-	std::vector<std::string> _lines;
+	
 	//char current_work_dir[FILENAME_MAX];
 	//_getcwd(current_work_dir, sizeof(current_work_dir));
 	switch (eventData[0])
@@ -517,19 +516,10 @@ void Menu::EventClick(array<int, 2> eventData)
 		selectedMap = buttons[eventData[1]].GetText();
 		break;
 	case openMap:
-		
-		_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
-		system(_dirFinder.c_str());
-		_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
-		system(_dirFinder.c_str());
-		_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap.map";
-		system(_dirFinder.c_str());
-		data->SetMap(selectedMap);
-		data->SetPath(selectedPath);
-		SwitchWindowsEvent(eventData[1]);
+		OpenMap(eventData[1]);
 		break;
 	case newMap:
-		if (!data->IsCampain())
+		if (true)
 		{
 			if ((inputMode == false) && (endInput == false))
 			{
@@ -596,6 +586,17 @@ void Menu::EventClick(array<int, 2> eventData)
 			}
 			else
 			{
+				if (stoi(_line) == 0)
+				{
+					_dirFinder = "del \"" + selectedPath + "\\" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + selectedPath + "\\\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "rename \"" + selectedPath + "\\CurrentMap.map\" \"" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+					system(_dirFinder.c_str());
+				}
 				for (size_t i = 0;m_campain->m_data.size()>i;i++)
 				{
 					if (m_campain->m_data[i].name == selectedMap)
@@ -609,6 +610,7 @@ void Menu::EventClick(array<int, 2> eventData)
 				}
 			}
 		}
+		data->Restart();
 		break;
 	case releaseMap:
 		_dirFinder = selectedPath + "\\" + selectedMap;
@@ -646,7 +648,8 @@ void Menu::EventClick(array<int, 2> eventData)
 		
 		break;
 	}
-
+	inFile.close();
+	ofFile.close();
 }
 
 void Menu::SwitchWindowsEvent(int newWindowsIndex)
@@ -855,6 +858,20 @@ void Menu::AddCampain(Campain& data)
 bool Menu::DrawInput()
 {
 	return inputMode||endInput;
+}
+
+void Menu::OpenMap(int input)
+{
+
+	_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
+	system(_dirFinder.c_str());
+	_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+	system(_dirFinder.c_str());
+	_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap.map";
+	system(_dirFinder.c_str());
+	data->SetMap(selectedMap);
+	data->SetPath(selectedPath);
+	SwitchWindowsEvent(input);
 }
 
 

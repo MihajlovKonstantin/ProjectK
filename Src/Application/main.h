@@ -127,7 +127,7 @@ private:
 	void DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale);
 	//Menu�Ǘ��֐�
 	void MenuUpdate(Menu &inputMenu);
-	void MenuDraw(Menu inputMenu);
+	void MenuDraw(Menu& inputMenu);
 	bool ClickButton(POINT inputMouse, Button inputButton);
 	void MenuExecute(Menu& inputMenu);
 	//GameLoop

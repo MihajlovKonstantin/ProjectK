@@ -48,6 +48,8 @@ private:
 	//EnemyLib
 	static const int m_enemyNum = COUNTENS;
 	std::array<std::vector<KdTexture*>, 2> m_enemylibrary;
+	//ItemLib
+	std::vector<KdTexture*> m_itemLibrary;
 	//Editer
 	std::pair<float, float> SpawnPos;
 	Item _lastItem;
@@ -59,6 +61,7 @@ private:
 	std::array<POINT, 2> m_point;
 	std::string str;
 	const char* charStr = str.c_str();
+	std::string m_message;
 	//DrawButton 
 	std::array<float, 2> size;
 	std::array<float, 2>position;
@@ -93,6 +96,7 @@ private:
 
 	int RELEASE = 0;
 
+	int currentCD = 0, MaxCD = 30;
 	std::array<bool, 3> m_keyFlag;
 	//Player
 	PC m_player = PC({ 0,0 }, { +2.0f,-1 }, &m_playerTex, &m_playerHpTex);
@@ -138,6 +142,7 @@ public:
 	int MaxTypeBlock(int index);
 	int MaxTypeItem();
 	void SaveSpawn();
+	void SaveItem();
 	void LoadSpawn();
 	void CreateSpawn();
 	void StopMusic();
