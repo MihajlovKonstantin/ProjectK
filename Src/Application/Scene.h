@@ -17,6 +17,7 @@ private:
 	enum ItemSelect{COUNTIS = 1,Key = 0};
 	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater ,Ladder ,Lava ,Crate};
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
+	enum InfoPanelEnun {COUNTIPE = 6, Move = 0, Jump, EditerMode,Draw,LavaInf,LadderInfo};
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
@@ -33,6 +34,8 @@ private:
 	std::array<KdTexture, 5> m_lavaTex;
 	std::array<KdTexture, 5> m_crateTex;
 	KdTexture m_voidTex;
+	//InformPanelVector
+	std::vector<InformPanel> m_inform;
 	//OtherTex
 	KdTexture m_blockTex;
 	KdTexture m_playerTex;
@@ -150,6 +153,7 @@ public:
 	void LoadMap();
 	int GetClearFlag();
 	KdTexture* GetBlockTex();
+	void CreateInformPanel();
 private:
 
 	Scene() {}

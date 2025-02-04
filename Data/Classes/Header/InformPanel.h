@@ -10,5 +10,6 @@ public:
 	InformPanel(std::pair<float, float> pos, int index);
 	std::string GetText();
 	std::pair<float, float> GetGPos();
+	int GetIndex();
 };
 

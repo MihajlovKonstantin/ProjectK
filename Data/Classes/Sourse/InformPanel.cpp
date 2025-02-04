@@ -41,3 +41,8 @@ std::pair<float, float> InformPanel::GetGPos()
 	return m_gPos;
 }
 
+int InformPanel::GetIndex()
+{
+	return m_index;
+}
+

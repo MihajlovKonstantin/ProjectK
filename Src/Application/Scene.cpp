@@ -22,6 +22,15 @@ void Scene::Draw2D()
 	}
 	if (SC->GetEditMode())
 	{
+		//InfoPanelCollision
+		for (size_t i = 0; i < m_inform.size(); i++)
+		{
+			auto _pos = m_inform[i].GetGPos();
+			SHADER.m_spriteShader.DrawBox(_pos.first - m_scroll.first, _pos.second - m_scroll.second, 100, 100, &Math::Color( 0,1,0,0.2f ));
+		}
+		//ブロック表示用
+		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
+		
 		string _string[3];
 		_string[0] ="(T/Y)CurrentEditerMenu ";
 		switch (m_editerMenuIndex)
@@ -36,6 +45,9 @@ void Scene::Draw2D()
 			break;
 		case EditerSelect::StageTypeMenu:
 			_string[0] += "StageType";
+			break;
+		case EditerSelect::InfoPanelMenu:
+			_string[0] += "InfoPanel";
 			break;
 		}
 		switch (m_editerMenuIndex)
@@ -89,6 +101,7 @@ void Scene::Draw2D()
 					_string[2] += "InsideIce";
 				}
 			}
+			SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
 			break;
 		case EditerSelect::ItemMenu:
 			_string[1] = "(G/H)CurrentItemType ";
@@ -143,12 +156,20 @@ void Scene::Draw2D()
 					break;
 				}
 			}
+			break;
+		case EditerSelect::InfoPanelMenu:
+			_string[1] = "(G/H)PanelSelect ";
+			switch (m_unitType)
+			{
+			case InfoPanelEnun::Move:
+				_string[1] += "Move";
+				break;
+			}
+			break;
 		}
 
-		//ブロック表示用
-		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
-		SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
-
+		
+		
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
 		DrawString(300, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
 		DrawString(300, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
@@ -157,6 +178,7 @@ void Scene::Draw2D()
 	}
 	if (!WC->IsPause())
 	{
+		DrawString(-100, 300, message.c_str(), { 1,0,0,1 }, 0.7f);
 		if (CLEARFLAG)
 		{
 			DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
@@ -849,6 +871,7 @@ void Scene::LoadStage()
 
 void Scene::UpdateGameScene()
 {
+	message = "";
 	m_scroll = m_player.GetGPos();
 
 	//StageClear Data
@@ -977,7 +1000,11 @@ void Scene::UpdateGameScene()
 			}
 		}
 	}
-
+	//Player to Inform Collision
+	for (int i = 0; i < m_inform.size(); i++)
+	{
+		message += m_player.CollisionToInform(m_inform[i]);
+	}
 	//Spawner Update
 	for (int i = 0; i < m_spawner.size(); i++)
 	{
@@ -1226,6 +1253,10 @@ void Scene::UpdateEditScene()
 					break;
 				case StageTypeMenu:
 					m_stageType = m_unitType;
+					m_drawStartBool = false;
+					break;
+				case InfoPanelMenu:
+					CreateInformPanel();
 					m_drawStartBool = false;
 					break;
 				}
@@ -1671,6 +1702,23 @@ KdTexture* Scene::GetBlockTex()
 	}
 
 	return _BlockTex;
+}
+
+void Scene::CreateInformPanel()
+{
+	for (size_t i = 0; i < m_inform.size();)
+	{
+		if (m_unitType == m_inform[i].GetIndex())
+		{
+			m_inform.erase(m_inform.begin()+i);
+		}
+		else
+		{
+			i++;
+		}
+	}
+	auto _newInform = InformPanel({ m_mouse.x-640,-m_mouse.y+360 }, m_unitType);
+	m_inform.push_back(_newInform);
 }
 
 void Scene::Update()
