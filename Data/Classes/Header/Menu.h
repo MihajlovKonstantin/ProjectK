@@ -3,9 +3,13 @@
 #include <optional>
 #include "Src/Application/WindowsEnum.h"
 using namespace std;
-enum SceneSelect { Title = 1, Game = 2, Option ,Records,SelectPlaybleMap,SelectEditMap,CampainMenu};
-enum DataValue { volume = 21 };
-enum OptionSelect { goScene = 1, increaseByIndex = 2, decreaseByIndex = 3 ,setEndFlg=4,switchBool=5,selectMap=6,openMap=7,newMap=8,updateMap=9, releaseMap};
+enum SceneSelect { Title = 1, Game = 2, Option, Records, SelectPlaybleMap, SelectEditMap, CampainMenu, Help };
+enum DataValue { volume = 21,screenIdex=10 };
+enum OptionSelect 
+{
+    goScene = 1, increaseByIndex = 2, decreaseByIndex = 3, setEndFlg = 4, switchBool = 5,
+    selectMap = 6, openMap = 7, newMap = 8, updateMap = 9, releaseMap
+};
 enum ChangeSelect { change = 1, nochange = 3 };
 class Menu
 {
@@ -34,6 +38,9 @@ private:
     bool inputMode = false;
     bool endInput = false;
     int currentColdown = 0;
+    int m_helpPage = 0;
+    int m_maxHelpPage = 100;
+    
 
     string _dirFinder;
     std::ofstream ofFile;
@@ -54,6 +61,7 @@ public:
     void InitSelectMapPlayeble(std::vector<std::string > mapList, std::string path, std::string dataPath);
     void InitSelectEditingMap(std::vector<std::string > mapList, std::string path, std::string dataPath);
     void InitCampainMenu(std::vector<std::string> mapList, std::string dataPath);
+    void InitHelp();
     Button GetButton();
     Button GetButton(int cnt);
     int GetButtonsCNT();

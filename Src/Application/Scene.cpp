@@ -61,6 +61,9 @@ void Scene::Draw2D()
 			case StageTypeSelect::KeyCollect:
 				_string[1] += "Key";
 				break;
+			default:
+				m_unitType = 0;
+				break;
 			}
 			break;
 		case EditerSelect::BlockMenu:
@@ -74,7 +77,7 @@ void Scene::Draw2D()
 				_string[1] += "Ground";
 				break;
 			case BlockEditerSelect::Ice:
-				_string[1] += "Ice";
+				_string[1] += "Snow";
 				break;
 			case BlockEditerSelect::IceWater:
 				_string[1] += "IceWater";
@@ -89,6 +92,7 @@ void Scene::Draw2D()
 				_string[1] += "Crate";
 				break;
 			}
+			/*_string[2] = "CurrentBlockVariant ";
 			_string[2] = "(B/N)CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
 			{
@@ -109,6 +113,9 @@ void Scene::Draw2D()
 			{
 			case ItemSelect::Key:
 				_string[1] += "Key";
+				break;
+			default:
+				m_unitType = 0;
 				break;
 			}
 			_string[2] = "(G/H)CurrentItemVariant";
@@ -141,6 +148,9 @@ void Scene::Draw2D()
 				break;
 			case SpawnerSelect::Enemys:
 				_string[1] += "Enemys";
+				break;
+			default:
+				m_unitType = 0;
 				break;
 			}
 			if (m_unitType != SpawnerSelect::Player)
@@ -1053,7 +1063,7 @@ void Scene::UpdateEditScene()
 {
 	//Editer Menu Select
 	{
-		if (GetAsyncKeyState('T'))
+		if (GetAsyncKeyState('R'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1066,7 +1076,7 @@ void Scene::UpdateEditScene()
 				currentCD = MaxCD;
 			}
 		}
-		if (GetAsyncKeyState('Y'))
+		if (GetAsyncKeyState('T'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1082,7 +1092,7 @@ void Scene::UpdateEditScene()
 	}
 	//Unit Select
 	{
-		if (GetAsyncKeyState('G'))
+		if (GetAsyncKeyState('D'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1114,7 +1124,7 @@ void Scene::UpdateEditScene()
 				currentCD = MaxCD;
 			}
 		}
-		if (GetAsyncKeyState('H'))
+		if (GetAsyncKeyState('F'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1149,7 +1159,7 @@ void Scene::UpdateEditScene()
 	}
 	//Variant Select
 	{
-		if (GetAsyncKeyState('B'))
+		if (GetAsyncKeyState('X'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1176,7 +1186,7 @@ void Scene::UpdateEditScene()
 			}
 		}
 
-		if (GetAsyncKeyState('N'))
+		if (GetAsyncKeyState('C'))
 		{
 			if (!m_controlButtonClick)
 			{
@@ -1660,7 +1670,7 @@ int Scene::GetClearFlag()
 
 KdTexture* Scene::GetBlockTex()
 {
-	KdTexture* _BlockTex;
+	KdTexture* _BlockTex = &m_voidTex;
 
 	switch (m_editerMenuIndex)
 	{
@@ -1743,27 +1753,27 @@ void Scene::Update()
 	}
 	if (SC->GetCurrentScene() == SceneControlData::Scenes::MainScene)
 	{
-		if (GetAsyncKeyState('L'))
+		if (GetAsyncKeyState('S'))
 		{
-			if (!m_lKey)
+			if (!m_sKey)
 			{
 				SaveStage();
 				SaveSpawn();
 				SaveItem();
 				SaveMap();
 			}
-			m_lKey = true;
+			m_sKey = true;
 		}
-		else m_lKey = false;
-		if (GetAsyncKeyState('P'))
+		else m_sKey = false;
+		if (GetAsyncKeyState('A'))
 		{
-			if (!m_pKey)
+			if (!m_aKey)
 			{
 				LoadMap();
 			}
-			m_pKey = true;
+			m_aKey = true;
 		}
-		else m_pKey = false;
+		else m_aKey = false;
 		for (size_t i = 0; i < m_terrain.size();)
 		{
 			if (m_terrain[i].GetBlocks()->empty())
@@ -1848,10 +1858,10 @@ void Scene::Update()
 				break;
 			}
 	}
-	if (GetAsyncKeyState('Z'))
+	/*if (GetAsyncKeyState('Z'))
 	{
 		m_controlButtonClick = false;
-	}
+	}*/
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
 		switch (SC->GetCurrentScene())
@@ -1937,8 +1947,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
-	m_lKey = false;
-	m_pKey = false;
+	m_sKey = false;
+	m_aKey = false;
 	
 	m_keyTexture[0].Load("Texture/Item/Key1.png");
 	m_keyTexture[1].Load("Texture/Item/Key2.png");

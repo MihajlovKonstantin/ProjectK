@@ -1,7 +1,7 @@
 #pragma once
 #include "Pch.h"
 
-enum SpawnType { PlayerType = 1, EnemyType, EnemysType};
+enum SpawnType { PlayerType , EnemyType, EnemysType};
 
 class Spawner
 {

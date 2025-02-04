@@ -9,13 +9,13 @@ private:
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
 	//enum
-	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
-	enum EditerSelect { COUNTES = 5, BlockMenu = 0, CharaMenu, ItemMenu,StageTypeMenu ,InfoPanelMenu};
+	enum SpawnerSelect { COUNTSS = 3, Player = 0, Enemy, Enemys };
+	enum EditerSelect { COUNTES = 4, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu };
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
-	enum KeySelect{COUNTKS = 3,Yellow=0,Red,Blue};
-	enum ItemSelect{COUNTIS = 1,Key = 0};
-	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater ,Ladder ,Lava ,Crate};
+	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
+	enum ItemSelect { COUNTIS = 1, Key = 0 };
+	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	enum InfoPanelEnun {COUNTIPE = 6, Move = 0, Jump, EditerMode,Draw,LavaInf,LadderInfo};
 	//ObjectVector
@@ -56,7 +56,8 @@ private:
 	//Editer
 	std::pair<float, float> SpawnPos;
 	Item _lastItem;
-	bool m_drawStartBool;
+	int m_baseControlCoolTime = 25;
+	int m_controlCoolTime = m_baseControlCoolTime;
 	//Draw
 	Math::Rectangle charaRect;
 	Math::Matrix matrix;
@@ -85,8 +86,8 @@ private:
 	std::pair<int, int> m_scroll = { 0,0 };
 	//Bool
 	bool m_controlButtonClick = false;
-	bool m_lKey;
-	bool m_pKey;
+	bool m_sKey;
+	bool m_aKey;
 	bool _tKey = false;
 	bool m_leftFlg;
 	bool m_rightFlg;
@@ -94,6 +95,8 @@ private:
 	bool m_downFlg;
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
+	bool m_drawStartBool;
+
 	int RELEASE = 0;
 
 	int currentCD = 0, MaxCD = 30;
