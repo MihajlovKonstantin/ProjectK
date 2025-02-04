@@ -590,6 +590,7 @@ void Application::MenuUpdate(Menu &inputMenu)
 void Application::MenuDraw(Menu inputMenu)
 {
 	int _buttonCNT = inputMenu.GetButtonsCNT();
+
 	for (int i = 0; i < _buttonCNT; i++)
 	{
 		if(inputMenu.GetButton(i).GetVisable())

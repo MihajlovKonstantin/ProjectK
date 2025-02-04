@@ -226,7 +226,7 @@ void Menu::InitMainMenu(std::string dataPath)
 	buttons.push_back(_newButton);
 	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -180.0f }, "Setting",1.5f,change,goScene,Option);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 120.0f, 45.0f }, { 270.0f, -300.0f }, "Record",1.5f,nochange,0,0);
+	_newButton = Button({ 70.0f, 45.0f }, { 270.0f, -300.0f }, "Help", 1.5f, change, goScene, Help);
 	buttons.push_back(_newButton);
 	std::string _dirrectory = dataPath + "\\CurrentMap.map";
 	std::ifstream ifFile(_dirrectory);
@@ -452,6 +452,17 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
+void Menu::InitHelp()
+{
+	Button _newButton;
+	buttons.clear();
+	_newButton = Button({ 60.0f,40.0f }, { -400.0f,-200.0f }, "Next", 1.0f, 9, OptionSelect::increaseByIndex, DataValue::screenIdex);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Back", 1.0f, 9, OptionSelect::decreaseByIndex, DataValue::screenIdex);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,0.0f }, "Exit", 1.0f, 9, OptionSelect::goScene, SceneSelect::Title);
+	buttons.push_back(_newButton);
+}
 Button Menu::GetButton()
 {
 	return testButton;
@@ -669,6 +680,9 @@ void Menu::IncreaceByIndex(int dataIndex)
 		}
 		dirty = true;
 		break;
+	case DataValue::screenIdex:
+		if (++m_helpPage > m_maxHelpPage)m_helpPage = m_maxHelpPage;
+		break;
 	}
 }
 
@@ -693,6 +707,9 @@ void Menu::DecreaceByIndex(int dataIndex)
 			selectedBlockData = maxBlockData;
 		}
 		dirty = true;
+		break;
+	case DataValue::screenIdex:
+		if (--m_helpPage < 0)m_helpPage = 0;
 		break;
 	}
 }
