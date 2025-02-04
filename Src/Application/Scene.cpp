@@ -67,7 +67,7 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::BlockMenu:
-			_string[1] = "(G/H)CurrentBlockType ";
+			_string[1] = "(D/F)CurrentBlockType ";
 			switch (m_unitType)
 			{
 			case 0:
@@ -92,8 +92,8 @@ void Scene::Draw2D()
 				_string[1] += "Crate";
 				break;
 			}
-			/*_string[2] = "CurrentBlockVariant ";
-			_string[2] = "(B/N)CurrentBlockVariant ";
+			_string[2] = "CurrentBlockVariant ";
+			_string[2] = "(X/C)CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
 			{
 			case 0:
@@ -108,7 +108,7 @@ void Scene::Draw2D()
 			SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
 			break;
 		case EditerSelect::ItemMenu:
-			_string[1] = "(G/H)CurrentItemType ";
+			_string[1] = "(D/F)CurrentItemType ";
 			switch (m_unitType)
 			{
 			case ItemSelect::Key:
@@ -118,7 +118,7 @@ void Scene::Draw2D()
 				m_unitType = 0;
 				break;
 			}
-			_string[2] = "(G/H)CurrentItemVariant";
+			_string[2] = "(D/F)CurrentItemVariant";
 			switch (m_selectedUnitVariant)
 			{
 			case 0:
@@ -126,7 +126,7 @@ void Scene::Draw2D()
 			default:
 				if (m_unitType == ItemSelect::Key)
 				{
-					_string[2] = "CurrentItemVariant";
+					_string[2] = "(X/C)CurrentItemVariant";
 					if (m_selectedUnitVariant == KeySelect::Yellow)
 						_string[2] = "Yellow";
 					if (m_selectedUnitVariant == KeySelect::Red)
@@ -137,7 +137,7 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::CharaMenu:
-			_string[1] = "(G/H)CurrentCharaType ";
+			_string[1] = "(D/F)CurrentCharaType ";
 			switch (m_unitType)
 			{
 			case SpawnerSelect::Player:
@@ -155,7 +155,7 @@ void Scene::Draw2D()
 			}
 			if (m_unitType != SpawnerSelect::Player)
 			{
-				_string[2] = "CurrentEnemyVariant ";
+				_string[2] = "(X/C)CurrentEnemyVariant ";
 				switch (m_selectedUnitVariant)
 				{
 				case EnemySelect::Slime:
@@ -168,11 +168,26 @@ void Scene::Draw2D()
 			}
 			break;
 		case EditerSelect::InfoPanelMenu:
-			_string[1] = "(G/H)PanelSelect ";
+			_string[1] = "(D/F)PanelSelect ";
 			switch (m_unitType)
 			{
 			case InfoPanelEnun::Move:
 				_string[1] += "Move";
+				break;
+			case InfoPanelEnun::LavaInf:
+				_string[1] += "LavaInfo";
+				break;
+			case InfoPanelEnun::LadderInfo:
+				_string[1] += "LadderInfo";
+				break;
+			case InfoPanelEnun::Jump:
+				_string[1] += "Jump";
+				break;
+			case InfoPanelEnun::EditerMode:
+				_string[1] += "EditerOpen";
+				break;
+			case InfoPanelEnun::Draw:
+				_string[1] += "EditerDraw";
 				break;
 			}
 			break;
@@ -209,8 +224,8 @@ void Scene::Draw2D()
 		{
 			if (!CLEARFLAG)
 			{
-				/*m_hpBar = to_string(int(m_player.GetHp())) + "/100";
-				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);*/
+				m_hpBar = to_string(int(m_player.GetHp())) + "/100";
+				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);
 			}
 
 		}
