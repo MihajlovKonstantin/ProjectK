@@ -63,10 +63,16 @@ void Player::Update()
 					{
 						index = i;
 					}
+					
 					if (m_collisionData[i].pos.first <= _comparePos.first)
 					{
 						if (!(m_collisionData[i].sideRad == float(M_PI) * 1.5f))
 						{
+							if ((m_collisionData[index].rad == 0) && (m_collisionData[i].rad != 0))
+							{
+								index = i;
+								_comparePos = m_collisionData[i].pos;
+							}
 							if (!(m_collisionData[index].rad > m_collisionData[i].rad)&&!(m_collisionData[index].rad== m_collisionData[i].rad==0))
 							{
 								index = i;

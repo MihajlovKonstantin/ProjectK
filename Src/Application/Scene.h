@@ -47,7 +47,7 @@ private:
 	KdTexture m_snowBallTex;
 	KdTexture m_snowBallSpawnerTex, m_slimeSpawnerTex;
 	//BlockLib
-	static const int m_typeBlockNum = 6;
+	static const int m_typeBlockNum = 7;
 	std::array<std::vector<std::array<KdTexture*, 5>>, 7> m_blockLiblary;
 	//EnemyLib
 	static const int m_enemyNum = COUNTENS;
@@ -151,6 +151,7 @@ public:
 	void SaveItem();
 	void LoadSpawn();
 	void CreateSpawn();
+	void DeleteSpawn();
 	void StopMusic();
 	int MaxTypeEnemy();
 	void CreateDataPatch();
@@ -160,6 +161,8 @@ public:
 	int GetClearFlag();
 	KdTexture* GetBlockTex();
 	void CreateInformPanel();
+	void DeleteInformPanel();
+	void SaveInformPanel();
 private:
 
 	Scene() {}

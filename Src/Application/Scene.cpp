@@ -1467,6 +1467,9 @@ void Scene::CreateSpawn()
 	int charaIndex = m_unitType;
 	switch (charaIndex)
 	{
+	case SpawnerSelect::VoidSS:
+		DeleteSpawn();
+		break;
 	case SpawnerSelect::Player:
 		if (m_spawner.size() != 0)
 		{
@@ -1483,6 +1486,28 @@ void Scene::CreateSpawn()
 		m_spawner.push_back(Spawner(charaIndex, SpawnPos, &m_enemylibrary, &m_player, &m_terrain, m_selectedUnitVariant, 300, 5));
 		m_spawner[m_spawner.size() - 1].SetScroll(&m_scroll);
 		break;
+	}
+}
+
+void Scene::DeleteSpawn()
+{
+	if (!m_spawner.empty())
+	{
+		auto _pos = m_spawner[0].GetCharaPos();
+		for (size_t i = 0; i < m_spawner.size();)
+		{
+			_pos = m_spawner[i].GetCharaPos();
+			_pos.first += 640;
+			_pos.second = _pos.second * (-1) + 360;
+			if ((abs(m_point[0].x - _pos.first) <= 100) && (abs(m_point[0].y - _pos.second) <= 100))
+			{
+				m_spawner.erase(m_spawner.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
 	}
 }
 
@@ -1544,6 +1569,14 @@ void Scene::SaveMap()
 			outFile << line << std::endl;
 		}
 	}
+	inFile = std::ifstream("InfoPanelData");
+	if (inFile.is_open())
+	{
+		while (std::getline(inFile, line)) {
+			outFile << line << std::endl;
+		}
+	}
+	inFile.close();
 	outFile.close();
 
 	
@@ -1578,6 +1611,7 @@ void Scene::LoadMap()
 	std::ifstream inFile(m_dataPath+"\\CurrentMap.map");
 	m_terrain.clear();
 	m_spawner.clear();
+	m_inform.clear();
 	std::string line;
 	if (inFile.is_open()) {
 		std::string line;
@@ -1691,6 +1725,29 @@ void Scene::LoadMap()
 			}
 			
 		}
+		int informPanenelIndex, panelNum;
+		{
+			std::getline(inFile, line, '\n');
+			if (line == "")
+			{
+				std::getline(inFile, line, '\n');
+			}
+			if (!(line == ""))
+			{
+				panelNum = stoi(line);
+				for (int i = 0; i < panelNum; i++)
+				{
+					std::getline(inFile, line, '\n');
+					informPanenelIndex = stoi(line);
+					std::getline(inFile, line, ',');
+					xPos = stoi(line);
+					std::getline(inFile, line, '\n');
+					yPos = stoi(line);
+					m_inform.push_back(InformPanel({ xPos, yPos }, informPanenelIndex));
+				}
+			}
+
+		}
 
 	}
 	inFile.close();
@@ -1785,19 +1842,63 @@ KdTexture* Scene::GetBlockTex()
 
 void Scene::CreateInformPanel()
 {
-	for (size_t i = 0; i < m_inform.size();)
+	if (m_unitType != InfoPanelEnun::VoidIPE)
 	{
-		if (m_unitType == m_inform[i].GetIndex())
+		for (size_t i = 0; i < m_inform.size();)
 		{
-			m_inform.erase(m_inform.begin()+i);
+			if (m_unitType == m_inform[i].GetIndex())
+			{
+				m_inform.erase(m_inform.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
 		}
-		else
+		auto _newInform = InformPanel({ m_mouse.x - 640,-m_mouse.y + 360 }, m_unitType);
+		m_inform.push_back(_newInform);
+	}
+	else
+	{
+		DeleteInformPanel();
+	}
+}
+
+void Scene::DeleteInformPanel()
+{
+	if (!m_inform.empty())
+	{
+		auto _pos = m_inform[0].GetGPos();
+		for (size_t i = 0; i < m_inform.size();)
 		{
-			i++;
+			_pos = m_inform[i].GetGPos();
+			_pos.first += 640;
+			_pos.second = _pos.second * (-1) + 360;
+			if ((abs(m_point[0].x - _pos.first) <= 100) && (abs(m_point[0].y - _pos.second) <= 100))
+			{
+				m_inform.erase(m_inform.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
 		}
 	}
-	auto _newInform = InformPanel({ m_mouse.x-640,-m_mouse.y+360 }, m_unitType);
-	m_inform.push_back(_newInform);
+}
+
+void Scene::SaveInformPanel()
+{
+	std::ofstream outFile("InfoPanelData");
+	if (outFile.is_open()) {
+		outFile << m_inform.size() << "\n";
+		for (int i = 0; i < m_inform.size(); i++)
+		{
+			outFile << m_inform[i].GetIndex() << "\n";
+			outFile << m_inform[i].GetGPos().first << ",";
+			outFile << m_inform[i].GetGPos().second << "\n";
+		}
+		outFile.close();
+	}
 }
 
 void Scene::Update()
@@ -1830,6 +1931,7 @@ void Scene::Update()
 				SaveSpawn();
 				SaveItem();
 				SaveMap();
+				SaveInformPanel();
 			}
 			m_sKey = true;
 		}
@@ -2044,10 +2146,10 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 		{
 		case BlockEditerSelect::Ground:
 			for (int j = 0; j < 5; j++)
-				_loadarray[j]=(&m_groundTex[j]);
+				_loadarray[j] = (&m_groundTex[j]);
 			_loadVector.push_back(_loadarray);
-				
-				break;
+
+			break;
 
 		case BlockEditerSelect::Ice:
 			for (int j = 0; j < MaxTypeBlock(i); j++)
@@ -2055,7 +2157,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 				switch (j)
 				{
 				case Surface:
-					for (int l = 0; l < 5; l++) 
+					for (int l = 0; l < 5; l++)
 					{
 						_loadarray[l] = (&m_iceSurfaceTex[l]);
 					}
@@ -2092,7 +2194,15 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 			}
 			_loadVector.push_back(_loadarray);
 			break;
+		case BlockEditerSelect::Crate:
+			for (int i = 0; i < 5; i++)
+			{
+				_loadarray[i] = (&m_crateTex[i]);
+			}
+			_loadVector.push_back(_loadarray);
+			break;
 		}
+
 		m_blockLiblary[i] = _loadVector;
 	}
 
