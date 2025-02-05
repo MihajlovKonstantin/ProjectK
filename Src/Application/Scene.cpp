@@ -50,6 +50,7 @@ void Scene::Draw2D()
 		}
 		//ブロック表示用
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
+		SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
 		
 		string _string[3];
 		_string[0] ="(R/T)CurrentEditerMenu ";
@@ -125,7 +126,7 @@ void Scene::Draw2D()
 					_string[2] += "InsideIce";
 				}
 			}
-			SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
+			
 			break;
 		case EditerSelect::ItemMenu:
 			_string[1] = "(D/F)CurrentItemType ";
