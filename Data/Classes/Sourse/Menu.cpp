@@ -464,9 +464,15 @@ void Menu::InitHelp()
 void Menu::InitStartScrene(std::string dataPath)
 {
 	m_dataPath = dataPath;
+	if (data != NULL)
+	{
+		selectedPath = data->GetPP() + "\\Data";
+		selectedMap = "0tutorial.map";
+	}
+	
 	Button _newButton;
 	buttons.clear();
-	_newButton = Button({ 70.0f, 45.0f }, { 0.0f, 0.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap);
+	_newButton = Button({ 70.0f, 45.0f }, { 0.0f, 0.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap );
 	buttons.push_back(_newButton);
 	_newButton = Button({ 120.0f, 45.0f }, { 300.0f, 0.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
 	buttons.push_back(_newButton);
@@ -475,6 +481,8 @@ void Menu::InitStartScrene(std::string dataPath)
 	_newButton = Button({ 70.0f,45.0f }, { -300.0f,-160.0f }, "Push", 1.5f, change, updateMap, 0);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.5f, change, goScene, Title);
+	buttons.push_back(_newButton);
+	_newButton = Button({ 70.0f, 45.0f }, { 0.0f, 160.0f }, "Tutorial", 1.5f, change, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()

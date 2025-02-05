@@ -812,6 +812,7 @@ void Application::Execute()
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::StartScreen:
+			startScreen.InitStartScrene(dataFolderPath);
 			SaveCampain();
 
 			if (WindowsData.IsStarted())

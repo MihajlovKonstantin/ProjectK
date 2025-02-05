@@ -139,7 +139,7 @@ void Scene::Draw2D()
 				_string[1] += "Key";
 				break;
 			default:
-				m_unitType = 1;
+				m_unitType = 0;
 				break;
 			}
 			_string[2] = "(D/F)CurrentItemVariant";
@@ -174,7 +174,7 @@ void Scene::Draw2D()
 				_string[1] += "Enemys";
 				break;
 			default:
-				m_unitType = 1;
+				m_unitType = 0;
 				break;
 			}
 			if (m_unitType != SpawnerSelect::Player)
@@ -1593,13 +1593,16 @@ void Scene::SaveMap()
 	system(_dirFinder.c_str());
 	if (RELEASE == 0)
 	{
+		if (WC->IsCampain())
+		{
+			m_selectedPath = WC->GetPP() + "\\Data\\Map";
+		}
 		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + m_selectedPath + "\\\"";
 		system(_dirFinder.c_str());
 		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
-		
 	}
 	_dirFinder = "del \"CurrentMap.map\"";
 	system(_dirFinder.c_str());
@@ -1976,8 +1979,8 @@ void Scene::Update()
 				SaveStage();
 				SaveSpawn();
 				SaveItem();
-				SaveMap();
 				SaveInformPanel();
+				SaveMap();
 			}
 			m_sKey = true;
 		}
