@@ -97,14 +97,12 @@ bool Application::Init(int w, int h)
 	ImGui_ImplDX11_Init(D3D.GetDev(), D3D.GetDevContext());
 	m_playBack1.Load("Texture/BackGround/Back_Play1.png");
 	m_playBack2.Load("Texture/BackGround/Back_Play2.png");
-	m_mainMenuBackGround1.Load("Texture/BackGround/Title.png");
-	m_mainMenuBackGround2.Load("Texture/BackGround/Title2.png");
+	m_mainMenuBackGround.Load("Texture/BackGround/Title2.png");
 	m_titleLogo.Load("Texture/BackGround/titleLogo.png");
 	m_frame.Load("Texture/BackGround/frame.png");
 	m_settingBack1.Load("Texture/BackGround/setting.png");
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
-	m_editorBack1.Load("Texture/BackGround/Title.png");
-	m_editorBack2.Load("Texture/BackGround/editorBackBlock.png");
+	m_editorBack.Load("Texture/BackGround/editorBackBlock.png");
 	m_compainBack.Load("Texture/BackGround/compain.png");
 	m_startScreenBack.Load("Texture/BackGround/startScreen.png");
 	
@@ -127,6 +125,7 @@ void Application::InitDataFile()
 	mainMenu.InitMainMenu(dataFolderPath);
 	startScreen.InitStartScrene(dataFolderPath);
 	settingMenu.InitSetting();
+	helpMenu.InitHelp();
 	WindowsData.Init();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
 	selectEditerMapMenu.InitSelectEditingMap(editerMapList, editerMapFolderPath, dataFolderPath);
@@ -142,6 +141,7 @@ void Application::MakeDataLink()
 	selectEditerMapMenu.AddData(WindowsData);
 	campainMenu.AddData(WindowsData);
 	campainMenu.AddCampain(m_campain);
+	helpMenu.AddData(WindowsData);
 }
 
 // �A�v���P�[�V�����I��
@@ -179,14 +179,12 @@ void Application::Release()
 	// �E�B���h�E�폜
 	m_window.Release();
 
-	m_mainMenuBackGround1.Release();
-	m_mainMenuBackGround2.Release();
+	m_mainMenuBackGround.Release();
 	m_titleLogo.Release();
 	m_frame.Release();
 	m_settingBack1.Release();
 	m_settingBack2.Release();
-	m_editorBack1.Release();
-	m_editorBack2.Release();
+	m_editorBack.Release();
 	m_compainBack.Release();
 	m_startScreenBack.Release();
 
@@ -726,12 +724,12 @@ void Application::Execute()
 		return;
 	}
 
-	mainMenu.SetTexture(&m_mainMenuBackGround1);
+	mainMenu.SetTexture(&m_settingBack2);
 	settingMenu.SetTexture(&m_settingBack2);
-	selectEditerMapMenu.SetTexture(&m_editorBack1);
+	selectEditerMapMenu.SetTexture(&m_settingBack2);
 	selectPlaybleMapMenu.SetTexture(&m_playBack2);
-	campainMenu.SetTexture(&m_mainMenuBackGround1);
-	startScreen.SetTexture(&m_mainMenuBackGround1);
+	campainMenu.SetTexture(&m_settingBack2);
+	startScreen.SetTexture(&m_settingBack2);
 
 	CreateExtensions();
 	CreateDataPath();//Create the Path to users data
@@ -788,7 +786,7 @@ void Application::Execute()
 				SHADER.m_spriteShader.SetMatrix(mainMenu.GetMatrix());
 				SHADER.m_spriteShader.DrawTex(mainMenu.GetTexture(), mainMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_mainMenuBackGround2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.DrawTex(&m_mainMenuBackGround, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(50, 170, 0));
 				SHADER.m_spriteShader.DrawTex(&m_titleLogo, Math::Rectangle(0, 0, 510, 111), 1.0f);
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
@@ -914,7 +912,7 @@ void Application::Execute()
 				SHADER.m_spriteShader.SetMatrix(selectEditerMapMenu.GetMatrix());
 				SHADER.m_spriteShader.DrawTex(selectEditerMapMenu.GetTexture(), selectEditerMapMenu.GetRect());
 				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
-				SHADER.m_spriteShader.DrawTex(&m_editorBack2, Math::Rectangle(0, 0, 1280, 720), 1.0f);
+				SHADER.m_spriteShader.DrawTex(&m_editorBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(selectEditerMapMenu);
 			} while ((m_endFlagWindows != true));
 			break;
@@ -935,6 +933,17 @@ void Application::Execute()
 				MenuExecute(campainMenu);
 			} while ((m_endFlagWindows != true));
 			
+			break;
+		case WindowsControl::Help:
+			do
+			{
+				m_settingFlg = false;
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
+				helpMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(settingMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(settingMenu.GetTexture(), settingMenu.GetRect());
+				MenuExecute(helpMenu);
+			} while ((m_endFlagWindows != true));
 			break;
 		default:
 			break;

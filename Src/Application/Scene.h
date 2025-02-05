@@ -46,6 +46,8 @@ private:
 	KdTexture m_slimeTex;
 	KdTexture m_snowBallTex;
 	KdTexture m_snowBallSpawnerTex, m_slimeSpawnerTex;
+	KdTexture m_editerBaseTex;
+	KdTexture m_noTex;
 	//BlockLib
 	static const int m_typeBlockNum = 7;
 	std::array<std::vector<std::array<KdTexture*, 5>>, 7> m_blockLiblary;
@@ -61,6 +63,7 @@ private:
 	int m_controlCoolTime = m_baseControlCoolTime;
 	//Draw
 	Math::Rectangle charaRect;
+	Math::Rectangle m_editerRect;
 	Math::Matrix matrix;
 	std::array<POINT, 2> m_point;
 	std::string str;
