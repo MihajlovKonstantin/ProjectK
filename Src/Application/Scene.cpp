@@ -1765,7 +1765,12 @@ KdTexture* Scene::GetBlockTex()
 		}
 		break;
 	case EditerSelect::ItemMenu:
-
+		switch (m_selectedUnitVariant)
+		{
+		case KeySelect::Yellow:
+			_BlockTex = &m_keyTexture[0];
+			break;
+		}
 		break;
 	case EditerSelect::CharaMenu:
 		
@@ -2026,7 +2031,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	}
 	
 	
-	m_backGround.Load("Texture/BackGround/Title.png");
+	m_backGround.Load("Texture/BackGround/backSetting.png");
 
 	m_slimeTex.Load("Texture/Creature/slime.png");
 	m_snowBallTex.Load("Texture/Creature/snowball.png");
