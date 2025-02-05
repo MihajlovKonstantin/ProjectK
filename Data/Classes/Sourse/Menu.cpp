@@ -381,7 +381,7 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	IsCampainMenu = true;
 	m_dataPath = dataPath;
 	buttons.clear();
-	selectedPath = "C:\\Lessons\\DIGITAL WORKS\\ProjectK\\Data\\Map";
+	selectedPath = data->GetPP() + "\\Data\\Map";
 	Button _newButton;
 	int dX = 0, dY = 0;
 	{

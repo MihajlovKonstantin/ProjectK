@@ -16,6 +16,14 @@ int WindowsControlData::GetCampainMapIndex()
 {
 	return CampainMapIndex;
 }
+void WindowsControlData::SetPP(std::string input)
+{
+	programmPath = input;
+}
+std::string WindowsControlData::GetPP()
+{
+	return programmPath;
+}
 void WindowsControlData::SetPreviousWindows(int data)
 {
 	PreviousWindows = data;
