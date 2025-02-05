@@ -28,11 +28,31 @@ void Scene::Draw2D()
 			auto _pos = m_inform[i].GetGPos();
 			SHADER.m_spriteShader.DrawBox(_pos.first - m_scroll.first, _pos.second - m_scroll.second, 100, 100, &Math::Color( 0,1,0,0.2f ));
 		}
+		for (size_t i = 0; i < m_spawner.size(); i++)
+		{
+			auto _index = m_spawner[i].GetIndex();
+			int _spawnerType;
+			if ((_index == 2) || (_index == 3))
+			{
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation({ m_spawner[i].GetCharaPos().first - m_scroll.first,m_spawner[i].GetCharaPos().second - m_scroll.second,0 }));
+				_spawnerType = m_spawner[i].GetType();
+				switch(_spawnerType)
+				{
+				case EnemyType::TypeSlime:
+					SHADER.m_spriteShader.DrawTex(&m_slimeSpawnerTex, spawnerRectangle);
+						break;
+				case EnemyType::TypeSnowBall:
+					SHADER.m_spriteShader.DrawTex(&m_snowBallSpawnerTex, spawnerRectangle);
+					break;
+				}
+			}
+
+		}
 		//ブロック表示用
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
 		
 		string _string[3];
-		_string[0] ="(T/Y)CurrentEditerMenu ";
+		_string[0] ="(R/T)CurrentEditerMenu ";
 		switch (m_editerMenuIndex)
 		{
 		case EditerSelect::BlockMenu:
@@ -795,6 +815,9 @@ void Scene::CreateItem()
 	std::pair<float, float>_pos = { m_point[0].x-640 ,-m_point[0].y+360 };
 	switch (m_unitType)
 	{
+	case ItemSelect::VoidIS:
+		DeleteItem();
+		break;
 	case ItemSelect::Key:
 		switch (m_selectedUnitVariant)
 		{
@@ -813,6 +836,29 @@ void Scene::CreateItem()
 		}
 		break;
 	}
+}
+
+void Scene::DeleteItem()
+{
+	if (!m_item.empty())
+	{
+ 		auto _pos = m_item[0].GetPos();
+		for (size_t i = 0; i < m_item.size();)
+		{
+			_pos = m_item[i].GetPos();
+			_pos.first += 640;
+			_pos.second = _pos.second * (-1) + 360;
+			if ((abs(m_point[0].x - _pos.first) <= 100) && (abs(m_point[0].y - _pos.second) <= 100))
+			{
+				m_item.erase(m_item.begin() + i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+	}
+	
 }
 
 void Scene::SaveStage()
@@ -1120,6 +1166,7 @@ void Scene::UpdateEditScene()
 					_maxType = BlockEditerSelect::COUNTBES;
 					break;
 				case EditerSelect::ItemMenu:
+					_maxType = ItemSelect::COUNTIS;
 					break;
 				case EditerSelect::CharaMenu:
 					_maxType = SpawnerSelect::COUNTSS;
@@ -1128,7 +1175,7 @@ void Scene::UpdateEditScene()
 					_maxType = 2;
 					break;
 				case EditerSelect::InfoPanelMenu:
-					_maxType = 6;
+					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
 				if (m_unitType >= _maxType)
@@ -1152,6 +1199,7 @@ void Scene::UpdateEditScene()
 					_maxType = BlockEditerSelect::COUNTBES;
 					break;
 				case EditerSelect::ItemMenu:
+					_maxType = ItemSelect::COUNTIS;
 					break;
 				case EditerSelect::CharaMenu:
 					_maxType = SpawnerSelect::COUNTSS;
@@ -1160,7 +1208,7 @@ void Scene::UpdateEditScene()
 					_maxType = 2;
 					break;
 				case EditerSelect::InfoPanelMenu:
-					_maxType = 6;
+					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
 				if (m_unitType < 0)
@@ -1960,6 +2008,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 
 	m_voidTex.Load("Texture/GroundBlock/void.png");
 
+	m_slimeSpawnerTex.Load("Texture/GimmickBlock/SlimeSpawner.png");
+	m_snowBallSpawnerTex.Load("Texture/GimmickBlock/SnowBallSpawner.png");
 	tmpTex.CreateRenderTarget(1280, 720);
 	//m_blocks.push_back(Block(0, 0, 32, 32, &m_blockTex, false,   0));
 	m_sKey = false;
@@ -2073,6 +2123,8 @@ void Scene::Release()
 	m_snowBallTex.Release();
 	m_slimeTex.Release();
 	m_voidTex.Release();
+	m_snowBallSpawnerTex.Release();
+	m_slimeSpawnerTex.Release();
 	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
 	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
 	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();

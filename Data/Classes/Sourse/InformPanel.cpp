@@ -10,22 +10,22 @@ InformPanel::InformPanel(std::pair<float, float> pos, int index)
 	m_index = index;
 	switch (m_index)
 	{
-	case 0:
+	case 1:
 		text = "移動するのため矢印キーを押す";
 		break;
-	case 1:
+	case 2:
 		text = "JumpのためにSpaceを押す";
 		break;
-	case 2: 
+	case 3: 
 		text = "CreateModeを開くのためEキー押す";
 		break;
-	case 3:
+	case 4:
 		text = "Spaceを押しながら描く、消す、など";
 		break;
-	case 4:
+	case 5:
 		text = "Lavaや敵など当たり判定があるとダメージを受ける";
 		break;
-	case 5:
+	case 6:
 		text = "Laderに上るのため矢印キーを押す";
 		break;
 	}

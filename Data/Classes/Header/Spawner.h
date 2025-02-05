@@ -1,10 +1,11 @@
 #pragma once
 #include "Pch.h"
 
-enum SpawnType { PlayerType= 1 , EnemyType, EnemysType};
+
 
 class Spawner
 {
+
 	int m_index,m_type, m_interval, m_num;
 	std::pair<float, float> m_charaPos;
 	std::vector<NPC> m_enemy;
@@ -19,7 +20,7 @@ class Spawner
 	std::pair<int, int> _scroll = { 0,0 };
 	std::pair<int, int>* m_scroll = &_scroll;
 public:
-	
+	enum SpawnType { PlayerType = 1, EnemyType, EnemysType };
 	Spawner(int charaIndex, std::pair<float, float>pos, std::array<std::vector<KdTexture*>, 2>* texLib, PC* player = NULL, std::vector<TerrainObject >* terrain = NULL, int type = 1, int interval = 0, int num = 0);
 	int GetIndex();
 	int GetType();
