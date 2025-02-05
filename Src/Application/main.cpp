@@ -398,7 +398,7 @@ void Application::SaveCampain()
 		_newCampain << m_campain.m_data[i].name << endl;
 		if (m_campain.m_data[i].name == WindowsData.GetMap())
 		{
-			m_campain.m_data[i].clearStatus = SCENE.GetClearFlag();
+			if(!m_campain.m_data[i].clearStatus) m_campain.m_data[i].clearStatus = SCENE.GetClearFlag();
 		}
 		_newCampain << m_campain.m_data[i].visableStatus << endl;
 		_newCampain << m_campain.m_data[i].clearStatus << endl;
