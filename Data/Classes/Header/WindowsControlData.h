@@ -12,10 +12,13 @@ class WindowsControlData
 	bool Pause; //23
 	std::string currentMap;
 	std::string currentPath;
+	std:: string programmPath;
 
 	bool CampainMap = false;
 	int CampainMapIndex = 0;
 public:
+	void SetPP(std::string input);
+	std::string GetPP();
 	void SetPreviousWindows(int data);
 	bool IsCampain();
 	void SetCampainMod(bool data);

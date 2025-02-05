@@ -685,6 +685,7 @@ void Application::CreateDataPath()
 	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
 		std::string currentDir(buffer);
 		programmPath = currentDir;
+		WindowsData.SetPP(programmPath);
 		std::string newDir = " dir \"" + currentDir + "\\Data\\Classes\\Header\" /b *.h > temp.txt";
 		system(newDir.c_str());
 	}
