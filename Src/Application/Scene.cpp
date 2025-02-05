@@ -196,9 +196,9 @@ void Scene::Draw2D()
 		
 		
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
-		DrawString(300, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
-		DrawString(300, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
-		DrawString(300, 200, _text[2], { 0, 0, 0, 1 }, 0.5f);
+		DrawString(260, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
+		DrawString(260, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
+		DrawString(260, 200, _text[2], { 0, 0, 0, 1 }, 0.5f);
 		
 	}
 	if (!WC->IsPause())
@@ -224,8 +224,8 @@ void Scene::Draw2D()
 		{
 			if (!CLEARFLAG)
 			{
-				m_hpBar = to_string(int(m_player.GetHp())) + "/100";
-				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);
+				/*m_hpBar = to_string(int(m_player.GetHp())) + "/100";
+				DrawString(-300, 300, m_hpBarExpress, { 1,0,0,1 }, 0.5f);*/
 			}
 
 		}
@@ -248,7 +248,7 @@ void Scene::DrawButtonText(Button inputButton)
 	str = inputButton.GetText();
 	float scale = inputButton.GetScale();
 	size = inputButton.GetSize();
-	DrawString(position[0]-size[0], position[1]+size[1]/2, charStr, Math::Vector4(0, 0, 0, 1), scale);
+	DrawString(position[0] - size[0], position[1] + size[1] / 2, charStr, Math::Vector4(0, 0, 0, 1), scale);
 }
 
 void Scene::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
@@ -911,7 +911,7 @@ void Scene::UpdateGameScene()
 		}
 		if (m_stageType == 0)
 		{
-			if (m_player.GetGPos().second >= 350)
+			if (m_player.GetGPos().second >= 160)
 			{
 				CLEARFLAG = true;
 			}

@@ -105,6 +105,9 @@ bool Application::Init(int w, int h)
 	m_settingBack2.Load("Texture/BackGround/backSetting.png");
 	m_editorBack1.Load("Texture/BackGround/Title.png");
 	m_editorBack2.Load("Texture/BackGround/editorBackBlock.png");
+	m_compainBack.Load("Texture/BackGround/compain.png");
+	m_startScreenBack.Load("Texture/BackGround/startScreen.png");
+	
 	{
 		// ���{��Ή�
 		#include "imgui/ja_glyph_ranges.h"
@@ -122,7 +125,7 @@ bool Application::Init(int w, int h)
 void Application::InitDataFile()
 {
 	mainMenu.InitMainMenu(dataFolderPath);
-	
+	startScreen.InitStartScrene(dataFolderPath);
 	settingMenu.InitSetting();
 	WindowsData.Init();
 	selectPlaybleMapMenu.InitSelectMapPlayeble(playebleMapList, mapFolderPath, dataFolderPath);
@@ -132,6 +135,8 @@ void Application::MakeDataLink()
 {
 	mainMenu.AddData(WindowsData);
 	mainMenu.AddCampain(m_campain);
+	startScreen.AddData(WindowsData);
+	startScreen.AddCampain(m_campain);
 	settingMenu.AddData(WindowsData);
 	selectPlaybleMapMenu.AddData(WindowsData);
 	selectEditerMapMenu.AddData(WindowsData);
@@ -173,6 +178,8 @@ void Application::Release()
 	m_settingBack2.Release();
 	m_editorBack1.Release();
 	m_editorBack2.Release();
+	m_compainBack.Release();
+	m_startScreenBack.Release();
 
 }
 void Application::CreateExtensions()
@@ -399,54 +406,24 @@ void Application::DrawButton(Button inputButton)
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
 	std::pair<float, float> _mouse(mouse.x - 640, 360 - mouse.y);
-
-	//�S��ʂ��ǂ������m����
-	//if (GetAsyncKeyState('A'))D3D.GetSwapChain()->SetFullscreenState(TRUE, 0);
-	//if (GetAsyncKeyState('D'))D3D.GetSwapChain()->SetFullscreenState(FALSE, 0);
 	
-	HWND hwnd = GetForegroundWindow();
-	LONG style = GetWindowLong(hwnd, GWL_STYLE);
-	auto _borderLess = (style & WS_CAPTION) != 0;
-	//int a = 1;
-	//GetConsoleWindow;
-	HWND hWnd = GetConsoleWindow();
-	if (IsZoomed(hWnd))
-	{
-		int a = 1;
-	}
 
-	//if (_borderLess)
-	/*{
-		if (_mouse.first >= (position[0] + 150 - size[0]) && _mouse.first <= (position[0] + 150 + size[0]))
-		{
-			if (_mouse.second <= (position[1] - 100 + size[1]) && _mouse.second >= (position[1] - 100 - size[1]))
-			{
-				if (size[0] > 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
-				else m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
-				m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
-				m_mat = m_scaleMat * m_transMat;
-				SHADER.m_spriteShader.SetMatrix(m_mat);
-				SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
-			}
-		}
-	}*/
-	//else
+	if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
 	{
-		if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
+		if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
 		{
-			if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
-			{
-				if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
-				else m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
-				m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
-				m_mat = m_scaleMat * m_transMat;
-				SHADER.m_spriteShader.SetMatrix(m_mat);
-				SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
-				//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), false);
-			}
+			if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
+			else if(size[0]<=79) m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
+			else m_scaleMat = Math::Matrix::CreateScale(1.9f, 1.5f, 0);
+			m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
+			m_mat = m_scaleMat * m_transMat;
+			SHADER.m_spriteShader.SetMatrix(m_mat);
+			SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+			//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), false);
 		}
 	}
 }
+
 void Application::DrawButtonText(Button inputButton)
 {
 	position = inputButton.GetPosition();
@@ -738,10 +715,14 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
+
 	mainMenu.SetTexture(&m_mainMenuBackGround1);
 	settingMenu.SetTexture(&m_settingBack2);
 	selectEditerMapMenu.SetTexture(&m_editorBack1);
 	selectPlaybleMapMenu.SetTexture(&m_playBack2);
+	campainMenu.SetTexture(&m_mainMenuBackGround1);
+	startScreen.SetTexture(&m_mainMenuBackGround1);
+
 	CreateExtensions();
 	CreateDataPath();//Create the Path to users data
 	LoadMapList();
@@ -786,12 +767,7 @@ void Application::Execute()
 		switch (WindowsData.GetWindow())
 		{
 		case WindowsControl::MainMenu:
-			SaveCampain();
-
-			if (WindowsData.IsStarted())
-			{
-				mainMenu.SetClearState(SCENE.GetClearFlag());
-			}
+			
 			do
 			{
 				
@@ -827,6 +803,30 @@ void Application::Execute()
 				}
 			} while ((m_endFlagWindows!=true));
 				break;
+		case WindowsControl::StartScreen:
+			SaveCampain();
+
+			if (WindowsData.IsStarted())
+			{
+				startScreen.SetClearState(SCENE.GetClearFlag());
+			}
+
+			do
+			{
+				m_settingFlg = false;
+				soundInstance->SetVolume(WindowsData.GetMusicVolume());
+				startScreen.Update();
+
+				SHADER.m_spriteShader.SetMatrix(startScreen.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(startScreen.GetTexture(), startScreen.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_startScreenBack, Math::Rectangle(0, 0, 1280, 720));
+
+				MenuExecute(startScreen);
+
+			} while ((m_endFlagWindows != true));
+
+			break;
 		case WindowsControl::GameScene:
 			soundInstance->Stop();
 			if (gameSoundEffect->Load("Sound/maou_game_field02.wav")) {
@@ -871,8 +871,6 @@ void Application::Execute()
 				SHADER.m_spriteShader.DrawTex(&m_settingBack1, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(settingMenu);
 			} while ((m_endFlagWindows != true));
-			break;
-		case WindowsControl::Records:
 			break;
 		case WindowsControl::SelectPlayebleMapMenu:
 			lastSelectedPath = mapFolderPath;
@@ -920,6 +918,10 @@ void Application::Execute()
 				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				campainMenu.Update();
+				SHADER.m_spriteShader.SetMatrix(campainMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(campainMenu.GetTexture(), campainMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_compainBack, Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(campainMenu);
 			} while ((m_endFlagWindows != true));
 			
@@ -1042,7 +1044,8 @@ void Application::Execute()
 	//===================================================================
 	// �A�v���P�[�V�������
 	//===================================================================
-	gameSoundInstance->Stop();
+    if(gameSoundInstance) gameSoundInstance->Stop();
+	if(gameSoundInstance) gameSoundInstance->Stop();
 	SCENE.Release();
 	Release();
 }

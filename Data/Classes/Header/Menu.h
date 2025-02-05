@@ -3,7 +3,7 @@
 #include <optional>
 #include "Src/Application/WindowsEnum.h"
 using namespace std;
-enum SceneSelect { Title = 1, Game = 2, Option, Records, SelectPlaybleMap, SelectEditMap, CampainMenu, Help };
+enum SceneSelect { Title = 1, Game = 2, Option, StartScreen, SelectPlaybleMap, SelectEditMap, CampainMenu, Help };
 enum DataValue { volume = 21,screenIdex=10 };
 enum OptionSelect 
 {
@@ -62,6 +62,7 @@ public:
     void InitSelectEditingMap(std::vector<std::string > mapList, std::string path, std::string dataPath);
     void InitCampainMenu(std::vector<std::string> mapList, std::string dataPath);
     void InitHelp();
+    void InitStartScrene(std::string dataPath);
     Button GetButton();
     Button GetButton(int cnt);
     int GetButtonsCNT();

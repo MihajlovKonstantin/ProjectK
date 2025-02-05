@@ -22,7 +22,7 @@ private:
 		MainMenu = 1,
 		GameScene,
 		Setting,
-		Records,
+		StartScreen,
 		SelectPlayebleMapMenu,
 		SelectEditerMapMenu,
 		CampainMenu
@@ -60,6 +60,7 @@ private:
 	Menu selectPlaybleMapMenu;
 	Menu selectEditerMapMenu;
 	Menu campainMenu;
+	Menu startScreen;
 	//Texture
 	KdTexture m_mainMenuBackGround1;
 	KdTexture m_mainMenuBackGround2;
@@ -71,6 +72,8 @@ private:
 	KdTexture m_editorBack2;
 	KdTexture m_playBack1;
 	KdTexture m_playBack2;
+	KdTexture m_compainBack;
+	KdTexture m_startScreenBack;
 
 	Campain m_campain;
 	
