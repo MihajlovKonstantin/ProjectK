@@ -9,15 +9,15 @@ private:
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
 	//enum
-	enum SpawnerSelect { COUNTSS = 4, Player = 1, Enemy, Enemys };
+	enum SpawnerSelect { COUNTSS = 4,VoidSS=0, Player, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 5, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu, InfoPanelMenu};
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
-	enum ItemSelect { COUNTIS = 2, Key = 1 };
-	enum BlockEditerSelect { COUNTBES = 7, Ground = 1, Ice, IceWater, Ladder, Lava, Crate };
+	enum ItemSelect { COUNTIS = 2,VoidIS = 0, Key };
+	enum BlockEditerSelect { COUNTBES = 7,VoidBES = 0, Ground, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
-	enum InfoPanelEnun { COUNTIPE = 6, Move = 0, Jump, EditerMode, Draw, LavaInf, LadderInfo };
+	enum InfoPanelEnun { COUNTIPE = 7,VoidIPE = 0, Move, Jump, EditerMode, Draw, LavaInf, LadderInfo };
 	//ObjectVector
 	std::vector<Item> m_item;
 	std::vector <Spawner> m_spawner;
@@ -66,6 +66,7 @@ private:
 	std::string str;
 	const char* charStr = str.c_str();
 	std::string m_message;
+	Math::Rectangle spawnerRectangle = Math::Rectangle(0,0,64,64);
 	//DrawButton 
 	std::array<float, 2> size;
 	std::array<float, 2>position;
@@ -139,6 +140,7 @@ public:
 	void DynamicDraw2D();
 	void CreateTerrainObject();
 	void CreateItem();
+	void DeleteItem();
 	void SaveStage();
 	void LoadStage();
 	void UpdateGameScene();

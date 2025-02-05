@@ -32,6 +32,7 @@ protected:
     //DirectX::BoundingBox m_box[];
 
 public:
+    
     NPC(std::pair<float, float> pos, std::pair<float, float>speed, KdTexture* texture);
     NPC();
     //void Init(std::pair<float, float>pos, int Type, KdTexture* texture);
