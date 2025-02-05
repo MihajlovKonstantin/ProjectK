@@ -50,7 +50,9 @@ void Scene::Draw2D()
 		}
 		//ブロック表示用
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
-		SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
+		if (m_editerMenuIndex == EditerSelect::CharaMenu && m_unitType == SpawnerSelect::Player)m_editerRect = Math::Rectangle(0, 64, 32, 32);
+		else m_editerRect = charaRect;
+		SHADER.m_spriteShader.DrawTex(GetBlockTex(), m_editerRect, 1.0f);
 		
 		string _string[3];
 		_string[0] ="(R/T)CurrentEditerMenu ";
@@ -77,10 +79,10 @@ void Scene::Draw2D()
 			switch (m_unitType)
 			{
 			case StageTypeSelect::Base:
-				_string[1] += "Base";
+				_string[1] += "(D/F)Base";
 				break;
 			case StageTypeSelect::KeyCollect:
-				_string[1] += "Key";
+				_string[1] += "(D/F)Key";
 				break;
 			default:
 				m_unitType = 0;
@@ -113,7 +115,8 @@ void Scene::Draw2D()
 				_string[1] += "Crate";
 				break;
 			}
-			_string[2] = "CurrentBlockVariant ";
+			//ほとんど使わないから
+			/*_string[2] = "CurrentBlockVariant ";
 			_string[2] = "(X/C)CurrentBlockVariant ";
 			switch (m_selectedUnitVariant)
 			{
@@ -125,7 +128,7 @@ void Scene::Draw2D()
 				{
 					_string[2] += "InsideIce";
 				}
-			}
+			}*/
 			
 			break;
 		case EditerSelect::ItemMenu:
@@ -136,7 +139,7 @@ void Scene::Draw2D()
 				_string[1] += "Key";
 				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
 			_string[2] = "(D/F)CurrentItemVariant";
@@ -149,11 +152,11 @@ void Scene::Draw2D()
 				{
 					_string[2] = "(X/C)CurrentItemVariant";
 					if (m_selectedUnitVariant == KeySelect::Yellow)
-						_string[2] = "Yellow";
+						_string[2] = "(X/C)Yellow";
 					if (m_selectedUnitVariant == KeySelect::Red)
-						_string[2] = "Red";
+						_string[2] = "(X/C)Red";
 					if (m_selectedUnitVariant == KeySelect::Blue)
-						_string[2] = "Blue";
+						_string[2] = "(X/C)Blue";
 				}
 			}
 			break;
@@ -171,7 +174,7 @@ void Scene::Draw2D()
 				_string[1] += "Enemys";
 				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
 			if (m_unitType != SpawnerSelect::Player)
@@ -209,6 +212,9 @@ void Scene::Draw2D()
 				break;
 			case InfoPanelEnun::Draw:
 				_string[1] += "EditerDraw";
+				break;
+			default:
+				m_unitType = 1;
 				break;
 			}
 			break;
@@ -1212,7 +1218,7 @@ void Scene::UpdateEditScene()
 					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
-				if (m_unitType < 0)
+				if (m_unitType <= 0)
 				{
 					m_unitType = _maxType - 1;
 				}
@@ -1734,7 +1740,7 @@ int Scene::GetClearFlag()
 
 KdTexture* Scene::GetBlockTex()
 {
-	KdTexture* _BlockTex = &m_voidTex;
+	KdTexture* _BlockTex = &m_noTex;
 
 	switch (m_editerMenuIndex)
 	{
@@ -1770,13 +1776,53 @@ KdTexture* Scene::GetBlockTex()
 		case KeySelect::Yellow:
 			_BlockTex = &m_keyTexture[0];
 			break;
+		case KeySelect::Blue:
+			_BlockTex = &m_keyTexture[2];
+			break;
+		case KeySelect::Red:
+			_BlockTex = &m_keyTexture[1];
+			break;
 		}
 		break;
 	case EditerSelect::CharaMenu:
-		
+		switch (m_unitType)
+		{
+		case SpawnerSelect::Player:
+			_BlockTex = &m_playerTex;
+			break;
+		case SpawnerSelect::Enemy:
+			switch (m_selectedUnitVariant)
+			{
+			case EnemySelect::Slime:
+				_BlockTex = &m_slimeTex;
+				break;
+			case EnemySelect::SnowBall:
+				_BlockTex = &m_snowBallTex;
+				break;
+			}
+		case SpawnerSelect::Enemys:
+			switch (m_selectedUnitVariant)
+			{
+			case EnemySelect::Slime:
+				_BlockTex = &m_slimeTex;
+				break;
+			case EnemySelect::SnowBall:
+				_BlockTex = &m_snowBallTex;
+				break;
+			}
+			break;
+		}
 		break;
 	case EditerSelect::StageTypeMenu:
-		
+		switch (m_unitType)
+		{
+		case StageTypeSelect::Base:
+			_BlockTex = &m_editerBaseTex;
+			break;
+		case StageTypeSelect::KeyCollect:
+			_BlockTex = &m_keyTexture[0];
+			break;
+		}
 		break;
 	}
 
@@ -1975,6 +2021,10 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 
 	m_stageBaseTex.Load("Texture/BackGround/clearBack.png");
 
+	m_editerBaseTex.Load("Texture/EditerTex/Base.png");
+
+	m_noTex.Load("Texture/EditerTex/noTex.png");
+
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
 
@@ -2131,6 +2181,8 @@ void Scene::Release()
 	m_voidTex.Release();
 	m_snowBallSpawnerTex.Release();
 	m_slimeSpawnerTex.Release();
+	m_editerBaseTex.Release();
+	m_noTex.Release();
 	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
 	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
 	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();

@@ -25,7 +25,8 @@ private:
 		StartScreen,
 		SelectPlayebleMapMenu,
 		SelectEditerMapMenu,
-		CampainMenu
+		CampainMenu,
+		Help
 	};
 	//Data�̓ǂݍ���
 	std::string dataFolderPath;
@@ -61,15 +62,14 @@ private:
 	Menu selectEditerMapMenu;
 	Menu campainMenu;
 	Menu startScreen;
+	Menu helpMenu;
 	//Texture
-	KdTexture m_mainMenuBackGround1;
-	KdTexture m_mainMenuBackGround2;
+	KdTexture m_mainMenuBackGround;
 	KdTexture m_titleLogo;
 	KdTexture m_frame;
 	KdTexture m_settingBack1;
 	KdTexture m_settingBack2;
-	KdTexture m_editorBack1;
-	KdTexture m_editorBack2;
+	KdTexture m_editorBack;
 	KdTexture m_playBack1;
 	KdTexture m_playBack2;
 	KdTexture m_compainBack;

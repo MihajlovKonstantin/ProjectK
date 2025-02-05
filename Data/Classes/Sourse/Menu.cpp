@@ -454,9 +454,9 @@ void Menu::InitHelp()
 {
 	Button _newButton;
 	buttons.clear();
-	_newButton = Button({ 60.0f,40.0f }, { -400.0f,-200.0f }, "Next", 1.0f, 9, OptionSelect::increaseByIndex, DataValue::screenIdex);
+	_newButton = Button({ 60.0f,40.0f }, { -400.0f,-200.0f }, "Next", 1.5f, 9, OptionSelect::increaseByIndex, DataValue::screenIdex);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Back", 1.0f, 9, OptionSelect::decreaseByIndex, DataValue::screenIdex);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Back", 1.5f, 9, OptionSelect::decreaseByIndex, DataValue::screenIdex);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 60.0f,40.0f }, { -500.0f,0.0f }, "Exit", 1.5f, 9, OptionSelect::goScene, SceneSelect::Title);
 	buttons.push_back(_newButton);
