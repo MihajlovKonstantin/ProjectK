@@ -50,6 +50,7 @@ void Scene::Draw2D()
 		}
 		//ブロック表示用
 		SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(590, 240, 0));
+		SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
 		
 		string _string[3];
 		_string[0] ="(R/T)CurrentEditerMenu ";
@@ -125,7 +126,7 @@ void Scene::Draw2D()
 					_string[2] += "InsideIce";
 				}
 			}
-			SHADER.m_spriteShader.DrawTex(GetBlockTex(), charaRect, 1.0f);
+			
 			break;
 		case EditerSelect::ItemMenu:
 			_string[1] = "(D/F)CurrentItemType ";
@@ -1764,7 +1765,12 @@ KdTexture* Scene::GetBlockTex()
 		}
 		break;
 	case EditerSelect::ItemMenu:
-
+		switch (m_selectedUnitVariant)
+		{
+		case KeySelect::Yellow:
+			_BlockTex = &m_keyTexture[0];
+			break;
+		}
 		break;
 	case EditerSelect::CharaMenu:
 		
@@ -2025,7 +2031,7 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	}
 	
 	
-	m_backGround.Load("Texture/BackGround/Title.png");
+	m_backGround.Load("Texture/BackGround/backSetting.png");
 
 	m_slimeTex.Load("Texture/Creature/slime.png");
 	m_snowBallTex.Load("Texture/Creature/snowball.png");
