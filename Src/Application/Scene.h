@@ -9,13 +9,13 @@ private:
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
 	//enum
-	enum SpawnerSelect { COUNTSS = 4,VoidSS=0, Player, Enemy, Enemys };
+	enum SpawnerSelect { COUNTSS = 4, VoidSS = 0, Player, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 5, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu, InfoPanelMenu};
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
 	enum ItemSelect { COUNTIS = 2,VoidIS = 0, Key };
-	enum BlockEditerSelect { COUNTBES = 7,VoidBES = 0, Ground, Ice, IceWater, Ladder, Lava, Crate };
+	enum BlockEditerSelect { COUNTBES = 7, VoidBES = 0, Ground, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	enum InfoPanelEnun { COUNTIPE = 7,VoidIPE = 0, Move, Jump, EditerMode, Draw, LavaInf, LadderInfo };
 	//ObjectVector
@@ -125,7 +125,7 @@ private:
 	float m_hpAlphaCnt = m_BaseHpAlphaCnt;
 	float m_hpAlpha = 0;
 
-	int m_baseClearCoolTime = 60;
+	int m_baseClearCoolTime = 60 * 2;
 	int m_clearCooltime = m_baseClearCoolTime;
 	Menu m_inGameSetting;
 	Stage m_stage;

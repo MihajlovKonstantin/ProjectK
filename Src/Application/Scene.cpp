@@ -138,25 +138,30 @@ void Scene::Draw2D()
 			case ItemSelect::Key:
 				_string[1] += "Key";
 				break;
+			case ItemSelect::VoidIS:
+				_string[1] += "Void";
+				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
-			_string[2] = "(D/F)CurrentItemVariant";
-			switch (m_selectedUnitVariant)
+			if (m_unitType != ItemSelect::VoidIS)
 			{
-			case 0:
-				_string[2] += "Base";
-			default:
-				if (m_unitType == ItemSelect::Key)
+				_string[2] = "(X/C)CurrentItemVariant ";
+				switch (m_selectedUnitVariant)
 				{
-					_string[2] = "(X/C)CurrentItemVariant";
-					if (m_selectedUnitVariant == KeySelect::Yellow)
-						_string[2] = "(X/C)Yellow";
-					if (m_selectedUnitVariant == KeySelect::Red)
-						_string[2] = "(X/C)Red";
-					if (m_selectedUnitVariant == KeySelect::Blue)
-						_string[2] = "(X/C)Blue";
+				case KeySelect::Yellow:
+					_string[2] += "Yellow";
+					break;
+				case KeySelect::Red:
+					_string[2] += "Red";
+					break;
+				case KeySelect::Blue:
+					_string[2] += "Blue";
+					break;
+				default:
+					m_selectedUnitVariant = 1;
+					break;
 				}
 			}
 			break;
@@ -164,6 +169,9 @@ void Scene::Draw2D()
 			_string[1] = "(D/F)CurrentCharaType ";
 			switch (m_unitType)
 			{
+			case SpawnerSelect::VoidSS:
+				_string[1] += "Void";
+				break;
 			case SpawnerSelect::Player:
 				_string[1] += "Player";
 				break;
@@ -174,10 +182,10 @@ void Scene::Draw2D()
 				_string[1] += "Enemys";
 				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
-			if (m_unitType != SpawnerSelect::Player)
+			if (m_unitType != SpawnerSelect::Player && m_unitType != SpawnerSelect::VoidSS)
 			{
 				_string[2] = "(X/C)CurrentEnemyVariant ";
 				switch (m_selectedUnitVariant)
@@ -220,8 +228,6 @@ void Scene::Draw2D()
 			break;
 		}
 
-		
-		
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
 		DrawString(260, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
 		DrawString(260, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
@@ -1833,46 +1839,57 @@ KdTexture* Scene::GetBlockTex()
 	case EditerSelect::BlockMenu:
 		switch (m_unitType)
 		{
-		case 0:
+		case BlockEditerSelect::VoidBES:
 			_BlockTex = &m_voidTex;
 			break;
-		case 1:
+		case BlockEditerSelect::Ground:
 			_BlockTex = &m_groundTex[0];
 			break;
-		case 2:
+		case BlockEditerSelect::Ice:
 			_BlockTex = &m_iceSurfaceTex[0];
 			break;
-		case 3:
+		case BlockEditerSelect::IceWater:
 			_BlockTex = &m_iceWaterBlockTex[0];
 			break;
-		case 4:
+		case BlockEditerSelect::Ladder:
 			_BlockTex = &m_ladderTex[0];
 			break;	
-		case 5:
+		case BlockEditerSelect::Lava:
 			_BlockTex = &m_lavaTex[0];
 			break;	
-		case 6:
+		case BlockEditerSelect::Crate:
 			_BlockTex = &m_crateTex[0];
 			break;
 		}
 		break;
 	case EditerSelect::ItemMenu:
-		switch (m_selectedUnitVariant)
+		switch (m_unitType)
 		{
-		case KeySelect::Yellow:
-			_BlockTex = &m_keyTexture[0];
+		case ItemSelect::Key:
+			switch (m_selectedUnitVariant)
+			{
+			case KeySelect::Yellow:
+				_BlockTex = &m_keyTexture[0];
+				break;
+			case KeySelect::Blue:
+				_BlockTex = &m_keyTexture[2];
+				break;
+			case KeySelect::Red:
+				_BlockTex = &m_keyTexture[1];
+				break;
+			}
 			break;
-		case KeySelect::Blue:
-			_BlockTex = &m_keyTexture[2];
-			break;
-		case KeySelect::Red:
-			_BlockTex = &m_keyTexture[1];
+		case ItemSelect::VoidIS:
+			_BlockTex = &m_voidTex;
 			break;
 		}
 		break;
 	case EditerSelect::CharaMenu:
 		switch (m_unitType)
 		{
+		case SpawnerSelect::VoidSS:
+			_BlockTex = &m_voidTex;
+			break;
 		case SpawnerSelect::Player:
 			_BlockTex = &m_playerTex;
 			break;
