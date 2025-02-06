@@ -105,6 +105,7 @@ private:
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
 	bool m_drawStartBool;
+	bool CLEARFLAG = false;
 
 	int RELEASE = 0;
 
@@ -124,7 +125,8 @@ private:
 	float m_hpAlphaCnt = m_BaseHpAlphaCnt;
 	float m_hpAlpha = 0;
 
-	bool CLEARFLAG = false;
+	int m_baseClearCoolTime = 60;
+	int m_clearCooltime = m_baseClearCoolTime;
 	Menu m_inGameSetting;
 	Stage m_stage;
 public:

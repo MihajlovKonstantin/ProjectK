@@ -7,9 +7,10 @@ public :
 		MainMenu = 1,
 		GameScene,
 		Setting,
-		Records,
+		StartScreen,
 		SelectPlayebleMapMenu,
 		SelectEditerMapMenu,
-		CampainMenu
+		CampainMenu,
+		Help
 	};
 };

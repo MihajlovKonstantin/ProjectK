@@ -821,8 +821,9 @@ void Application::Execute()
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::StartScreen:
-			startScreen.InitStartScrene(dataFolderPath);
 			SaveCampain();
+			startScreen.InitStartScrene(dataFolderPath);
+			
 
 			if (WindowsData.IsStarted())
 			{
@@ -858,13 +859,12 @@ void Application::Execute()
 				
 				SCENE.Init(&WindowsData,dataFolderPath,lastSelectedPath);
 				WindowsData.StartGame();
-				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			}
 			else
 			{
-				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				SCENE.SetResumeWindows();
 			}
+			gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			baseTime = timeGetTime();
 			count = 0;
 			SCENE.LoadMap();

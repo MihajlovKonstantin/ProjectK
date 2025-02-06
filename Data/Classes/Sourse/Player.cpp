@@ -237,14 +237,14 @@ void Player::Update()
 		{
 		case Left:
 			animation++;
-			m_rectangle = Math::Rectangle{ 0,97,32,32 };
+			m_rectangle = Math::Rectangle{ 0,96,32,32 };
 			if (animation > 30)
 			{
-				m_rectangle = Math::Rectangle{ 33,97,32,32 };
+				m_rectangle = Math::Rectangle{ 32,96,32,32 };
 			}
 			if (animation > 60)
 			{
-				m_rectangle = Math::Rectangle{ 65,97,32,32 };
+				m_rectangle = Math::Rectangle{ 64,96,32,32 };
 			}
 			if (animation > 90)
 			{
@@ -255,14 +255,14 @@ void Player::Update()
 			break;
 		case Right:
 			animation++;
-			m_rectangle = Math::Rectangle{ 0,33,32,32 };
+			m_rectangle = Math::Rectangle{ 0,32,32,32 };
 			if (animation > 30)
 			{
-				m_rectangle = Math::Rectangle{ 33,33,32,32 };
+				m_rectangle = Math::Rectangle{ 32,32,32,32 };
 			}
 			if (animation > 60)
 			{
-				m_rectangle = Math::Rectangle{ 65,33,32,32 };
+				m_rectangle = Math::Rectangle{ 64,32,32,32 };
 			}
 			if (animation > 90)
 			{
@@ -275,7 +275,7 @@ void Player::Update()
 			animation = 0;
 			m_mRotation = Math::Matrix::CreateRotationZ(_drawRad);
 			m_hpRotation = Math::Matrix::CreateRotationZ(_drawRad);
-			m_rectangle = Math::Rectangle{ 0,65,32,32 };
+			m_rectangle = Math::Rectangle{ 0,64,32,32 };
 			break;
 		}
 
@@ -287,10 +287,10 @@ void Player::Update()
 		switch (m_direction)
 		{
 		case Right:
-			m_rectangle = Math::Rectangle{ 0,33,32,32 };
+			m_rectangle = Math::Rectangle{ 0,32,32,32 };
 			break;
 		case Left:
-			m_rectangle = Math::Rectangle{ 0,97,32,32 };
+			m_rectangle = Math::Rectangle{ 0,96,32,32 };
 		}
 
 	}

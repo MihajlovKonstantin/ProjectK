@@ -234,6 +234,12 @@ void Scene::Draw2D()
 		if (CLEARFLAG)
 		{
 			DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
+			if (m_clearCooltime-- < 0)
+			{
+				m_clearCooltime = m_baseClearCoolTime;
+				WC->SetWindow(WindowsEnum::StartScreen);
+			}
+			
 		}
 		else
 		{
@@ -246,6 +252,11 @@ void Scene::Draw2D()
 		if ((m_player.GetHp() <= 0) && (!CLEARFLAG))
 		{
 			SHADER.m_spriteShader.DrawString(0, 0, "GameOver", { 0,0,1,1 });
+			if (m_clearCooltime-- < 0)
+			{
+				m_clearCooltime = m_baseClearCoolTime;
+				WC->SetWindow(WindowsEnum::StartScreen);
+			}
 		}
 		else
 		{
@@ -1564,7 +1575,7 @@ void Scene::InitMap(std::string mapName)
 
 void Scene::SaveMap()
 {
-	std::ofstream outFile("CurrentMap.map");
+	std::ofstream outFile("CurrentMap1.map");
 	std::ifstream inFile("StageData");
 	std::string line;
 	if (inFile.is_open()) {
@@ -1604,7 +1615,7 @@ void Scene::SaveMap()
 
 	std::string _dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
 	system(_dirFinder.c_str());
-	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
+	_dirFinder = "copy \"CurrentMap1.map\" \"" + m_dataPath + "\\\"";
 	system(_dirFinder.c_str());
 	if (RELEASE == 0)
 	{
@@ -1614,17 +1625,17 @@ void Scene::SaveMap()
 		}
 		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
-		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + m_selectedPath + "\\\"";
+		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap1.map\" \"" + m_selectedPath + "\\\"";
 		system(_dirFinder.c_str());
-		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
+		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap1.map \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 	}
-	_dirFinder = "del \"CurrentMap.map\"";
+	_dirFinder = "del \"CurrentMap1.map\"";
 	system(_dirFinder.c_str());
 	char buffer[1024];
 	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
 		std::string currentDir(buffer);
-		std::string newDir = " delete \"" + currentDir + "\\CurrentMap.map\"";
+		std::string newDir = " delete \"" + currentDir + "\\CurrentMap1.map\"";
 		system(newDir.c_str());
 	}
 }
@@ -2325,7 +2336,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	//return;
+	return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);
