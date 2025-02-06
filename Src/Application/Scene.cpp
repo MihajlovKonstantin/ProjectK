@@ -262,11 +262,26 @@ void Scene::Draw2D()
 
 void Scene::DrawButton(Button inputButton)
 {
-	matrix = Math::Matrix::CreateTranslation(0, 0, 0);
-	SHADER.m_spriteShader.SetMatrix(matrix);
+	//matrix = Math::Matrix::CreateTranslation(0, 0, 0);
+	//SHADER.m_spriteShader.SetMatrix(matrix);
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
-	SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0.8, 0.6, 1, 1), true);
+	std::pair<float, float> _mouse(mouse.x - 640, 360 - mouse.y);
+
+
+	if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
+	{
+		if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
+		{
+			if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(3.0f, 1.5f, 0);
+			else if (size[0] <= 79) m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
+			else m_scaleMat = Math::Matrix::CreateScale(1.9f, 1.5f, 0);
+			m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
+			m_mat = m_scaleMat * m_transMat;
+			SHADER.m_spriteShader.SetMatrix(m_mat);
+			SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+		}
+	}
 }
 
 void Scene::DrawButtonText(Button inputButton)
@@ -1218,7 +1233,7 @@ void Scene::UpdateEditScene()
 					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
-				if (m_unitType <= 0)
+				if (m_unitType < 0)
 				{
 					m_unitType = _maxType - 1;
 				}
@@ -2133,6 +2148,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
 
+	m_frame.Load("Texture/BackGround/frame.png");
+
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -2296,6 +2313,7 @@ void Scene::Release()
 	m_slimeSpawnerTex.Release();
 	m_editerBaseTex.Release();
 	m_noTex.Release();
+	m_frame.Release();
 	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
 	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
 	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();

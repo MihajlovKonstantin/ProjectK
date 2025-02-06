@@ -340,9 +340,9 @@ void Player::Update()
 		if(m_hp < 0)m_hp = 0;
 
 		
-			SetHp(GetHp() - 25);
-			m_hitCooltime = m_hitHpCoolTime;
-			SetHpAlpha(true);
+		SetHp(GetHp() - 10);
+		m_hitCooltime = m_hitHpCoolTime;
+		SetHpAlpha(true);
 	}
 	if (OnLadderBlockFlag)
 	{
