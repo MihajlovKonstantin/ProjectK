@@ -74,6 +74,8 @@ private:
 	KdTexture m_playBack2;
 	KdTexture m_compainBack;
 	KdTexture m_startScreenBack;
+	//help
+	std::array<KdTexture, 9> m_helpTex;
 
 	Campain m_campain;
 	
