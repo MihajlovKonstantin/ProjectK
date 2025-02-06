@@ -214,7 +214,7 @@ void Scene::Draw2D()
 				_string[1] += "EditerDraw";
 				break;
 			default:
-				m_unitType = 1;
+				_string[1] += "Void";
 				break;
 			}
 			break;
@@ -1218,7 +1218,7 @@ void Scene::UpdateEditScene()
 					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
-				if (m_unitType <= 0)
+				if (m_unitType < 0)
 				{
 					m_unitType = _maxType - 1;
 				}
