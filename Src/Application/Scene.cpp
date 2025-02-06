@@ -1623,11 +1623,11 @@ void Scene::SaveMap()
 		{
 			m_selectedPath = WC->GetPP() + "\\Data\\Map";
 		}
-		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
+		_dirFinder = "del \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap1.map\" \"" + m_selectedPath + "\\\"";
 		system(_dirFinder.c_str());
-		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap1.map \"" + m_selectedMap + "\"";
+		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap1.map\" \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 	}
 	_dirFinder = "del \"CurrentMap1.map\"";
