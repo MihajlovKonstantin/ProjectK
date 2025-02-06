@@ -310,13 +310,15 @@ void Application::LoadMapList()
 	inFile.close();
 
 	campainMap.clear();
+	std::string line;
+	auto _pathCampain = WindowsData.GetPP()+ "\\Data\\Map\\";
 	_dirFinder = "dir Data\\Map  *.map /b  > temp3.txt";
 	system(_dirFinder.c_str());
 	inFile = std::ifstream("temp3.txt");
 	{
 		if (inFile.is_open())
 		{
-			std::string line;
+			
 			while (std::getline(inFile, line, '\n'))
 			{
 				campainMap.push_back(line);
@@ -325,6 +327,27 @@ void Application::LoadMapList()
 	}
 	inFile.close();	
 	BubbleSort(campainMap);
+	int _sub;
+	campainVisable.clear();
+	for (string mapName : campainMap)
+	{
+		auto _subStr = _pathCampain + mapName;
+		inFile = std::ifstream(_subStr);
+		getline(inFile, line);
+		getline(inFile, line);
+		getline(inFile, line);
+		if (stoi(line) == 0)
+		{
+			campainVisable.push_back(1);
+		}
+		else
+		{
+			campainVisable.push_back(0);
+		}
+		
+	}
+
+	
 }
 
 void Application::LoadCampain()
@@ -355,7 +378,7 @@ void Application::LoadCampain()
 
 		if (!(m_campain.CheckData(campainMap)))
 		{
-			m_campain.CreateCampain(campainMap);
+			m_campain.CreateCampain(campainMap,campainVisable);
 			_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
 			_newCampain << m_campain.m_data.size() << endl;
 			for (size_t i = 0; i < m_campain.m_data.size(); i++)
@@ -369,7 +392,7 @@ void Application::LoadCampain()
 	}
 	else
 	{
-		m_campain.CreateCampain(campainMap);
+		m_campain.CreateCampain(campainMap,campainVisable);
 		SaveCampain();
 	}
 	_newCampain.close();

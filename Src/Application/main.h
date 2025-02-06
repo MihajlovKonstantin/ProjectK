@@ -38,7 +38,7 @@ private:
 	std::vector<std::string> playebleMapList;
 	std::vector<std::string> editerMapList;
 	std::vector<std::string> campainMap;
-
+	std::vector<int> campainVisable;
 
 	WindowsControlData WindowsData;
 	KeyEvent event;

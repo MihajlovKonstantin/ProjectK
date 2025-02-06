@@ -11,7 +11,7 @@ class Campain
 public:
 	std::vector <CampainMapStatus> m_data;
 	Campain();
-	void CreateCampain(std::vector<std::string> data);
+	void CreateCampain(std::vector<std::string> data,std::vector<int> visData);
 	bool CheckData(std::vector<std::string> data);
 };
 

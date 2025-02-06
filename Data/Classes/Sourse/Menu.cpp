@@ -145,8 +145,11 @@ void Menu::Update()
 				{
 					for (int i = 0; i < lastMapIndex; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 				}
 				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
@@ -159,8 +162,11 @@ void Menu::Update()
 					}
 					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 				}
 				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
@@ -168,8 +174,11 @@ void Menu::Update()
 					int i;
 					for (i = 0; i < 9; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 					for (i = 9; i < lastMapIndex; i++)
 					{
@@ -187,8 +196,11 @@ void Menu::Update()
 					}
 					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
 					{
@@ -256,6 +268,10 @@ void Menu::InitInGameSetting()
 }
 void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string path,std::string dataPath)
 {
+	if (data != NULL)
+	{
+		data->SetCampainMod(false);
+	}
 	dirty = true;
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
@@ -313,6 +329,10 @@ void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string p
 }
 void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string path, std::string dataPath)
 {
+	if (data != NULL)
+	{
+		data->SetCampainMod(false);
+	}
 	dirty = true;
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
@@ -379,6 +399,10 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
 	IsCampainMenu = true;
+	if (data != NULL)
+	{
+		data->SetCampainMod(true);
+	}
 	m_dataPath = dataPath;
 	buttons.clear();
 	selectedPath = data->GetPP() + "\\Data\\Map";
@@ -426,11 +450,16 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 			dY = -200;
 			break;
 		}
-		if (m_campain->m_data[i].visableStatus)
+		if (true)
 		{
 			_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
-			_newButton.ChangeVisiable();
-			_newButton.ChangeActive();
+			if (!m_campain->m_data[i].visableStatus)
+			{
+				_newButton.ChangeVisiable();
+				_newButton.ChangeActive();
+			}
+			
+			
 			buttons.push_back(_newButton);
 		}
 		
@@ -632,39 +661,77 @@ void Menu::EventClick(array<int, 2> eventData)
 		data->Restart();
 		break;
 	case releaseMap:
-		_dirFinder = selectedPath + "\\" + selectedMap;
-		inFile = ifstream(_dirFinder.c_str());
-		if (inFile.is_open())
+		if (!data->IsCampain())
 		{
-			std::getline(inFile, _line);
-			selectedMap = _line;
-			std::getline(inFile, _line);
-			selectedPath = _line;
-			std::getline(inFile, _line);
-			if (stoi(_line) == 0)
+			_dirFinder = selectedPath + "\\" + selectedMap;
+			inFile = ifstream(_dirFinder.c_str());
+			if (inFile.is_open())
 			{
-				while (std::getline(inFile, _line))
+				std::getline(inFile, _line);
+				selectedMap = _line;
+				std::getline(inFile, _line);
+				selectedPath = _line;
+				std::getline(inFile, _line);
+				if (stoi(_line) == 0)
 				{
-					_lines.push_back(_line);
-				}
-				inFile.close();
-				_dirFinder = newPath + "\\" + selectedMap;
-				ofFile = ofstream(_dirFinder.c_str());
-				{
-					ofFile << "NewMap.map" << endl;
-					ofFile << newPath << endl;
-					ofFile << 1 << endl;
-
-					for (const auto& l : _lines) {
-						ofFile << l << std::endl;
+					while (std::getline(inFile, _line))
+					{
+						_lines.push_back(_line);
 					}
-				}
-				
-			}
-			ofFile.close();
-		}
+					inFile.close();
+					_dirFinder = newPath + "\\" + selectedMap;
+					ofFile = ofstream(_dirFinder.c_str());
+					{
+						ofFile << "NewMap.map" << endl;
+						ofFile << newPath << endl;
+						ofFile << 1 << endl;
 
-		
+						for (const auto& l : _lines) {
+							ofFile << l << std::endl;
+						}
+					}
+
+				}
+				ofFile.close();
+			}
+
+		}
+		else
+		{
+			_dirFinder = selectedPath + "\\" + selectedMap;
+			inFile = ifstream(_dirFinder.c_str());
+			if (inFile.is_open())
+			{
+				std::getline(inFile, _line);
+				selectedMap = _line;
+				std::getline(inFile, _line);
+				selectedPath = _line;
+				std::getline(inFile, _line);
+				if (stoi(_line) == 0)
+				{
+					while (std::getline(inFile, _line))
+					{
+						_lines.push_back(_line);
+					}
+					inFile.close();
+					selectedPath = data->GetPP() + "\\Data\\Map";
+					_dirFinder = "del \"" + selectedPath + "\\" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = selectedPath + "\\" + selectedMap;
+					ofFile = ofstream(_dirFinder);
+					{
+						ofFile << selectedMap << endl;
+						ofFile << selectedPath << endl;
+						ofFile << 1 << endl;
+						for (const auto& l : _lines) {
+							ofFile << l << std::endl;
+						}
+					}
+
+				}
+			}
+				
+		}
 		break;
 	}
 	inFile.close();
