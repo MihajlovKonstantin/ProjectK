@@ -145,8 +145,11 @@ void Menu::Update()
 				{
 					for (int i = 0; i < lastMapIndex; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 				}
 				if (((dataBlockIndex + 1) * 9 > lastMapIndex) && (dataBlockIndex != 0))
@@ -159,8 +162,11 @@ void Menu::Update()
 					}
 					for (i = dataBlockIndex * 9; i < lastMapIndex; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 				}
 				if ((dataBlockIndex == 0) && (lastMapIndex >= 9))
@@ -168,8 +174,11 @@ void Menu::Update()
 					int i;
 					for (i = 0; i < 9; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 					for (i = 9; i < lastMapIndex; i++)
 					{
@@ -187,8 +196,11 @@ void Menu::Update()
 					}
 					for (i = dataBlockIndex * 9; i < (dataBlockIndex + 1) * 9; i++)
 					{
-						buttons[i].SetVisable(true);
-						buttons[i].SetActive(true);
+						if (m_campain->m_data[i].visableStatus == 1)
+						{
+							buttons[i].SetVisable(true);
+							buttons[i].SetActive(true);
+						}
 					}
 					for (i = (dataBlockIndex + 1) * 9; i < lastMapIndex; i++)
 					{
@@ -241,7 +253,7 @@ void Menu::InitMainMenu(std::string dataPath)
 void Menu::InitSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f, 170.0f }, "EXIT",1.5f,change,goScene,Title);
+	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "EXIT",1.5f,change,goScene,Title);
 	Button _musicButton = Button({ 120.0f,40.0f }, { 300.0f,90.0f }, " Music-", 1.5f, nochange, decreaseByIndex, volume);
 	buttons.push_back(_newButton);
 	buttons.push_back(_musicButton);
@@ -251,11 +263,15 @@ void Menu::InitSetting()
 void Menu::InitInGameSetting()
 {
 	buttons.clear();
-	Button _newButton = Button({ 100.0f, 40.0f }, { -300.0f, 0.0f }, "Exit", 1.5f, change, goScene, Title);
+	Button _newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "Exit", 1.5f, change, goScene, StartScreen);
 	buttons.push_back(_newButton);
 }
 void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string path,std::string dataPath)
 {
+	if (data != NULL)
+	{
+		data->SetCampainMod(false);
+	}
 	dirty = true;
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
@@ -300,19 +316,23 @@ void Menu::InitSelectMapPlayeble(std::vector<std::string> mapList, std::string p
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.5f, 1025, openMap, SceneSelect::Game);
 	//buttons.push_back(_newButton);
 	//_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, StartScreen);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "EXIT", 1.5f, 1026, OptionSelect::goScene, StartScreen);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.5f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.5f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
 }
 void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string path, std::string dataPath)
 {
+	if (data != NULL)
+	{
+		data->SetCampainMod(false);
+	}
 	dirty = true;
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
@@ -357,17 +377,17 @@ void Menu::InitSelectEditingMap(std::vector<std::string> mapList, std::string pa
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
-	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.5f, 1025, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -390.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -390.0f,-200.0f }, "New", 1.5f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -540.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, StartScreen);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "EXIT", 1.5f, 1026, OptionSelect::goScene, StartScreen);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Back", 1.5f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.5f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.5f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPath)
@@ -379,6 +399,10 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 	selectedBlockData = 0;
 	IsSelectMapMenu = true;
 	IsCampainMenu = true;
+	if (data != NULL)
+	{
+		data->SetCampainMod(true);
+	}
 	m_dataPath = dataPath;
 	buttons.clear();
 	selectedPath = data->GetPP() + "\\Data\\Map";
@@ -426,39 +450,44 @@ void Menu::InitCampainMenu(std::vector<std::string> mapList, std::string dataPat
 			dY = -200;
 			break;
 		}
-		if (m_campain->m_data[i].visableStatus)
+		if (true)
 		{
 			_newButton = Button({ 100.0f,40.0f }, { -300.0f + dX,200.0f + dY }, mapList[i], 0.5f, i, 6, i);
-			_newButton.ChangeVisiable();
-			_newButton.ChangeActive();
+			if (!m_campain->m_data[i].visableStatus)
+			{
+				_newButton.ChangeVisiable();
+				_newButton.ChangeActive();
+			}
+			
+			
 			buttons.push_back(_newButton);
 		}
 		
 	}
 	maxBlockData = buttons.size() / 9;
 	mapNum = buttons.size();
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Open", 1.0f, 1025, openMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -540.0f,-200.0f }, "Open", 1.5f, 1025, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.0f, 1025, newMap, SceneSelect::Game);
+	_newButton = Button({ 60.0f,40.0f }, { -350.0f,-200.0f }, "New", 1.5f, 1025, newMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.0f, 1026, OptionSelect::goScene, StartScreen);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "EXIT", 1.5f, 1026, OptionSelect::goScene, StartScreen);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Last", 1.0f, 1027, decreaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,300.0f }, "Back", 1.5f, 1027, decreaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.0f, 1028, increaseByIndex, 31);
+	_newButton = Button({ 60.0f,40.0f }, { 0.0f,-300.0f }, "Next", 1.5f, 1028, increaseByIndex, 31);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.0f, 1029, OptionSelect::releaseMap, 0);
+	_newButton = Button({ 100.0f,40.0f }, { -500.0f,-100.0f }, "Release", 1.5f, 1029, OptionSelect::releaseMap, 0);
 	buttons.push_back(_newButton);
 }
 void Menu::InitHelp()
 {
 	Button _newButton;
 	buttons.clear();
-	_newButton = Button({ 60.0f,40.0f }, { -400.0f,-200.0f }, "Next", 1.5f, 9, OptionSelect::increaseByIndex, DataValue::screenIdex);
+	_newButton = Button({ 60.0f,40.0f }, { 200.0f,-300.0f }, "Next", 1.5f, 9, OptionSelect::increaseByIndex, DataValue::screenIndex);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,-200.0f }, "Back", 1.5f, 9, OptionSelect::decreaseByIndex, DataValue::screenIdex);
+	_newButton = Button({ 60.0f,40.0f }, { -300.0f,-300.0f }, "Back", 1.5f, 9, OptionSelect::decreaseByIndex, DataValue::screenIndex);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f,40.0f }, { -500.0f,0.0f }, "Exit", 1.5f, 9, OptionSelect::goScene, SceneSelect::Title);
+	_newButton = Button({ 60.0f,40.0f }, { -500.0f,300.0f }, "Exit", 1.5f, 9, OptionSelect::goScene, SceneSelect::Title);
 	buttons.push_back(_newButton);
 }
 void Menu::InitStartScrene(std::string dataPath)
@@ -474,15 +503,15 @@ void Menu::InitStartScrene(std::string dataPath)
 	buttons.clear();
 	_newButton = Button({ 70.0f, 45.0f }, { 0.0f, 0.0f }, "Play", 1.5f, change, goScene, SelectPlaybleMap );
 	buttons.push_back(_newButton);
-	_newButton = Button({ 120.0f, 45.0f }, { 300.0f, 0.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
+	_newButton = Button({ 100.0f, 45.0f }, { 300.0f, 0.0f }, "Campain", 1.5f, change, goScene, SceneSelect::CampainMenu);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 70.0f, 45.0f }, { -300.0f, 0.0f }, "Edit", 1.5f, change, goScene, SceneSelect::SelectEditMap);
 	buttons.push_back(_newButton);
 	_newButton = Button({ 70.0f,45.0f }, { -300.0f,-160.0f }, "Push", 1.5f, change, updateMap, 0);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 60.0f, 40.0f }, { -500.0f, 200.0f }, "EXIT", 1.5f, change, goScene, Title);
+	_newButton = Button({ 60.0f, 40.0f }, { -500.0f,300.0f }, "EXIT", 1.5f, change, goScene, Title);
 	buttons.push_back(_newButton);
-	_newButton = Button({ 70.0f, 45.0f }, { 0.0f, 160.0f }, "Tutorial", 1.5f, change, openMap, SceneSelect::Game);
+	_newButton = Button({ 120.0f, 45.0f }, { 300.0f, -160.0f }, "Tutorial", 1.5f, change, openMap, SceneSelect::Game);
 	buttons.push_back(_newButton);
 }
 Button Menu::GetButton()
@@ -632,39 +661,77 @@ void Menu::EventClick(array<int, 2> eventData)
 		data->Restart();
 		break;
 	case releaseMap:
-		_dirFinder = selectedPath + "\\" + selectedMap;
-		inFile = ifstream(_dirFinder.c_str());
-		if (inFile.is_open())
+		if (!data->IsCampain())
 		{
-			std::getline(inFile, _line);
-			selectedMap = _line;
-			std::getline(inFile, _line);
-			selectedPath = _line;
-			std::getline(inFile, _line);
-			if (stoi(_line) == 0)
+			_dirFinder = selectedPath + "\\" + selectedMap;
+			inFile = ifstream(_dirFinder.c_str());
+			if (inFile.is_open())
 			{
-				while (std::getline(inFile, _line))
+				std::getline(inFile, _line);
+				selectedMap = _line;
+				std::getline(inFile, _line);
+				selectedPath = _line;
+				std::getline(inFile, _line);
+				if (stoi(_line) == 0)
 				{
-					_lines.push_back(_line);
-				}
-				inFile.close();
-				_dirFinder = newPath + "\\" + selectedMap;
-				ofFile = ofstream(_dirFinder.c_str());
-				{
-					ofFile << "NewMap.map" << endl;
-					ofFile << newPath << endl;
-					ofFile << 1 << endl;
-
-					for (const auto& l : _lines) {
-						ofFile << l << std::endl;
+					while (std::getline(inFile, _line))
+					{
+						_lines.push_back(_line);
 					}
-				}
-				
-			}
-			ofFile.close();
-		}
+					inFile.close();
+					_dirFinder = newPath + "\\" + selectedMap;
+					ofFile = ofstream(_dirFinder.c_str());
+					{
+						ofFile << "NewMap.map" << endl;
+						ofFile << newPath << endl;
+						ofFile << 1 << endl;
 
-		
+						for (const auto& l : _lines) {
+							ofFile << l << std::endl;
+						}
+					}
+
+				}
+				ofFile.close();
+			}
+
+		}
+		else
+		{
+			_dirFinder = selectedPath + "\\" + selectedMap;
+			inFile = ifstream(_dirFinder.c_str());
+			if (inFile.is_open())
+			{
+				std::getline(inFile, _line);
+				selectedMap = _line;
+				std::getline(inFile, _line);
+				selectedPath = _line;
+				std::getline(inFile, _line);
+				if (stoi(_line) == 0)
+				{
+					while (std::getline(inFile, _line))
+					{
+						_lines.push_back(_line);
+					}
+					inFile.close();
+					selectedPath = data->GetPP() + "\\Data\\Map";
+					_dirFinder = "del \"" + selectedPath + "\\" + selectedMap + "\"";
+					system(_dirFinder.c_str());
+					_dirFinder = selectedPath + "\\" + selectedMap;
+					ofFile = ofstream(_dirFinder);
+					{
+						ofFile << selectedMap << endl;
+						ofFile << selectedPath << endl;
+						ofFile << 1 << endl;
+						for (const auto& l : _lines) {
+							ofFile << l << std::endl;
+						}
+					}
+
+				}
+			}
+				
+		}
 		break;
 	}
 	inFile.close();
@@ -702,8 +769,9 @@ void Menu::IncreaceByIndex(int dataIndex)
 		}
 		dirty = true;
 		break;
-	case DataValue::screenIdex:
-		if (++m_helpPage > m_maxHelpPage)m_helpPage = m_maxHelpPage;
+	case DataValue::screenIndex:
+		m_helpPage++;
+		if (m_helpPage > m_maxHelpPage - 1)m_helpPage = m_maxHelpPage - 1;
 		break;
 	}
 }
@@ -730,8 +798,9 @@ void Menu::DecreaceByIndex(int dataIndex)
 		}
 		dirty = true;
 		break;
-	case DataValue::screenIdex:
-		if (--m_helpPage < 0)m_helpPage = 0;
+	case DataValue::screenIndex:
+		m_helpPage--;
+		if (m_helpPage < 0)m_helpPage = 0;
 		break;
 	}
 }
@@ -891,6 +960,11 @@ void Menu::OpenMap(int input)
 	data->SetMap(selectedMap);
 	data->SetPath(selectedPath);
 	SwitchWindowsEvent(input);
+}
+
+int Menu::GetHelpPage()
+{
+	return m_helpPage;
 }
 
 

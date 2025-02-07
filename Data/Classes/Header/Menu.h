@@ -4,7 +4,7 @@
 #include "Src/Application/WindowsEnum.h"
 using namespace std;
 enum SceneSelect { Title = 1, Game = 2, Option, StartScreen, SelectPlaybleMap, SelectEditMap, CampainMenu, Help };
-enum DataValue { volume = 21,screenIdex=10 };
+enum DataValue { volume = 21, screenIndex = 10 };
 enum OptionSelect 
 {
     goScene = 1, increaseByIndex = 2, decreaseByIndex = 3, setEndFlg = 4, switchBool = 5,
@@ -39,7 +39,7 @@ private:
     bool endInput = false;
     int currentColdown = 0;
     int m_helpPage = 0;
-    int m_maxHelpPage = 100;
+    int m_maxHelpPage = 9;
     
 
     string _dirFinder;
@@ -96,4 +96,5 @@ public:
     void AddCampain(Campain& data);
     bool DrawInput();
     void OpenMap(int input);
+    int GetHelpPage();
 };

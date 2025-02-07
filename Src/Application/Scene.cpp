@@ -138,25 +138,30 @@ void Scene::Draw2D()
 			case ItemSelect::Key:
 				_string[1] += "Key";
 				break;
+			case ItemSelect::VoidIS:
+				_string[1] += "Void";
+				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
-			_string[2] = "(D/F)CurrentItemVariant";
-			switch (m_selectedUnitVariant)
+			if (m_unitType != ItemSelect::VoidIS)
 			{
-			case 0:
-				_string[2] += "Base";
-			default:
-				if (m_unitType == ItemSelect::Key)
+				_string[2] = "(X/C)CurrentItemVariant ";
+				switch (m_selectedUnitVariant)
 				{
-					_string[2] = "(X/C)CurrentItemVariant";
-					if (m_selectedUnitVariant == KeySelect::Yellow)
-						_string[2] = "(X/C)Yellow";
-					if (m_selectedUnitVariant == KeySelect::Red)
-						_string[2] = "(X/C)Red";
-					if (m_selectedUnitVariant == KeySelect::Blue)
-						_string[2] = "(X/C)Blue";
+				case KeySelect::Yellow:
+					_string[2] += "Yellow";
+					break;
+				case KeySelect::Red:
+					_string[2] += "Red";
+					break;
+				case KeySelect::Blue:
+					_string[2] += "Blue";
+					break;
+				default:
+					m_selectedUnitVariant = 1;
+					break;
 				}
 			}
 			break;
@@ -164,6 +169,9 @@ void Scene::Draw2D()
 			_string[1] = "(D/F)CurrentCharaType ";
 			switch (m_unitType)
 			{
+			case SpawnerSelect::VoidSS:
+				_string[1] += "Void";
+				break;
 			case SpawnerSelect::Player:
 				_string[1] += "Player";
 				break;
@@ -174,10 +182,10 @@ void Scene::Draw2D()
 				_string[1] += "Enemys";
 				break;
 			default:
-				m_unitType = 0;
+				m_unitType = 1;
 				break;
 			}
-			if (m_unitType != SpawnerSelect::Player)
+			if (m_unitType != SpawnerSelect::Player && m_unitType != SpawnerSelect::VoidSS)
 			{
 				_string[2] = "(X/C)CurrentEnemyVariant ";
 				switch (m_selectedUnitVariant)
@@ -214,14 +222,12 @@ void Scene::Draw2D()
 				_string[1] += "EditerDraw";
 				break;
 			default:
-				m_unitType = 1;
+				_string[1] += "Void";
 				break;
 			}
 			break;
 		}
 
-		
-		
 		const char* _text[3] = { _string[0].c_str(),_string[1].c_str() ,_string[2].c_str() };
 		DrawString(260, 300, _text[0], { 0, 0, 0, 1 }, 0.5f);
 		DrawString(260, 250, _text[1], { 0, 0, 0, 1 }, 0.5f);
@@ -234,6 +240,12 @@ void Scene::Draw2D()
 		if (CLEARFLAG)
 		{
 			DrawString(-300, 250, "CLEAR", { 1,0,0,1 }, 2.0f);
+			if (m_clearCooltime-- < 0)
+			{
+				m_clearCooltime = m_baseClearCoolTime;
+				WC->SetWindow(WindowsEnum::StartScreen);
+			}
+			
 		}
 		else
 		{
@@ -246,6 +258,11 @@ void Scene::Draw2D()
 		if ((m_player.GetHp() <= 0) && (!CLEARFLAG))
 		{
 			SHADER.m_spriteShader.DrawString(0, 0, "GameOver", { 0,0,1,1 });
+			if (m_clearCooltime-- < 0)
+			{
+				m_clearCooltime = m_baseClearCoolTime;
+				WC->SetWindow(WindowsEnum::StartScreen);
+			}
 		}
 		else
 		{
@@ -262,11 +279,26 @@ void Scene::Draw2D()
 
 void Scene::DrawButton(Button inputButton)
 {
-	matrix = Math::Matrix::CreateTranslation(0, 0, 0);
-	SHADER.m_spriteShader.SetMatrix(matrix);
+	//matrix = Math::Matrix::CreateTranslation(0, 0, 0);
+	//SHADER.m_spriteShader.SetMatrix(matrix);
 	size = inputButton.GetSize();
 	position = inputButton.GetPosition();
-	SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0.8, 0.6, 1, 1), true);
+	std::pair<float, float> _mouse(mouse.x - 640, 360 - mouse.y);
+
+
+	if (_mouse.first >= (position[0] - size[0]) && _mouse.first <= (position[0] + size[0]))
+	{
+		if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
+		{
+			if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(3.0f, 1.5f, 0);
+			else if (size[0] <= 79) m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
+			else m_scaleMat = Math::Matrix::CreateScale(1.9f, 1.5f, 0);
+			m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
+			m_mat = m_scaleMat * m_transMat;
+			SHADER.m_spriteShader.SetMatrix(m_mat);
+			SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
+		}
+	}
 }
 
 void Scene::DrawButtonText(Button inputButton)
@@ -1218,7 +1250,7 @@ void Scene::UpdateEditScene()
 					_maxType = InfoPanelEnun::COUNTIPE;
 					break;
 				}
-				if (m_unitType <= 0)
+				if (m_unitType < 0)
 				{
 					m_unitType = _maxType - 1;
 				}
@@ -1549,7 +1581,7 @@ void Scene::InitMap(std::string mapName)
 
 void Scene::SaveMap()
 {
-	std::ofstream outFile("CurrentMap.map");
+	std::ofstream outFile("CurrentMap1.map");
 	std::ifstream inFile("StageData");
 	std::string line;
 	if (inFile.is_open()) {
@@ -1589,7 +1621,7 @@ void Scene::SaveMap()
 
 	std::string _dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
 	system(_dirFinder.c_str());
-	_dirFinder = "copy \"CurrentMap.map\" \"" + m_dataPath + "\\\"";
+	_dirFinder = "copy \"CurrentMap1.map\" \"" + m_dataPath + "\\\"";
 	system(_dirFinder.c_str());
 	if (RELEASE == 0)
 	{
@@ -1597,19 +1629,19 @@ void Scene::SaveMap()
 		{
 			m_selectedPath = WC->GetPP() + "\\Data\\Map";
 		}
-		_dirFinder = "delete \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
+		_dirFinder = "del \"" + m_selectedPath + "\\" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
-		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap.map\" \"" + m_selectedPath + "\\\"";
+		_dirFinder = "copy \"" + m_dataPath + "\\CurrentMap1.map\" \"" + m_selectedPath + "\\\"";
 		system(_dirFinder.c_str());
-		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap.map \"" + m_selectedMap + "\"";
+		_dirFinder = "rename \"" + m_selectedPath + "\\CurrentMap1.map\" \"" + m_selectedMap + "\"";
 		system(_dirFinder.c_str());
 	}
-	_dirFinder = "del \"CurrentMap.map\"";
+	_dirFinder = "del \"CurrentMap1.map\"";
 	system(_dirFinder.c_str());
 	char buffer[1024];
 	if (getcwd(buffer, sizeof(buffer)) != nullptr) {
 		std::string currentDir(buffer);
-		std::string newDir = " delete \"" + currentDir + "\\CurrentMap.map\"";
+		std::string newDir = " delete \"" + currentDir + "\\CurrentMap1.map\"";
 		system(newDir.c_str());
 	}
 }
@@ -1807,46 +1839,57 @@ KdTexture* Scene::GetBlockTex()
 	case EditerSelect::BlockMenu:
 		switch (m_unitType)
 		{
-		case 0:
+		case BlockEditerSelect::VoidBES:
 			_BlockTex = &m_voidTex;
 			break;
-		case 1:
+		case BlockEditerSelect::Ground:
 			_BlockTex = &m_groundTex[0];
 			break;
-		case 2:
+		case BlockEditerSelect::Ice:
 			_BlockTex = &m_iceSurfaceTex[0];
 			break;
-		case 3:
+		case BlockEditerSelect::IceWater:
 			_BlockTex = &m_iceWaterBlockTex[0];
 			break;
-		case 4:
+		case BlockEditerSelect::Ladder:
 			_BlockTex = &m_ladderTex[0];
 			break;	
-		case 5:
+		case BlockEditerSelect::Lava:
 			_BlockTex = &m_lavaTex[0];
 			break;	
-		case 6:
+		case BlockEditerSelect::Crate:
 			_BlockTex = &m_crateTex[0];
 			break;
 		}
 		break;
 	case EditerSelect::ItemMenu:
-		switch (m_selectedUnitVariant)
+		switch (m_unitType)
 		{
-		case KeySelect::Yellow:
-			_BlockTex = &m_keyTexture[0];
+		case ItemSelect::Key:
+			switch (m_selectedUnitVariant)
+			{
+			case KeySelect::Yellow:
+				_BlockTex = &m_keyTexture[0];
+				break;
+			case KeySelect::Blue:
+				_BlockTex = &m_keyTexture[2];
+				break;
+			case KeySelect::Red:
+				_BlockTex = &m_keyTexture[1];
+				break;
+			}
 			break;
-		case KeySelect::Blue:
-			_BlockTex = &m_keyTexture[2];
-			break;
-		case KeySelect::Red:
-			_BlockTex = &m_keyTexture[1];
+		case ItemSelect::VoidIS:
+			_BlockTex = &m_voidTex;
 			break;
 		}
 		break;
 	case EditerSelect::CharaMenu:
 		switch (m_unitType)
 		{
+		case SpawnerSelect::VoidSS:
+			_BlockTex = &m_voidTex;
+			break;
 		case SpawnerSelect::Player:
 			_BlockTex = &m_playerTex;
 			break;
@@ -2133,6 +2176,8 @@ void Scene::Init(WindowsControlData* WCInput, std::string dataPath, std::string 
 	m_playerTex.Load("Texture/Player/player.png");
 	m_playerHpTex.Load("Texture/Player/hp.png");
 
+	m_frame.Load("Texture/BackGround/frame.png");
+
 	m_groundTex[0].Load("Texture/GroundBlock/Ground0.png");
 	m_groundTex[1].Load("Texture/GroundBlock/Ground1.png");
 	m_groundTex[2].Load("Texture/GroundBlock/Ground2.png");
@@ -2296,6 +2341,7 @@ void Scene::Release()
 	m_slimeSpawnerTex.Release();
 	m_editerBaseTex.Release();
 	m_noTex.Release();
+	m_frame.Release();
 	for (int i = 0; i < m_keyTexture.size(); i++)m_keyTexture[i].Release();
 	for (int i = 0; i < m_groundTex.size(); i++)m_groundTex[i].Release();
 	for (int i = 0; i < m_iceInsideTex.size(); i++)m_iceInsideTex[i].Release();
@@ -2307,7 +2353,7 @@ void Scene::Release()
 
 void Scene::ImGuiUpdate()
 {
-	//return;
+	return;
 
 	ImGui::SetNextWindowPos(ImVec2(20, 20), ImGuiSetCond_Once);
 	ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_Once);

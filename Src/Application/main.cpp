@@ -105,6 +105,15 @@ bool Application::Init(int w, int h)
 	m_editorBack.Load("Texture/BackGround/editorBackBlock.png");
 	m_compainBack.Load("Texture/BackGround/compain.png");
 	m_startScreenBack.Load("Texture/BackGround/startScreen.png");
+	m_helpTex[0].Load("Texture/Help/title.png");
+	m_helpTex[1].Load("Texture/Help/PlayEdit1.png");
+	m_helpTex[2].Load("Texture/Help/PlayEdit2.png");
+	m_helpTex[3].Load("Texture/Help/Edit1.png");
+	m_helpTex[4].Load("Texture/Help/Edit2.png");
+	m_helpTex[5].Load("Texture/Help/operation.png");
+	m_helpTex[6].Load("Texture/Help/block1.png");
+	m_helpTex[7].Load("Texture/Help/block2.png");
+	m_helpTex[8].Load("Texture/Help/enemy.png");
 	
 	{
 		// ���{��Ή�
@@ -187,6 +196,7 @@ void Application::Release()
 	m_editorBack.Release();
 	m_compainBack.Release();
 	m_startScreenBack.Release();
+	for (int i = 0; i < 9; i++)m_helpTex[i].Release();
 
 }
 void Application::CreateExtensions()
@@ -300,13 +310,15 @@ void Application::LoadMapList()
 	inFile.close();
 
 	campainMap.clear();
+	std::string line;
+	auto _pathCampain = WindowsData.GetPP()+ "\\Data\\Map\\";
 	_dirFinder = "dir Data\\Map  *.map /b  > temp3.txt";
 	system(_dirFinder.c_str());
 	inFile = std::ifstream("temp3.txt");
 	{
 		if (inFile.is_open())
 		{
-			std::string line;
+			
 			while (std::getline(inFile, line, '\n'))
 			{
 				campainMap.push_back(line);
@@ -315,6 +327,27 @@ void Application::LoadMapList()
 	}
 	inFile.close();	
 	BubbleSort(campainMap);
+	int _sub;
+	campainVisable.clear();
+	for (string mapName : campainMap)
+	{
+		auto _subStr = _pathCampain + mapName;
+		inFile = std::ifstream(_subStr);
+		getline(inFile, line);
+		getline(inFile, line);
+		getline(inFile, line);
+		if (stoi(line) == 0)
+		{
+			campainVisable.push_back(1);
+		}
+		else
+		{
+			campainVisable.push_back(0);
+		}
+		
+	}
+
+	
 }
 
 void Application::LoadCampain()
@@ -345,7 +378,7 @@ void Application::LoadCampain()
 
 		if (!(m_campain.CheckData(campainMap)))
 		{
-			m_campain.CreateCampain(campainMap);
+			m_campain.CreateCampain(campainMap,campainVisable);
 			_newCampain = ofstream(dataFolderPath + "\\MainCampain.campain");
 			_newCampain << m_campain.m_data.size() << endl;
 			for (size_t i = 0; i < m_campain.m_data.size(); i++)
@@ -359,7 +392,7 @@ void Application::LoadCampain()
 	}
 	else
 	{
-		m_campain.CreateCampain(campainMap);
+		m_campain.CreateCampain(campainMap,campainVisable);
 		SaveCampain();
 	}
 	_newCampain.close();
@@ -419,14 +452,13 @@ void Application::DrawButton(Button inputButton)
 	{
 		if (_mouse.second <= (position[1] + size[1]) && _mouse.second >= (position[1] - size[1]))
 		{
-			if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(2.5f, 1.5f, 0);
+			if (size[0] >= 100) m_scaleMat = Math::Matrix::CreateScale(3.0f, 1.5f, 0);
 			else if(size[0]<=79) m_scaleMat = Math::Matrix::CreateScale(1.5f, 1.5f, 0);
 			else m_scaleMat = Math::Matrix::CreateScale(1.9f, 1.5f, 0);
 			m_transMat = Math::Matrix::CreateTranslation(position[0], position[1], 0);
 			m_mat = m_scaleMat * m_transMat;
 			SHADER.m_spriteShader.SetMatrix(m_mat);
 			SHADER.m_spriteShader.DrawTex(&m_frame, Math::Rectangle(0, 0, 100, 60), 1.0f);
-			//SHADER.m_spriteShader.DrawBox(position[0], position[1], size[0], size[1], &Math::Color(0, 0, 0, 1), false);
 		}
 	}
 }
@@ -438,7 +470,6 @@ void Application::DrawButtonText(Button inputButton)
 	float scale = inputButton.GetScale();
 	size = inputButton.GetSize();
 	DrawString(position[0] - size[0], position[1] + size[1] / 2, text, Math::Vector4(0, 0, 0, 1), scale);
-	//DrawString(position[0], position[1], text, Math::Vector4(1, 1, 1, 1), scale);
 }
 void Application::DrawString(float _x, float _y, const char _text[], const Math::Vector4& _color, float scale)
 {
@@ -730,6 +761,7 @@ void Application::Execute()
 	selectPlaybleMapMenu.SetTexture(&m_playBack2);
 	campainMenu.SetTexture(&m_settingBack2);
 	startScreen.SetTexture(&m_settingBack2);
+	helpMenu.SetTexture(&m_settingBack2);
 
 	CreateExtensions();
 	CreateDataPath();//Create the Path to users data
@@ -812,8 +844,9 @@ void Application::Execute()
 			} while ((m_endFlagWindows!=true));
 				break;
 		case WindowsControl::StartScreen:
-			startScreen.InitStartScrene(dataFolderPath);
 			SaveCampain();
+			startScreen.InitStartScrene(dataFolderPath);
+			
 
 			if (WindowsData.IsStarted())
 			{
@@ -849,13 +882,12 @@ void Application::Execute()
 				
 				SCENE.Init(&WindowsData,dataFolderPath,lastSelectedPath);
 				WindowsData.StartGame();
-				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			}
 			else
 			{
-				gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 				SCENE.SetResumeWindows();
 			}
+			gameSoundInstance->SetVolume(WindowsData.GetMusicVolume());
 			baseTime = timeGetTime();
 			count = 0;
 			SCENE.LoadMap();
@@ -941,8 +973,11 @@ void Application::Execute()
 				m_settingFlg = false;
 				soundInstance->SetVolume(WindowsData.GetMusicVolume());
 				helpMenu.Update();
-				SHADER.m_spriteShader.SetMatrix(settingMenu.GetMatrix());
-				SHADER.m_spriteShader.DrawTex(settingMenu.GetTexture(), settingMenu.GetRect());
+				auto i = helpMenu.GetHelpPage();
+				SHADER.m_spriteShader.SetMatrix(helpMenu.GetMatrix());
+				SHADER.m_spriteShader.DrawTex(helpMenu.GetTexture(), helpMenu.GetRect());
+				SHADER.m_spriteShader.SetMatrix(Math::Matrix::CreateTranslation(0, 0, 0));
+				SHADER.m_spriteShader.DrawTex(&m_helpTex[i], Math::Rectangle(0, 0, 1280, 720), 1.0f);
 				MenuExecute(helpMenu);
 			} while ((m_endFlagWindows != true));
 			break;

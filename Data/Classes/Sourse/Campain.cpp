@@ -4,13 +4,13 @@ Campain::Campain()
 {
 }
 
-void Campain::CreateCampain(std::vector<std::string> data)
+void Campain::CreateCampain(std::vector<std::string> data,std::vector<int> visData)
 {
 	m_data.clear();
 	CampainMapStatus _newData;
 	for (size_t i = 0; i < data.size(); i++)
 	{
-		_newData = { data[i],0,0 };
+		_newData = { data[i],visData[i],0};
 		m_data.push_back(_newData);
 	}
 	m_data[0].visableStatus = 1;

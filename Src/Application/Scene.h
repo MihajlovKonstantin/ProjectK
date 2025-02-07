@@ -9,13 +9,13 @@ private:
 	int m_editerMenuIndex = 0;
 	int m_selectedUnitVariant = 0;
 	//enum
-	enum SpawnerSelect { COUNTSS = 4,VoidSS=0, Player, Enemy, Enemys };
+	enum SpawnerSelect { COUNTSS = 4, VoidSS = 0, Player, Enemy, Enemys };
 	enum EditerSelect { COUNTES = 5, BlockMenu = 0, CharaMenu, ItemMenu, StageTypeMenu, InfoPanelMenu};
 	enum IceBlockSelect { COUNTIBS = 2, Surface = 0, Inside };
 	enum EnemySelect { COUNTENS = 2, Slime = 0, SnowBall };
 	enum KeySelect { COUNTKS = 3, Yellow = 0, Red, Blue };
 	enum ItemSelect { COUNTIS = 2,VoidIS = 0, Key };
-	enum BlockEditerSelect { COUNTBES = 7,VoidBES = 0, Ground, Ice, IceWater, Ladder, Lava, Crate };
+	enum BlockEditerSelect { COUNTBES = 7, VoidBES = 0, Ground, Ice, IceWater, Ladder, Lava, Crate };
 	enum StageTypeSelect {COUNTSTS = 2, Base = 0, KeyCollect};
 	enum InfoPanelEnun { COUNTIPE = 7,VoidIPE = 0, Move, Jump, EditerMode, Draw, LavaInf, LadderInfo };
 	//ObjectVector
@@ -48,6 +48,7 @@ private:
 	KdTexture m_snowBallSpawnerTex, m_slimeSpawnerTex;
 	KdTexture m_editerBaseTex;
 	KdTexture m_noTex;
+	KdTexture m_frame;
 	//BlockLib
 	static const int m_typeBlockNum = 7;
 	std::array<std::vector<std::array<KdTexture*, 5>>, 7> m_blockLiblary;
@@ -65,6 +66,9 @@ private:
 	Math::Rectangle charaRect;
 	Math::Rectangle m_editerRect;
 	Math::Matrix matrix;
+	Math::Matrix m_scaleMat;
+	Math::Matrix m_transMat;
+	Math::Matrix m_mat;
 	std::array<POINT, 2> m_point;
 	std::string str;
 	const char* charStr = str.c_str();
@@ -101,6 +105,7 @@ private:
 	bool m_testCollision = false;
 	bool m_jumpFlg = false;
 	bool m_drawStartBool;
+	bool CLEARFLAG = false;
 
 	int RELEASE = 0;
 
@@ -120,7 +125,8 @@ private:
 	float m_hpAlphaCnt = m_BaseHpAlphaCnt;
 	float m_hpAlpha = 0;
 
-	bool CLEARFLAG = false;
+	int m_baseClearCoolTime = 60 * 2;
+	int m_clearCooltime = m_baseClearCoolTime;
 	Menu m_inGameSetting;
 	Stage m_stage;
 public:

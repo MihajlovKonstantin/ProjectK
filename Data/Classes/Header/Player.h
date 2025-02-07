@@ -65,7 +65,7 @@ protected:
 	bool OnLadderBlockFlag = false;
 	bool OnLavaBlockFlag = false;
 
-	static const int m_hitHpCoolTime = 20;
+	static const int m_hitHpCoolTime = 15;
 	int m_hitCooltime = m_hitHpCoolTime;
 
 	float m_collisionSize = 32.0f;
