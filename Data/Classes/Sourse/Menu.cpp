@@ -538,7 +538,7 @@ int ExtractNumber(const string& s)
 
 void Menu::EventClick(array<int, 2> eventData)
 {
-	
+	_lines.clear();
 	//char current_work_dir[FILENAME_MAX];
 	//_getcwd(current_work_dir, sizeof(current_work_dir));
 	switch (eventData[0])
@@ -591,9 +591,9 @@ void Menu::EventClick(array<int, 2> eventData)
 					selectedMap = inputUser+".map";
 					_dirFinder = " copy \"" + selectedPath + "\\" + selectedMap + "\" \"" + m_dataPath + "\"";
 					system(_dirFinder.c_str());
-					_dirFinder = "del \"" + m_dataPath + "\\CurrentMap.map\"";
+					_dirFinder = "del \"" + m_dataPath + "\\CurrentMap1.map\"";
 					system(_dirFinder.c_str());
-					_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap.map";
+					_dirFinder = "rename \"" + m_dataPath + "\\" + selectedMap + "\" CurrentMap1.map";
 					system(_dirFinder.c_str());
 					data->SetMap(selectedMap);
 					data->SetPath(selectedPath);
@@ -965,6 +965,11 @@ void Menu::OpenMap(int input)
 int Menu::GetHelpPage()
 {
 	return m_helpPage;
+}
+
+int Menu::GetMaxHelpPage()
+{
+	return m_maxHelpPage;
 }
 
 

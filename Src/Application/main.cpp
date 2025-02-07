@@ -114,6 +114,8 @@ bool Application::Init(int w, int h)
 	m_helpTex[6].Load("Texture/Help/block1.png");
 	m_helpTex[7].Load("Texture/Help/block2.png");
 	m_helpTex[8].Load("Texture/Help/enemy.png");
+	m_helpTex[9].Load("Texture/Help/createStage.png");
+	m_helpTex[10].Load("Texture/Help/saveStage.png");
 	
 	{
 		// ���{��Ή�
@@ -196,7 +198,7 @@ void Application::Release()
 	m_editorBack.Release();
 	m_compainBack.Release();
 	m_startScreenBack.Release();
-	for (int i = 0; i < 9; i++)m_helpTex[i].Release();
+	for (int i = 0; i < helpMenu.GetMaxHelpPage(); i++)m_helpTex[i].Release();
 
 }
 void Application::CreateExtensions()
