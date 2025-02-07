@@ -1649,7 +1649,7 @@ void Scene::SaveMap()
 void Scene::LoadMap()
 {
 	SC->SetEditMode(false);
-	std::ifstream inFile(m_dataPath+"\\CurrentMap.map");
+	std::ifstream inFile(m_dataPath+"\\CurrentMap1.map");
 	m_terrain.clear();
 	m_spawner.clear();
 	m_inform.clear();
@@ -1816,7 +1816,7 @@ void Scene::LoadMap()
 		break;
 	}
 	m_selectedMap = WC->GetMap();
-	std::string _dirFinder = "del \"CurrentMap.map\"";
+	std::string _dirFinder = "del \"CurrentMap1.map\"";
 	system(_dirFinder.c_str());
 	m_player.Init({0,0});
 }
