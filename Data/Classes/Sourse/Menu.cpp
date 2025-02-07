@@ -538,7 +538,7 @@ int ExtractNumber(const string& s)
 
 void Menu::EventClick(array<int, 2> eventData)
 {
-	
+	_lines.clear();
 	//char current_work_dir[FILENAME_MAX];
 	//_getcwd(current_work_dir, sizeof(current_work_dir));
 	switch (eventData[0])
