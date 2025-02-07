@@ -75,7 +75,7 @@ private:
 	KdTexture m_compainBack;
 	KdTexture m_startScreenBack;
 	//help
-	std::array<KdTexture, 9> m_helpTex;
+	std::array<KdTexture, 11> m_helpTex;
 
 	Campain m_campain;
 	

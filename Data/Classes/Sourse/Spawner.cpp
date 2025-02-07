@@ -96,7 +96,7 @@ void Spawner::Update()
 				switch (m_type)
 				{
 				case EnemyType::TypeSlime:
-					m_slimes.push_back(Slime(m_enemyTex, m_charaPos));
+ 					m_slimes.push_back(Slime(m_enemyTex, m_charaPos));
 					m_slimes[m_slimes.size() - 1].SetScroll(m_scroll);
 					m_slimes[m_slimes.size() - 1].InitPlayer(m_player);
 					m_slimes[m_slimes.size() - 1].InitTrreainObject(m_terrain);

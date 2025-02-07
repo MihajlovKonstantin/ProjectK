@@ -967,6 +967,11 @@ int Menu::GetHelpPage()
 	return m_helpPage;
 }
 
+int Menu::GetMaxHelpPage()
+{
+	return m_maxHelpPage;
+}
+
 
 
 

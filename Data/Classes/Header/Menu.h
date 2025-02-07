@@ -39,7 +39,7 @@ private:
     bool endInput = false;
     int currentColdown = 0;
     int m_helpPage = 0;
-    int m_maxHelpPage = 9;
+    int m_maxHelpPage = 11;
     
 
     string _dirFinder;
@@ -97,4 +97,5 @@ public:
     bool DrawInput();
     void OpenMap(int input);
     int GetHelpPage();
+    int GetMaxHelpPage();
 };
