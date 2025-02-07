@@ -100,6 +100,7 @@ void Spawner::Update()
 					m_slimes[m_slimes.size() - 1].SetScroll(m_scroll);
 					m_slimes[m_slimes.size() - 1].InitPlayer(m_player);
 					m_slimes[m_slimes.size() - 1].InitTrreainObject(m_terrain);
+					m_slimes[m_slimes.size() - 1].UpdateTransMat();
 					break;
 				case EnemyType::TypeSnowBall:
 					m_snowBall.push_back(SnowBall(m_enemyTex, m_charaPos));
@@ -117,7 +118,7 @@ void Spawner::Update()
 	}
 
 
-	for (int j = 0; j < m_slimes.size(); j++)
+	for (int j = 0; j < m_slimes.size(); )
 	{
 		m_slimes[j].Update();
 		if (m_slimes[j].GetHp() == 0)
